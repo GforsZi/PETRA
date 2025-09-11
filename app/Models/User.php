@@ -3,25 +3,31 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Blameable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes, Blameable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id', 'timestamps'];
+    protected $primaryKey = 'usr_id';
+    protected $blameablePrefix = 'usr_';
+
+    const CREATED_AT = 'usr_created_at';
+    const UPDATED_AT = 'usr_updated_at';
+    const DELETED_AT = 'usr_deleted_at';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +50,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'usr_role_id', 'rl_id');
+    }
+
+    public function transactions(): HasMany {
+        return $this->hasMany(Transaction::class, 'trx_user_id', 'usr_id');
     }
 }
