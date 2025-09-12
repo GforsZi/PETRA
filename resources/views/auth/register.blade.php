@@ -1,3 +1,4 @@
-<div>
-    <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
-</div>
+<x-guest-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <h1>{{ $title }}</h1>
+</x-guest-layout>

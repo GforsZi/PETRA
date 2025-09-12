@@ -1,3 +1,4 @@
-<div>
-    <!-- You must be the change you wish to see in the world. - Mahatma Gandhi -->
-</div>
+<x-app-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <h1>{{ $title }}</h1>
+</x-app-layout>
