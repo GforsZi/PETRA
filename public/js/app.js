@@ -28,7 +28,6 @@ const cardHeaders = document.querySelectorAll('.connectedSortable .card-header')
 cardHeaders.forEach((cardHeader) => {
     cardHeader.style.cursor = 'move'
 })
-
 ;(() => {
     'use strict'
 

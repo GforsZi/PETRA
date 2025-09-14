@@ -25,6 +25,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [UserController::class, 'home_page'])->name('home')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
     Route::get('/dashboard', [AdminController::class, 'dashboard_page'])->name('dashboard')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::get('/admin/profile', [AdminController::class, 'profile_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [UserController::class, 'home_page'])->name('home')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
+    Route::get('/user/profile', [UserController::class, 'profile_page'])->name('user_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
 });

@@ -25,4 +25,8 @@ class ChatNotification extends Model
     public function ChatOption(): BelongsTo {
         return $this->belongsTo(ChatOption::class, 'cht_notif_option_id', 'cht_opt_id');
     }
+
+    public function device(): BelongsTo {
+        return $this->belongsTo(Device::class, 'cht_notif_device_id', 'dvc_id');
+    }
 }

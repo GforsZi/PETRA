@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('chat_notifications', function (Blueprint $table) {
             $table->bigIncrements('cht_notif_id');
+            $table->unsignedBigInteger('cht_notif_device_id')->unsigned()->nullable();
             $table->unsignedBigInteger('cht_notif_user_id')->unsigned()->nullable();
             $table->unsignedBigInteger('cht_notif_option_id')->unsigned()->nullable();
             $table->string('cht_notif_custom_message')->nullable();
@@ -30,6 +31,9 @@ return new class extends Migration
             $table->renameColumn('updated_at', 'cht_notif_updated_at');
             $table->renameColumn('created_at', 'cht_notif_created_at');
             $table->renameColumn('deleted_at', 'cht_notif_deleted_at');
+
+            $table->foreign('cht_notif_device_id')->references('dvc_id')->on('devices')->onDelete('cascade');
+            $table->foreign('cht_notif_user_id')->references('usr_id')->on('users')->onDelete('cascade');
         });
     }
 

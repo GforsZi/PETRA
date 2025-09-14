@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'fonnte' => [
+        'account_token' => env('ACCOUNT_TOKEN'),
+    ],
+
 ];

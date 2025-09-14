@@ -14,7 +14,7 @@ class ManageAcoountController extends Controller
     public function manage_account_page()
     {
         $accounts = User::with('roles')->paginate(10);
-        return view('account.manage', ['title' => 'manage account page', 'accounts' => $accounts]);
+        return view('account.view', ['title' => 'manage account page', 'accounts' => $accounts]);
     }
 
     public function detail_account_page(Request $request, $id)
@@ -34,7 +34,7 @@ class ManageAcoountController extends Controller
     {
         $account = User::where('usr_id', $id)->with('roles')->get();
         $roles = Role::get();
-        return view('account.update', ['title' => 'edit account page', 'account' => $account, 'roles' => $roles]);
+        return view('account.edit', ['title' => 'edit account page', 'account' => $account, 'roles' => $roles]);
     }
 
     public function add_account_system(Request $request)
