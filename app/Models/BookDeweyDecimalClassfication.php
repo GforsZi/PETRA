@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class bookDeweyDecimalClassfication extends Pivot
+class BookDeweyDecimalClassfication extends Pivot
 {
     protected $guarded = ['id'];
     protected $primaryKey = 'bk_ddc_id';

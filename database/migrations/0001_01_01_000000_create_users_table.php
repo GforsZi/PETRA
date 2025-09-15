@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('usr_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('usr_no_wa')->unique();
             $table->string('password');
             $table->string('usr_bio')->nullable();
             $table->boolean('usr_activation')->default(false);
-            $table->string('usr_no_wa');
             $table->string('usr_img_url')->nullable();
             $table->string('usr_img_public_id')->nullable();
             $table->unsignedBigInteger('usr_role_id')->unsigned()->nullable();

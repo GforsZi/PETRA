@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         $validateData = $request->validate([
             "name" => "required | min:3 | max:255",
-            "email" => "required | email:dns | unique:users,email",
+            "usr_no_wa" => "required | unique:users,usr_no_wa | phone:ID",
             "password" => "required | min:5 | max:30 | confirmed",
         ]);
 
@@ -38,14 +38,14 @@ class AuthController extends Controller
     public function login_system(Request $request)
     {
         $credentials = $request->validate([
-            "email" => "required | max:255",
+            "usr_no_wa" => "required | max:255",
             "password" => "required | max:255",
         ]);
 
         if (FacadesAuth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            $user = User::with('roles')->where('email', $credentials['email'])->get()->toArray();
+            $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
             if ($user[0]['usr_activation'] == false || $user[0]['roles']['rl_admin'] == true) {
                 return redirect()->intended("/dashboard")->with("success", "Login success!");
             } else {

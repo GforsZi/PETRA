@@ -241,7 +241,7 @@ class ManageChatbotController extends Controller
 
     public function check_device_status_system()
     {
-        $accountToken = config('services.fonnte.token');
+        $accountToken = config('services.fonnte.account_token');
         $curl = curl_init();
 
         curl_setopt_array($curl, array(

@@ -13,4 +13,5 @@ class ManageHistoryController extends Controller
     public function detail_histroy_page($id) {
         return view('history.detail', ['title' => 'Halaman Detail Riwayat']);
     }
+
 }
