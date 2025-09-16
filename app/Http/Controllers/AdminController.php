@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function dasboard_page() {
+    public function dashboard_page() {
         $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
         return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user'));
     }

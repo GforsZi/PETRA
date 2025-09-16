@@ -1,0 +1,1088 @@
+body {
+    background-color: #f9fafc;
+}
+/* bacground perpus */
+
+.view {
+    --color-0: #fff;
+    --color-1: #111;
+    --color-2: #222;
+    --color-3: #333;
+    --color-4: #2e2e2e;
+    --color-5: #d2b48c;
+    --color-6: #b22222;
+    --color-7: #871a1a;
+    --color-8: #ff6347;
+    --color-9: #ff3814;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-1);
+    background-image:
+        linear-gradient(
+            to top,
+            var(--color-2) 5%,
+            var(--color-1) 6%,
+            var(--color-1) 7%,
+            transparent 7%
+        ),
+        linear-gradient(to bottom, var(--color-1) 30%, transparent 80%),
+        linear-gradient(to right, var(--color-2), var(--color-4) 5%, transparent 5%),
+        linear-gradient(
+            to right,
+            transparent 6%,
+            var(--color-2) 6%,
+            var(--color-4) 9%,
+            transparent 9%
+        ),
+        linear-gradient(
+            to right,
+            transparent 27%,
+            var(--color-2) 27%,
+            var(--color-4) 34%,
+            transparent 34%
+        ),
+        linear-gradient(
+            to right,
+            transparent 51%,
+            var(--color-2) 51%,
+            var(--color-4) 57%,
+            transparent 57%
+        ),
+        linear-gradient(to bottom, var(--color-1) 35%, transparent 35%),
+        linear-gradient(
+            to right,
+            transparent 42%,
+            var(--color-2) 42%,
+            var(--color-4) 44%,
+            transparent 44%
+        ),
+        linear-gradient(
+            to right,
+            transparent 45%,
+            var(--color-2) 45%,
+            var(--color-4) 47%,
+            transparent 47%
+        ),
+        linear-gradient(
+            to right,
+            transparent 48%,
+            var(--color-2) 48%,
+            var(--color-4) 50%,
+            transparent 50%
+        ),
+        linear-gradient(
+            to right,
+            transparent 87%,
+            var(--color-2) 87%,
+            var(--color-4) 91%,
+            transparent 91%
+        ),
+        linear-gradient(to bottom, var(--color-1) 37.5%, transparent 37.5%),
+        linear-gradient(
+            to right,
+            transparent 14%,
+            var(--color-2) 14%,
+            var(--color-4) 20%,
+            transparent 20%
+        ),
+        linear-gradient(to bottom, var(--color-1) 40%, transparent 40%),
+        linear-gradient(
+            to right,
+            transparent 10%,
+            var(--color-2) 10%,
+            var(--color-4) 13%,
+            transparent 13%
+        ),
+        linear-gradient(
+            to right,
+            transparent 21%,
+            var(--color-2) 21%,
+            #1a1a1a 25%,
+            transparent 25%
+        ),
+        linear-gradient(
+            to right,
+            transparent 58%,
+            var(--color-2) 58%,
+            var(--color-4) 64%,
+            transparent 64%
+        ),
+        linear-gradient(
+            to right,
+            transparent 92%,
+            var(--color-2) 92%,
+            var(--color-4) 95%,
+            transparent 95%
+        ),
+        linear-gradient(to bottom, var(--color-1) 48%, transparent 48%),
+        linear-gradient(
+            to right,
+            transparent 96%,
+            var(--color-2) 96%,
+            #1a1a1a 99%,
+            transparent 99%
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 68.5%,
+            transparent 76%,
+            var(--color-1) 76%,
+            var(--color-1) 77.5%,
+            transparent 77.5%,
+            transparent 86%,
+            var(--color-1) 86%,
+            var(--color-1) 87.5%,
+            transparent 87.5%
+        ),
+        linear-gradient(
+            to right,
+            transparent 35%,
+            var(--color-2) 35%,
+            var(--color-4) 41%,
+            transparent 41%
+        ),
+        linear-gradient(to bottom, var(--color-1) 68%, transparent 68%),
+        linear-gradient(
+            to right,
+            transparent 78%,
+            var(--color-3) 78%,
+            var(--color-3) 80%,
+            transparent 80%,
+            transparent 82%,
+            var(--color-3) 82%,
+            var(--color-3) 83%,
+            transparent 83%
+        ),
+        linear-gradient(
+            to right,
+            transparent 66%,
+            var(--color-2) 66%,
+            var(--color-4) 85%,
+            transparent 85%
+        );
+    background-size: 300px 150px;
+    background-position: center bottom;
+}
+
+.view:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-1);
+    background-image:
+        linear-gradient(
+            to top,
+            var(--color-5) 5%,
+            var(--color-1) 6%,
+            var(--color-1) 7%,
+            transparent 7%
+        ),
+        linear-gradient(to bottom, var(--color-1) 30%, transparent 30%),
+        linear-gradient(to right, var(--color-6), var(--color-7) 5%, transparent 5%),
+        linear-gradient(
+            to right,
+            transparent 6%,
+            var(--color-8) 6%,
+            var(--color-9) 9%,
+            transparent 9%
+        ),
+        linear-gradient(to right, transparent 27%, #556b2f 27%, #39481f 34%, transparent 34%),
+        linear-gradient(to right, transparent 51%, #fa8072 51%, #f85441 57%, transparent 57%),
+        linear-gradient(to bottom, var(--color-1) 35%, transparent 35%),
+        linear-gradient(to right, transparent 42%, #008080 42%, #004d4d 44%, transparent 44%),
+        linear-gradient(to right, transparent 45%, #008080 45%, #004d4d 47%, transparent 47%),
+        linear-gradient(to right, transparent 48%, #008080 48%, #004d4d 50%, transparent 50%),
+        linear-gradient(to right, transparent 87%, #789 87%, #4f5d6a 91%, transparent 91%),
+        linear-gradient(to bottom, var(--color-1) 37.5%, transparent 37.5%),
+        linear-gradient(to right, transparent 14%, #bdb76b 14%, #989244 20%, transparent 20%),
+        linear-gradient(to bottom, var(--color-1) 40%, transparent 40%),
+        linear-gradient(to right, transparent 10%, #808000 10%, #4d4d00 13%, transparent 13%),
+        linear-gradient(to right, transparent 21%, #8b4513 21%, #5e2f0d 25%, transparent 25%),
+        linear-gradient(to right, transparent 58%, #8b4513 58%, #5e2f0d 64%, transparent 64%),
+        linear-gradient(to right, transparent 92%, #2f4f4f 92%, #1c2f2f 95%, transparent 95%),
+        linear-gradient(to bottom, var(--color-1) 48%, transparent 48%),
+        linear-gradient(to right, transparent 96%, #2f4f4f 96%, #1c2f2f 99%, transparent 99%),
+        linear-gradient(
+            to bottom,
+            transparent 68.5%,
+            transparent 76%,
+            var(--color-1) 76%,
+            var(--color-1) 77.5%,
+            transparent 77.5%,
+            transparent 86%,
+            var(--color-1) 86%,
+            var(--color-1) 87.5%,
+            transparent 87.5%
+        ),
+        linear-gradient(to right, transparent 35%, #cd5c5c 35%, #bc3a3a 41%, transparent 41%),
+        linear-gradient(to bottom, var(--color-1) 68%, transparent 68%),
+        linear-gradient(
+            to right,
+            transparent 78%,
+            #bc8f8f 78%,
+            #bc8f8f 80%,
+            transparent 80%,
+            transparent 82%,
+            #bc8f8f 82%,
+            #bc8f8f 83%,
+            transparent 83%
+        ),
+        linear-gradient(to right, transparent 66%, #a52a2a 66%, #7c2020 85%, transparent 85%);
+    background-size: 300px 150px;
+    background-position: center bottom;
+    clip-path: circle(150px at center center);
+    animation: flashlight 20s ease infinite;
+}
+
+.view:after {
+    content: '';
+    width: 25px;
+    height: 10px;
+    position: absolute;
+    left: calc(50% + 59px);
+    bottom: 100px;
+    background-repeat: no-repeat;
+    background-image:
+        radial-gradient(circle, #fff 50%, transparent 50%),
+        radial-gradient(circle, #fff 50%, transparent 50%);
+    background-size: 10px 10px;
+    background-position:
+        left center,
+        right center;
+    animation: eyes 20s infinite;
+}
+
+@keyframes flashlight {
+    0% {
+        clip-path: circle(150px at -25% 10%);
+    }
+
+    38% {
+        clip-path: circle(150px at 60% 20%);
+    }
+
+    39% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    40% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    41% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    42% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    54% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    55% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    59% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    64% {
+        clip-path: circle(150px at 45% 78%);
+    }
+
+    68% {
+        clip-path: circle(150px at 85% 89%);
+    }
+
+    72% {
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    74% {
+        clip-path: circle(150px at 60% 86%);
+    }
+
+    100% {
+        clip-path: circle(150px at 150% 50%);
+    }
+}
+
+@keyframes eyes {
+    0%,
+    38% {
+        opacity: 0;
+    }
+
+    39%,
+    41% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+
+    40% {
+        transform: scaleY(0);
+        filter: none;
+        background-image:
+            radial-gradient(circle, #fff 50%, transparent 50%),
+            radial-gradient(circle, #fff 50%, transparent 50%);
+    }
+
+    41% {
+        transform: scaleY(1);
+        background-image:
+            radial-gradient(circle, #ff0000 50%, transparent 50%),
+            radial-gradient(circle, #ff0000 50%, transparent 50%);
+        filter: drop-shadow(0 0 4px #ff8686);
+    }
+
+    42%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.navbar-custom {
+    background-color: #121740;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand img {
+    height: 20px;
+}
+
+.navbar-nav a {
+    color: white !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.navbar-nav a:hover {
+    color: #7a5fff !important;
+}
+
+/* Hero Section */
+.hero-section {
+    /* position: relative; */
+    display: flex;
+    justify-content: start;
+    background: #f9fafc;
+    padding: 80px 15px 120px;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.hero-section::before {
+    /* content: "SATNER"; */
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-size: 10rem;
+    font-weight: 900;
+    color: #ddd;
+    z-index: 0;
+    user-select: none;
+}
+
+.hero-content {
+    /* position: relative; */
+    justify-content: start;
+    max-width: 600px;
+    z-index: 1;
+}
+
+.hero-content hr {
+    border-top: 2px solid black;
+    width: 220px;
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+.hero-content h1 {
+    font-weight: 900;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+/* Buttons */
+.btn-outline-primary {
+    border-color: #3f51b5;
+    color: #3f51b5;
+    font-weight: 600;
+    padding: 0.5rem 2.5rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: #3f51b5;
+    color: white;
+    box-shadow: 0 10px 15px rgba(63, 81, 181, 0.4);
+}
+
+.btn-gradient {
+    background: linear-gradient(90deg, #6a4eff, #8366ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 2.5rem;
+    box-shadow: 0 10px 30px rgba(131, 102, 255, 0.4);
+    letter-spacing: 0.05em;
+    transition: box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+    box-shadow: 0 14px 40px rgba(131, 102, 255, 0.7);
+}
+
+/* Section Tentang Kami */
+#about {
+    background: #f9fafc;
+    padding: 70px 15px 60px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#about h2 {
+    font-weight: 900;
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+}
+
+#about p {
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Section Keunggulan Kami */
+#keunggulan {
+    background: #f9fafc;
+    padding: 70px 15px 90px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#keunggulan h2 {
+    font-weight: 900;
+    font-size: 2.25rem;
+    margin-bottom: 40px;
+}
+
+#keunggulan .row > div {
+    margin-bottom: 20px;
+}
+
+#keunggulan .features-box {
+    background-color: #121740;
+    color: #7a5fff;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    transition: background-color 0.3s ease;
+}
+
+#keunggulan .features-box:hover {
+    background-color: #3f51b5;
+    cursor: pointer;
+}
+
+#keunggulan .img-feature {
+    border-radius: 12px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Footer Full Width */
+footer {
+    background-color: #121740;
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.footer a:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+
+.footer i {
+    vertical-align: middle;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section::before {
+        font-size: 5rem;
+        top: 15px;
+        left: 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    #keunggulan .features-box {
+        min-height: 60px;
+        font-size: 1rem;
+    }
+}
+/* akhir */
+.foto img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Card container */
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.cards .red,
+.cards .blue,
+.cards .green {
+    background-color: #171748;
+}
+
+/* Card item */
+.cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100px;
+    width: 100%;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.cards .card p.tip {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cards .card p.second-text {
+    font-size: 0.7em;
+    margin: 0;
+}
+
+.cards .card:hover {
+    transform: scale(1.1);
+}
+
+.cards:hover > .card:not(:hover) {
+    filter: blur(4px);
+    transform: scale(0.95);
+}
+
+/* ✅ Layout responsif */
+.section-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+    .section-flex {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .foto img {
+        max-width: 500px;
+    }
+
+    .cards {
+        max-width: 700px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 899px) {
+    .foto img {
+        max-width: 500px;
+    }
+}
+
+/* input */
+
+.glitch-input-wrapper {
+    --bg-color: #0d0d0d;
+    --primary-color: #00f2ea;
+    --secondary-color: #a855f7;
+    --text-color: #e5e5e5;
+    --font-family: 'Fira Code', Consolas, 'Courier New', Courier, monospace;
+    --glitch-anim-duration: 0.4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    font-size: 16px;
+    padding: 3rem;
+}
+
+.input-container {
+    position: relative;
+    width: 19rem;
+}
+
+/* --- Input --- */
+.holo-input {
+    width: 100%;
+    height: 3.5rem;
+    background: rgba(13, 13, 13, 0.7);
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    padding: 0 1rem;
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1.1rem;
+    caret-color: var(--primary-color);
+    z-index: 10;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.input-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 11;
+}
+.holo-input:focus + .input-label,
+.holo-input:not(:placeholder-shown) + .input-label {
+    top: -1.5rem;
+    left: 0;
+    font-size: 0.8rem;
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+.holo-input:focus + .input-label::before,
+.holo-input:focus + .input-label::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #212121;
+}
+.holo-input:focus + .input-label::before {
+    color: var(--secondary-color);
+    animation: glitch-label var(--glitch-anim-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.holo-input:focus + .input-label::after {
+    color: var(--primary-color);
+    animation: glitch-label var(--glitch-anim-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse
+        both;
+}
+
+.input-border,
+.input-scanline,
+.input-glow,
+.input-corners {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.input-border {
+    border: 1px solid rgba(0, 242, 234, 0.2);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+.corner {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+.corner-tl {
+    top: -0.3rem;
+    left: -0.3rem;
+    border-right: none;
+    border-bottom: none;
+}
+.corner-tr {
+    top: -0.3rem;
+    right: -0.3rem;
+    border-left: none;
+    border-bottom: none;
+}
+.corner-bl {
+    bottom: -0.3rem;
+    left: -0.3rem;
+    border-right: none;
+    border-top: none;
+}
+.corner-br {
+    bottom: -0.3rem;
+    right: -0.3rem;
+    border-left: none;
+    border-top: none;
+}
+
+.input-glow {
+    background: radial-gradient(ellipse at center, rgba(0, 242, 234, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.input-scanline {
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 242, 234, 0.1) 48%,
+        rgba(0, 242, 234, 0.3) 50%,
+        rgba(0, 242, 234, 0.1) 52%,
+        transparent 100%
+    );
+    opacity: 0;
+}
+
+.input-data-stream {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 0.3rem;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+}
+.stream-bar {
+    flex-grow: 1;
+    background-color: var(--primary-color);
+    transition:
+        transform 0.2s,
+        opacity 0.2s;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.holo-input:focus {
+    border-color: transparent;
+}
+.holo-input:focus ~ .input-border {
+    opacity: 1;
+    border-color: rgba(0, 242, 234, 0.5);
+}
+.holo-input:focus ~ .input-corners .corner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-width: 3px;
+    opacity: 1;
+}
+.holo-input:focus ~ .input-glow {
+    opacity: 1;
+}
+.holo-input:focus ~ .input-scanline {
+    animation: scan-vertical 4s linear infinite;
+}
+.holo-input:focus ~ .input-data-stream {
+    opacity: 1;
+}
+.holo-input:focus ~ .input-data-stream .stream-bar {
+    animation: data-pulse 2s infinite;
+    animation-delay: calc(var(--i) * 0.1s);
+}
+
+@keyframes glitch-label {
+    0% {
+        transform: translate(0);
+        clip-path: inset(0 0 0 0);
+    }
+    20% {
+        transform: translate(-0.2rem, 0.1rem);
+        clip-path: inset(50% 0 20% 0);
+    }
+    40% {
+        transform: translate(0.1rem, -0.1rem);
+        clip-path: inset(20% 0 60% 0);
+    }
+    60% {
+        transform: translate(-0.15rem, 0.1rem);
+        clip-path: inset(80% 0 5% 0);
+    }
+    80% {
+        transform: translate(0.15rem, -0.15rem);
+        clip-path: inset(30% 0 45% 0);
+    }
+    100% {
+        transform: translate(0);
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes scan-vertical {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    25% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+@keyframes data-pulse {
+    0%,
+    100% {
+        transform: scaleY(0.2);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scaleY(1);
+        opacity: 0.8;
+    }
+}
+/* button */
+button {
+    --green: #1bfd9c;
+    font-size: 15px;
+    padding: 0.7em 2.7em;
+    letter-spacing: 0.06em;
+    position: relative;
+    font-family: inherit;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transition: all 0.3s;
+    line-height: 1.4em;
+    border: 2px solid var(--green);
+    background: linear-gradient(
+        to right,
+        rgba(27, 253, 156, 0.1) 1%,
+        transparent 40%,
+        transparent 60%,
+        rgba(27, 253, 156, 0.1) 100%
+    );
+    color: var(--green);
+    box-shadow:
+        inset 0 0 10px rgba(27, 253, 156, 0.4),
+        0 0 9px 3px rgba(27, 253, 156, 0.1);
+}
+
+button:hover {
+    color: #82ffc9;
+    box-shadow:
+        inset 0 0 10px rgba(27, 253, 156, 0.6),
+        0 0 9px 3px rgba(27, 253, 156, 0.2);
+}
+
+button:before {
+    content: '';
+    position: absolute;
+    left: -4em;
+    width: 4em;
+    height: 100%;
+    top: 0;
+    transition: transform 0.4s ease-in-out;
+    background: linear-gradient(
+        to right,
+        transparent 1%,
+        rgba(27, 253, 156, 0.1) 40%,
+        rgba(27, 253, 156, 0.1) 60%,
+        transparent 100%
+    );
+}
+
+button:hover:before {
+    transform: translateX(15em);
+}
+
+/* From Uiverse.io by javierBarroso */
+.social-login-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-box-reflect: below 5px linear-gradient(transparent, #00000055);
+}
+.social-login-icons svg {
+    width: 40px;
+}
+
+.social-icon-1,
+.social-icon-1-1,
+.social-icon-2,
+.social-icon-2-2,
+.social-icon-3,
+.social-icon-3-3,
+.social-icon-4,
+.social-icon-4-4 {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 20px 0 0px 0;
+}
+
+.icon svg {
+    fill: #111;
+}
+
+.socialcontainer {
+    height: 80px;
+    overflow: hidden;
+}
+.social-icon-1 {
+    transition-duration: 0.4s;
+    background-color: rgb(0, 0, 0);
+    transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+}
+.social-icon-1 svg,
+.social-icon-2 svg,
+.social-icon-3 svg,
+.social-icon-4 svg {
+    opacity: 0;
+    transition-duration: 0.5s;
+    transition-delay: 0.2s;
+}
+.social-icon-1-1 {
+    transition-duration: 0.4s;
+    background-color: rgb(0, 0, 0, 0);
+}
+.socialcontainer:hover .social-icon-1 {
+    transform: translateY(-70px);
+}
+.socialcontainer:hover .social-icon-1 svg,
+.socialcontainer:hover .social-icon-2 svg,
+.socialcontainer:hover .social-icon-3 svg,
+.socialcontainer:hover .social-icon-4 svg {
+    opacity: 1;
+}
+.social-icon-2 {
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+    background: linear-gradient(72.44deg, #ff7a00 11.92%, #ff0169 51.56%, #d300c5 85.69%);
+}
+.socialcontainer:hover .social-icon-2 {
+    transform: translateY(-70px);
+}
+.social-icon-3 {
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+    background: #316ff6;
+}
+
+.socialcontainer:hover .social-icon-3 {
+    transform: translateY(-70px);
+}
+.social-icon-4 {
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+
+    background: linear-gradient(180deg, rgba(129, 34, 144, 1) 0%, rgba(77, 34, 124, 1) 91%);
+}
+
+.socialcontainer:hover .social-icon-4 {
+    transform: translateY(-70px);
+}
+/* akhir */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 5%;
+    gap: 40px;
+}
+
+.hero-section .hero-content {
+    flex: 1;
+}
+
+.hero-section .gambar img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .hero-section .gambar {
+        order: 2;
+    }
+
+    .hero-section .hero-content {
+        order: 1;
+    }
+
+    .hero-section .d-flex {
+        justify-content: center;
+    }
+}

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title }}</title>
     @vite(['resources/css/app.css'])
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/adminlte.min.css') }}">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
         integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" />
@@ -30,8 +29,5 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
     integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous">
 </script>
-
-<script src="{{ asset('/js/app.js') }}" type="text/javascript" charset="utf-8"></script>
-<script src="{{ asset('/js/adminlte.min.js') }}" type="text/javascript" charset="utf-8"></script>
 
 </html>

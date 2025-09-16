@@ -33,3 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [UserController::class, 'home_page'])->name('home')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
     Route::get('/user/profile', [UserController::class, 'profile_page'])->name('user_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
 });
+
+Route::get('/logout', [AuthController::class, 'logout_system'])->name('logout')->middleware('auth');
