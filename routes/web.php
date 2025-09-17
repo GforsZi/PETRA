@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ManageAcoountController;
+use App\Http\Controllers\ManageBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckActivation;
 use App\Http\Middleware\CheckAdmin;
@@ -33,6 +35,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard_page'])->name('dashboard')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::get('/admin/profile', [AdminController::class, 'profile_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book', [ManageBookController::class, 'manage_book_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/account', [ManageAcoountController::class, 'manage_account_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/account', [ManageAcoountController::class, 'manage_account_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 });
 
 Route::middleware('auth')->group(function () {
