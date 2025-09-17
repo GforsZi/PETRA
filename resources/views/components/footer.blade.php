@@ -1,11 +1,11 @@
 <footer class="app-footer">
     <!--begin::To the end-->
-    <div class="float-end d-none d-sm-inline">inventaris application</div>
+    <div class="float-end d-none d-sm-inline"> Aplikasi perpustakaan</div>
     <!--end::To the end-->
     <!--begin::Copyright-->
     <strong>
-        UNI-INVT
+        PETRA
     </strong>
-    Gfors corporation
+   |WPMP
     <!--end::Copyright-->
 </footer>
