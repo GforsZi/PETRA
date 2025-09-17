@@ -32,7 +32,7 @@
                     </form>
 
                     <p class="text-center">
-                        Sudah memiliki akun sebelumnya?
+                        Belum memiliki akun sebelumnya?
                         <a href="/register" class="text-decoration-none text-success">Register</a>
                     </p>
                 </div>

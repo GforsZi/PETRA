@@ -36,7 +36,7 @@
                     </form>
 
                     <p class="text-center">
-                        Belum memiliki akun sebelumnya?
+                        Sudah memiliki akun sebelumnya?
                         <a href="/login" class="text-decoration-none text-success">Login</a>
                     </p>
                 </div>
