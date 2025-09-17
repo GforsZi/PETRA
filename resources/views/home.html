@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Home</title>
+  <!-- Bootstrap + AdminLTE CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="d-flex flex-column p-4" style="height: 200vh;">
+
+<main class="flex-fill container py-4">
+  <div class="row g-3">
+    <div class="col-md-8 d-flex flex-column">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <h3 class="card-title">150</h3>
+          <p class="card-text">Users</p>
+          <i class="fas fa-users fa-2x position-absolute top-0 end-0 m-3"></i>
+        </div>
+      </div>
+      <div class="card text-dark bg-warning">
+        <div class="card-body">
+          <h3 class="card-title">53<sup style="font-size: 20px">%</sup></h3>
+          <p class="card-text">Growth</p>
+          <i class="fas fa-chart-line fa-1x position-absolute top-0 end-0 m-3"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-danger" style="height: 93%;">
+        <div class="card-body">
+          <h3 class="card-title">44</h3>
+          <p class="card-text">Errors</p>
+          <i class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="row mt-4 g-3">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="barChart" style="height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="doughnutChart" style="height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+<a href="dashboard.html" class="btn btn-outline-warning">Dashboard</a>
+</main>
+<footer class="bg-light text-center py-3 mt-auto">
+  <strong>
+    Copyright &copy; 2014-2025&nbsp;
+    <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+  </strong>
+  All rights reserved.
+</footer>
+
+  <!-- Font Awesome + AdminLTE JS -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+  <script>
+    // Bar Chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 206, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(255, 159, 64)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Doughnut Chart
+    new Chart(document.getElementById('doughnutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Red', 'Yellow', 'Blue'],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [300, 50, 100],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 205, 86)',
+            'rgb(54, 162, 235)'
+          ],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        }
+      }
+    });
+  </script>
+ <!-- jsvectormap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
+      integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
+      integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
+      crossorigin="anonymous"
+    ></script>
+<!-- jsvectormap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
+      integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
+      integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
+      crossorigin="anonymous"
+    ></script>
+    <!-- jsvectormap -->
+    <script>
+      // World map by jsVectorMap
+      new jsVectorMap({
+        selector: '#world-map',
+        map: 'world',
+      });
+
+      // Sparkline charts
+      const option_sparkline1 = {
+        series: [
+          {
+            data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
+          },
+        ],
+        chart: {
+          type: 'area',
+          height: 50,
+          sparkline: {
+            enabled: true,
+          },
+        },
+        stroke: {
+          curve: 'straight',
+        },
+        fill: {
+          opacity: 0.3,
+        },
+        yaxis: {
+          min: 0,
+        },
+        colors: ['#DCE6EC'],
+      };
+
+      const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
+      sparkline1.render();
+
+      const option_sparkline2 = {
+        series: [
+          {
+            data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
+          },
+        ],
+        chart: {
+          type: 'area',
+          height: 50,
+          sparkline: {
+            enabled: true,
+          },
+        },
+        stroke: {
+          curve: 'straight',
+        },
+        fill: {
+          opacity: 0.3,
+        },
+        yaxis: {
+          min: 0,
+        },
+        colors: ['#DCE6EC'],
+      };
+
+      const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);
+      sparkline2.render();
+
+      const option_sparkline3 = {
+        series: [
+          {
+            data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
+          },
+        ],
+        chart: {
+          type: 'area',
+          height: 50,
+          sparkline: {
+            enabled: true,
+          },
+        },
+        stroke: {
+          curve: 'straight',
+        },
+        fill: {
+          opacity: 0.3,
+        },
+        yaxis: {
+          min: 0,
+        },
+        colors: ['#DCE6EC'],
+      };
+
+      const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
+      sparkline3.render();
+    </script>
+    <!--end::Script-->
+</body>
+</html>
