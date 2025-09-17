@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         $validateData = $request->validate([
             "name" => "required | min:3 | max:255",
-            "usr_no_wa" => "required | unique:users,usr_no_wa | phone:ID",
+            "usr_no_wa" => "required | unique:users,usr_no_wa| phone:ID",
             "password" => "required | min:5 | max:30 | confirmed",
         ]);
 

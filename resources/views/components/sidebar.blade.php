@@ -1,14 +1,14 @@
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+<aside class="app-sidebar  shadow" data-bs-theme="dark" style="background-color: #121740;">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
         <!--begin::Brand Link-->
         <a href="/" class="brand-link">
             <!--begin::Brand Image-->
-            <img src="{{ asset('/logo/uni_invt.png') }}" alt="AdminLTE Logo"
-                class="brand-image opacity-75 shadow rounded-circle" />
+            <img src="{{ asset('/logo/PETRA-LOGO.png') }}" alt="AdminLTE Logo"
+                class="brand-image opacity-75 shadow" />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">UNI-INVT</span>
+            <span class="brand-text fw-light">PETRA</span>
             <!--end::Brand Text-->
         </a>
         <!--end::Brand Link-->
@@ -22,24 +22,7 @@
                 data-accordion="false">
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-speedometer"></i>
-                        <p>
-                            Dashboard
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/dashboard" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>View</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="bi bi-person-circle"></i>
                         <p>
                             Accounts
@@ -48,101 +31,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/manage/account" class="nav-link">
+                            <a href="/manage/account" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Management account</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/manage/role" class="nav-link">
+                            <a href="/manage/role" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Management role</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
-                        <p>
-                            Assets
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/manage/asset?category=all" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Management asset</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/manage/asset/category" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>management category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/manage/asset/origin" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>management origin</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-geo-alt"></i>
-                        <p>
-                            Locations
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/manage/location" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Management location</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-clipboard-data"></i>
-                        <p>
-                            Loans
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/manage/loan" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Management loan</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-clipboard-data-fill"></i>
-                        <p>
-                            Returns
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/manage/return" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Management return</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Reports
@@ -150,8 +54,8 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/report" class="nav-link">
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>View</p>
                             </a>

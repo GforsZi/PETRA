@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome', ['title' => 'Halaman Landing']);
 });
+
+Route::get('/forbidden', function () {
+    $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
+    return view('forbidden', ['title' => 'Forbidden page', 'users' => $user]);
+})->middleware(CheckActivation::class . ':0');
+
 Route::get('/forbidden', function () {
     $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
     return view('forbidden', ['title' => 'Forbidden page', 'users' => $user]);

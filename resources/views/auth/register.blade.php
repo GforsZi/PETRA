@@ -21,13 +21,16 @@
                             style="width: 150px; height: 150px; object-fit: contain;">
                     </div>
                     <div class="bar">
-                        <form>
-                            <input type="text" class="form-control mb-3"
+                        <form action="/system/register" method="post">
+                            @csrf
+                            <input name="name" type="text" class="form-control mb-3"
                                 placeholder="Input username">
-                            <input type="text" class="form-control mb-4" placeholder="No.Telp">
-                            <input type="password" class="form-control mb-4" placeholder="Password">
-                            <input type="password" class="form-control mb-4"
-                                placeholder="Konfirmasi Password">
+                            <input name="usr_no_wa" type="text" class="form-control mb-4"
+                                placeholder="No.Telp">
+                            <input name="password" type="password" class="form-control mb-4"
+                                placeholder="Password">
+                            <input name="password_confirmation" type="password"
+                                class="form-control mb-4" placeholder="Konfirmasi Password">
                     </div>
                     <button type="submit" class="control">Kirim</button>
                     </form>
