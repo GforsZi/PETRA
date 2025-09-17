@@ -8,13 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function dashboard_page() {
+    public function dashboard_page()
+    {
         $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
         return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user'));
     }
 
-    public function profile_page() {
+    public function profile_page()
+    {
         $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
         return view('admin.profile', ['title' => 'Halaman Profile'], compact('user'));
+    }
+    public function profile_edit_page()
+    {
+        $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
+        return view('admin.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
     }
 }

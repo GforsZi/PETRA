@@ -35,8 +35,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard_page'])->name('dashboard')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::get('/admin/profile', [AdminController::class, 'profile_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::get('/admin/profile/edit', [AdminController::class, 'profile_edit_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/book', [ManageBookController::class, 'manage_book_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
-    Route::get('/manage/account', [ManageAcoountController::class, 'manage_account_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/account', [ManageAcoountController::class, 'manage_account_page'])->name('admin_profile')->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 });
 

@@ -45,7 +45,7 @@
               <i class='bxr bx-cog' style='color:#f4ff0a; font-size: 25px;'></i>
             </button>
             <button class="button flex-center" title="Ubah profil">
-              <i class='bxr bx-edit' style='color:#f4ff0a; font-size: 25px;'></i>
+             <a href="/admin/profile/edit"> <i class='bxr bx-edit' style='color:#f4ff0a; font-size: 25px;'></i></a>
             </button>
           </div>
 
