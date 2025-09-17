@@ -11,10 +11,10 @@
                 </li>
             @endif
             <li class="nav-item d-none d-md-block"><a href="{{ url()->previous() }}"
-                    class="nav-link">Back</a></li>
+                    class="nav-link">Kembali</a></li>
             @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
                 <li class="nav-item d-none d-md-block"><a href="/dashboard"
-                        class="nav-link">Dashboard</a></li>
+                        class="nav-link">Dasbor</a></li>
             @else
                 <li class="nav-item d-none d-md-block"><a href="/home" class="nav-link">Home</a>
                 </li>
@@ -24,11 +24,6 @@
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
             <!--begin::Navbar Search-->
-            <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li>
             <!--end::Navbar Search-->
             <li class="nav-item dropdown">
                 <button
@@ -122,7 +117,7 @@
                             class="rounded-circle shadow" alt="" />
                         <p>
                             {{ Auth::user()->name }}
-                            <small>Member since
+                            <small>Bergabung sejak
                                 {{ Auth::user()->usr_created_at->format('F Y') }}</small>
                         </p>
                     </li>

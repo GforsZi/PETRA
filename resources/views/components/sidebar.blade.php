@@ -24,7 +24,7 @@
                     <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="bi bi-person-circle"></i>
                         <p>
-                            Accounts
+                            Akun
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -32,13 +32,13 @@
                         <li class="nav-item">
                             <a href="/manage/account" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Management account</p>
+                                <p>Kelola Akun</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/manage/role" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Management role</p>
+                                <p>Kelola Peran</p>
                             </a>
                         </li>
                     </ul>
@@ -48,7 +48,7 @@
                     <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="nav-icon bi bi-pencil-square"></i>
                         <p>
-                            Reports
+                            Laporan
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -56,7 +56,7 @@
                         <li class="nav-item" style='color: #E9AD01;'>
                             <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>View</p>
+                                <p>Lihat</p>
                             </a>
                     </ul>
                 </li>
