@@ -35,7 +35,7 @@
     <div class="view">
 
         <section class="hero-section d-flex align-items-center" id="HOME">
-            <div class="container hero-content">
+            <div class="container hero-content" data-aos="fade-up-right" data-aos-duration="1500">
                 <hr />
                 <h1>SELAMAT DATANG</h1>
                 <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
@@ -44,7 +44,7 @@
                     <a class="btn btn-gradient" href="/login">SIGN-IN</a>
                 </div>
             </div>
-            <div class="gambar z-3">
+            <div class="gambar z-3" data-aos="fade-down-left" data-aos-duration="1500">
                 <img src="{{ asset('/logo/landing/lorem.png') }}" alt="book cover"
                     style="height: 10%;">
             </div>
@@ -52,7 +52,7 @@
 
     </div>
     <!-- Tentang Kami -->
-    <section id="about">
+    <section id="about" data-aos="zoom-out" data-aos-duration="1500">
         <h2>TENTANG KAMI</h2>
         <p>
             Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
@@ -64,26 +64,26 @@
     <!-- Keunggulan Kami -->
     <section id="keunggulan">
 
-        <h1 class="text-center mb-4 text-uppercase text-bold ">Keunggulan Kami</h1>
+        <h1 class="text-center mb-4 text-uppercase text-bold " data-aos="fade-down" data-aos-duration="1500">Keunggulan Kami</h1>
 
         <div class="section-flex">
 
             <!-- Gambar -->
-            <div class="foto">
+            <div class="foto" data-aos="fade-down-right" data-aos-duration="1500">
                 <img src="{{ asset('logo/landing/perpus.jpg') }}" alt="Perpustakaan">
             </div>
 
             <!-- Card -->
             <div class="cards">
-                <div class="card red">
+                <div class="card red" data-aos="fade-left" data-aos-duration="1500">
 
                     <p class="tip">Antarmuka yang Sederhana dan Interaktif</p>
                 </div>
-                <div class="card blue">
+                <div class="card blue" data-aos="fade-left" data-aos-duration="1500">
 
                     <p class="tip">Notifikasi & Pengingat Otomatis</p>
                 </div>
-                <div class="card green">
+                <div class="card green" data-aos="fade-left" data-aos-duration="1500">
 
                     <p class="tip">Pelayanan cepat </p>
                 </div>
