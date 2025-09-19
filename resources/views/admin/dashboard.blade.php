@@ -1,4 +1,12 @@
 <x-app-layout>
+    <style>
+        @media (max-width: 768px) {
+        .hero-card-3{
+            width: 100%;
+            height: auto;
+        }
+        }
+    </style>
     <x-slot:title>{{ $title }}</x-slot:title>
 <div class="row">
     <div class="col-lg-4 col-6">
@@ -23,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-6 hero-card-3">
       <div class="small-box bg-danger">
         <div class="inner">
           <h3>44</h3>
