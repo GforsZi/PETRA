@@ -2,14 +2,14 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Ubah Nama Peran</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Contoh: Atmin">
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Contoh: Atmin" style="  max-width: 700px; margin-left: 0;">
     </div>
     <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">Ubah Keterangan Peran</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  placeholder="Role ini untuk mengelola sistem"></textarea>
+    <textarea class="form-control" id="autoExpand" rows="3"  placeholder="Role ini untuk mengelola sistem" style="max-width: 700px; margin-left: 0; resize: none; overflow: hidden;"></textarea>
     </div>
-    <div class="d-flex justify-content-end mt-5">
-    <button type="submit" class=" w-25 d-flex justify-content-center align-items-center" id="tombol">
+    <div class="d-flex justify-content-start mt-5">
+    <button type="submit" class="w-25 d-flex justify-content-center align-items-center" id="tombol">
         Selesai
     </button>
     </div>
@@ -52,4 +52,12 @@
     }
 
     </style>
+    <script>
+        const textarea = document.getElementById("autoExpand");
+
+        textarea.addEventListener("input", function () {
+            this.style.height = "auto";
+            this.style.height = this.scrollHeight + "px";
+        });
+    </script>
 </x-app-layout>
