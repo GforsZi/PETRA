@@ -22,23 +22,6 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link" style='color: #E9AD01;'>
-                        <i class="bi bi-speedometer"></i>
-                        <p>
-                            Kelola Laporan
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item" style='color: #E9AD01;'>
-                            <a href="/report" class="nav-link" style='color: #E9AD01;'>
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Lihat</p>
-                            </a>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="bi bi-book"></i>
                         <p>
                             Kelola Buku
@@ -83,6 +66,23 @@
                         <i class="bi bi-file-earmark-ruled"></i>
                         <p>
                             Kelola Peminjaman
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Lihat</p>
+                            </a>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" style='color: #E9AD01;'>
+                        <i class="bi bi-speedometer"></i>
+                        <p>
+                            Kelola Laporan
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>

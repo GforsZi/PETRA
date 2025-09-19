@@ -14,27 +14,27 @@ class ManageAcoountController extends Controller
     public function manage_account_page()
     {
         $accounts = User::with('roles')->paginate(10);
-        return view('account.view', ['title' => 'manage account page', 'accounts' => $accounts]);
+        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts]);
     }
 
     public function detail_account_page(Request $request, $id)
     {
         $account = User::where('usr_id', $id)->with('roles')->get();
         $role = Role::get();
-        return view('account.detail', ['title' => 'detail account page', 'account' => $account, 'roles' => $role]);
+        return view('account.detail', ['title' => 'Halaman Detail Akun', 'account' => $account, 'roles' => $role]);
     }
 
     public function add_account_page()
     {
         $role = Role::get();
-        return view('account.add', ['title' => 'add account page', 'roles' => $role]);
+        return view('account.add', ['title' => 'Halaman Tambah akun', 'roles' => $role]);
     }
 
-    public function update_account_page(Request $request, $id)
+    public function edit_account_page(Request $request, $id)
     {
         $account = User::where('usr_id', $id)->with('roles')->get();
         $roles = Role::get();
-        return view('account.edit', ['title' => 'edit account page', 'account' => $account, 'roles' => $roles]);
+        return view('account.edit', ['title' => 'Halaman Ubah Akun', 'account' => $account, 'roles' => $roles]);
     }
 
     public function add_account_system(Request $request)
