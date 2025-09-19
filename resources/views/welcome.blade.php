@@ -93,7 +93,7 @@
 
     </section>
     <footer class="footer text-white" id="Kontak">
-        <div class="container py-4">
+        <div class="container py-4" style="height : 85vh">
             <div class="row align-items-start">
 
                 <!-- Kiri: Logo dan Sosial Media -->
@@ -187,12 +187,11 @@
 
             </div>
 
-            <!-- Baris bawah: MAP -->
             <div class="row mt-3">
                 <div class="col-12">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.09561724186!2d107.576833774542!3d-6.998020368538179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9681a28859f%3A0x48f4d9cf5a8ab783!2sSMKS%20Mahaputra%20Cerdas%20Utama!5e0!3m2!1sid!2sid!4v1757997057212!5m2!1sid!2sid"
-                        width="100%" height="250" style="border:0; border-radius: 8px;"
+                        width="100%" height="250" style="border:0; border-radius: 8px; margin-top: 60px;"
                         allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
