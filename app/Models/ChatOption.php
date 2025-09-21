@@ -25,4 +25,17 @@ class ChatOption extends Model
     public function ChatNotification(): HasMany {
         return $this->hasMany(ChatNotification::class, 'cht_notif_option_id', 'cht_opt_id');
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_opt_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_opt_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_opt_deleted_by', 'usr_id');
+    }
 }

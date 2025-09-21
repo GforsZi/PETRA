@@ -25,4 +25,17 @@ class BookCopy extends Model
     public function Book(): BelongsTo {
         return $this->belongsTo(Book::class, 'bk_cp_book_id', 'bk_id');
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_cp_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_cp_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_cp_deleted_by', 'usr_id');
+    }
 }

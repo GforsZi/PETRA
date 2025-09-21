@@ -29,4 +29,17 @@ class ChatNotification extends Model
     public function device(): BelongsTo {
         return $this->belongsTo(Device::class, 'cht_notif_device_id', 'dvc_id');
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_notif_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_notif_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cht_notif_deleted_by', 'usr_id');
+    }
 }

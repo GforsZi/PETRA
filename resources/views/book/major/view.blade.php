@@ -1,22 +1,22 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <a href="/manage/book/publisher/add" class="btn btn-outline-primary w-100">Tambah Penerbit
+        <a href="/manage/book/major/add" class="btn btn-outline-primary w-100">Tambah Jurusan
             Baru</a>
     </x-slot:header_layout>
-    <x-table_data :paginator="$publishers">
-        <x-slot:title>Manage Publisher</x-slot:title>
+    <x-table_data :paginator="$majors">
+        <x-slot:title>Manage Major</x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th>Name</th>
-            <th>Alamat</th>
+            <th>Tingkatan</th>
+            <th>Jurusan</th>
             <th style="width: 50px">option</th>
         </x-slot:header>
-        @forelse ($publishers as $index => $publisher)
+        @forelse ($majors as $index => $major)
             <tr class="align-middle">
-                <td>{{ $publishers->firstItem() + $index }}</td>
-                <td>{{ $publisher->pub_name }}</td>
-                <td>{{ $publisher->pub_address }}</td>
+                <td>{{ $majors->firstItem() + $index }}</td>
+                <td>{{ $major->bk_mjr_class }}</td>
+                <td>{{ $major->bk_mjr_major }}</td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-warning dropdown-toggle" type="button"
@@ -25,31 +25,31 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"
-                                    href="/manage/book/publisher/{{ $publisher->pub_id }}/detail">Detail</a>
+                                    href="/manage/book/major/{{ $major->bk_mjr_id }}/detail">Detail</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="/manage/book/publisher/{{ $publisher->pub_id }}/edit">Ubah</a>
+                                    href="/manage/book/major/{{ $major->bk_mjr_id }}/edit">Ubah</a>
                             </li>
                             <li><a class="dropdown-item" style="cursor: pointer;"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmation{{ $publishers->firstItem() + $index }}">Hapus</a>
+                                    data-bs-target="#deleteConfirmation{{ $majors->firstItem() + $index }}">Hapus</a>
                             </li>
                         </ul>
                     </div>
                     <div class="modal fade"
-                        id="deleteConfirmation{{ $publishers->firstItem() + $index }}"
+                        id="deleteConfirmation{{ $majors->firstItem() + $index }}"
                         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                        aria-labelledby="deleteConfirmation{{ $publishers->firstItem() + $index }}Label"
+                        aria-labelledby="deleteConfirmation{{ $majors->firstItem() + $index }}Label"
                         aria-hidden="true">
-                        <form action="/system/publisher/{{ $publisher->pub_id }}/delete"
-                            method="post" class="modal-dialog modal-dialog-centered">
+                        <form action="/system/major/{{ $major->bk_mjr_id }}/delete" method="post"
+                            class="modal-dialog modal-dialog-centered">
                             @csrf
                             @method('DELETE')
                             <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
                                     <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $publishers->firstItem() + $index }}.</p>
+                                        {{ $majors->firstItem() + $index }}.</p>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button"

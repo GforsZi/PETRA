@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="card mb-4 ">
         <div class="card-header">
-            <h3 class="card-title">Detail author</h3>
+            <h3 class="card-title">Detail Penerbit</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -15,36 +15,40 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <td>ID Penulis</td>
-                        <td>{{ $author['athr_id'] }}</td>
+                        <td>ID Penerbit</td>
+                        <td>{{ $publisher['pub_id'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Nama Penulis</td>
-                        <td>{{ $author['athr_name'] }}</td>
+                        <td>Nama Penerbit</td>
+                        <td>{{ $publisher['pub_name'] }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Alamat Penerbit</td>
+                        <td>{{ $publisher['pub_address'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $author['created_by']['name'] }}</td>
+                        <td>{{ $publisher['created_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $author['updated_by']['name'] }}</td>
+                        <td>{{ $publisher['updated_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>
-                        <td>{{ $author['deleted_by']['name'] ?? '' }}</td>
+                        <td>{{ $publisher['deleted_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat Pada</td>
-                        <td>{{ $author['athr_created_at'] }}</td>
+                        <td>{{ $publisher['pub_created_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah pada</td>
-                        <td>{{ $author['athr_updated_at'] }}</td>
+                        <td>{{ $publisher['pub_updated_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus pada</td>
-                        <td>{{ $author['athr_deleted_at'] }}</td>
+                        <td>{{ $publisher['pub_deleted_at'] }}</td>
                     </tr>
                 </tbody>
             </table>

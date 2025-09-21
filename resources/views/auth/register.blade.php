@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/register.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/register.css') }}">
     <div class="row g-0" style="height: 100vh;">
         <!-- Gambar-->
         <div class="col-8 p-0">

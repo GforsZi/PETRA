@@ -60,4 +60,17 @@ class User extends Authenticatable
     public function transactions(): HasMany {
         return $this->hasMany(Transaction::class, 'trx_user_id', 'usr_id');
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_deleted_by', 'usr_id');
+    }
 }

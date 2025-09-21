@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function dashboard_page()
     {
-        $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
+        $user = User::with('roles:rl_id,rl_name')->find(Auth::user()->usr_id);
         return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user'));
     }
 

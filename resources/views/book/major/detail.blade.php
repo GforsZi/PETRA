@@ -15,36 +15,40 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <td>ID Penulis</td>
-                        <td>{{ $author['athr_id'] }}</td>
+                        <td>ID Jurusan</td>
+                        <td>{{ $major['bk_mjr_id'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Nama Penulis</td>
-                        <td>{{ $author['athr_name'] }}</td>
+                        <td>Tingkatan</td>
+                        <td>{{ $major['bk_mjr_class'] }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Jurusan</td>
+                        <td>{{ $major['bk_mjr_major'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $author['created_by']['name'] }}</td>
+                        <td>{{ $major['created_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $author['updated_by']['name'] }}</td>
+                        <td>{{ $major['updated_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>
-                        <td>{{ $author['deleted_by']['name'] ?? '' }}</td>
+                        <td>{{ $major['deleted_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat Pada</td>
-                        <td>{{ $author['athr_created_at'] }}</td>
+                        <td>{{ $major['bk_mjr_created_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah pada</td>
-                        <td>{{ $author['athr_updated_at'] }}</td>
+                        <td>{{ $major['bk_mjr_updated_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus pada</td>
-                        <td>{{ $author['athr_deleted_at'] }}</td>
+                        <td>{{ $major['bk_mjr_deleted_at'] }}</td>
                     </tr>
                 </tbody>
             </table>

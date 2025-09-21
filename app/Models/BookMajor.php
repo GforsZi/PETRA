@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Blameable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,5 +24,18 @@ class BookMajor extends Model
 
     public function books(): HasMany {
         return $this->hasMany(Book::class, 'bk_major_id', 'bk_mjr_id');
+    }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_mjr_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->BelongsTo(User::class, 'bk_mjr_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->BelongsTo(User::class, 'bk_mjr_deleted_by', 'usr_id');
     }
 }

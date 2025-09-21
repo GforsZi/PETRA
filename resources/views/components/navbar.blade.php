@@ -1,4 +1,4 @@
-<nav class="app-header navbar navbar-expand bg-body">
+<nav class="app-header navbar navbar-expand" style="background-color: #121740;">
     <!--begin::Container-->
     <div class="container-fluid">
         <!--begin::Start Navbar Links-->
@@ -6,17 +6,18 @@
             @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
                 <li class="nav-item">
                     <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                        <i class="bi bi-list"></i>
+                        <i class="bi bi-list" style='color: #E9AD01;'></i>
                     </a>
                 </li>
             @endif
             <li class="nav-item d-none d-md-block"><a href="{{ url()->previous() }}"
-                    class="nav-link">Kembali</a></li>
+                    class="nav-link" style='color: #E9AD01;'>Kembali</a></li>
             @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
-                <li class="nav-item d-none d-md-block"><a href="/dashboard"
-                        class="nav-link">Dasbor</a></li>
+                <li class="nav-item d-none d-md-block"><a href="/dashboard" class="nav-link"
+                        style='color: #E9AD01;'>Dasboard</a></li>
             @else
-                <li class="nav-item d-none d-md-block"><a href="/home" class="nav-link">Home</a>
+                <li class="nav-item d-none d-md-block"><a href="/home" class="nav-link"
+                        style='color: #E9AD01;'>Home</a>
                 </li>
             @endif
         </ul>
@@ -29,9 +30,9 @@
                 <button
                     class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
                     id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
-                    data-bs-display="static">
+                    data-bs-display="static" style='color: #E9AD01;'>
                     <span class="theme-icon-active">
-                        <i class="my-1"></i>
+                        <i class="my-1" style='color: #E9AD01;'></i>
                     </span>
                     <span class="d-lg-none ms-2" id="bd-theme-text"></span>
                 </button>
@@ -41,25 +42,25 @@
                         <button type="button"
                             class="dropdown-item d-flex align-items-center active"
                             data-bs-theme-value="light" aria-pressed="false">
-                            <i class="bi bi-sun-fill me-2"></i>
+                            <i class="bi bi-sun-fill me-2" style='color: #E9AD01;'></i>
                             Light
-                            <i class="bi bi-check-lg ms-auto d-none"></i>
+                            <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center"
                             data-bs-theme-value="dark" aria-pressed="false">
-                            <i class="bi bi-moon-fill me-2"></i>
+                            <i class="bi bi-moon-fill me-2" style='color: #E9AD01;'></i>
                             Dark
-                            <i class="bi bi-check-lg ms-auto d-none"></i>
+                            <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center"
                             data-bs-theme-value="auto" aria-pressed="true">
-                            <i class="bi bi-circle-half me-2"></i>
+                            <i class="bi bi-circle-half me-2" style='color: #E9AD01;'></i>
                             Auto
-                            <i class="bi bi-check-lg ms-auto d-none"></i>
+                            <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
                 </ul>
@@ -67,9 +68,9 @@
             <!--begin::Messages Dropdown Menu-->
             <!--end::Messages Dropdown Menu-->
             <!--begin::Notifications Dropdown Menu-->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" style='color: #E9AD01;'>
                 <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                    <i class="bi bi-bell-fill"></i>
+                    <i class="bi bi-bell-fill" style='color: #E9AD01;'></i>
                     <span class="navbar-badge badge text-bg-warning">0</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
@@ -98,26 +99,28 @@
             <!--begin::Fullscreen Toggle-->
             <li class="nav-item">
                 <a class="nav-link" href="#" data-lte-toggle="fullscreen">
-                    <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                    <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"
+                        style='color: #E9AD01;'></i>
                     <i data-lte-icon="minimize" class="bi bi-fullscreen-exit"
-                        style="display: none"></i>
+                        style="display: none; color: #E9AD01;"></i>
                 </a>
             </li>
             <!--end::Fullscreen Toggle-->
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset(Auth::user()->usr_photo_path ?? 'logo/uni_invt.png') }}"
-                        class="user-image rounded-circle shadow" alt="" />
+                    <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/PETRA-LOGO.png') }}"
+                        class="user-image rounded-circle shadow object-fit-cover"
+                        alt="" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
-                    <li class="user-header text-bg-primary">
-                        <img src="{{ asset(Auth::user()->usr_photo_path ?? 'logo/uni_invt.png') }}"
-                            class="rounded-circle shadow" alt="" />
-                        <p>
+                    <li class="user-header" style="background-color: #121740;">
+                        <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/PETRA-LOGO.png') }}"
+                            class="rounded-circle shadow object-fit-cover" alt="" />
+                        <p style='color: #E9AD01;'>
                             {{ Auth::user()->name }}
-                            <small>Bergabung sejak
+                            <small style='color: #E9AD01;'>Bergabung sejak
                                 {{ Auth::user()->usr_created_at->format('F Y') }}</small>
                         </p>
                     </li>

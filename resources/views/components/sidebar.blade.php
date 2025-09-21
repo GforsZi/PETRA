@@ -24,7 +24,7 @@
                     <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="bi bi-book"></i>
                         <p>
-                            Kelola Buku
+                            Kelola Data Buku
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -32,8 +32,34 @@
                         <li class="nav-item" style='color: #E9AD01;'>
                             <a href="/manage/book" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Lihat</p>
+                                <p>Kelola Buku</p>
                             </a>
+                        </li>
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/manage/book/major" class="nav-link" style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Kelola Jurusan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/manage/book/author" class="nav-link" style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Kelola Penulis</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/manage/book/publisher" class="nav-link"
+                                style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Kelola Penerbit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/manage/book/ddc" class="nav-link" style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Kelola Klasifikasi</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -65,7 +91,7 @@
                     <a href="#" class="nav-link" style='color: #E9AD01;'>
                         <i class="bi bi-file-earmark-ruled"></i>
                         <p>
-                            Kelola Peminjaman
+                            Kelola Transaksi
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -73,8 +99,15 @@
                         <li class="nav-item" style='color: #E9AD01;'>
                             <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Lihat</p>
+                                <p>Kelola Peminjaman</p>
                             </a>
+                        </li>
+                        <li class="nav-item" style='color: #E9AD01;'>
+                            <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Kelola Pengembalian</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

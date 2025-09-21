@@ -25,4 +25,17 @@ class Device extends Model
     public function notification(): HasMany {
         return $this->hasMany(ChatNotification::class, 'cht_notif_device_id', 'dvc_id');
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_deleted_by', 'usr_id');
+    }
 }

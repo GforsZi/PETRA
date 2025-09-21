@@ -9,8 +9,14 @@ class ManageRoleController extends Controller
 {
     public function manage_role_page()
     {
-        $roles = Role::paginate(10);
+        $roles = Role::select('rl_id', 'rl_name', 'rl_description')->latest()->paginate(10);
         return view('role.view', ['title' => 'Halaman Kelola Peran', 'roles' => $roles]);
+    }
+
+    public function detail_role_page($id)
+    {
+        $role = Role::withTrashed()->with('created_by','updated_by', 'deleted_by')->find($id);
+        return view('role.detail', ['title' => 'Halaman Kelola Peran'], compact('role'));
     }
 
     public function add_role_page()

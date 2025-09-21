@@ -46,7 +46,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
-            if ($user[0]['usr_activation'] == false || $user[0]['roles']['rl_admin'] == true) {
+            if ($user[0]['usr_activation'] == false || isset($user[0]['roles']['rl_admin'])) {
                 return redirect()->intended("/dashboard")->with("success", "Login success!");
             } else {
                 return redirect()->intended("/home")->with("success", "Login success!");

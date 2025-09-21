@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="card mb-4 ">
         <div class="card-header">
-            <h3 class="card-title">Detail author</h3>
+            <h3 class="card-title">Detail Klasifikasi</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -15,36 +15,40 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <td>ID Penulis</td>
-                        <td>{{ $author['athr_id'] }}</td>
+                        <td>ID Klasifikasi</td>
+                        <td>{{ $classfication['ddc_id'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Nama Penulis</td>
-                        <td>{{ $author['athr_name'] }}</td>
+                        <td>Code Klasifikasi</td>
+                        <td>{{ $classfication['ddc_code'] }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Keterangan Klasifikasi</td>
+                        <td>{{ $classfication['ddc_description'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $author['created_by']['name'] }}</td>
+                        <td>{{ $classfication['created_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $author['updated_by']['name'] }}</td>
+                        <td>{{ $classfication['updated_by']['name'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>
-                        <td>{{ $author['deleted_by']['name'] ?? '' }}</td>
+                        <td>{{ $classfication['deleted_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat Pada</td>
-                        <td>{{ $author['athr_created_at'] }}</td>
+                        <td>{{ $classfication['ddc_created_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah pada</td>
-                        <td>{{ $author['athr_updated_at'] }}</td>
+                        <td>{{ $classfication['ddc_updated_at'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus pada</td>
-                        <td>{{ $author['athr_deleted_at'] }}</td>
+                        <td>{{ $classfication['ddc_deleted_at'] }}</td>
                     </tr>
                 </tbody>
             </table>

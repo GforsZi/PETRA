@@ -54,4 +54,17 @@ class Book extends Model
             'bk_ddc_classfication_id'
         );
     }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'bk_deleted_by', 'usr_id');
+    }
 }

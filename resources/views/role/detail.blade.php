@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="card mb-4 ">
         <div class="card-header">
-            <h3 class="card-title">Detail author</h3>
+            <h3 class="card-title">Detail Peran</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -15,36 +15,40 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <td>ID Penulis</td>
-                        <td>{{ $author['athr_id'] }}</td>
+                        <td>ID Peran</td>
+                        <td>{{ $role['rl_id'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Nama Penulis</td>
-                        <td>{{ $author['athr_name'] }}</td>
+                        <td>Nama Peran</td>
+                        <td>{{ $role['rl_name'] }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Keterangan Peran</td>
+                        <td>{{ $role['rl_description'] }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $author['created_by']['name'] }}</td>
+                        <td>{{ $role['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $author['updated_by']['name'] }}</td>
+                        <td>{{ $role['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>
-                        <td>{{ $author['deleted_by']['name'] ?? '' }}</td>
+                        <td>{{ $role['deleted_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat Pada</td>
-                        <td>{{ $author['athr_created_at'] }}</td>
+                        <td>{{ $role['rl_created_at'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah pada</td>
-                        <td>{{ $author['athr_updated_at'] }}</td>
+                        <td>{{ $role['rl_updated_at'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus pada</td>
-                        <td>{{ $author['athr_deleted_at'] }}</td>
+                        <td>{{ $role['rl_deleted_at'] ?? '' }}</td>
                     </tr>
                 </tbody>
             </table>
