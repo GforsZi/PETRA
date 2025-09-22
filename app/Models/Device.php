@@ -22,7 +22,8 @@ class Device extends Model
     const UPDATED_AT = 'dvc_updated_at';
     const DELETED_AT = 'dvc_deleted_at';
 
-    public function notification(): HasMany {
+    public function notification(): HasMany
+    {
         return $this->hasMany(ChatNotification::class, 'cht_notif_device_id', 'dvc_id');
     }
 

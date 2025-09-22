@@ -15,7 +15,7 @@ class ManageRoleController extends Controller
 
     public function detail_role_page($id)
     {
-        $role = Role::withTrashed()->with('created_by','updated_by', 'deleted_by')->find($id);
+        $role = Role::withTrashed()->with('created_by', 'updated_by', 'deleted_by')->find($id);
         return view('role.detail', ['title' => 'Halaman Kelola Peran'], compact('role'));
     }
 
@@ -35,11 +35,11 @@ class ManageRoleController extends Controller
         $validateData = $request->validate([
             'rl_name' => 'required | string | min:3 | max:255',
             'rl_description' => 'nullable | string | max:255',
-            'rl_admin' => 'nullable | boolean'
+            'rl_admin' => 'nullable | boolean',
         ]);
 
         Role::create($validateData);
-        return redirect('/manage/role')->with("success", "role created");
+        return redirect('/manage/role')->with('success', 'role created');
     }
 
     public function edit_role_system(Request $request, $id)
@@ -48,17 +48,17 @@ class ManageRoleController extends Controller
         $validateData = $request->validate([
             'rl_name' => 'sometimes | required | string | min:3 | max:255',
             'rl_description' => 'sometimes | nullable | string | max:255',
-            'rl_admin' => 'sometimes | nullable | boolean'
+            'rl_admin' => 'sometimes | nullable | boolean',
         ]);
 
         $role->update($validateData);
-        return redirect('/manage/role')->with("success", "role updated");
+        return redirect('/manage/role')->with('success', 'role updated');
     }
 
     public function delete_role_system(Request $request, $id)
     {
         $role = Role::find($id);
         $role->delete();
-        return redirect('/manage/role')->with("success", "role deleted");
+        return redirect('/manage/role')->with('success', 'role deleted');
     }
 }

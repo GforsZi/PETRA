@@ -25,12 +25,7 @@ class Author extends Model
 
     public function books(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Book::class,
-            'book_author',
-            'bk_athr_author_id',
-            'bk_athr_book_id'
-        );
+        return $this->belongsToMany(Book::class, 'book_author', 'bk_athr_author_id', 'bk_athr_book_id');
     }
 
     public function created_by(): BelongsTo

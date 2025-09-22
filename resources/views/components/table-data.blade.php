@@ -64,7 +64,7 @@
         <table class="table" style="min-width: 200px;">
             <thead>
                 <tr>
-                    {{ $header }}
+                    {{ $header ?? '' }}
                 </tr>
             </thead>
             <tbody>

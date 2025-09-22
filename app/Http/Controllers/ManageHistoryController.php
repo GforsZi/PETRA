@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class ManageHistoryController extends Controller
 {
-    public function manage_history_page(Request $request) {
+    public function manage_history_page(Request $request)
+    {
         $search = $request->query();
         if (!$search || !isset($search['category'])) {
             $search = 'all';
@@ -20,36 +21,36 @@ class ManageHistoryController extends Controller
             $history = $search['category'];
             switch ($history) {
                 case 'Account':
-                    $histories = User::onlyTrashed()->select('usr_id as id', 'usr_no_wa as title', 'usr_deleted_at as deleted_at', )->latest()->paginate(10);
+                    $histories = User::onlyTrashed()->select('usr_id as id', 'usr_no_wa as title', 'usr_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
-                break;
+                    break;
                 case 'Role':
-                    $histories = Role::onlyTrashed()->select('rl_id as id', 'rl_name as title', 'rl_deleted_at as deleted_at', )->latest()->paginate(10);
+                    $histories = Role::onlyTrashed()->select('rl_id as id', 'rl_name as title', 'rl_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'role/']);
-                break;
+                    break;
                 case 'Author':
-                    $histories = Author::onlyTrashed()->select('athr_id as id', 'athr_name as title', 'athr_deleted_at as deleted_at', )->latest()->paginate(10);
+                    $histories = Author::onlyTrashed()->select('athr_id as id', 'athr_name as title', 'athr_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/author/']);
-                break;
+                    break;
                 case 'Publisher':
-                    $histories = Publisher::onlyTrashed()->select('pub_id as id', 'pub_name as title', 'pub_deleted_at as deleted_at', )->latest()->paginate(10);
+                    $histories = Publisher::onlyTrashed()->select('pub_id as id', 'pub_name as title', 'pub_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/publisher/']);
-                break;
+                    break;
                 case 'DeweyDecimalClassfication':
-                    $histories = DeweyDecimalClassfication::onlyTrashed()->select('ddc_id as id', 'ddc_code as title', 'ddc_deleted_at as deleted_at', )->latest()->paginate(10);
+                    $histories = DeweyDecimalClassfication::onlyTrashed()->select('ddc_id as id', 'ddc_code as title', 'ddc_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/ddc/']);
-                break;
+                    break;
                 default:
                     $histories = null;
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
-                break;
-                }
+                    break;
             }
-            return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
+        }
+        return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
     }
 
-    public function detail_histroy_page($id) {
+    public function detail_histroy_page($id)
+    {
         return view('history.detail', ['title' => 'Halaman Detail Riwayat']);
     }
-
 }

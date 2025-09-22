@@ -38,5 +38,4 @@ class Role extends Model
     {
         return $this->belongsTo(User::class, 'rl_deleted_by', 'usr_id');
     }
-
 }

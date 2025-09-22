@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,14 +17,12 @@ return new class extends Migration
             $table->string('bk_description')->nullable();
             $table->string('bk_img_url')->nullable();
             $table->string('bk_img_public_id')->nullable();
-            $table->integer('bk_total_page')->nullable();
             $table->enum('bk_type', ['1', '2'])->nullable();
             $table->string('bk_file_url')->nullable();
             $table->string('bk_file_public_id')->nullable();
-            $table->string('bk_unit_price')->nullable();
-            $table->string('bk_overall_price')->nullable();
+            $table->integer('bk_unit_price')->nullable();
             $table->string('bk_edition_volume')->nullable();
-            $table->string('bk_published_year')->nullable();
+            $table->year('bk_published_year')->nullable();
             $table->unsignedBigInteger('bk_publisher_id')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_major_id')->unsigned()->nullable();
             $table->timestamps();

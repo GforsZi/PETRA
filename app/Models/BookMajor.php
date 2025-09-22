@@ -22,7 +22,8 @@ class BookMajor extends Model
     const UPDATED_AT = 'bk_mjr_updated_at';
     const DELETED_AT = 'bk_mjr_deleted_at';
 
-    public function books(): HasMany {
+    public function books(): HasMany
+    {
         return $this->hasMany(Book::class, 'bk_major_id', 'bk_mjr_id');
     }
 

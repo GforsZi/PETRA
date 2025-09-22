@@ -23,36 +23,29 @@ class Book extends Model
     const UPDATED_AT = 'bk_updated_at';
     const DELETED_AT = 'bk_deleted_at';
 
-    public function major(): BelongsTo {
+    public function major(): BelongsTo
+    {
         return $this->belongsTo(BookMajor::class, 'bk_major_id', 'bk_mjr_id');
     }
 
-    public function publisher(): BelongsTo {
+    public function publisher(): BelongsTo
+    {
         return $this->belongsTo(Publisher::class, 'bk_publisher_id', 'pub_id');
     }
 
-    public function bookCopies(): HasMany {
+    public function bookCopies(): HasMany
+    {
         return $this->hasMany(BookCopy::class, 'bk_cp_book_id', 'bk_id');
     }
 
     public function authors(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Author::class,
-            'book_author',
-            'bk_athr_book_id',
-            'bk_athr_author_id'
-        );
+        return $this->belongsToMany(Author::class, 'book_author', 'bk_athr_book_id', 'bk_athr_author_id');
     }
 
     public function deweyDecimalClassfications(): BelongsToMany
     {
-        return $this->belongsToMany(
-            DeweyDecimalClassfication::class,
-            'book_dewey_decimal_classfication',
-            'bk_ddc_book_id',
-            'bk_ddc_classfication_id'
-        );
+        return $this->belongsToMany(DeweyDecimalClassfication::class, 'book_dewey_decimal_classfication', 'bk_ddc_book_id', 'bk_ddc_classfication_id');
     }
 
     public function created_by(): BelongsTo

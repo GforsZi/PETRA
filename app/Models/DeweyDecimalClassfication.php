@@ -25,12 +25,7 @@ class DeweyDecimalClassfication extends Model
 
     public function books(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Book::class,
-            'book_dewey_decimal_classfication',
-            'bk_ddc_classfication_id',
-            'bk_ddc_book_id'
-        );
+        return $this->belongsToMany(Book::class, 'book_dewey_decimal_classfication', 'bk_ddc_classfication_id', 'bk_ddc_book_id');
     }
 
     public function created_by(): BelongsTo

@@ -22,7 +22,8 @@ class BookCopy extends Model
     const UPDATED_AT = 'bk_cp_updated_at';
     const DELETED_AT = 'bk_cp_deleted_at';
 
-    public function Book(): BelongsTo {
+    public function Book(): BelongsTo
+    {
         return $this->belongsTo(Book::class, 'bk_cp_book_id', 'bk_id');
     }
 

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +14,6 @@ return new class extends Migration
             $table->bigIncrements('bk_mjr_id');
             $table->string('bk_mjr_class');
             $table->string('bk_mjr_major');
-            $table->string('bk_mjr_number')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('bk_mjr_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_mjr_deleted_by')->unsigned()->nullable();

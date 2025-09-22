@@ -16,12 +16,18 @@ class AdminController extends Controller
 
     public function profile_page()
     {
-        $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
+        $user = User::where('usr_id', Auth::user()->usr_id)
+            ->with('roles')
+            ->get()
+            ->first();
         return view('admin.profile', ['title' => 'Halaman Profile'], compact('user'));
     }
     public function profile_edit_page()
     {
-        $user = User::where('usr_id', Auth::user()->usr_id)->with('roles')->get()->first();
+        $user = User::where('usr_id', Auth::user()->usr_id)
+            ->with('roles')
+            ->get()
+            ->first();
         return view('admin.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
     }
 }

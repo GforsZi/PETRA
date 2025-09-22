@@ -22,7 +22,8 @@ class Publisher extends Model
     const UPDATED_AT = 'pub_updated_at';
     const DELETED_AT = 'pub_deleted_at';
 
-    public function books(): HasMany {
+    public function books(): HasMany
+    {
         return $this->hasMany(Book::class, 'bk_publisher_id', 'bk_id');
     }
 

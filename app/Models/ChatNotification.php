@@ -22,11 +22,13 @@ class ChatNotification extends Model
     const UPDATED_AT = 'cht_notif_updated_at';
     const DELETED_AT = 'cht_notif_deleted_at';
 
-    public function ChatOption(): BelongsTo {
+    public function ChatOption(): BelongsTo
+    {
         return $this->belongsTo(ChatOption::class, 'cht_notif_option_id', 'cht_opt_id');
     }
 
-    public function device(): BelongsTo {
+    public function device(): BelongsTo
+    {
         return $this->belongsTo(Device::class, 'cht_notif_device_id', 'dvc_id');
     }
 
