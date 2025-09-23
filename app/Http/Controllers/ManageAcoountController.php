@@ -152,13 +152,6 @@ class ManageAcoountController extends Controller
     public function delete_account_system(Request $request, $id)
     {
         $user = User::find($id);
-        $path = $user->toArray();
-        $filePath = public_path($path['usr_img_url']);
-        if ($path['usr_img_url']) {
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
-        }
         $user->delete();
         return redirect('/manage/account')->with('success', 'account deleted');
     }

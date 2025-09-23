@@ -27,6 +27,16 @@ class ManageBookController extends Controller
         return response()->json($authors);
     }
 
+    public function search_book_publisher_system(Request $request)
+    {
+        $query = $request->get('q');
+        $publishers = Publisher::select('pub_id', 'pub_name')
+            ->where('pub_name', 'like', "%$query%")
+            ->orderBy('pub_name', 'asc')
+            ->get();
+        return response()->json($publishers);
+    }
+
     public function search_book_ddc_system(Request $request)
     {
         $query = $request->get('q');
@@ -55,13 +65,46 @@ class ManageBookController extends Controller
             'bk_isbn' => ['nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
             'bk_title' => 'required | string | max:255',
             'bk_description' => 'nullable | string | max:255',
+            'bk_page' => 'nullable | integer | max:9999999',
             'bk_type' => 'nullable | in:1,2',
-            'bk_unit_price' => 'nullable | integer',
+            'bk_unit_price' => 'nullable | integer | max:999999999',
             'bk_edition_volume' => 'nullable | string | max:255',
             'bk_published_year' => 'nullable | digits:4 | integer | max:' . date('Y'),
             'bk_publisher_id' => 'nullable | exists:publishers,pub_id',
             'bk_major_id' => 'nullable | exists:book_majors,bk_mjr_id',
+            'image' => 'nullable|image|max:2048',
+            'file_pdf' => 'nullable|file|mimes:pdf|max:6144',
         ]);
+
+        if ($request->hasFile('image')) {
+            $destinationPath = public_path('media/book_cover_img/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+
+            $request->file('image')->move($destinationPath, $filename);
+
+            $validateData['bk_img_url'] = 'media/book_cover_img/' . $filename;
+            $validateData['bk_img_public_id'] = $filename;
+        }
+
+        if ($request->hasFile('file_pdf')) {
+            $destinationPath = public_path('media/ebook_pdf/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
+
+            $request->file('file_pdf')->move($destinationPath, $filename);
+
+            $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
+            $validateData['bk_file_public_id'] = $filename;
+        }
 
         $book = Book::create($validateData);
         if ($request->has('authors')) {
@@ -82,12 +125,95 @@ class ManageBookController extends Controller
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
 
-        return redirect('/manage/book/add')->with('Success', 'Buku Berhasil Ditambahkan');
+        return redirect('/manage/book/')->with('Success', 'Buku Berhasil Ditambahkan');
     }
 
     public function edit_book_page($id)
     {
-        return view('book.edit', ['title' => 'Halaman Ubah Buku']);
+          $publishers = Publisher::orderBy('pub_name', 'asc')->get();
+        $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
+        return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors'));
+    }
+
+    public function edit_book_system(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $validateData = $request->validate([
+            'bk_isbn' => ['sometimes','nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
+            'bk_title' => 'sometimes | required | string | max:255',
+            'bk_description' => 'sometimes | nullable | string | max:255',
+            'bk_page' => 'nullable | integer | max:9999999',
+            'bk_type' => 'sometimes | nullable | in:1,2',
+            'bk_unit_price' => 'sometimes | nullable | integer | max:999999999',
+            'bk_edition_volume' => 'sometimes | nullable | string | max:255',
+            'bk_published_year' => 'sometimes | nullable | digits:4 | integer | max:' . date('Y'),
+            'bk_publisher_id' => 'sometimes | nullable | exists:publishers,pub_id',
+            'bk_major_id' => 'sometimes | nullable | exists:book_majors,bk_mjr_id',
+            'image' => 'sometimes|nullable|image|max:2048',
+            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $destinationPath = public_path('media/book_cover_img/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+
+            $request->file('image')->move($destinationPath, $filename);
+
+            $validateData['bk_img_url'] = 'media/book_cover_img/' . $filename;
+            $validateData['bk_img_public_id'] = $filename;
+        }
+
+        if ($request->hasFile('file_pdf')) {
+            $destinationPath = public_path('media/ebook_pdf/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
+
+            $request->file('file_pdf')->move($destinationPath, $filename);
+
+            $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
+            $validateData['bk_file_public_id'] = $filename;
+        }
+
+        $book->update($validateData);
+        if ($request->has('authors')) {
+            $book->authors()->detach();
+            $validateDataAuthor = $request->validate([
+                'authors' => 'sometimes|required|array|min:1',
+                'authors.*' => 'sometimes|exists:authors,athr_id',
+            ]);
+
+            $book->authors()->sync($validateDataAuthor['authors']);
+        }
+
+        if ($request->has('classfications')) {
+            $book->deweyDecimalClassfications()->detach();
+            $validateDataDDC = $request->validate([
+                'classfications' => 'sometimes|required|array|min:1',
+                'classfications.*' => 'sometimes|exists:dewey_decimal_classfications,ddc_id',
+            ]);
+
+            $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
+        }
+
+        return redirect('/manage/book/')->with('Success', 'Buku Berhasil Ditambahkan');
+    }
+
+    public function delete_book_system(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $book->deweyDecimalClassfications()->detach();
+        $book->authors()->detach();
+        $book->delete();
+        return redirect('/manage/book')->with('success', 'Buku Berhasil Dihapus');
     }
 
     public function manage_book_major_page()
@@ -166,7 +292,7 @@ class ManageBookController extends Controller
         ]);
 
         Author::create($validateData);
-        return redirect('/manage/book/author/add')->with('success', 'Penulis Berhasil Ditambahkan');
+        return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Ditambahkan');
     }
 
     public function edit_book_author_page($id)

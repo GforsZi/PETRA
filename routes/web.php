@@ -181,6 +181,10 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')
         ->name('authors.search');
+    Route::get('/system/publisher/search', [ManageBookController::class, 'search_book_publisher_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')
+        ->name('publishers.search');
     Route::get('/system/ddc/search', [ManageBookController::class, 'search_book_ddc_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')

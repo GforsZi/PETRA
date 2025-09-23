@@ -17,14 +17,14 @@
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form action="/system/book/add" method="post">
+        <form action="/system/book/add" method="post" enctype="multipart/form-data">
             @csrf
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jenis Buku</label>
+                    <label class="col-sm-2 col-form-label">Jenis Buku</label>
                     <div class="col-sm-10">
-                        <select name="bk_type"
+                        <select name="bk_type" id="image-option"
                             class="form-select @error('bk_type') is-invalid @enderror" required
                             aria-label="Default select example">
                             <option value="1">Fisik</option>
@@ -33,23 +33,32 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">ISBN Buku</label>
+                    <label class="col-sm-2 col-form-label">Sampul Buku</label>
+                    <div class="col-sm-10">
+                        <input type="file"
+                            class="form-control @error('image') is-invalid @enderror"
+                            name="image">
+                    </div>
+                </div>
+                <div class="mb-3" id="image-container"></div>
+                <div class="row mb-3">
+                    <label for="sibn" class="col-sm-2 col-form-label">ISBN Buku</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_isbn"
                             class="form-control @error('bk_isbn') is-invalid @enderror"
-                            id="inputEmail3">
+                            id="sibn">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul Buku</label>
+                    <label for="title" class="col-sm-2 col-form-label">Judul Buku</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_title"
                             class="form-control @error('bk_title') is-invalid @enderror"
-                            id="inputEmail3">
+                            id="title">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Keterangan
+                    <label for="description" class="col-sm-2 col-form-label">Keterangan
                         Buku</label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
@@ -57,48 +66,57 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Harga Perbuku</label>
+                    <label for="price" class="col-sm-2 col-form-label">Harga Perbuku</label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_unit_price"
                             class="form-control @error('bk_unit_price') is-invalid @enderror"
-                            id="inputEmail3">
+                            id="price">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Edisi Buku</label>
+                    <label for="page" class="col-sm-2 col-form-label">Halaman Buku</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="bk_page"
+                            class="form-control @error('bk_page') is-invalid @enderror"
+                            id="page">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="edition" class="col-sm-2 col-form-label">Edisi Buku</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_edition_volume"
                             class="form-control @error('bk_edition_volume') is-invalid @enderror"
-                            id="inputEmail3">
+                            id="edition">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Diterbitkannya
+                    <label for="published" class="col-sm-2 col-form-label">Diterbitkannya
                         Buku</label>
                     <div class="col-sm-10">
-                        <input type="number" id="year" min="1500"
+                        <input type="number" id="published" min="1500"
                             max="{{ date('Y') }}" step="1" name="bk_published_year"
-                            class="form-control @error('bk_edition_volume') is-invalid @enderror"
-                            id="inputEmail3">
+                            class="form-control @error('bk_published_year') is-invalid @enderror"
+                            id="published">
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Penerbit
-                        Buku</label>
+                <div class="mb-3 row position-relative">
+                    <label class="col-sm-2 col-form-label">Publisher</label>
                     <div class="col-sm-10">
-                        <select name="bk_publisher_id"
-                            class="form-select @error('bk_publisher_id') is-invalid @enderror"
-                            aria-label="Default select example">
-                            <option value="">Pilih Penerbit</option>
-                            @foreach ($publishers as $publisher)
-                                <option value="{{ $publisher->pub_id }}">
-                                    {{ $publisher->pub_name }}</option>
-                            @endforeach
-                        </select>
+
+                        <input type="text" id="publisher-input"
+                            class="form-control @error('bk_publisher_id') is-invalid @enderror"
+                            autocomplete="off">
+                        <input type="hidden" name="bk_publisher_id" id="publisher-id">
+
+                        {{-- wadah suggestion --}}
+                        <div id="publisher-suggestions"
+                            class="list-group position-absolute shadow-sm"
+                            style="z-index: 1000; display:none; width: 80%;">
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jurusan
+                    <label class="col-sm-2 col-form-label">Jurusan
                         Buku</label>
                     <div class="col-sm-10">
                         <select name="bk_major_id"
@@ -115,8 +133,8 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Penulis Buku</label>
                     <div class="col-sm-10">
-                        <select class="form-control d-none" id="selected-authors" name="authors[]"
-                            multiple></select>
+                        <select class="form-control d-none" id="selected-authors"
+                            name="authors[]" multiple></select>
 
                         <div id="author-tags" class="mt-2">
                             {{-- badge penulis akan muncul di sini --}}
@@ -340,6 +358,83 @@
                     ddcTags.appendChild(badge);
                 }
             });
+        });
+
+        document.getElementById('image-option').addEventListener('change', function() {
+            let container = document.getElementById('image-container');
+            container.innerHTML = ''; // kosongkan setiap kali pilihan berubah
+
+            if (this.value === '2') {
+                container.innerHTML = `
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">DPF eBuku</label>
+                <div class="col-sm-10">
+                    <input type="file"
+                        id="inputImage"
+                        class="form-control @error('file_pdf') is-invalid @enderror"
+                        name="file_pdf"
+                        accept="file_pdf/*">
+                    @error('file_pdf')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        `;
+            }
+        });
+
+        const input = document.getElementById('publisher-input');
+        const hiddenId = document.getElementById('publisher-id');
+        const suggestionsBox = document.getElementById('publisher-suggestions');
+
+        input.addEventListener('keyup', function() {
+            let query = this.value.trim();
+
+            if (query.length < 2) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+
+            fetch(`{{ route('publishers.search') }}?q=${query}`)
+                .then(res => res.json())
+                .then(data => {
+                    suggestionsBox.innerHTML = '';
+
+                    if (data.length > 0) {
+                        data.forEach(pub => {
+                            let item = document.createElement('button');
+                            item.type = 'button';
+                            item.classList.add('list-group-item',
+                                'list-group-item-action');
+                            item.textContent = pub.pub_name;
+
+                            // Klik → set value
+                            item.addEventListener('click', function() {
+                                input.value = pub
+                                    .pub_name; // tampilkan nama
+                                hiddenId.value = pub.pub_id; // simpan id
+                                suggestionsBox.style.display = 'none';
+                            });
+
+                            suggestionsBox.appendChild(item);
+                        });
+
+                        suggestionsBox.style.display = 'block';
+                    } else {
+                        suggestionsBox.style.display = 'none';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    suggestionsBox.style.display = 'none';
+                });
+        });
+
+        // klik di luar → tutup suggestion
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                suggestionsBox.style.display = 'none';
+            }
         });
     </script>
 </x-app-layout>

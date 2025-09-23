@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('bk_isbn')->nullable();
             $table->string('bk_title');
             $table->string('bk_description')->nullable();
+            $table->integer('bk_page')->nullable()->unsigned();
             $table->string('bk_img_url')->nullable();
             $table->string('bk_img_public_id')->nullable();
             $table->enum('bk_type', ['1', '2'])->nullable();
