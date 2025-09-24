@@ -34,7 +34,7 @@
                     <span class="theme-icon-active">
                         <i class="my-1" style='color: #E9AD01;'></i>
                     </span>
-                    <span class="d-lg-none ms-2" id="bd-theme-text"></span>
+                    <span class="d-lg-none" id="bd-theme-text"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text"
                     style="--bs-dropdown-min-width: 8rem;">
@@ -71,7 +71,6 @@
             <li class="nav-item dropdown" style='color: #E9AD01;'>
                 <a class="nav-link" data-bs-toggle="dropdown" href="#">
                     <i class="bi bi-bell-fill" style='color: #E9AD01;'></i>
-                    <span class="navbar-badge badge text-bg-warning">0</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <span class="dropdown-item dropdown-header">15 Notifications</span>

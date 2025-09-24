@@ -17,8 +17,10 @@
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form action="/system/book/add" method="post" enctype="multipart/form-data">
+        <form action="/system/book/{{ $book['bk_id'] }}/edit" method="post"
+            enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
@@ -27,24 +29,50 @@
                         <select name="bk_type" id="image-option"
                             class="form-select @error('bk_type') is-invalid @enderror" required
                             aria-label="Default select example">
-                            <option value="1">Fisik</option>
-                            <option value="2">Digital</option>
+                            @if ($book['bk_type'] == '1')
+                                <option value="1" selected>Fisik</option>
+                                <option value="2">Digital</option>
+                            @else
+                                <option value="1">Fisik</option>
+                                <option value="2" selected>Digital</option>
+                            @endif
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Sampul Buku</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label">Sampul Buku
+                    </label>
+                    <div class="col-sm-10" data-bs-container="body" data-bs-toggle="popover"
+                        data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Peringatan !"
+                        data-bs-content="Memilih file baru akan mengganti file lama">
                         <input type="file"
                             class="form-control @error('image') is-invalid @enderror"
                             name="image">
                     </div>
                 </div>
-                <div class="mb-3" id="image-container"></div>
+                <div class="mb-3" id="image-container">
+                    @if ($book['bk_type'] == '2')
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">DPF eBuku</label>
+                            <div class="col-sm-10" data-bs-container="body" data-bs-toggle="popover"
+                                data-bs-placement="bottom" data-bs-trigger="hover focus"
+                                data-bs-title="Peringatan !"
+                                data-bs-content="Memilih file baru akan mengganti file lama">
+                                <input type="file" id="inputImage"
+                                    class="form-control @error('file_pdf') is-invalid @enderror"
+                                    name="file_pdf" accept="file_pdf/*">
+                                @error('file_pdf')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    @endif
+                </div>
                 <div class="row mb-3">
                     <label for="sibn" class="col-sm-2 col-form-label">ISBN Buku</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_isbn"
+                        <input type="text" name="bk_isbn" value="{{ $book['bk_isbn'] }}"
                             class="form-control @error('bk_isbn') is-invalid @enderror"
                             id="sibn">
                     </div>
@@ -52,7 +80,7 @@
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label">Judul Buku</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_title"
+                        <input type="text" name="bk_title" value="{{ $book['bk_title'] }}"
                             class="form-control @error('bk_title') is-invalid @enderror"
                             id="title">
                     </div>
@@ -62,13 +90,14 @@
                         Buku</label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
-                            id="autoExpand" style="resize: none; overflow: hidden;"></textarea>
+                            id="autoExpand" style="resize: none; overflow: hidden;">{{ $book['bk_description'] }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="price" class="col-sm-2 col-form-label">Harga Perbuku</label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_unit_price"
+                            value="{{ $book['bk_unit_price'] }}"
                             class="form-control @error('bk_unit_price') is-invalid @enderror"
                             id="price">
                     </div>
@@ -76,7 +105,7 @@
                 <div class="row mb-3">
                     <label for="page" class="col-sm-2 col-form-label">Halaman Buku</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bk_page"
+                        <input type="number" name="bk_page" value="{{ $book['bk_page'] }}"
                             class="form-control @error('bk_page') is-invalid @enderror"
                             id="page">
                     </div>
@@ -85,16 +114,18 @@
                     <label for="edition" class="col-sm-2 col-form-label">Edisi Buku</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_edition_volume"
+                            value="{{ $book['bk_edition_volume'] }}"
                             class="form-control @error('bk_edition_volume') is-invalid @enderror"
                             id="edition">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="published" class="col-sm-2 col-form-label">Diterbitkannya
-                        Buku</label>
+                    <label for="published" class="col-sm-2 col-form-label">Tahun
+                        Terbit Buku</label>
                     <div class="col-sm-10">
                         <input type="number" id="published" min="1500"
-                            max="{{ date('Y') }}" step="1" name="bk_published_year"
+                            value="{{ $book['bk_published_year'] }}" max="{{ date('Y') }}"
+                            step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror"
                             id="published">
                     </div>
@@ -105,8 +136,10 @@
 
                         <input type="text" id="publisher-input"
                             class="form-control @error('bk_publisher_id') is-invalid @enderror"
-                            autocomplete="off">
-                        <input type="hidden" name="bk_publisher_id" id="publisher-id">
+                            autocomplete="off"
+                            value="{{ $book['publisher']['pub_name'] ?? '' }}">
+                        <input type="hidden" name="bk_publisher_id" id="publisher-id"
+                            class="form-control" value="{{ $book['bk_publisher_id'] }}">
 
                         {{-- wadah suggestion --}}
                         <div id="publisher-suggestions"
@@ -122,10 +155,13 @@
                         <select name="bk_major_id"
                             class="form-select @error('bk_major_id') is-invalid @enderror"
                             aria-label="Default select example">
-                            <option value="">Pilih Jurusan</option>
+                            <option value="{{ $book['bk_major_id'] }}">
+                                {{ $book['major']['bk_mjr_class'] ?? 'Pilih Jurusan Buku' }}{{ $book['major']['bk_mjr_major'] ?? '' }}
+                            </option>
                             @foreach ($majors as $major)
                                 <option value="{{ $major->bk_mjr_id }}">
-                                    {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}</option>
+                                    {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -134,10 +170,20 @@
                     <label class="col-sm-2 col-form-label">Penulis Buku</label>
                     <div class="col-sm-10">
                         <select class="form-control d-none" id="selected-authors"
-                            name="authors[]" multiple></select>
+                            name="authors[]" multiple>
+                            @foreach ($book['authors'] as $author)
+                                <option value="{{ $author->athr_id }}" selected>
+                                    {{ $author->athr_name }}</option>
+                            @endforeach
+                        </select>
 
                         <div id="author-tags" class="mt-2">
-                            {{-- badge penulis akan muncul di sini --}}
+                            @foreach ($book['authors'] as $author)
+                                <span class="badge bg-primary me-1 mb-1"
+                                    data-id="{{ $author->athr_id }}">{{ $author->athr_name }}<span
+                                        class="ms-1 text-light"
+                                        style="cursor:pointer;">×</span></span>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -145,10 +191,20 @@
                     <label class="col-sm-2 col-form-label">Klasifikasi Buku</label>
                     <div class="col-sm-10">
                         <select class="form-control d-none" id="selected-ddc"
-                            name="classfications[]" multiple></select>
+                            name="classfications[]" multiple>
+                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                <option class="option" value="{{ $ddc->ddc_id }}" selected>
+                                    {{ $ddc->ddc_code }}</option>
+                            @endforeach
+                        </select>
 
                         <div id="ddc-tags" class="mt-2">
-                            {{-- badge penulis akan muncul di sini --}}
+                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                <span class="badge badge-ddc bg-warning me-1 mb-1"
+                                    data-id="{{ $ddc->ddc_id }}">{{ $ddc->ddc_code }}<span
+                                        class="ms-1 text-light"
+                                        style="cursor:pointer;">×</span></span>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -293,6 +349,57 @@
             });
         });
 
+        // isi chosen dari data yang sudah ada
+        selectedAuthors.querySelectorAll('option').forEach(opt => {
+            chosen[opt.value] = opt.text;
+        });
+
+        // fungsi hapus badge
+        function addRemoveHandler(badge, id) {
+            badge.querySelector('span').addEventListener('click', function() {
+                delete chosen[id];
+                selectedAuthors.querySelector(`option[value="${id}"]`).remove();
+                badge.remove();
+            });
+        }
+
+        // pasang event hapus untuk badge yang sudah ada
+        authorTags.querySelectorAll('.badge').forEach(badge => {
+            let id = badge.getAttribute('data-id');
+            addRemoveHandler(badge, id);
+        });
+
+        // ketika klik tombol pilih di modal
+        document.getElementById('select-authors-btn').addEventListener('click', function() {
+            let checkboxes = document.querySelectorAll(
+                '#author-list input[type="checkbox"]:checked');
+
+            checkboxes.forEach(cb => {
+                if (!chosen[cb.value]) {
+                    let id = cb.value;
+                    let name = cb.nextElementSibling.innerText;
+                    chosen[id] = name;
+
+                    // Tambah ke select
+                    let option = document.createElement('option');
+                    option.value = id;
+                    option.text = name;
+                    option.selected = true;
+                    selectedAuthors.appendChild(option);
+
+                    // Tambah badge
+                    let badge = document.createElement('span');
+                    badge.classList.add('badge', 'bg-secondary', 'me-1', 'mb-1');
+                    badge.setAttribute('data-id', id);
+                    badge.innerHTML =
+                        `${name} <span class="ms-1 text-light" style="cursor:pointer;">&times;</span>`;
+                    addRemoveHandler(badge, id);
+
+                    authorTags.appendChild(badge);
+                }
+            });
+        });
+
         let ddcList = document.getElementById('ddc-list');
         let selected_ddc = document.getElementById('selected-ddc');
         let ddcTags = document.getElementById('ddc-tags');
@@ -356,6 +463,57 @@
                     });
 
                     ddcTags.appendChild(badge);
+                }
+            });
+        });
+
+        selected_ddc.querySelectorAll('option').forEach(opt => {
+            chosenddc[opt.value] = opt.text;
+        });
+
+        // fungsi hapus badge
+        function addRemoveHandlerDdc(badge, id) {
+            badge.querySelector('span').addEventListener('click', function() {
+                delete chosenddc[id];
+
+                selected_ddc.querySelector(`option[value="${id}"]`).remove();
+                badge.remove();
+            });
+        }
+
+        // pasang event hapus untuk badge yang sudah ada
+        ddcTags.querySelectorAll('.badge').forEach(badge => {
+            let id = badge.getAttribute('data-id');
+            addRemoveHandlerDdc(badge, id);
+        });
+
+        // ketika klik tombol pilih di modal
+        document.getElementById('select-ddc-btn').addEventListener('click', function() {
+            let checkboxes = document.querySelectorAll(
+                '#ddc-list input[type="checkbox"]:checked');
+
+            checkboxes.forEach(cb => {
+                if (!chosenddc[cb.value]) {
+                    let id = cb.value;
+                    let name = cb.nextElementSibling.innerText;
+                    chosenddc[id] = name;
+
+                    // Tambah ke select
+                    let option = document.createElement('option');
+                    option.value = id;
+                    option.text = name;
+                    option.selected = true;
+                    selected_ddc.appendChild(option);
+
+                    // Tambah badge
+                    let badge = document.createElement('span');
+                    badge.classList.add('badge', 'bg-secondary', 'me-1', 'mb-1');
+                    badge.setAttribute('data-id', id);
+                    badge.innerHTML =
+                        `${name} <span class="ms-1 text-light" style="cursor:pointer;">&times;</span>`;
+                    addRemoveHandler(badge, id);
+
+                    authorTags.appendChild(badge);
                 }
             });
         });

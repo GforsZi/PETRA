@@ -18,7 +18,7 @@
                 <td>{{ $classfication->ddc_code }}</td>
                 <td>{{ $classfication->ddc_description }}</td>
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>

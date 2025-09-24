@@ -168,6 +168,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/system/book/add', [ManageBookController::class, 'add_book_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/book/{id}/edit', [ManageBookController::class, 'edit_book_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/book/{id}/delete', [ManageBookController::class, 'delete_book_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/major/add', [ManageBookController::class, 'add_book_major_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');

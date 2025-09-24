@@ -13,8 +13,8 @@
                         <img src="{{ asset($book->bk_img_url ?? 'logo/uni_invt.png') }}"
                             class="card-img-top object-fit-contain cover" alt=""
                             height="200" />
-                        <div class="card-body">
-                            <h5 class="card-title text-wrap">{{ $book->bk_title }}</h5><br>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-wrap">{{ $book->bk_title }}</h5>
                             <p class="card-text text-wrap">
                                 <strong>Penulis:</strong>
                                 @foreach ($book->authors as $author)
@@ -25,7 +25,7 @@
                                 </small>{{ $book->bk_published_year }} </p>
                         </div>
                         <div class="d-flex w-100 align-items-center">
-                            <div class="dropdown ms-2 w-100">
+                            <div class="dropdown-center ms-2 w-100">
                                 <button class="btn btn-outline-warning w-100 dropdown-toggle"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-menu-down"></i>

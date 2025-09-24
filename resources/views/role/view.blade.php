@@ -17,12 +17,12 @@
                 <td>{{ $role->rl_name }}</td>
                 <td>{{ $role->rl_description }}</td>
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu ">
                             <li><a class="dropdown-item"
                                     href="/manage/role/{{ $role->rl_id }}/detail">Detail</a>
                             </li>

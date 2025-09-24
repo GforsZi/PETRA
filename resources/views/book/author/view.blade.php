@@ -16,12 +16,12 @@
                 <td>{{ $authors->firstItem() + $index }}</td>
                 <td>{{ $author->athr_name }}</td>
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu ">
                             <li><a class="dropdown-item"
                                     href="/manage/book/author/{{ $author->athr_id }}/detail">Detail</a>
                             </li>

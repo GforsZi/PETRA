@@ -18,7 +18,7 @@
                 <td>{{ $major->bk_mjr_class }}</td>
                 <td>{{ $major->bk_mjr_major }}</td>
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>

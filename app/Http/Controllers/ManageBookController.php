@@ -49,7 +49,8 @@ class ManageBookController extends Controller
 
     public function detail_book_page($id)
     {
-        return view('book.detail', ['title' => 'Halaman Detail Buku']);
+        $book = Book::withTrashed()->with('authors', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->find($id);
+        return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
 
     public function add_book_page()
@@ -130,16 +131,16 @@ class ManageBookController extends Controller
 
     public function edit_book_page($id)
     {
-          $publishers = Publisher::orderBy('pub_name', 'asc')->get();
+        $book = Book::withTrashed()->with('authors', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id')->find($id);
+        $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
-        return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors'));
+        return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors', 'book'));
     }
 
     public function edit_book_system(Request $request, $id)
     {
         $book = Book::find($id);
         $validateData = $request->validate([
-            'bk_isbn' => ['sometimes','nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
             'bk_title' => 'sometimes | required | string | max:255',
             'bk_description' => 'sometimes | nullable | string | max:255',
             'bk_page' => 'nullable | integer | max:9999999',
@@ -152,6 +153,13 @@ class ManageBookController extends Controller
             'image' => 'sometimes|nullable|image|max:2048',
             'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144',
         ]);
+
+        if ($request->bk_isbn != $book['bk_isbn']) {
+            $no_wa = $request->validate([
+                'bk_isbn' => ['sometimes', 'nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
+            ]);
+            $validateData['bk_isbn'] = $no_wa['bk_isbn'];
+        }
 
         if ($request->hasFile('image')) {
             $destinationPath = public_path('media/book_cover_img/');
@@ -184,8 +192,8 @@ class ManageBookController extends Controller
         }
 
         $book->update($validateData);
+        $book->authors()->detach();
         if ($request->has('authors')) {
-            $book->authors()->detach();
             $validateDataAuthor = $request->validate([
                 'authors' => 'sometimes|required|array|min:1',
                 'authors.*' => 'sometimes|exists:authors,athr_id',
@@ -194,8 +202,8 @@ class ManageBookController extends Controller
             $book->authors()->sync($validateDataAuthor['authors']);
         }
 
+        $book->deweyDecimalClassfications()->detach();
         if ($request->has('classfications')) {
-            $book->deweyDecimalClassfications()->detach();
             $validateDataDDC = $request->validate([
                 'classfications' => 'sometimes|required|array|min:1',
                 'classfications.*' => 'sometimes|exists:dewey_decimal_classfications,ddc_id',
