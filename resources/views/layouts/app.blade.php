@@ -200,9 +200,9 @@
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         <x-navbar></x-navbar>
-        @if (auth()->user()?->roles['rl_admin'] == true)
-            <x-sidebar></x-sidebar>
-        @endif
+        {{-- @if (auth()->user()?->roles['rl_admin'] == true)
+        @endif --}}
+        <x-sidebar></x-sidebar>
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">

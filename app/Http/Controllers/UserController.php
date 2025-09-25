@@ -35,4 +35,24 @@ class UserController extends Controller
     {
         return view('user.book.detail', ['title' => 'Halaman Detail Buku']);
     }
+
+    public function view_transaction_page()
+    {
+        return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman']);
+    }
+
+    public function add_transaction_page()
+    {
+        return view('user.transaction.add', ['title' => 'Halaman Tambah Peminjaman']);
+    }
+
+    public function edit_transaction_page($id)
+    {
+        return view('user.transaction.edit', ['title' => 'Halaman Ubah Peminjaman']);
+    }
+
+    public function detail_transaction_page($id)
+    {
+        return view('user.transaction.detail', ['title' => 'Halaman Detail Peminjaman']);
+    }
 }

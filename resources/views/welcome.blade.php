@@ -40,8 +40,16 @@
                 <h1>SELAMAT DATANG</h1>
                 <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
                 <div class="d-flex gap-3 flex-wrap">
-                    <a class="btn btn-outline-primary" href="/register">SIGN-UP</a>
-                    <a class="btn btn-gradient" href="/login">SIGN-IN</a>
+                    @auth
+                        @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
+                            <a class="btn btn-gradient me-1" href="/dashboard">Dashboard</a>
+                        @else
+                            <a class="btn btn-gradient me-1" href="/home">Home</a>
+                        @endif
+                    @else
+                        <a class="btn btn-outline-primary" href="/register">SIGN-UP</a>
+                        <a class="btn btn-gradient" href="/login">SIGN-IN</a>
+                    @endauth
                 </div>
             </div>
             <div class="gambar z-3" data-aos="fade-down-left" data-aos-duration="1500">
