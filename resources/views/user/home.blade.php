@@ -24,14 +24,14 @@
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
                     <h3 class="card-title">150</h3>
-                    <p class="card-text">Users</p>
+                    <p class="card-text">Pengguna</p>
                     <i class="fas fa-users fa-2x position-absolute top-0 end-0 m-3"></i>
                 </div>
             </div>
             <div class="card text-dark bg-warning">
                 <div class="card-body">
                     <h3 class="card-title">53<sup style="font-size: 20px">%</sup></h3>
-                    <p class="card-text">Growth</p>
+                    <p class="card-text">Pendatang Baru</p>
                     <i class="fas fa-chart-line fa-1x position-absolute top-0 end-0 m-3"></i>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="card text-white bg-danger" style="height: 100%;">
                 <div class="card-body">
                     <h3 class="card-title">44</h3>
-                    <p class="card-text">Errors</p>
+                    <p class="card-text"></p>
                     <i
                         class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
                 </div>
