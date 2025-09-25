@@ -40,7 +40,7 @@
             <div class="card text-white bg-danger" style="height: 100%;">
                 <div class="card-body">
                     <h3 class="card-title">44</h3>
-                    <p class="card-text"></p>
+                    <p class="card-text">Laporan</p>
                     <i
                         class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
                 </div>
