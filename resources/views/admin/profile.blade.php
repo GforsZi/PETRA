@@ -41,11 +41,11 @@
           </div>
 
           <div class="mt-3 d-flex gap-2">
-            <button class="button flex-center" title="Pengaturan">
-              <i class='bxr bx-cog' style='color:#f4ff0a; font-size: 25px;'></i>
+            <button class="button flex-center" title="Hapus">
+              <a href="#"><i class="bi bi-trash text-danger fs-4"></i></a>
             </button>
             <button class="button flex-center" title="Ubah profil">
-             <a href="/admin/profile/edit"> <i class='bxr bx-edit' style='color:#f4ff0a; font-size: 25px;'></i></a>
+             <a href="/admin/profile/edit"> <i class="bi bi-pencil-square text-info fs-4"></i></a>
             </button>
           </div>
 
@@ -76,7 +76,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #2d2e32;
+  background-color: white;
   border: 2px solid #2d2e32;
   transition: all 0.45s;
 }

@@ -49,203 +49,103 @@
                                         <div class="offcanvas offcanvas-end" tabindex="-1"
                                             id="offcanvasRight"
                                             aria-labelledby="offcanvasRightLabel">
-                                            <div class="offcanvas-header">
-                                                <h5 class="offcanvas-title"
-                                                    id="offcanvasRightLabel">Right Sidebar</h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="offcanvas"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="offcanvas-body">
+                                       
+                                            <div class="offcanvas-body p-0 h-100">
                                 <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
                                                 <style>
 
-    .chat-card{
-      width:360px;
-      height:600px;                
-      max-width:96vw;
-      border-radius:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 10px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.04);
-      display:flex;
-      flex-direction:column;
-    }
 
-    .chat-header{
-      display:flex;gap:12px;align-items:center;
-      padding:14px 16px;
-      background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
-    }
-    .avatar{
-      width:44px;height:44px;border-radius:10px;
-      background:linear-gradient(135deg,var(--accent),#3b82f6);
-      display:flex;align-items:center;justify-content:center;
-      color:white;font-weight:700;
-      box-shadow:0 6px 18px rgba(6,182,212,0.12)
-    }
-    .title{flex:1}
-    .title h4{margin:0;font-size:15px;color:#e6f7fb}
-    .title p{margin:0;font-size:12px;color:var(--muted)}
 
-    .chat-body{
-      flex:1;
-      padding:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.007), transparent);
-      display:flex;flex-direction:column;gap:12px;
-      overflow:auto;
-    }
+/* Bubble pesan */
+.msg {
+  max-width: 75%;
+  padding: .6rem .9rem;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+.msg.user {
+  align-self: flex-end;
+  background: var(--bs-success);
+  color: #fff;
+}
+.msg.bot {
+  align-self: flex-start;
+  background: var(--bs-dark);
+  color: #fff;
+}
 
-    .chat-footer{
-      display:flex;gap:8px;
-      padding:12px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.01));
-      align-items:center
-    }
-
-    .input {
-      flex: 1;
-      display: flex;
-      gap: 8px;
-      background: var(--glass);
-      padding: 8px;
-      border-radius: 12px;
-      align-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .input input {
-      flex: 1;
-      border: 0;
-      background: transparent;
-      color: #e6f7fb;
-      outline: none;
-      font-size: 14px;
-    }
-
-    .tombol{
-      background:var(--accent);
-      border:0;
-      padding:10px 12px;
-      border-radius:10px;
-      color:#042027;
-      font-weight:600;
-      cursor:pointer
-    }
-
-    /* 🟢 Chat bubble */
-    .msg{
-      max-width:75%;
-      padding:10px 14px;
-      border-radius:14px;
-      font-size:14px;
-      line-height:1.4;
-      word-wrap:break-word;
-    }
-    .msg.user{
-      align-self:flex-end;
-      background:linear-gradient(180deg,#064e3b,#065f46);
-      color:#eafbf5;
-      border:1px solid rgba(255,255,255,0.05)
-    }
-    .msg.bot{
-      align-self:flex-start;
-      background:linear-gradient(180deg,#0b1323,#0e1a2d);
-      color:#dff6fb;
-      border:1px solid rgba(255,255,255,0.03)
-    }
-
-    .chat-body::-webkit-scrollbar{width:8px}
-    .chat-body::-webkit-scrollbar-thumb{
-      background:rgba(255,255,255,0.03);
-      border-radius:8px
-    }
-
-/* #toggleQuickBtn {
-  background: var(--accent);
-  border: none;
-  border-radius: 10px;
-  color: #08CB00;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 8px 12px;
-  margin-right: 6px;
-} */
-
+/* Quick message panel */
 .quick-messages {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  background: #0d0d0d;
-  padding: 15px 20px;
-  border-radius: 20px;
-  margin: 10px 0;
+  gap: .5rem;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  transition: max-height .3s ease, opacity .3s ease;
 }
-
 .quick-messages.show {
   max-height: 300px;
   opacity: 1;
 }
+</style>
 
-.quick-item {
-  background: #1a1a1a;
-  color: #e6f7fb;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.quick-item:hover {
-  background: #242424;
-}
+<main class="card shadow-lg rounded-0 h-100 w-100 border-0">
+  <!-- Header -->
+  <header class="card-header d-flex align-items-center gap-2 bg-body-tertiary">
+    <div class="d-flex align-items-center justify-content-center bg-primary text-white fw-bold rounded-3" style="width:44px;height:44px;">
+      <i class="bx bxs-robot fs-5"></i>
+    </div>
+    <div class="flex-grow-1">
+      <h6 class="mb-0">ChatBot — PETRA</h6>
+      <small class="text-muted">• Online</small>
+    </div>
+         <div class="offcanvas-header">
 
-  </style>
+      <button type="button" class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+      </div>
+  </header>
 
-  <main class="chat-card">
-    <header class="chat-header">
-      <div class="avatar"><i class='bx bxs-robot' style='color:#f3fdfc'></i></div>
-      <div class="title">
-        <h4>ChatBot — PETRA</h4>
-      </div> 
-      <div style="font-size:13px;color:var(--muted)">• Online</div>
-    </header>
+  <!-- Body -->
+  <section id="chat-body" class="card-body d-flex flex-column gap-2 overflow-auto bg-body">
+    <!-- Pesan akan masuk di sini -->
+  </section>
 
-    <section class="chat-body" id="chat-body">
-      <!-- pesan muncul di sini -->
-    </section>
+  <!-- Footer -->
+  <div class="card-footer bg-body-tertiary">
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
+      <div class="input-group">
+        <input type="text" id="chatInput" class="form-control" placeholder="Ketik pesan...">
+        <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
+      </div>
+    </div>
 
-<div class="chat-footer">
-  <button type="button"id="toggleQuickBtn" class="btn btn-success">opsi</button>
-
-  <div class="input">
-    <input type="text" id="chatInput" placeholder="Ketik pesan..." />
-    <button type="button" class="btn btn-success" id="sendBtn">Kirim</button>
+    <!-- Panel Quick Message -->
+    <div class="quick-messages mt-3" id="quickPanel">
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Halo">Halo</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Apa kabar?">Apa kabar?</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Saya butuh bantuan">Butuh bantuan</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Terima kasih">Terima kasih</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Selamat pagi">Selamat pagi</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Selamat malam">Selamat malam</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Saya tertarik">Saya tertarik</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Boleh info lebih lanjut?">Info lanjut</button>
+    </div>
   </div>
-</div>
+</main>
 
-<!-- Panel quick message -->
-<div class="quick-messages" id="quickPanel">
-  <button class="quick-item" data-msg="Halo ">Halo </button>
-  <button class="quick-item" data-msg="Apa kabar?">Apa kabar?</button>
-  <button class="quick-item" data-msg="Saya butuh bantuan">Butuh bantuan</button>
-  <button class="quick-item" data-msg="Terima kasih ">Terima kasih </button>
-  <button class="quick-item" data-msg="Selamat pagi ">Selamat pagi </button>
-  <button class="quick-item" data-msg="Selamat malam ">Selamat malam </button>
-  <button class="quick-item" data-msg="Saya tertarik">Saya tertarik</button>
-  <button class="quick-item" data-msg="Boleh info lebih lanjut?">Info lanjut</button>
-</div>
 
-  </main>
 
 
 <script>
+
+
+
 const chatBody = document.getElementById('chat-body');
 const chatInput = document.getElementById('chatInput');
 const sendBtn = document.getElementById('sendBtn');
