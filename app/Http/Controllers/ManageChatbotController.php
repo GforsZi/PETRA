@@ -21,12 +21,14 @@ class ManageChatbotController extends Controller
 
     public function manage_chatbot_option_page()
     {
-        return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot']);
+        $options = ChatOption::select('cht_opt_id', 'cht_opt_title')->latest()->paginate(10);
+        return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot'], compact('options'));
     }
 
     public function detail_chatbot_option_page($id)
     {
-        return view('chat.option.detail', ['title' => 'Halaman Detail Opsi Chatbot']);
+        $option = ChatOption::withTrashed()->with('created_by', 'updated_by', 'deleted_by')->find($id);
+        return view('chat.option.detail', ['title' => 'Halaman Detail Opsi Chatbot'], compact('option'));
     }
 
     public function add_chatbot_option_page()
@@ -42,12 +44,13 @@ class ManageChatbotController extends Controller
         ]);
 
         ChatOption::create($validateData);
-        return redirect('/manage/chatbot/option')->with('success', 'opsi pesan Berhasil Ditambahkan');
+        return redirect('/manage/chat/option')->with('success', 'opsi pesan Berhasil Ditambahkan');
     }
 
     public function edit_chatbot_option_page($id)
     {
-        return view('chat.option.edit', ['title' => 'Halaman Ubah Opsi Chatbot']);
+        $option = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_message')->find($id);
+        return view('chat.option.edit', ['title' => 'Halaman Ubah Opsi Chatbot'], compact('option'));
     }
 
     public function edit_chatbot_option_system(Request $request, $id)
@@ -60,7 +63,14 @@ class ManageChatbotController extends Controller
         ]);
 
         $option->update($validateData);
-        return redirect('/manage/chatbot/option/' . $id . '/detail')->with('success', 'Opsi Pesan Berhasil Diubah');
+        return redirect('/manage/chat/option')->with('success', 'Opsi Pesan Berhasil Diubah');
+    }
+
+    public function delete_chatbot_option_system(Request $request, $id)
+    {
+        $option = ChatOption::find($id);
+        $option->delete();
+        return redirect('/manage/chat/option')->with('success', 'Opsi Pesan Berhasil Dihapus');
     }
 
     public function manage_chatbot_notification_page()

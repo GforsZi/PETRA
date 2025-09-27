@@ -172,10 +172,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction/add', [UserController::class, 'add_transaction_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
-    Route::get('/transaction/{$id}/edit', [UserController::class, 'edit_transaction_page'])
+    Route::get('/transaction/{id}/edit', [UserController::class, 'edit_transaction_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
-    Route::get('/transaction/{$id}/detail', [UserController::class, 'detail_transaction_page'])
+    Route::get('/transaction/{id}/detail', [UserController::class, 'detail_transaction_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
 });
@@ -274,6 +274,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/system/chat/disconnect', [ManageChatbotController::class, 'disconnect_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')->name('devices.disconnect');
+    Route::post('/system/option/add', [ManageChatbotController::class, 'add_chatbot_option_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/option/{id}/edit', [ManageChatbotController::class, 'edit_chatbot_option_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/option/{id}/delete', [ManageChatbotController::class, 'delete_chatbot_option_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])
