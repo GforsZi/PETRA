@@ -22,7 +22,7 @@
                 </button>
 
             </div>
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary">Kirim</button>
             </div>
         </div>
 
@@ -38,7 +38,6 @@
                 }
             });
 
-            // Klik tombol X = hapus teks
             clearBtn.addEventListener('click', () => {
                 input.value = '';
                 clearBtn.classList.add('d-none');
