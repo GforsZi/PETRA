@@ -17,7 +17,7 @@
     <div class="card-header">
         <h3 class="card-title">{{ $title }}</h3>
         <div class="card-tools">
-            <ul class="pagination pagination-sm float-end">
+            <ul class="pagination p-2 pagination-sm float-end">
                 {{-- Tombol Previous --}}
                 @if ($paginator)
 

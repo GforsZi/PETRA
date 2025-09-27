@@ -117,7 +117,37 @@ class ManageChatbotController extends Controller
 
     public function manage_device_page()
     {
-        return view('chat.device.view', ['title' => 'Halaman Kelola Perangkat']);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/get-devices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: ' . config('services.fonnte.account_token'), // Get the token from the services config
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        // Decode the response
+        $data = json_decode($response, true);
+
+        // Check if the response is successful
+        if ($data['status']) {
+            $devices = $data['data']; // Use the 'data' array from the response
+        } else {
+            $devices = []; // Handle error case
+        }
+        $devices_pg = Device::select('dvc_id', 'dvc_name', 'dvc_device')->latest()->paginate(10);
+        return view('chat.device.view', ['title' => 'Halaman Kelola Perangkat'], compact('devices', 'devices_pg'));
     }
 
     public function add_device_page()
@@ -125,11 +155,11 @@ class ManageChatbotController extends Controller
         return view('chat.device.add', ['title' => 'Halaman Tambah Perangkat']);
     }
 
-    public function add_device_system(Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'device' => 'required|string|max:255',
+            'device' => 'required|string|max:255|phone:ID',
         ]);
 
         $accountToken = config('services.fonnte.account_token');
@@ -146,17 +176,17 @@ class ManageChatbotController extends Controller
 
         if ($response->failed()) {
             return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
+            ->back()
+            ->withInput()
+            ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
         }
 
         $response = $response->json();
         if (!$response['status']) {
             return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', $response['reason'] ?? 'Failed to add device.');
+            ->back()
+            ->withInput()
+            ->with('error', $response['reason'] ?? 'Failed to add device.');
         }
 
         Device::create([
@@ -165,7 +195,7 @@ class ManageChatbotController extends Controller
             'dvc_token' => $response['token'] ?? null,
         ]);
 
-        return redirect('/manage/device')->with('success', 'Device added successfully!');
+        return redirect('/manage/chat/device')->with('success', 'Device added successfully!');
     }
 
     public function activate_device_system(Request $request)
@@ -208,7 +238,7 @@ class ManageChatbotController extends Controller
         }
     }
 
-    public function destroy_system($deviceId, Request $request)
+    public function destroy($deviceId, Request $request)
     {
         if ($request->otp) {
             $delete = $this->fonnteService->submitOTPForDeleteDevice($request->otp, $deviceId);
@@ -229,7 +259,7 @@ class ManageChatbotController extends Controller
         return response()->json(['message' => 'Gagal mengirim token', 'error' => $requestToken['error']], 500);
     }
 
-    protected function request_OTP_for_delete_device_system($notificationId, $deviceId)
+    protected function requestOTPForDeleteDevice($notificationId, $deviceId)
     {
         $device = Device::findOrFail($deviceId);
         $response = $this->fonnteService->requestOTPForDeleteDevice($device->token);
@@ -241,7 +271,7 @@ class ManageChatbotController extends Controller
         }
     }
 
-    protected function submit_OTP_for_delete_device_system(Request $request, $deviceId)
+    protected function submitOTPForDeleteDevice(Request $request, $deviceId)
     {
         $device = Device::findOrFail($deviceId);
         $otp = $request->input('otp');

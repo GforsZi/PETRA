@@ -22,7 +22,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>
                         </button>
-                        <ul class="dropdown-menu ">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item"
                                     href="/manage/role/{{ $role->rl_id }}/detail">Detail</a>
                             </li>

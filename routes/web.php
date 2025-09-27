@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ManageAcoountController;
 use App\Http\Controllers\ManageBookController;
+use App\Http\Controllers\ManageChatbotController;
 use App\Http\Controllers\ManageHistoryController;
 use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\UserController;
@@ -129,6 +130,27 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/history', [ManageHistoryController::class, 'manage_history_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/device', [ManageChatbotController::class, 'manage_device_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/device/add', [ManageChatbotController::class, 'add_device_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/option', [ManageChatbotController::class, 'manage_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/option/add', [ManageChatbotController::class, 'add_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/option/{id}/detail', [ManageChatbotController::class, 'detail_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/option/add', [ManageChatbotController::class, 'add_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/chat/option/{id}/edit', [ManageChatbotController::class, 'edit_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
 });
 
 Route::middleware('auth')->group(function () {
@@ -240,6 +262,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/system/ddc/{id}/delete', [ManageBookController::class, 'delete_book_classfication_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::resource('/system/chat', ManageChatbotController::class)
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/chat/send_message', [ManageChatbotController::class, 'send_message_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('send.message');
+    Route::post('/system/chat/activate', [ManageChatbotController::class, 'activate_device_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('devices.activate');
+    Route::post('/system/chat/disconnect', [ManageChatbotController::class, 'disconnect_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('devices.disconnect');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])

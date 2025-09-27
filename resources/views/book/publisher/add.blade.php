@@ -15,7 +15,7 @@
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Penerbit</label>
                     <div class="col-sm-10">
                         <input type="text" name="pub_name"
-                            class="form-control @error('athr_name') is-invalid @enderror"
+                            class="form-control @error('pub_name') is-invalid @enderror"
                             id="inputEmail3">
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Alamat Penerbit</label>
                     <div class="col-sm-10">
                         <input type="text" name="pub_address"
-                            class="form-control @error('athr_name') is-invalid @enderror"
+                            class="form-control @error('pub_address') is-invalid @enderror"
                             id="inputEmail3">
                     </div>
                 </div>

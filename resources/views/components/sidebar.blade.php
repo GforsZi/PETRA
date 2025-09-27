@@ -99,13 +99,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/manage/account" class="nav-link" style='color: #E9AD01;'>
+                                <a href="/manage/chat/device" class="nav-link"
+                                    style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Kelola Perangkat</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/role" class="nav-link" style='color: #E9AD01;'>
+                                <a href="/manage/chat/option" class="nav-link"
+                                    style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Kelola Opsi</p>
                                 </a>
