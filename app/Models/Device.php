@@ -22,7 +22,21 @@ class Device extends Model
     const UPDATED_AT = 'dvc_updated_at';
     const DELETED_AT = 'dvc_deleted_at';
 
-    public function notification(): HasMany {
+    public function notification(): HasMany
+    {
         return $this->hasMany(ChatNotification::class, 'cht_notif_device_id', 'dvc_id');
+    }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dvc_deleted_by', 'usr_id');
     }
 }

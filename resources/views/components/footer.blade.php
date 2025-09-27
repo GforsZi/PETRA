@@ -6,6 +6,6 @@
     <strong>
         PETRA
     </strong>
-   |WPMP
+    |WPMP
     <!--end::Copyright-->
 </footer>

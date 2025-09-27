@@ -19,12 +19,15 @@
 
 </head>
 
+<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+
+
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         <x-navbar></x-navbar>
-        @if (auth()->user()?->roles['rl_admin'] == true)
-            <x-sidebar></x-sidebar>
-        @endif
+        {{-- @if (auth()->user()?->roles['rl_admin'] == true)
+        @endif --}}
+        <x-sidebar></x-sidebar>
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -45,10 +48,12 @@
                                         <button class="btn mx-1" type="button"
                                             data-bs-toggle="offcanvas"
                                             data-bs-target="#offcanvasRight"
-                                            aria-controls="offcanvasRight"><i class="bi bi-robot"></i></button>
+                                            aria-controls="offcanvasRight"><i
+                                                class="bi bi-robot"></i></button>
                                         <div class="offcanvas offcanvas-end" tabindex="-1"
                                             id="offcanvasRight"
                                             aria-labelledby="offcanvasRightLabel">
+
                                        
                                             <div class="offcanvas-body p-0 h-100">
                                 <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
@@ -76,7 +81,7 @@
   color: #fff;
 }
 
-/* Quick message panel */
+
 .quick-messages {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -112,7 +117,7 @@
 
   <!-- Body -->
   <section id="chat-body" class="card-body d-flex flex-column gap-2 overflow-auto bg-body">
-    <!-- Pesan akan masuk di sini -->
+    
   </section>
 
   <!-- Footer -->
@@ -128,13 +133,18 @@
     <!-- Panel Quick Message -->
     <div class="quick-messages mt-3" id="quickPanel">
       <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Halo">Halo</button>
-      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Apa kabar?">Apa kabar?</button>
-      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Saya butuh bantuan">Butuh bantuan</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Akun saya bermasalah">Akun saya bermasalah</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Saya butuh bantuan">Saya Butuh bantuan</button>
       <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Terima kasih">Terima kasih</button>
-      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Selamat pagi">Selamat pagi</button>
-      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Selamat malam">Selamat malam</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Laporkan Masalah">Laporkan Masalah</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg=" masalah sudah selesai">masalah sudah selesai</button>
       <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Saya tertarik">Saya tertarik</button>
-      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Boleh info lebih lanjut?">Info lanjut</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg=" info lebih lanjut">Info lebih lanjut</button>
+
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="adakah Buku terbaru"> adakah Buku terbaru</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Cara liat descripsi buku">Cara liat descripsi buku</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Cara pinjam buku">Cara pinjam buku</button>
+      <button class="btn btn-outline-secondary btn-sm quick-item" data-msg="Oke">Oke</button>
     </div>
   </div>
 </main>
@@ -161,7 +171,7 @@ function addMessage(text, type) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// 🔹 Animasi mengetik
+
 function showTyping() {
   const typing = document.createElement('div');
   typing.classList.add('msg', 'bot');
@@ -176,30 +186,39 @@ function removeTyping() {
   if (typing) typing.remove();
 }
 
-// 🔹 Balasan bot sesuai isi pesan (case-insensitive)
+// 🔹 Balasan bot sesuai isi pesan 
 function botReply(userMsg) {
-  const msg = userMsg.trim().toLowerCase(); // <- normalisasi
+  const msg = userMsg.trim().toLowerCase(); 
 
-  if (msg === 'halo ' || msg === 'halo') {
+  if (msg === 'halo') {
     return 'Hai juga! 👋 Senang bertemu denganmu.';
-  } else if (msg === 'apa kabar?' || msg === 'apa kabar') {
-    return 'Aku baik, terima kasih sudah bertanya 😊';
-  } else if (msg === 'saya butuh bantuan') {
-    return 'Tentu! Bisa jelaskan bantuan apa yang kamu perlukan? 📝';
-  } else if (msg === 'terima kasih ' || msg === 'terima kasih') {
-    return 'Sama-sama! Semoga harimu menyenangkan 🌞';
-  } else if (msg === 'selamat pagi ' || msg === 'selamat pagi') {
-    return 'Selamat pagi juga! 🌻 Semoga harimu cerah!';
-  } else if (msg === 'selamat malam ' || msg === 'selamat malam') {
-    return 'Selamat malam 🌙 Semoga mimpi indah ya~';
+  } else if (msg === 'akun saya bermasalah') {
+    return 'Baik, untuk masalah akun silakan hubungi admin untuk tindak lebih lanjut';
+  } else if (msg === 'saya butuh bantuan' || msg === 'butuh bantuan') {
+    return 'Tentu! Bisa jelaskan bantuan apa yang kamu perlukan? ';
+  } else if (msg === 'terima kasih') {
+    return 'Sama-sama! Semoga harimu menyenangkan ';
+  } else if (msg === 'laporkan masalah') {
+    return 'Siap, laporkan masalah kepada admin';
+  } else if (msg === 'masalah sudah selesai') {
+    return 'Bagus kamu memang pintar dalam menghadapi masalah';
   } else if (msg === 'saya tertarik') {
-    return 'Wah senang mendengarnya! 😄 Ingin lanjut daftar?';
-  } else if (msg === 'boleh info lebih lanjut?' || msg === 'boleh info lebih lanjut') {
-    return 'Tentu! Aku bisa kirim detail infonya 📩';
+    return 'Wah senang mendengarnya!';
+  } else if (msg === 'info lebih lanjut?' || msg === 'info lebih lanjut') {
+    return 'Tentu! klik link dibawah ini untuk info dari admin';
+  } else if (msg === 'adakah buku terbaru') {
+    return 'Oh Tentu, ada buku baru dan menarik buat kamu yang special. apa kamu tertarik?';
+  } else if (msg === 'cara liat descripsi buku') {
+    return 'Klik pada buku atau button untuk melihat deskripsi lengkap.';
+  } else if (msg === 'cara pinjam buku') {
+    return 'Kamu bisa klik tombol pada sidebar lalu ikuti instruksi selanjutnya ';
+  } else if (msg === 'oke') {
+    return 'Sip 👍 Kalau ada yang lain, kabari aku ya.';
   }
 
-  return 'Maaf, saya tidak mengerti.';
+  return 'Maaf, saya tidak mengerti. Bisa coba pilih pesan cepat di bawah';
 }
+
 
 // 🔹 Kirim pesan manual dari input
 function sendUserMessage() {
@@ -250,6 +269,7 @@ document.querySelectorAll('.quick-item').forEach(item => {
 
 
     <!-- akhir -->
+
                                             </div>
                                         </div>
                                     </div>
@@ -275,6 +295,106 @@ document.querySelectorAll('.quick-item').forEach(item => {
     </div>
 
 </body>
+<!-- <script>
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const toggleQuickBtn = document.getElementById('toggleQuickBtn');
+    const quickPanel = document.getElementById('quickPanel');
+
+    // 🔹 Tambah pesan bubble
+    function addMessage(text, type) {
+        const msg = document.createElement('div');
+        msg.classList.add('msg', type);
+        msg.textContent = text;
+        chatBody.appendChild(msg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // 🔹 Animasi mengetik
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.classList.add('msg', 'bot');
+        typing.textContent = 'Bot sedang mengetik...';
+        typing.id = 'typing';
+        chatBody.appendChild(typing);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function removeTyping() {
+        const typing = document.getElementById('typing');
+        if (typing) typing.remove();
+    }
+
+    // 🔹 Balasan bot sesuai isi pesan (case-insensitive)
+    function botReply(userMsg) {
+        const msg = userMsg.trim().toLowerCase(); // <- normalisasi
+
+        if (msg === 'halo ' || msg === 'halo') {
+            return 'Hai juga! 👋 Senang bertemu denganmu.';
+        } else if (msg === 'apa kabar?' || msg === 'apa kabar') {
+            return 'Aku baik, terima kasih sudah bertanya 😊';
+        } else if (msg === 'saya butuh bantuan') {
+            return 'Tentu! Bisa jelaskan bantuan apa yang kamu perlukan? 📝';
+        } else if (msg === 'terima kasih ' || msg === 'terima kasih') {
+            return 'Sama-sama! Semoga harimu menyenangkan 🌞';
+        } else if (msg === 'selamat pagi ' || msg === 'selamat pagi') {
+            return 'Selamat pagi juga! 🌻 Semoga harimu cerah!';
+        } else if (msg === 'selamat malam ' || msg === 'selamat malam') {
+            return 'Selamat malam 🌙 Semoga mimpi indah ya~';
+        } else if (msg === 'saya tertarik') {
+            return 'Wah senang mendengarnya! 😄 Ingin lanjut daftar?';
+        } else if (msg === 'boleh info lebih lanjut?' || msg === 'boleh info lebih lanjut') {
+            return 'Tentu! Aku bisa kirim detail infonya 📩';
+        }
+
+        return 'Maaf, saya tidak mengerti.';
+    }
+
+    // 🔹 Kirim pesan manual dari input
+    function sendUserMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage(botReply(text), 'bot');
+        }, 1500);
+    }
+
+    sendBtn.addEventListener('click', sendUserMessage);
+
+    // Kirim saat tekan Enter
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendUserMessage();
+        }
+    });
+
+    // 🔹 Tampilkan/Sembunyikan panel quick message
+    toggleQuickBtn.addEventListener('click', () => {
+        quickPanel.classList.toggle('show');
+    });
+
+    // 🔹 Saat quick message diklik
+    document.querySelectorAll('.quick-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const text = item.dataset.msg;
+            addMessage(text, 'user');
+            quickPanel.classList.remove('show');
+
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                addMessage(botReply(text), 'bot');
+            }, 1500);
+        });
+    });
+</script> -->
 @vite(['resources/js/app.js'])
 <script
     src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"

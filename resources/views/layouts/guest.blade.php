@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #f9fafc ;">
     {{ $slot }}
 </body>
 @vite(['resources/js/app.js'])

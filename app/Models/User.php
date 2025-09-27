@@ -34,10 +34,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * Get the attributes that should be cast.
@@ -57,7 +54,21 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'usr_role_id', 'rl_id');
     }
 
-    public function transactions(): HasMany {
+    public function transactions(): HasMany
+    {
         return $this->hasMany(Transaction::class, 'trx_user_id', 'usr_id');
+    }
+
+    public function created_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_created_by', 'usr_id');
+    }
+    public function updated_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_updated_by', 'usr_id');
+    }
+    public function deleted_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'usr_deleted_by', 'usr_id');
     }
 }

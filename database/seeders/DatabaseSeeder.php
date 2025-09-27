@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create();
         // User::factory(10)->create();
 
-
         $admin_role = Role::firstOrCreate([
             'rl_name' => 'Pustakawan',
             'rl_description' => 'sarana perasarana',
@@ -32,22 +31,22 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin = User::firstOrCreate(
-            ['usr_no_wa' => '08223456789',],
+            ['usr_no_wa' => '08223456789'],
             [
                 'name' => 'gfors',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
                 'usr_role_id' => $admin_role->rl_id,
-            ]
+            ],
         );
         $user = User::firstOrCreate(
-            ['usr_no_wa' => '08123456789',],
+            ['usr_no_wa' => '08123456789'],
             [
                 'name' => 'zi',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
                 'usr_role_id' => $user_role->rl_id,
-            ]
+            ],
         );
     }
 }

@@ -19,19 +19,23 @@ class ManageChatbotController extends Controller
         $this->fonnteService = $fonnteService;
     }
 
-    public function manage_chatbot_option_page() {
+    public function manage_chatbot_option_page()
+    {
         return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot']);
     }
 
-    public function detail_chatbot_option_page($id) {
+    public function detail_chatbot_option_page($id)
+    {
         return view('chat.option.detail', ['title' => 'Halaman Detail Opsi Chatbot']);
     }
 
-    public function add_chatbot_option_page() {
+    public function add_chatbot_option_page()
+    {
         return view('chat.option.add', ['title' => 'Halaman Tambah Opsi Chatbot']);
     }
 
-    public function add_chatbot_option_system(Request $request) {
+    public function add_chatbot_option_system(Request $request)
+    {
         $validateData = $request->validate([
             'cht_opt_title' => 'required | string | max:255',
             'cht_opt_message' => 'required | string | max:255',
@@ -41,11 +45,13 @@ class ManageChatbotController extends Controller
         return redirect('/manage/chatbot/option')->with('success', 'opsi pesan Berhasil Ditambahkan');
     }
 
-    public function edit_chatbot_option_page($id) {
+    public function edit_chatbot_option_page($id)
+    {
         return view('chat.option.edit', ['title' => 'Halaman Ubah Opsi Chatbot']);
     }
 
-    public function edit_chatbot_option_system(Request $request, $id) {
+    public function edit_chatbot_option_system(Request $request, $id)
+    {
         $option = ChatOption::find($id);
 
         $validateData = $request->validate([
@@ -57,27 +63,31 @@ class ManageChatbotController extends Controller
         return redirect('/manage/chatbot/option/' . $id . '/detail')->with('success', 'Opsi Pesan Berhasil Diubah');
     }
 
-    public function manage_chatbot_notification_page() {
+    public function manage_chatbot_notification_page()
+    {
         return view('chat.notification.view', ['title' => 'Halaman Kelola Notifikasi']);
     }
 
-    public function detail_chatbot_notification_page($id) {
+    public function detail_chatbot_notification_page($id)
+    {
         return view('chat.notification.detail', ['title' => 'Halaman Detail Notofikasi']);
     }
 
-    public function add_chatbot_notification_page() {
+    public function add_chatbot_notification_page()
+    {
         return view('chat.notification.add', ['title' => 'Halaman Tambah Notifikasi']);
     }
 
-    public function add_chatbot_notification_system(Request $request) {
+    public function add_chatbot_notification_system(Request $request)
+    {
         $request->validate([
-            'target'    => 'required|string',
-            'message'   => 'required|string',
+            'target' => 'required|string',
+            'message' => 'required|string',
         ]);
 
-        $target         = $request->input('target');
-        $message        = $request->input('message');
-        $deviceToken    = $request->input('device_token');
+        $target = $request->input('target');
+        $message = $request->input('message');
+        $deviceToken = $request->input('device_token');
 
         $response = $this->fonnteService->sendWhatsAppMessage($target, $message, $deviceToken);
 
@@ -88,7 +98,7 @@ class ManageChatbotController extends Controller
 
         return response()->json([
             'message' => 'Pesan berhasil dikirim!',
-            'data' => $response['data']
+            'data' => $response['data'],
         ]);
     }
 
@@ -105,11 +115,13 @@ class ManageChatbotController extends Controller
         return null;
     }
 
-    public function manage_device_page() {
+    public function manage_device_page()
+    {
         return view('chat.device.view', ['title' => 'Halaman Kelola Perangkat']);
     }
 
-    public function add_device_page() {
+    public function add_device_page()
+    {
         return view('chat.device.add', ['title' => 'Halaman Tambah Perangkat']);
     }
 
@@ -133,12 +145,18 @@ class ManageChatbotController extends Controller
         ]);
 
         if ($response->failed()) {
-            return redirect()->back()->withInput()->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
         }
 
         $response = $response->json();
         if (!$response['status']) {
-            return redirect()->back()->withInput()->with('error', $response['reason'] ?? 'Failed to add device.');
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', $response['reason'] ?? 'Failed to add device.');
         }
 
         Device::create([
@@ -164,10 +182,13 @@ class ManageChatbotController extends Controller
             ]);
         }
 
-        return response()->json([
-            'status' => false,
-            'error' => $response['error'] ?? 'Failed to activate the device.'
-        ], 500);
+        return response()->json(
+            [
+                'status' => false,
+                'error' => $response['error'] ?? 'Failed to activate the device.',
+            ],
+            500,
+        );
     }
 
     public function disconnect_system(Request $request)
@@ -244,13 +265,11 @@ class ManageChatbotController extends Controller
         $accountToken = config('services.fonnte.account_token');
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.fonnte.com/get-devices',
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: ' . $accountToken,
-            ),
-        ));
+            CURLOPT_HTTPHEADER => ['Authorization: ' . $accountToken],
+        ]);
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -272,11 +291,7 @@ class ManageChatbotController extends Controller
             $deviceToken = substr($deviceToken, 7);
         }
 
-        $response = $this->fonnteService->sendWhatsAppMessage(
-            $request->input('target'),
-            $request->input('message'),
-            $deviceToken
-        );
+        $response = $this->fonnteService->sendWhatsAppMessage($request->input('target'), $request->input('message'), $deviceToken);
 
         if (!$response['status'] || (isset($response['data']['status']) && !$response['data']['status'])) {
             $errorReason = $response['data']['reason'] ?? 'Unknown error occurred';

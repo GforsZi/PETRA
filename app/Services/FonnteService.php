@@ -11,14 +11,13 @@ class FonnteService
 
     // Konstanta endpoint API Fonnte
     const ENDPOINTS = [
-        'send_message'  => 'https://api.fonnte.com/send',
-        'add_device'    => 'https://api.fonnte.com/add-device',
+        'send_message' => 'https://api.fonnte.com/send',
+        'add_device' => 'https://api.fonnte.com/add-device',
         'qr_activation' => 'https://api.fonnte.com/qr',
-        'get_devices'   => 'https://api.fonnte.com/get-devices',
+        'get_devices' => 'https://api.fonnte.com/get-devices',
         'device_profile' => 'https://api.fonnte.com/device',
         'delete_device' => 'https://api.fonnte.com/delete-device',
-        'disconnect'    => 'https://api.fonnte.com/disconnect',
-
+        'disconnect' => 'https://api.fonnte.com/disconnect',
     ];
 
     public function __construct()
@@ -28,9 +27,7 @@ class FonnteService
 
     protected function makeRequest($endpoint, $params = [], $useAccountToken = true, $deviceToken = null)
     {
-        $token = $useAccountToken
-            ? $this->account_token
-            : ($deviceToken ?? null);
+        $token = $useAccountToken ? $this->account_token : $deviceToken ?? null;
 
         if (!$token) {
             return ['status' => false, 'error' => 'API token or device token is required.'];
@@ -39,7 +36,7 @@ class FonnteService
         // Gunakan JSON format dan pastikan Content-Type header benar
         $response = Http::withHeaders([
             'Authorization' => $token,
-            'Content-Type'  => 'application/json', // Tambahkan header
+            'Content-Type' => 'application/json', // Tambahkan header
         ])->post($endpoint, $params);
 
         // Log respons untuk memudahkan debugging
@@ -48,22 +45,27 @@ class FonnteService
         if ($response->failed()) {
             return [
                 'status' => false,
-                'error'  => $response->json()['reason'] ?? 'Unknown error occurred',
+                'error' => $response->json()['reason'] ?? 'Unknown error occurred',
             ];
         }
 
         return [
             'status' => true,
-            'data'   => $response->json(),
+            'data' => $response->json(),
         ];
     }
 
     public function sendWhatsAppMessage($phoneNumber, $message, $deviceToken)
     {
-        return $this->makeRequest(self::ENDPOINTS['send_message'], [
-            'target'  => $phoneNumber,
-            'message' => $message,
-        ], '', $deviceToken);
+        return $this->makeRequest(
+            self::ENDPOINTS['send_message'],
+            [
+                'target' => $phoneNumber,
+                'message' => $message,
+            ],
+            '',
+            $deviceToken,
+        );
     }
 
     public function getAllDevices()
@@ -74,11 +76,11 @@ class FonnteService
     public function addDevice($name, $phoneNumber)
     {
         $params = [
-            'name'    => $name,
-            'device'  => $phoneNumber,
-            'autoread' => 'false',  // string "false", bukan boolean
-            'personal' => 'true',   // string "true", bukan boolean
-            'group'    => 'false',  // string "false"
+            'name' => $name,
+            'device' => $phoneNumber,
+            'autoread' => 'false', // string "false", bukan boolean
+            'personal' => 'true', // string "true", bukan boolean
+            'group' => 'false', // string "false"
         ];
 
         // Log request untuk memastikan payload benar
@@ -93,13 +95,13 @@ class FonnteService
 
             return [
                 'status' => false,
-                'error'  => $response['data']['reason'] ?? 'Invalid or empty body value',
+                'error' => $response['data']['reason'] ?? 'Invalid or empty body value',
             ];
         }
 
         return [
             'status' => true,
-            'data'   => $response['data'],
+            'data' => $response['data'],
         ];
     }
 
@@ -109,7 +111,7 @@ class FonnteService
         $response = Http::withHeaders([
             'Authorization' => $deviceToken, // Gunakan account_token dari properti
         ])->post(self::ENDPOINTS['qr_activation'], [
-            'type'     => 'qr',
+            'type' => 'qr',
             'whatsapp' => $phoneNumber, // Nomor WhatsApp yang diaktivasi
         ]);
 
