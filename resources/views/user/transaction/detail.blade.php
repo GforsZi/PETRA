@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h5 class="fw-bold mb-3">Deskripsi</h5>
                         <p>
-                            Buku pertama dari seri fenomenal Harry Potter, menceritakan
+                            Buku pertama dari seri fenomenal Harry Jawir, menceritakan
                             kisah seorang anak yatim piatu yang mengetahui dirinya adalah
                             seorang penyihir dan memasuki sekolah sihir Hogwarts.
                             Petualangan, persahabatan, dan pertarungan melawan kekuatan
