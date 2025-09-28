@@ -3,7 +3,7 @@
 
     <div class="container py-4">
 
-        <div class="card shadow-sm text-dark p-4 rounded-4">
+        <div class="card shadow-sm text-body p-4 rounded-4">
             <div class="row align-items-center">
                 <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
                     <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
@@ -17,7 +17,8 @@
                     <p><strong>Email :</strong> john.doe@mail.com</p>
                     <p><strong>Peran :</strong> Admin</p>
                     <p><strong>Status :</strong> Aktif</p>
-                    <button class="btn btn-outline-primary btn-sm">
+
+                    <button class="btn btn-outline-primary btn-sm mt-2">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
                 </div>

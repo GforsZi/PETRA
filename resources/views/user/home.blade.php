@@ -48,7 +48,6 @@
         </div>
     </div>
 
-    <!-- Charts -->
     <div class="mt-4">
         <h6>Buku Terpopuler</h6>
         <div class="scroll-x">
