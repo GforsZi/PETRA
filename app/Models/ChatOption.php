@@ -22,11 +22,6 @@ class ChatOption extends Model
     const UPDATED_AT = 'cht_opt_updated_at';
     const DELETED_AT = 'cht_opt_deleted_at';
 
-    public function ChatNotification(): HasMany
-    {
-        return $this->hasMany(ChatNotification::class, 'cht_notif_option_id', 'cht_opt_id');
-    }
-
     public function created_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'cht_opt_created_by', 'usr_id');

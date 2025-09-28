@@ -40,7 +40,7 @@ class ManageAcoountController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required | min:3 | max:255',
-            'usr_no_wa' => 'required  | unique:users,usr_no_wa| phone:ID',
+            'usr_no_wa' => 'required  | unique:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
             'password' => 'required | min:5 | max:30 | confirmed',
             'usr_activation' => 'nullable | boolean',
             'usr_role_id' => 'required | exists:roles,rl_id',
@@ -80,7 +80,7 @@ class ManageAcoountController extends Controller
 
         if ($request->usr_no_wa != $user['usr_no_wa']) {
             $no_wa = $request->validate([
-                'usr_no_wa' => 'sometimes | required  | unique:users,usr_no_wa| phone:ID',
+                'usr_no_wa' => 'sometimes | required | regex:/^[0-9]+$/ | unique:users,usr_no_wa| phone:ID',
             ]);
             $validateData['usr_no_wa'] = $no_wa['usr_no_wa'];
         }

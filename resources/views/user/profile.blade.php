@@ -6,10 +6,9 @@
         <div class="card shadow-sm text-body p-4 rounded-4">
             <div class="row align-items-center">
                 <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                         alt="Foto Profil"
-                         class="rounded-circle"
-                         style="width: 120px; height: 120px; object-fit: cover;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil"
+                        class="rounded-circle"
+                        style="width: 120px; height: 120px; object-fit: cover;">
                 </div>
 
                 <div class="col-12 col-md-7">

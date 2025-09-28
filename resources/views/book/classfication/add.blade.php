@@ -23,9 +23,8 @@
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Keterangan
                         Klasifikasi</label>
                     <div class="col-sm-10">
-                        <input type="text" name="ddc_description"
-                            class="form-control @error('ddc_description') is-invalid @enderror"
-                            id="inputEmail3">
+                        <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror"
+                            id="autoExpand"></textarea>
                     </div>
                 </div>
             </div>

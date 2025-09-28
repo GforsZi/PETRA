@@ -27,6 +27,18 @@
                         <td>{{ $option['cht_opt_message'] }}</td>
                     </tr>
                     <tr class="align-middle">
+                        <td>Tipe</td>
+                        <td>
+                            @if ($option['cht_opt_type'] == '1')
+                                Pemberitahuan aktifasi
+                            @elseif ($option['cht_opt_type'] == '2')
+                                Peringatan waktu peminjaman
+                            @else
+                                Pesan bantuan
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
                         <td>Dibuat oleh</td>
                         <td>{{ $option['created_by']['name'] }}</td>
                     </tr>

@@ -181,6 +181,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/system/admin/profile/edit', [AdminController::class, 'edit_profile_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/account/add', [ManageAcoountController::class, 'add_account_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -205,6 +208,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/system/role/{id}/delete', [ManageRoleController::class, 'delete_role_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/book/copy/{id}/edit', [ManageBookController::class, 'edit_book_copy_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/book/copy/{id}/delete', [ManageBookController::class, 'delete_book_copy_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/book/add', [ManageBookController::class, 'add_book_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -212,6 +221,9 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::delete('/system/book/{id}/delete', [ManageBookController::class, 'delete_book_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/book/{id}/add/copy', [ManageBookController::class, 'add_book_copy_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/major/add', [ManageBookController::class, 'add_book_major_system'])
@@ -267,13 +279,16 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/chat/send_message', [ManageChatbotController::class, 'send_message_system'])
         ->middleware(CheckActivation::class . ':1')
-        ->middleware(CheckAdmin::class . ':1')->name('send.message');
+        ->middleware(CheckAdmin::class . ':1')
+        ->name('send.message');
     Route::post('/system/chat/activate', [ManageChatbotController::class, 'activate_device_system'])
         ->middleware(CheckActivation::class . ':1')
-        ->middleware(CheckAdmin::class . ':1')->name('devices.activate');
+        ->middleware(CheckAdmin::class . ':1')
+        ->name('devices.activate');
     Route::post('/system/chat/disconnect', [ManageChatbotController::class, 'disconnect_system'])
         ->middleware(CheckActivation::class . ':1')
-        ->middleware(CheckAdmin::class . ':1')->name('devices.disconnect');
+        ->middleware(CheckAdmin::class . ':1')
+        ->name('devices.disconnect');
     Route::post('/system/option/add', [ManageChatbotController::class, 'add_chatbot_option_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -283,6 +298,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/system/option/{id}/delete', [ManageChatbotController::class, 'delete_chatbot_option_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/system/option/chat/quick_replies', [ManageChatbotController::class, 'show_quick_reply_system'])
+        ->middleware(CheckActivation::class . ':1');
+    Route::post('/system/option/chat/reply', [ManageChatbotController::class, 'reply_system'])
+        ->middleware(CheckActivation::class . ':1');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])

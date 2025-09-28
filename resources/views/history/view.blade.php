@@ -15,14 +15,23 @@
                     <td>{{ $history->title }}</td>
                     <td>{{ $history->deleted_at }}</td>
                     <td>
-                        <div class="dropdown">
+                        <div class="dropdown dropstart">
                             <button class="btn btn-warning dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-menu-down"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                        href="/manage/{{ $page . $history->id }}/edit">Edit</a>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{ $page_url . '/' . $history->id . '/detail' }}">Detail</a>
+                                </li>
+                                <li>
+                                    <form action="" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="dropdown-item"
+                                            type="submit">Pulihkan</button>
+                                    </form>
                                 </li>
                                 <li><a class="dropdown-item" style="cursor: pointer;"
                                         data-bs-toggle="modal"
@@ -64,6 +73,21 @@
             @endforelse
         </x-table_data>
     @else
-        <h1>Hallo</h1>
+        <div class="container">
+            <div class="row w-100">
+                @foreach ($pages as $page)
+                    <div class="col-sm-4 my-4">
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ $page['title'] }}</h5>
+                                <p class="card-text">Lihat daftar data yang pernah di hapus.</p>
+                                <a href="{{ $page['page'] }}" class="btn btn-primary">Lihat</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        </div>
     @endif
 </x-app-layout>

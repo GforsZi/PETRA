@@ -51,21 +51,33 @@
     <div class="mt-4">
         <h6>Buku Terpopuler</h6>
         <div class="scroll-x">
-            <div class="book">
-                <a href="">
-                    <img src="{{ asset('logo/uni_invt.png') }}">
-                </a>
-            </div>
+            @foreach ($book_new as $bk_nw)
+                <div class="book text-center ">
+                    <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
+                        style="text-decoration: none;">
+                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/uni_invt.png') }}"
+                            class="object-fit-cover" style="height: 160px;">
+                        <br>
+                        <p class="text-body">{{ $bk_nw->bk_title }}</p>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
     <div class="mt-4">
         <h6>Buku Terbaru</h6>
         <div class="scroll-x">
-            <div class="book">
-                <a href="">
-                    <img src="{{ asset('logo/uni_invt.png') }}">
-                </a>
-            </div>
+            @foreach ($book_new as $bk_nw)
+                <div class="book text-center ">
+                    <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
+                        style="text-decoration: none;">
+                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/uni_invt.png') }}"
+                            class="object-fit-cover" style="height: 160px;">
+                        <br>
+                        <p class="text-body">{{ $bk_nw->bk_title }}</p>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookCopy;
 use App\Models\BookMajor;
 use App\Models\DeweyDecimalClassfication;
 use App\Models\Publisher;
@@ -49,7 +50,7 @@ class ManageBookController extends Controller
 
     public function detail_book_page($id)
     {
-        $book = Book::withTrashed()->with('authors', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->find($id);
+        $book = Book::withTrashed()->with('authors:athr_id,athr_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->find($id);
         return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
 
@@ -131,7 +132,7 @@ class ManageBookController extends Controller
 
     public function edit_book_page($id)
     {
-        $book = Book::withTrashed()->with('authors', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id')->find($id);
+        $book = Book::withTrashed()->with('authors', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code', 'created_by', 'updated_by', 'deleted_by')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id')->find($id);
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
         return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors', 'book'));
@@ -222,6 +223,48 @@ class ManageBookController extends Controller
         $book->authors()->detach();
         $book->delete();
         return redirect('/manage/book')->with('success', 'Buku Berhasil Dihapus');
+    }
+
+    public function add_book_copy_system(Request $request, $id)
+    {
+        $request->validate([
+            'code' => 'required | string | max:255',
+            'number' => 'required | integer',
+        ]);
+
+        $str = BookCopy::select('bk_cp_number')->where('bk_cp_book_id', $id)->orderBy('bk_cp_number', 'DESC')->first();
+        $parts = explode('-', $str);
+        $number = 1;
+        if ($str != null) {
+            $number = (int) $parts[1] + 1;
+        }
+        for ($i = 0; $i < $request->number; $i++) {
+            BookCopy::create([
+                'bk_cp_book_id' => $id,
+                'bk_cp_number' => $request->code . '-' . $number++,
+                'bk_cp_status' => '1',
+            ]);
+        }
+        return redirect('/manage/book/' . $id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Ditambahkan');
+    }
+
+    public function edit_book_copy_system(Request $request, $id)
+    {
+        $copy = BookCopy::find($id);
+
+        $validateData = $request->validate([
+            'bk_cp_status' => 'sometimes | required | in:1,2,3,4',
+        ]);
+
+        $copy->update($validateData);
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp_' . $id)->with('success', 'Salinan Berhasil Diubah');
+    }
+
+    public function delete_book_copy_system(Request $request, $id)
+    {
+        $copy = BookCopy::find($id);
+        $copy->delete();
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp_' . $id + 1)->with('success', 'Salinan Berhasil Dihapus');
     }
 
     public function manage_book_major_page()

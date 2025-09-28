@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('bk_cp_id');
             $table->unsignedBigInteger('bk_cp_book_id')->unsigned()->nullable();
             $table->string('bk_cp_number');
-            $table->enum('status', ['1', '2', '3'])->default('1');
+            $table->enum('bk_cp_status', ['1', '2', '3', '4']);
             $table->timestamps();
             $table->unsignedBigInteger('bk_cp_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_cp_deleted_by')->unsigned()->nullable();

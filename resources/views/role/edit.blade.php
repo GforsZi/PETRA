@@ -25,7 +25,7 @@
                         Peran</label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror"
-                            id="autoExpand" style="resize: none; overflow: hidden;">{{ $role[0]['rl_description'] }}</textarea>
+                            id="autoExpand">{{ $role[0]['rl_description'] }}</textarea>
                     </div>
                 </div>
                 </fieldset>
@@ -57,12 +57,4 @@
         </form>
         <!--end::Form-->
     </div>
-    <script>
-        const textarea = document.getElementById("autoExpand");
-
-        textarea.addEventListener("input", function() {
-            this.style.height = "auto";
-            this.style.height = this.scrollHeight + "px";
-        });
-    </script>
 </x-app-layout>

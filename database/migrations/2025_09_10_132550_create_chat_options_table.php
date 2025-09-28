@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('chat_options', function (Blueprint $table) {
             $table->bigIncrements('cht_opt_id');
             $table->string('cht_opt_title');
-            $table->string('cht_opt_message');
+            $table->text('cht_opt_message');
+            $table->enum('cht_opt_type', ['1', '2', '3']);
             $table->timestamps();
             $table->unsignedBigInteger('cht_opt_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('cht_opt_deleted_by')->unsigned()->nullable();

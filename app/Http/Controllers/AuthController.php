@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required | min:3 | max:255',
-            'usr_no_wa' => 'required | unique:users,usr_no_wa| phone:ID',
+            'usr_no_wa' => 'required | unique:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
             'password' => 'required | min:5 | max:30 | confirmed',
         ]);
 
@@ -46,11 +46,11 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
-            if ($user[0]['usr_activation'] == false || isset($user[0]['roles']) ) {
+            if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
                 return redirect()->intended('/home')->with('success', 'Login success!');
-            } elseif($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == "1") {
+            } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
                 return redirect()->intended('/dashboard')->with('success', 'Login success!');
-            }else {
+            } else {
                 return redirect()->intended('/forbidden')->with('success', 'Login success!');
             }
         }

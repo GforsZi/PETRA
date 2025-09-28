@@ -50,18 +50,16 @@
                             </span>
                         </div>
 
-
-          <div class="mt-3 d-flex gap-2">
-            <button class="button flex-center" title="Hapus">
-              <a href="#"><i class="bi bi-trash text-danger fs-4"></i></a>
-            </button>
-            <button class="button flex-center" title="Ubah profil">
-             <a href="/admin/profile/edit"> <i class="bi bi-pencil-square text-info fs-4"></i></a>
-            </button>
-          </div>
-
-                       
-
+                        <div class="mt-3 d-flex gap-2">
+                            <button class="button bg-body flex-center" title="Hapus">
+                                <a href="/manage/history"><i
+                                        class="bi bi-trash text-danger fs-4"></i></a>
+                            </button>
+                            <button class="button bg-body flex-center" title="Ubah profil">
+                                <a href="/admin/profile/edit"> <i
+                                        class="bi bi-pencil-square text-info fs-4"></i></a>
+                            </button>
+                        </div>
 
                     </div>
                 </div>
@@ -75,20 +73,16 @@
 
     <style>
         /* From Uiverse.io by MarcLazz */
-
-
-
-.button {
-  cursor: pointer;
-  text-decoration: none;
-  color: #ffff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: white;
-  border: 2px solid #2d2e32;
-  transition: all 0.45s;
-}
+        .button {
+            cursor: pointer;
+            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #2d2e32;
+            transition: all 0.45s;
+        }
 
         .button:hover {
             transform: rotate(360deg);
@@ -96,7 +90,6 @@
             background-color: gray;
             color: #2d2e32;
         }
-
 
         .button:hover .btn-svg {
             filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg) brightness(103%) contrast(103%);

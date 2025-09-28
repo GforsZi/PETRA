@@ -62,7 +62,7 @@
                         Buku</label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
-                            id="autoExpand" style="resize: none; overflow: hidden;"></textarea>
+                            id="autoExpand"></textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -218,13 +218,6 @@
         <!--end::Form-->
     </div>
     <script>
-        const textarea = document.getElementById("autoExpand");
-
-        textarea.addEventListener("input", function() {
-            this.style.height = "auto";
-            this.style.height = this.scrollHeight + "px";
-        });
-
         // Ambil elemen
         let authorList = document.getElementById('author-list');
         let selectedAuthors = document.getElementById('selected-authors');

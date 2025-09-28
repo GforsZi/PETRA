@@ -38,9 +38,23 @@ class ManageChatbotController extends Controller
 
     public function add_chatbot_option_system(Request $request)
     {
+        if ($request->cht_opt_type == '1') {
+            $optionA = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
+            if ($optionA > 0) {
+                return redirect('/manage/chat/option/add')->with('error', 'opsi "Pemberitahuan aktifasi" sudah tersedia');
+                exit();
+            }
+        } elseif ($request->cht_opt_type == '2') {
+            $optionB = ChatOption::select('cht_opt_type')->where('cht_opt_type', '2')->get()->count();
+            if ($optionB > 0) {
+                return redirect('/manage/chat/option/add')->with('error', 'opsi "Peringatan waktu peminjaman" sudah tersedia');
+                exit();
+            }
+        }
         $validateData = $request->validate([
             'cht_opt_title' => 'required | string | max:255',
             'cht_opt_message' => 'required | string | max:255',
+            'cht_opt_type' => 'required | in:1,2,3',
         ]);
 
         ChatOption::create($validateData);
@@ -49,7 +63,7 @@ class ManageChatbotController extends Controller
 
     public function edit_chatbot_option_page($id)
     {
-        $option = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_message')->find($id);
+        $option = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_message', 'cht_opt_type')->find($id);
         return view('chat.option.edit', ['title' => 'Halaman Ubah Opsi Chatbot'], compact('option'));
     }
 
@@ -57,9 +71,24 @@ class ManageChatbotController extends Controller
     {
         $option = ChatOption::find($id);
 
+        if ($request->cht_opt_type == '1') {
+            $optionA = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
+            if ($request->cht_opt_type != $option['cht_opt_type'] && $optionA > 0) {
+                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'opsi "Pemberitahuan aktifasi" sudah tersedia');
+                exit();
+            }
+        } elseif ($request->cht_opt_type == '2') {
+            $optionB = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
+            if ($request->cht_opt_type != $option['cht_opt_type'] && $optionB > 0) {
+                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'opsi "Peringatan waktu peminjaman" sudah tersedia');
+                exit();
+            }
+        }
+
         $validateData = $request->validate([
             'cht_opt_title' => 'sometimes | required | string | max:255',
             'cht_opt_message' => 'sometimes | required | string | max:255',
+            'cht_opt_type' => 'required | in:1,2,3',
         ]);
 
         $option->update($validateData);
@@ -71,21 +100,6 @@ class ManageChatbotController extends Controller
         $option = ChatOption::find($id);
         $option->delete();
         return redirect('/manage/chat/option')->with('success', 'Opsi Pesan Berhasil Dihapus');
-    }
-
-    public function manage_chatbot_notification_page()
-    {
-        return view('chat.notification.view', ['title' => 'Halaman Kelola Notifikasi']);
-    }
-
-    public function detail_chatbot_notification_page($id)
-    {
-        return view('chat.notification.detail', ['title' => 'Halaman Detail Notofikasi']);
-    }
-
-    public function add_chatbot_notification_page()
-    {
-        return view('chat.notification.add', ['title' => 'Halaman Tambah Notifikasi']);
     }
 
     public function add_chatbot_notification_system(Request $request)
@@ -127,10 +141,9 @@ class ManageChatbotController extends Controller
 
     public function manage_device_page()
     {
-
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.fonnte.com/get-devices',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
@@ -139,10 +152,10 @@ class ManageChatbotController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_HTTPHEADER => array(
+            CURLOPT_HTTPHEADER => [
                 'Authorization: ' . config('services.fonnte.account_token'), // Get the token from the services config
-            ),
-        ));
+            ],
+        ]);
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -186,17 +199,17 @@ class ManageChatbotController extends Controller
 
         if ($response->failed()) {
             return redirect()
-            ->back()
-            ->withInput()
-            ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
+                ->back()
+                ->withInput()
+                ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
         }
 
         $response = $response->json();
         if (!$response['status']) {
             return redirect()
-            ->back()
-            ->withInput()
-            ->with('error', $response['reason'] ?? 'Failed to add device.');
+                ->back()
+                ->withInput()
+                ->with('error', $response['reason'] ?? 'Failed to add device.');
         }
 
         Device::create([
@@ -339,5 +352,20 @@ class ManageChatbotController extends Controller
         }
 
         return response()->json(['message' => 'Pesan berhasil dikirim!', 'data' => $response['data']]);
+    }
+
+    public function show_quick_reply_system() {
+        return response()->json(ChatOption::select('cht_opt_id', 'cht_opt_title')->get());
+    }
+
+    public function reply_system(Request $request) {
+        $message = strtolower(trim($request->input('message')));
+        $response = ChatOption::where('cht_opt_title', $message)->first();
+
+        if ($response) {
+            return response()->json(['reply' => $response->cht_opt_message]);
+        }
+
+        return response()->json(['reply' => 'Jika ada kendala yang belum dapat saya jawab, anda dapat menghubungi pustakawan untuk mendapatkan informasi lebih lanjut.']);
     }
 }

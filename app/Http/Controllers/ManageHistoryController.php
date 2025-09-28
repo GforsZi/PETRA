@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
+use App\Models\BookCopy;
+use App\Models\BookMajor;
+use App\Models\ChatOption;
+use App\Models\Device;
 use App\Models\DeweyDecimalClassfication;
 use App\Models\Publisher;
 use App\Models\Role;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,35 +28,89 @@ class ManageHistoryController extends Controller
             switch ($history) {
                 case 'Account':
                     $histories = User::onlyTrashed()->select('usr_id as id', 'usr_no_wa as title', 'usr_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/account']);
                     break;
                 case 'Role':
                     $histories = Role::onlyTrashed()->select('rl_id as id', 'rl_name as title', 'rl_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'role/']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/role']);
                     break;
                 case 'Author':
                     $histories = Author::onlyTrashed()->select('athr_id as id', 'athr_name as title', 'athr_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/author/']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/author']);
                     break;
                 case 'Publisher':
                     $histories = Publisher::onlyTrashed()->select('pub_id as id', 'pub_name as title', 'pub_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/publisher/']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/publisher']);
                     break;
                 case 'DeweyDecimalClassfication':
                     $histories = DeweyDecimalClassfication::onlyTrashed()->select('ddc_id as id', 'ddc_code as title', 'ddc_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page' => 'book/ddc/']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/classfication']);
+                    break;
+                case 'BookMajor':
+                    $histories = BookMajor::onlyTrashed()->select('bk_mjr_id as id', 'bk_mjr_class as title', 'bk_mjr_deleted_at as deleted_at')->latest()->paginate(10);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/major']);
+                    break;
+                case 'Book':
+                    $histories = Book::onlyTrashed()->select('bk_id as id', 'bk_title as title', 'bk_deleted_at as deleted_at')->latest()->paginate(10);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book']);
+                    break;
+                case 'ChatOption':
+                    $histories = ChatOption::onlyTrashed()->select('cht_opt_id as id', 'cht_opt_title as title', 'cht_opt_deleted_at as deleted_at')->latest()->paginate(10);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/chat/option']);
+                    break;
+                case 'BookCopy':
+                    $histories = BookCopy::onlyTrashed()->select('bk_cp_id as id', 'bk_cp_number as title', 'bk_cp_deleted_at as deleted_at')->latest()->paginate(10);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book']);
+                    break;
+                case 'Transaction':
+                    $histories = Transaction::onlyTrashed()->select('trx_id as id', 'trx_title as title', 'trx_deleted_at as deleted_at')->latest()->paginate(10);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage']);
                     break;
                 default:
                     $histories = null;
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories], compact('pages'));
                     break;
             }
         }
-        return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories]);
-    }
 
-    public function detail_histroy_page($id)
-    {
-        return view('history.detail', ['title' => 'Halaman Detail Riwayat']);
+        $pages = [
+            [
+                'title' => 'Riwayat Akun',
+                'page' => '/manage/history?category=Account',
+            ],
+            [
+                'title' => 'Riwayat Peran',
+                'page' => '/manage/history?category=Role',
+            ],
+            [
+                'title' => 'Riwayat Buku',
+                'page' => '/manage/history?category=Book',
+            ],
+            [
+                'title' => 'Riwayat Penerbit Buku',
+                'page' => '/manage/history?category=Publisher',
+            ],
+            [
+                'title' => 'Riwayat Klasifikasi Buku',
+                'page' => '/manage/history?category=DeweyDecimalClassfication',
+            ],
+            [
+                'title' => 'Riwayat Jurusan Buku',
+                'page' => '/manage/history?category=BookMajor',
+            ],
+            [
+                'title' => 'Riwayat Opsi Chat',
+                'page' => '/manage/history?category=ChatOption',
+            ],
+            [
+                'title' => 'Riwayat Salinan Buku',
+                'page' => '/manage/history?category=BookCopy',
+            ],
+            [
+                'title' => 'Riwayat Transaksi',
+                'page' => '/manage/history?category=Transaction',
+            ],
+        ];
+        return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories], compact('pages'));
     }
 }
