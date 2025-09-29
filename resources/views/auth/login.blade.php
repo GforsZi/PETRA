@@ -12,6 +12,13 @@
         <div class="col-4 p-0">
             <div class="d-flex flex-column justify-content-center align-items-center text-white"
                 style="height: 100vh; width: 100%; background-color: #121740;">
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h5>Success: {{ session('success') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                @endif
 
                 <div class="w-100 px-5">
                     <p class="text-center fs-2 fw-bold mb-4">Log-in</p>

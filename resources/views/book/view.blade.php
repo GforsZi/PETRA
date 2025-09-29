@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/book/add" class="btn btn-outline-primary w-100">Tambah Buku Baru</a>
     </x-slot:header_layout>
@@ -10,7 +17,7 @@
             @forelse ($books as $index => $book)
                 <div class="col-sm-4 my-4 ">
                     <div class="card mx-2 book-card h-100 p-3">
-                        <img src="{{ asset($book->bk_img_url ?? 'logo/uni_invt.png') }}"
+                        <img src="{{ asset($book->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
                             class="card-img-top object-fit-contain cover" alt=""
                             height="200" />
                         <div class="card-body d-flex flex-column">

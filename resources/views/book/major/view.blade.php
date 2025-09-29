@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/book/major/add" class="btn btn-outline-primary w-100">Tambah Jurusan
             Baru</a>

@@ -213,7 +213,7 @@ class ManageBookController extends Controller
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
 
-        return redirect('/manage/book/')->with('Success', 'Buku Berhasil Ditambahkan');
+        return redirect('/manage/book/')->with('Success', 'Buku Berhasil Diubah');
     }
 
     public function delete_book_system(Request $request, $id)
@@ -232,7 +232,8 @@ class ManageBookController extends Controller
             'number' => 'required | integer',
         ]);
 
-        $str = BookCopy::select('bk_cp_number')->where('bk_cp_book_id', $id)->orderBy('bk_cp_number', 'DESC')->first();
+        $str = BookCopy::select('bk_cp_number')->where('bk_cp_book_id', $id)->orderByRaw("
+        CAST(SUBSTRING_INDEX(bk_cp_number, '-', -1) AS UNSIGNED) DESC")->first();
         $parts = explode('-', $str);
         $number = 1;
         if ($str != null) {
@@ -257,14 +258,14 @@ class ManageBookController extends Controller
         ]);
 
         $copy->update($validateData);
-        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp_' . $id)->with('success', 'Salinan Berhasil Diubah');
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Diubah');
     }
 
     public function delete_book_copy_system(Request $request, $id)
     {
         $copy = BookCopy::find($id);
         $copy->delete();
-        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp_' . $id + 1)->with('success', 'Salinan Berhasil Dihapus');
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Dihapus');
     }
 
     public function manage_book_major_page()
@@ -297,7 +298,7 @@ class ManageBookController extends Controller
 
     public function edit_book_major_page($id)
     {
-        $major = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major', 'bk_mjr_number')->find($id);
+        $major = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->find($id);
         return view('book.major.edit', ['title' => 'Halaman Ubah Jurusan'], compact('major'));
     }
 

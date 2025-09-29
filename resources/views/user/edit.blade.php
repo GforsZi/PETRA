@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <form class="container mt-4" action="/system/admin/profile/edit" method="post">
+    <form class="container mt-4" action="/system/user/profile/edit" method="post">
         @csrf
         <div class="row g-4 align-items-start">
 

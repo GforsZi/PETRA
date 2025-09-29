@@ -7,36 +7,64 @@
         <div class="row g-4 align-items-start">
 
             <div class="col-12 col-md-4 d-flex flex-column align-items-center">
-                <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/PETRA-LOGO.png') }}"
+                <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/user_placeholder.jpg') }}"
                     class="rounded-circle shadow object-fit-cover mb-2" alt="Profile Image"
                     width="200" height="200">
                 <input type="file" name="image" id="profileImage" class="d-none">
                 <a href="#" class="text-decoration-none"
                     onclick="document.getElementById('profileImage').click();">Ubah Foto Profil</a>
             </div>
+            @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
 
             <div class="col-12 col-md-8">
                 <div class="mb-1">
                     <label for="nama" class="form-label">Nama</label>
-                    <input name="name" type="text" id="nama" class="form-control"
-                        autocomplete="off">
+                    <input name="name" type="text" id="nama"
+                        class="form-control @error('name') is-invalid @enderror" autocomplete="off">
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="whatsapp" class="form-label">No WhatsApp</label>
-                    <input name="usr_no_wa" type="text" id="whatsapp" class="form-control">
+                    <input name="usr_no_wa" type="text" id="whatsapp"
+                        class="form-control @error('usr_no_wa') is-invalid @enderror">
+                    @error('usr_no_wa')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="password" class="form-label">Password</label>
-                    <input name="password" type="password" id="password" class="form-control"
+                    <input name="password" type="password" id="password"
+                        class="form-control @error('password') is-invalid @enderror"
                         autocomplete="off">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="password" class="form-label">Konfirmasi Password</label>
                     <input name="password_confirmation" type="password" id="password"
-                        class="form-control" autocomplete="off">
+                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                        autocomplete="off">
+                    @error('password_confirmation')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="options">
                     <p class="text-3 mb-1">Pilih peran</p>
@@ -54,11 +82,16 @@
                             @endif
                         @endforeach
                     </select>
+                    @error('usr_role_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <!-- From Uiverse.io by adamgiebl -->
                 <div class="d-flex justify-content-center mt-5">
-                    <button type="submit" class="btn btn-outline-primary w-100">Selesai</button>
+                    <button type="submit" class="btn btn-outline-primary w-100">Submit</button>
                 </div>
 
             </div>

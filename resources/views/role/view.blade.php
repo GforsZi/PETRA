@@ -1,5 +1,19 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>Error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/role/add" class="btn btn-outline-primary w-100">Tambah Peran Baru</a>
     </x-slot:header_layout>

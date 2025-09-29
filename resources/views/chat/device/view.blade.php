@@ -1,13 +1,20 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/chat/device/add" class="btn btn-outline-primary w-100">Tambah Perangkat
             Baru</a>
     </x-slot:header_layout>
     <!-- Toast Notification -->
     <div id="notification"
-        class="toast align-items-center border-0 position-fixed bottom-0 z-3 end-0 m-3" role="alert"
-        aria-live="assertive" aria-atomic="true">
+        class="toast align-items-center border-0 position-fixed bottom-0 z-3 end-0 m-3"
+        role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="me-auto">PETRA</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"
@@ -74,16 +81,6 @@
                                     <button class="dropdown-item"
                                         onclick="disconnectDevice('{{ $device['token'] }}', this)">
                                         Disconnect
-                                        <svg class="hidden w-5 h-5 ml-2 text-white disconnectSpinner animate-spin"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12"
-                                                r="10" stroke="currentColor" stroke-width="4">
-                                            </circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
-                                            </path>
-                                        </svg>
                                     </button>
                                 </li>
                             @else

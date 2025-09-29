@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <div class="card mb-4 ">
         <div class="card-header">
             <h3 class="card-title">Detail Peran</h3>

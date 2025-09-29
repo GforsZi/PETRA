@@ -27,7 +27,7 @@ class AuthController extends Controller
         $validateData['password'] = Hash::make($validateData['password']);
 
         User::create($validateData);
-        return redirect('/login')->with('success', 'account created');
+        return redirect('/login')->with('success', 'Akun Berhasil Dibuat');
     }
 
     public function login_page()

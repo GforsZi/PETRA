@@ -21,7 +21,7 @@ class ManageChatbotController extends Controller
 
     public function manage_chatbot_option_page()
     {
-        $options = ChatOption::select('cht_opt_id', 'cht_opt_title')->latest()->paginate(10);
+        $options = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_type')->latest()->paginate(10);
         return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot'], compact('options'));
     }
 
@@ -41,13 +41,13 @@ class ManageChatbotController extends Controller
         if ($request->cht_opt_type == '1') {
             $optionA = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
             if ($optionA > 0) {
-                return redirect('/manage/chat/option/add')->with('error', 'opsi "Pemberitahuan aktifasi" sudah tersedia');
+                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Pemberitahuan aktifasi" Sudah Tersedia');
                 exit();
             }
         } elseif ($request->cht_opt_type == '2') {
             $optionB = ChatOption::select('cht_opt_type')->where('cht_opt_type', '2')->get()->count();
             if ($optionB > 0) {
-                return redirect('/manage/chat/option/add')->with('error', 'opsi "Peringatan waktu peminjaman" sudah tersedia');
+                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Peringatan waktu peminjaman" Sudah Tersedia');
                 exit();
             }
         }
@@ -164,7 +164,7 @@ class ManageChatbotController extends Controller
         $data = json_decode($response, true);
 
         // Check if the response is successful
-        if ($data['status']) {
+        if ($data['status'] ?? false) {
             $devices = $data['data']; // Use the 'data' array from the response
         } else {
             $devices = []; // Handle error case

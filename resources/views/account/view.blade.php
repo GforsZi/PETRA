@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/account/add" class="btn btn-outline-primary w-100">Tambah Akun Baru</a>
     </x-slot:header_layout>
@@ -17,7 +24,7 @@
             <tr class="align-middle">
                 <td>{{ $accounts->firstItem() + $index }}</td>
                 <td>
-                    <img src="{{ asset($account->usr_img_url ?? 'logo/uni_invt.png') }}"
+                    <img src="{{ asset($account->usr_img_url ?? '/logo/user_placeholder.jpg') }}"
                         class="rounded-circle shadow object-fit-cover" width="50" height="50"
                         alt="User Image" />
                 </td>

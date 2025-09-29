@@ -160,6 +160,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
+    Route::get('/user/profile/edit', [UserController::class, 'profile_edit_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::get('/search/book', [UserController::class, 'search_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
@@ -181,6 +184,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/system/user/profile/edit', [UserController::class, 'edit_profile_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::post('/system/admin/profile/edit', [AdminController::class, 'edit_profile_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -302,6 +308,9 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1');
     Route::post('/system/option/chat/reply', [ManageChatbotController::class, 'reply_system'])
         ->middleware(CheckActivation::class . ':1');
+    Route::PUT('/system/restore/{id}', [ManageHistoryController::class, 'restore_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])

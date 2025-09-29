@@ -8,7 +8,7 @@
         <div class="row g-4 align-items-start">
 
             <div class="col-12 col-md-4 d-flex flex-column align-items-center">
-                <img src="{{ asset($account[0]['usr_img_url'] ?? '/logo/uni_invt.png') }}"
+                <img src="{{ asset($account[0]['usr_img_url'] ?? '/logo/user_placeholder.jpg') }}"
                     class="rounded-circle shadow object-fit-cover mb-2" alt="Profile Image"
                     width="200" height="200">
                 <input type="file" name="image" id="profileImage" class="d-none">

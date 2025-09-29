@@ -1,8 +1,23 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>Error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     @if ($histories)
         <x-table_data :paginator="$histories">
-            <x-slot:title>Manage History</x-slot:title>
+            <x-slot:title><a class="text-body" href="/manage/history">Kelola
+                    Riwayat</a></x-slot:title>
             <x-slot:header>
                 <th style="width: 10px">#</th>
                 <th>Atribut</th>
@@ -26,16 +41,16 @@
                                         href="{{ $page_url . '/' . $history->id . '/detail' }}">Detail</a>
                                 </li>
                                 <li>
-                                    <form action="" method="post">
+                                    <form action="/system/restore/{{ $history->id }}"
+                                        method="post">
                                         @csrf
                                         @method('PUT')
-                                        <button class="dropdown-item"
-                                            type="submit">Pulihkan</button>
+                                        <input type="hidden"
+                                            value="{{ request()->query('category') }}"
+                                            name="model">
+                                        <button class="dropdown-item" type="submit">Pulihkan
+                                        </button>
                                     </form>
-                                </li>
-                                <li><a class="dropdown-item" style="cursor: pointer;"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#deleteConfirmation{{ $histories->firstItem() + $index }}">Delete</a>
                                 </li>
                             </ul>
                         </div>

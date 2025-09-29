@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>Error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <div class="card card-primary card-outline mb-4">
         <!--begin::Header-->
         <div class="card-header">
@@ -17,6 +24,11 @@
                         <input type="text" name="cht_opt_title"
                             class="form-control @error('cht_opt_title') is-invalid @enderror"
                             id="title">
+                        @error('cht_opt_title')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -24,6 +36,11 @@
                     <div class="col-sm-10">
                         <textarea name="cht_opt_message" id="message"
                             class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand"></textarea>
+                        @error('cht_opt_message')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">

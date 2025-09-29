@@ -65,7 +65,7 @@ class ManageAcoountController extends Controller
         }
 
         User::create($validateData);
-        return redirect('/manage/account')->with('success', 'account created');
+        return redirect('/manage/account')->with('success', 'Akun Berhasil Dibuat');
     }
 
     public function edit_account_system(Request $request, $id)
@@ -85,14 +85,13 @@ class ManageAcoountController extends Controller
             $validateData['usr_no_wa'] = $no_wa['usr_no_wa'];
         }
 
-        if ($request->password != null) {
+        if ($request->password == null) {
             $password = $request->validate([
                 'password' => 'sometimes | nullable | min:5 | max:30 | confirmed',
             ]);
-            $validateData['usr_no_wa'] = $password['password'];
+            $validateData['password'] = Hash::make($password['password']);
         }
 
-        $validateData['password'] = Hash::make($validateData['password']);
 
         if ($request->hasFile('image')) {
             $destinationPath = public_path('media/profile_img/');
@@ -110,7 +109,7 @@ class ManageAcoountController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/manage/account')->with('success', 'account created');
+        return redirect('/manage/account')->with('success', 'Akun Berhasil Diubah');
     }
 
     public function banned_account_system(Request $request, $id)
@@ -122,7 +121,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $user->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'account banned');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diblokir');
     }
 
     public function activated_account_system(Request $request, $id)
@@ -134,7 +133,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $user->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'account activated');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diaktifasi');
     }
 
     public function change_account_role_system(Request $request, $id)
@@ -146,13 +145,13 @@ class ManageAcoountController extends Controller
         ]);
 
         $account->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'role changed');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Berhasil Merubah Peran Akun');
     }
 
     public function delete_account_system(Request $request, $id)
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/manage/account')->with('success', 'account deleted');
+        return redirect('/manage/account')->with('success', 'Akun Berhasil Dihapus');
     }
 }

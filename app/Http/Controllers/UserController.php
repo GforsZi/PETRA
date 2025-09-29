@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,30 @@ class UserController extends Controller
             ->first();
         return view('user.profile', ['title' => 'Halaman Profile'], compact('user'));
     }
+    public function profile_edit_page()
+    {
+        $user = User::select('usr_id', 'name', 'usr_bio', 'usr_img_url', 'usr_no_wa')->find(Auth::user()->usr_id);
+        return view('user.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
+    }
+
+    public function edit_profile_system(Request $request)
+    {
+        $user = User::find(Auth::user()->usr_id);
+        $validateData = $request->validate([
+            'name' => 'sometimes | required | string | max:255',
+            'usr_bio' => 'sometimes | nullable | string | max:255',
+        ]);
+
+        if ($request->usr_no_wa != $user['usr_no_wa']) {
+            $no_wa = $request->validate([
+                'usr_no_wa' => 'sometimes | required | regex:/^[0-9]+$/ | unique:users,usr_no_wa| phone:ID',
+            ]);
+            $validateData['usr_no_wa'] = $no_wa['usr_no_wa'];
+        }
+
+        $user->update($validateData);
+        return redirect('/user/profile')->with('success', 'Profile Berhasil Diubah');
+    }
 
     public function search_book_page()
     {
@@ -37,7 +62,8 @@ class UserController extends Controller
 
     public function view_transaction_page()
     {
-        return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman']);
+        $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title')->where('trx_user_id', Auth::user()->usr_id)->latest()->paginate(10);
+        return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman'], compact('transactions'));
     }
 
     public function add_transaction_page()

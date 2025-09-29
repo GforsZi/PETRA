@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>Success: {{ session('success') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/chat/option/add" class="btn btn-outline-primary w-100">Tambah Opsi
             Baru</a>
@@ -9,12 +16,22 @@
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Judul opsi</th>
+            <th>Tipe opsi</th>
             <th style="width: 50px">option</th>
         </x-slot:header>
         @forelse ($options as $index => $option)
             <tr class="align-middle">
                 <td>{{ $options->firstItem() + $index }}</td>
                 <td>{{ $option->cht_opt_title }}</td>
+                <td>
+                    @if ($option->cht_opt_type == '1')
+                        Pemberitahuan aktifasi
+                    @elseif ($option->cht_opt_type == '2')
+                        Peringatan waktu peminjaman
+                    @else
+                        Pesan bantuan
+                    @endif
+                </td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"

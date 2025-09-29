@@ -9,7 +9,7 @@
     @endif
     <div class="row g-0 ">
         <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <img src="{{ asset($book['bk_img_url'] ?? '/logo/uni_invt.png') }}"
+            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
                 class="card-img-top object-fit-contain cover" alt="" height="300">
         </div>
         <div class="card mb-4 col-12 col-md-8">
@@ -186,7 +186,6 @@
                                             <div class="modal-body p-4 text-center">
                                                 <h5 class="mb-0">Konfirmasi</h5>
                                                 <p class="mb-0">Yakin ingin menghapus data ini?
-                                                    {{ $bk_cp->bk_cp_id . $bk_cp->bk_cp_id . $bk_cp->bk_cp_id . $bk_cp->bk_cp_id }}.
                                                 </p>
                                                 <input type="hidden" value="{{ $book['bk_id'] }}"
                                                     name="book_id" />

@@ -76,10 +76,6 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while disconnecting the device.');
-            })
-            .finally(() => {
-                disconnectButton.disabled = false;
-                disconnectSpinner.classList.add('d-none');
             });
     }
 
