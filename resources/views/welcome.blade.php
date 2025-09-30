@@ -35,7 +35,7 @@
     <div class="view">
 
         <section class="hero-section d-flex align-items-center" id="HOME">
-            <div class="container hero-content" data-aos="fade-up-right" data-aos-duration="1500">
+            <div class="container hero-content" data-aos="fade-up-right" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
                 <hr />
                 <h1>SELAMAT DATANG</h1>
                 <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
