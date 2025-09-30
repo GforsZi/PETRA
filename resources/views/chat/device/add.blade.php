@@ -17,6 +17,11 @@
                         <input type="text" name="name"
                             class="form-control @error('name') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('name') }} ' Input tidak termasuk ke dalam format yang valid</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -25,6 +30,11 @@
                         <input type="text" name="device"
                             class="form-control @error('device') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('device')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('device') }} ' Input tidak termasuk ke dalam format yang valid</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
             </div>

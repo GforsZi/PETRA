@@ -18,6 +18,11 @@
                         <input type="text"
                             class="form-control @error('rl_name') is-invalid @enderror"
                             name="rl_name" value="{{ $role[0]['rl_name'] }}" id="inputEmail3">
+                            @error('rl_name')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('rl_name') }} ' Input tidak termasuk ke dalam format Peran yang valid</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -26,6 +31,11 @@
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror"
                             id="autoExpand">{{ $role[0]['rl_description'] }}</textarea>
+                            @error('rl_description')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input melebihi jumlah karakter Maksimal</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
                 </fieldset>

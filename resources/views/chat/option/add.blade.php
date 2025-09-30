@@ -26,9 +26,7 @@
                             id="title">
                         @error('cht_opt_title')
                             <div class="invalid-feedback">
-                                @if(old('cht_opt_title'))
-                                        Input tidak sesuai: {{ old('cht_opt_title') }}
-                                    @endif
+                                <p style="text-align: right;">' {{ old('cht_opt_title') }} ' Input tidak termasuk ke dalam format Peran yang valid</p>
                             </div>
                         @enderror
                     </div>
@@ -40,9 +38,7 @@
                             class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand"></textarea>
                         @error('cht_opt_message')
                             <div class="invalid-feedback">
-                                @if(old('cht_opt_message'))
-                                        <p style="text-align: right;">Input tidak sesuai: {{ old('cht_opt_message') }} </p>
-                                @endif
+                                <p style="text-align: right;">Input tidak sesuai: {{ old('cht_opt_message') }} </p>
                             </div>
                         @enderror
                     </div>

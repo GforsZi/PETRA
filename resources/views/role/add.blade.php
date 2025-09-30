@@ -17,14 +17,24 @@
                         <input type="text" name="rl_name"
                             class="form-control @error('rl_name') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('rl_name')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('rl_name') }} ' Input tidak termasuk ke dalam format Peran yang valid</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Keterangan
-                        Peran</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Keterangan Peran</label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror"
-                            id="autoExpand"></textarea>
+                            id="autoExpand">
+                        </textarea>
+                            @error('rl_description')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input melebihi jumlah karakter Maksimal</p>
+                                </div>
+                            @enderror
                     </div>
                 </div>
             </div>
