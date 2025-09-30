@@ -160,14 +160,18 @@
 
                 <!-- Kanan atas: Teks copyright dan lokasi -->
                 <div class="col-md-8 text-center text-md-end">
-                    <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
-                    <p class="mb-3">
-                        <i class="bi bi-geo-alt-fill"></i> SMSK Mahaputra
-                    </p>
+                    <div class="d-flex justify-content-end mt-3">
+                        <div class="wrapper me-3">
+                            <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
+                            <p class="mb-3">
+                                <i class="bi bi-geo-alt-fill"></i> SMSK Mahaputra
+                            </p>
+                        </div>
+                        <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}" alt="Logo Petra"
+                        style="width: 50px; height: 50px;" class="rounded-circle">
+                    </div>
                 </div>
-
             </div>
-
             <div class="row mt-3">
                 <div class="col-12">
                     <iframe
