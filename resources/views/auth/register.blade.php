@@ -21,19 +21,42 @@
                             style="width: 150px; height: 150px; object-fit: contain;">
                     </div>
                     <div class="bar">
-                        <form action="/system/register" method="post">
+                    <form action="/system/register" method="post">
                             @csrf
-                            <input name="name" type="text" class="form-control mb-3"
-                                placeholder="Input username">
-                            <input name="usr_no_wa" type="text" class="form-control mb-4"
-                                placeholder="No.Telp">
-                            <input name="password" type="password" class="form-control mb-4"
-                                placeholder="Password">
+
+                            <input name="name" type="text" class="form-control mb-1"
+                                   placeholder="Masukkan username"
+                                   value="{{ old('name') }}">
+                            @error('name')
+                                <p class="text-danger" style="text-align: right;">Nama pengguna wajib diisi</p>
+                            @enderror
+
+                            <input name="usr_no_wa" type="text" class="form-control mt-3 mb-1"
+                                   placeholder="Nomor Telepon / WhatsApp"
+                                   value="{{ old('usr_no_wa') }}">
+                                   @error('usr_no_wa')
+                                <small class="invalid-feedback">
+                                    @if(old('usr_no_wa'))
+                                        <p class="text-danger" style="text-align: right;">Nomor yang anda isi sudah terpakai atau tidak sesuai: {{ old('usr_no_wa') }}</p>
+                                    @endif
+                                </small>
+                            @enderror
+
+                            <input name="password" type="password" class="form-control mt-3 mb-1"
+                                placeholder="Kata Sandi">
+                            @error('password')
+                                <p class="text-danger" style="text-align: right;">Kata sandi minimal 5 karakter.</p>
+                            @enderror
+
                             <input name="password_confirmation" type="password"
-                                class="form-control mb-4" placeholder="Konfirmasi Password">
-                    </div>
-                    <button type="submit" class="control">Kirim</button>
-                    </form>
+                                   class="form-control mt-3 mb-1"
+                                   placeholder="Ulangi Kata Sandi">
+                            @error('password_confirmation')
+                                <p class="text-danger" style="text-align: right;">Konfirmasi kata sandi tidak sesuai.</p>
+                            @enderror
+
+                            <button type="submit" class="control mt-4">Daftar</button>
+                        </form>
 
                     <p class="text-center">
                         Sudah memiliki akun sebelumnya?

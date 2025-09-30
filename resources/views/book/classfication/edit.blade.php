@@ -19,6 +19,11 @@
                             value="{{ $classfications['ddc_code'] }}"
                             class="form-control @error('ddc_code') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('ddc_code')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror   
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -27,6 +32,11 @@
                     <div class="col-sm-10">
                         <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror"
                             id="autoExpand">{{ $classfications['ddc_description'] }}</textarea>
+                            @error('ddc_description')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

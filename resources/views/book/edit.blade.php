@@ -83,6 +83,11 @@
                         <input type="text" name="bk_title" value="{{ $book['bk_title'] }}"
                             class="form-control @error('bk_title') is-invalid @enderror"
                             id="title">
+                            @error('bk_title')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">

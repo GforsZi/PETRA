@@ -184,8 +184,8 @@
                                         @method('DELETE')
                                         <div class="modal-content rounded-3 shadow">
                                             <div class="modal-body p-4 text-center">
-                                                <h5 class="mb-0">Konfirmasi</h5>
-                                                <p class="mb-0">Yakin ingin menghapus data ini?
+                                                <h5 class="mb-0">Menghapus data..</h5>
+                                                <p class="mb-0">Apakah anda yakin untuk menghapus salinan ini?
                                                 </p>
                                                 <input type="hidden" value="{{ $book['bk_id'] }}"
                                                     name="book_id" />
@@ -238,8 +238,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="w-100 text-center">404 | data not
-                                found</td>
+                            <td colspan="3" class="w-100 text-center">404 | data tidak ditemukan</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -256,15 +255,15 @@
             @method('DELETE')
             <div class="modal-content rounded-3 shadow">
                 <div class="modal-body p-4 text-center">
-                    <h5 class="mb-0">Delete this data?</h5>
-                    <p class="mb-0">are you sure to delete user {{ $book['name'] }}.</p>
+                    <h5 class="mb-0">Konfirmasi</h5>
+                    <p class="mb-0">Yakin ingin menghapus data ini? {{ $book['name'] }}</p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Cancle</button>
+                        data-bs-dismiss="modal">Tidak</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Submit</strong></button>
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
@@ -290,10 +289,15 @@
                             <span class="input-group-text">-</span>
                             <input type="number" class="form-control" placeholder="jumlah"
                                 aria-label="jumlah" name="number">
+                                @error('number')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Generate</button>
+                        <button type="submit" class="btn btn-primary">Buat salinan</button>
                     </div>
                 </form>
             </div>

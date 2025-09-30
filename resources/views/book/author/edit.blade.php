@@ -18,6 +18,11 @@
                         <input type="text" name="athr_name" value="{{ $authors['athr_name'] }}"
                             class="form-control @error('athr_name') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('athr_name')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>
