@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container d-flex justify-content-center align-items-center" style="height: 60vh;">
+    <div class="container d-flex justify-content-left align-items-center" style="height: 60vh;">
         <div class="w-100" style="max-width: 400px;">
             <button class="btn btn-success mb-3">Tambah buku</button>
             <div class="input-group mb-3">
