@@ -85,7 +85,7 @@ class ManageAcoountController extends Controller
             $validateData['usr_no_wa'] = $no_wa['usr_no_wa'];
         }
 
-        if ($request->password == null) {
+        if ($request->password != null) {
             $password = $request->validate([
                 'password' => 'sometimes | nullable | min:5 | max:30 | confirmed',
             ]);

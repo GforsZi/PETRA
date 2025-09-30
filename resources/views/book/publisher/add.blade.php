@@ -17,6 +17,11 @@
                         <input type="text" name="pub_name"
                             class="form-control @error('pub_name') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('pub_name')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Nama penerbit tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -25,6 +30,11 @@
                         <input type="text" name="pub_address"
                             class="form-control @error('pub_address') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('pub_address')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;"> Alamat tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

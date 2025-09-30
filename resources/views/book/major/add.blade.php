@@ -17,6 +17,11 @@
                         <input type="text" name="bk_mjr_class"
                             class="form-control @error('bk_mjr_class') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('bk_mjr_class')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">' {{ old('bk_mjr_class') }} ' Merupakan input yang tidak sesuai dengan format kelas</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -26,6 +31,11 @@
                         <input type="text" name="bk_mjr_major"
                             class="form-control @error('bk_mjr_major') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('bk_mjr_major')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">' {{ old('bk_mjr_major') }} ' Merupakan input yang tidak sesuai dengan format kejuruan</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -21,20 +21,35 @@
                     <label for="nama" class="form-label ">Nama</label>
                     <input name="name" type="text" id="nama"
                         value="{{ $account[0]['name'] }}"
-                        class="form-control  shadow object-fit-cover" autocomplete="off">
+                        class="form-control  shadow object-fit-cover @error('name') is-invalid @enderror" autocomplete="off">
+                        @error('name')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">' {{ old('name') }} ' Input tidak sesuai</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="whatsapp" class="form-label">No WhatsApp</label>
                     <input name="usr_no_wa" type="text" id="whatsapp"
                         value="{{ $account[0]['usr_no_wa'] }}"
-                        class="form-control  shadow object-fit-cover ">
+                        class="form-control  shadow object-fit-cover @error('usr_no_wa') is-invalid @enderror">
+                        @error('usr_no_wa')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">' {{ old('usr_no_wa') }} ' Merupakan input yang tidak sesuai dengan format nomor WhatsApp</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="password" class="form-label">Password</label>
                     <input name="password" type="password" id="password"
-                        class="form-control  shadow object-fit-cover " autocomplete="off">
+                        class="form-control  shadow object-fit-cover @error('password') is-invalid @enderror " autocomplete="off">
+                        @error('password')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">Input tidak sesuai</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-1">
@@ -58,6 +73,11 @@
                             @endif
                         @endforeach
                     </select>
+                    @error('usr_role_id')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">Tolong pilih salah satu</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <!-- From Uiverse.io by adamgiebl -->

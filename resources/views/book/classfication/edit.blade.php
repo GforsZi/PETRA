@@ -21,9 +21,9 @@
                             id="inputEmail3">
                             @error('ddc_code')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">Input tidak sesuai : {{ old('ddc_code') }}</p>
                             </div>
-                        @enderror   
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">

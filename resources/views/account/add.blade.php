@@ -16,7 +16,7 @@
             </div>
             @error('image')
                 <div class="invalid-feedback">
-                    {{ $message }}
+                    <p style="text-align: right;">Input tidak sesuai</p>
                 </div>
             @enderror
 
@@ -27,7 +27,7 @@
                         class="form-control @error('name') is-invalid @enderror" autocomplete="off">
                     @error('name')
                         <div class="invalid-feedback">
-                            {{ $message }}
+                            <p style="text-align: right;">' {{ old('name') }} ' Input tidak sesuai</p>
                         </div>
                     @enderror
                 </div>
@@ -38,7 +38,7 @@
                         class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
-                            {{ $message }}
+                            <p style="text-align: right;">' {{ old('usr_no_wa') }} ' Merupakan input yang tidak sesuai dengan format nomor WhatsApp</p>
                         </div>
                     @enderror
                 </div>
@@ -50,7 +50,7 @@
                         autocomplete="off">
                     @error('password')
                         <div class="invalid-feedback">
-                            {{ $message }}
+                            <p style="text-align: right;">' {{ old('password') }} ' Input tidak sesuai</p>
                         </div>
                     @enderror
                 </div>
@@ -84,7 +84,7 @@
                     </select>
                     @error('usr_role_id')
                         <div class="invalid-feedback">
-                            {{ $message }}
+                            <p style="text-align: right;">Tolong pilih salah satu</p>
                         </div>
                     @enderror
                 </div>
