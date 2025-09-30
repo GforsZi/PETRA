@@ -48,6 +48,10 @@ class Book extends Model
         return $this->belongsToMany(DeweyDecimalClassfication::class, 'book_dewey_decimal_classfication', 'bk_ddc_book_id', 'bk_ddc_classfication_id');
     }
 
+    public function transactions(): BelongsToMany {
+        return $this->belongsToMany(BookTransaction::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_id');
+    }
+
     public function created_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'bk_created_by', 'usr_id');

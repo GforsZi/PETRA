@@ -49,10 +49,8 @@
     function disconnectDevice(deviceToken) {
         const disconnectButton = document.querySelector(
             `.disconnectButton[data-device-token="${deviceToken}"]`);
-        const disconnectSpinner = disconnectButton.querySelector('.disconnectSpinner');
 
         disconnectButton.disabled = true;
-        disconnectSpinner.classList.remove('d-none');
 
         fetch('{{ route('devices.disconnect') }}', {
                 method: 'POST',

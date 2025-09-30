@@ -78,7 +78,8 @@
                                 <!-- Disconnect -->
                                 <li>
 
-                                    <button class="dropdown-item"
+                                    <button class="dropdown-item disconnectButton"
+                                        data-device-token="{{ $device['token'] }}"
                                         onclick="disconnectDevice('{{ $device['token'] }}', this)">
                                         Disconnect
                                     </button>

@@ -355,7 +355,7 @@ class ManageChatbotController extends Controller
     }
 
     public function show_quick_reply_system() {
-        return response()->json(ChatOption::select('cht_opt_id', 'cht_opt_title')->get());
+        return response()->json(ChatOption::select('cht_opt_id', 'cht_opt_title')->where('cht_opt_type', '3')->get());
     }
 
     public function reply_system(Request $request) {

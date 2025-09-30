@@ -7,6 +7,7 @@ use App\Http\Controllers\ManageBookController;
 use App\Http\Controllers\ManageChatbotController;
 use App\Http\Controllers\ManageHistoryController;
 use App\Http\Controllers\ManageRoleController;
+use App\Http\Controllers\ManageTransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckActivation;
 use App\Http\Middleware\CheckAdmin;
@@ -149,6 +150,12 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/chat/option/{id}/edit', [ManageChatbotController::class, 'edit_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/loan', [ManageTransactionController::class, 'manage_loan_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/return', [ManageTransactionController::class, 'manage_return_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
 });

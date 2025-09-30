@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <div class="input-group mb-3 shadow-sm border border-dark rounded">
+    <div class="input-group mb-3 shadow-sm border border-body rounded">
         <input type="text" class="form-control border-0" placeholder="Cari sesuatu..."
             aria-label="Search">
         <button
@@ -12,7 +12,7 @@
     </div>
 
     <div class="container mt-3">
-        <div class="border border-dark rounded p-2">
+        <div class="border border-body rounded p-2">
 
             <h5 class="mb-2"><b>Buku Terpopuler</b></h5>
 
@@ -80,7 +80,7 @@
     </div>
 
     <div class="container mt-3">
-        <div class="border border-dark rounded p-2">
+        <div class="border border-body rounded p-2">
 
             <h5 class="mb-2"><b>Buku Terbaru</b></h5>
 
@@ -148,7 +148,7 @@
     </div>
 
     <div class="container mt-3">
-        <div class="border border-dark  rounded p-2">
+        <div class="border border-body  rounded p-2">
 
             <h5 class="mb-2"><b>Buku Pelajaran</b></h5>
 
@@ -216,7 +216,7 @@
     </div>
 
     <div class="container mt-3">
-        <div class="border border-dark rounded p-2">
+        <div class="border border-body rounded p-2">
 
             <h5 class="mb-2"><b>Buku Novel</b></h5>
 
