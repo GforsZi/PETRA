@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->year('bk_published_year')->nullable();
             $table->unsignedBigInteger('bk_publisher_id')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_major_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('bk_origin_id')->unsigned()->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('bk_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_deleted_by')->unsigned()->nullable();
@@ -43,6 +44,7 @@ return new class extends Migration {
 
             $table->foreign('bk_publisher_id')->references('pub_id')->on('publishers')->onDelete('cascade');
             $table->foreign('bk_major_id')->references('bk_mjr_id')->on('book_majors')->onDelete('cascade');
+            $table->foreign('bk_origin_id')->references('bk_orgn_id')->on('book_origins')->onDelete('cascade');
         });
     }
 

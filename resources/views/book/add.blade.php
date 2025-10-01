@@ -55,7 +55,7 @@
                         <input type="text" name="bk_title"
                             class="form-control @error('bk_title') is-invalid @enderror"
                             id="title">
-                            @error('bk_title')
+                        @error('bk_title')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Input tidak sesuai</p>
                             </div>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="mb-3 row position-relative">
-                    <label class="col-sm-2 col-form-label">Publisher</label>
+                    <label class="col-sm-2 col-form-label">Penerbit</label>
                     <div class="col-sm-10">
 
                         <input type="text" id="publisher-input"
@@ -115,6 +115,22 @@
 
                         {{-- wadah suggestion --}}
                         <div id="publisher-suggestions"
+                            class="list-group position-absolute shadow-sm"
+                            style="z-index: 1000; display:none; width: 80%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row position-relative">
+                    <label class="col-sm-2 col-form-label">Asal Buku</label>
+                    <div class="col-sm-10">
+
+                        <input type="text" id="origin-input"
+                            class="form-control @error('bk_origin_id') is-invalid @enderror"
+                            autocomplete="off">
+                        <input type="hidden" name="bk_origin_id" id="origin-id">
+
+                        {{-- wadah suggestion --}}
+                        <div id="origin-suggestions"
                             class="list-group position-absolute shadow-sm"
                             style="z-index: 1000; display:none; width: 80%;">
                         </div>
@@ -388,7 +404,7 @@
         input.addEventListener('keyup', function() {
             let query = this.value.trim();
 
-            if (query.length < 2) {
+            if (query.length < 0) {
                 suggestionsBox.style.display = 'none';
                 return;
             }
@@ -432,6 +448,60 @@
         document.addEventListener('click', function(e) {
             if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
                 suggestionsBox.style.display = 'none';
+            }
+        });
+
+        const input_org = document.getElementById('origin-input');
+        const hiddenId_org = document.getElementById('origin-id');
+        const suggestionsBox_org = document.getElementById('origin-suggestions');
+
+        input_org.addEventListener('keyup', function() {
+            let query = this.value.trim();
+
+            if (query.length < 0) {
+                suggestionsBox_org.style.display = 'none';
+                return;
+            }
+
+            fetch(`{{ route('origins.search') }}?q=${query}`)
+                .then(res => res.json())
+                .then(data => {
+                    suggestionsBox_org.innerHTML = '';
+
+                    if (data.length > 0) {
+                        data.forEach(orgn => {
+                            let item = document.createElement('button');
+                            item.type = 'button';
+                            item.classList.add('list-group-item',
+                                'list-group-item-action');
+                            item.textContent = orgn.bk_orgn_name;
+
+                            // Klik → set value
+                            item.addEventListener('click', function() {
+                                input_org.value = orgn
+                                    .bk_orgn_name;
+                                hiddenId_org.value = orgn.bk_orgn_id;
+                                suggestionsBox_org.style.display = 'none';
+                            });
+
+                            suggestionsBox_org.appendChild(item);
+                        });
+
+                        suggestionsBox_org.style.display = 'block';
+                    } else {
+                        suggestionsBox_org.style.display = 'none';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    suggestionsBox_org.style.display = 'none';
+                });
+        });
+
+        // klik di luar → tutup suggestion
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !suggestionsBox_org.contains(e.target)) {
+                suggestionsBox_org.style.display = 'none';
             }
         });
     </script>

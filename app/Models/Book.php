@@ -28,6 +28,10 @@ class Book extends Model
         return $this->belongsTo(BookMajor::class, 'bk_major_id', 'bk_mjr_id');
     }
 
+    public function origin(): BelongsTo {
+        return $this->belongsTo(BookOrigin::class, 'bk_origin_id', 'bk_orgn_id');
+    }
+
     public function publisher(): BelongsTo
     {
         return $this->belongsTo(Publisher::class, 'bk_publisher_id', 'pub_id');

@@ -53,7 +53,7 @@ class ManageChatbotController extends Controller
         }
         $validateData = $request->validate([
             'cht_opt_title' => 'required | string | max:255',
-            'cht_opt_message' => 'required | string | max:255',
+            'cht_opt_message' => 'required | string | max:65535',
             'cht_opt_type' => 'required | in:1,2,3',
         ]);
 
@@ -87,7 +87,7 @@ class ManageChatbotController extends Controller
 
         $validateData = $request->validate([
             'cht_opt_title' => 'sometimes | required | string | max:255',
-            'cht_opt_message' => 'sometimes | required | string | max:255',
+            'cht_opt_message' => 'sometimes | required | string | max:65535',
             'cht_opt_type' => 'required | in:1,2,3',
         ]);
 

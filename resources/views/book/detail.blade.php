@@ -162,17 +162,17 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                        <a class="dropdown-item" style="cursor: pointer;"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
-                                            Label
-                                        </a>
+                                            <a class="dropdown-item" style="cursor: pointer;"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
+                                                Label
+                                            </a>
                                         </li>
                                         <li><a class="dropdown-item" style="cursor: pointer;"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#changeStatus{{ $bk_cp->bk_cp_id }}">Ubah
                                                 Status</a>
-                                            </li>
+                                        </li>
                                         <li><a class="dropdown-item" style="cursor: pointer;"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#deleteConfirmation{{ $bk_cp->bk_cp_id }}">Hapus</a>
@@ -192,8 +192,9 @@
                                         @method('DELETE')
                                         <div class="modal-content rounded-3 shadow">
                                             <div class="modal-body p-4 text-center">
-                                                <h5 class="mb-0">Label</h5>
-                                                <p class="mb-0">Apakah anda yakin untuk menghapus salinan ini?
+                                                <h5 class="mb-0">Menghapus data..</h5>
+                                                <p class="mb-0">Apakah anda yakin untuk menghapus
+                                                    salinan ini?
                                                 </p>
                                                 <input type="hidden" value="{{ $book['bk_id'] }}"
                                                     name="book_id" />
@@ -208,63 +209,62 @@
                                         </div>
                                     </form>
                                 </div>
-                                
-           <div class="modal fade"
-    id="LabelBook{{ $bk_cp->bk_cp_id }}"
-    data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
-    aria-hidden="true">
-    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
-        method="post" class="modal-dialog modal-dialog-centered">
-        @csrf
-        @method('DELETE')
-        <div class="modal-content rounded-3 shadow p-3" >
-            <div class="labelcode mx-auto" 
-                 style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-                
-                
-                <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                    <tr>
-                        <td class="d-flex justify-content-center text-center h-100" style="width:80px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                            <img src="{{ asset('logo/landing/smk.png') }}" 
-                                 alt="Logo Petra"
-                                 class=" rounded-circle"
-                                 style="width:55px; height:55px;">
-                        </td>
-                        <td class="text-center p-2">
-                            <h6 class="fw-bold mb-0">PERPUSTAKAAN</h6>
-                            <h6 class="fw-bold mb-0">SMK MAHAPUTRA</h6>
-                        </td>
-                    </tr>
-                </table>
 
-               
-                <div class="text-center py-3">
-                    <h4 class="fw-bold mb-1">600</h4>
-                    <h5 class="fw-bold mb-1">ZAC</h5>
-                    <p class="mb-1">s</p>
-                    <p class="mb-0 fw-bold">BK0027/126</p>
-                </div>
-            </div>
+                                <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}"
+                                    data-bs-backdrop="static" data-bs-keyboard="false"
+                                    tabindex="-1"
+                                    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
+                                    aria-hidden="true">
+                                    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
+                                        method="post" class="modal-dialog modal-dialog-centered">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="modal-content rounded-3 shadow p-3">
+                                            <div class="labelcode mx-auto"
+                                                style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
 
-            <div class="modal-footer flex-nowrap p-0 mt-3">
-                <button type="button"
-                    class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
-                    data-bs-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </form>
+                                                <table
+                                                    style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                                                    <tr>
+                                                        <td class="d-flex justify-content-center text-center h-100"
+                                                            style="width:80px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                                            <img src="{{ asset('logo/landing/smk.png') }}"
+                                                                alt="Logo Petra"
+                                                                class=" rounded-circle"
+                                                                style="width:55px; height:55px;">
+                                                        </td>
+                                                        <td class="text-center p-2">
+                                                            <h6 class="fw-bold mb-0">PERPUSTAKAAN
+                                                            </h6>
+                                                            <h6 class="fw-bold mb-0">SMK MAHAPUTRA
+                                                            </h6>
+                                                        </td>
+                                                    </tr>
+                                                </table>
 
+                                                <div class="text-center py-3">
+                                                    <h4 class="fw-bold mb-1">600</h4>
+                                                    <h5 class="fw-bold mb-1">ZAC</h5>
+                                                    <p class="mb-1">s</p>
+                                                    <p class="mb-0 fw-bold">BK0027/126</p>
+                                                </div>
+                                            </div>
 
+                                            <div class="modal-footer flex-nowrap p-0 mt-3">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </form>
 
+                                    <style>
+                                        .labelcode {
+                                            background-color: white;
+                                            color: black;
+                                        }
 
-                    <style>
-                        .labelcode{
-                            background-color: white;
-                            color: black;
-                        }
-                        /* .labelcode{
+                                        /* .labelcode{
                             background-color: #DC143C;
                            color: black;
                         }
@@ -272,9 +272,8 @@
                             background-color: #FAB12F;
                             color: black;
                         } */
-                    </style>
-                </div>
-
+                                    </style>
+                                </div>
 
                                 <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}"
                                     data-bs-backdrop="static" data-bs-keyboard="false"
@@ -314,7 +313,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="w-100 text-center">404 | data tidak ditemukan</td>
+                            <td colspan="3" class="w-100 text-center">404 | data tidak
+                                ditemukan</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -365,11 +365,11 @@
                             <span class="input-group-text">-</span>
                             <input type="number" class="form-control" placeholder="jumlah"
                                 aria-label="jumlah" name="number">
-                                @error('number')
-                            <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
-                            </div>
-                        @enderror
+                            @error('number')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">Input tidak sesuai</p>
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">

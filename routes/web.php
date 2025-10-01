@@ -80,6 +80,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/book/ddc/{id}/edit', [ManageBookController::class, 'edit_book_classfication_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/origin', [ManageBookController::class, 'manage_book_origin_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/origin/add', [ManageBookController::class, 'add_book_origin_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/origin/{id}/detail', [ManageBookController::class, 'detail_book_origin_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/origin/{id}/edit', [ManageBookController::class, 'edit_book_origin_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/book/author', [ManageBookController::class, 'manage_book_author_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -256,6 +268,10 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')
         ->name('publishers.search');
+    Route::get('/system/orgin/search', [ManageBookController::class, 'search_book_orgin_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')
+        ->name('origins.search');
     Route::get('/system/ddc/search', [ManageBookController::class, 'search_book_ddc_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')
@@ -276,6 +292,15 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::delete('/system/publisher/{id}/delete', [ManageBookController::class, 'delete_book_publisher_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/origin/add', [ManageBookController::class, 'add_book_origin_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/origin/{id}/edit', [ManageBookController::class, 'edit_book_origin_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/origin/{id}/delete', [ManageBookController::class, 'delete_book_origin_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/ddc/add', [ManageBookController::class, 'add_book_classfication_system'])

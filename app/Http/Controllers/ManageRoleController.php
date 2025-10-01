@@ -47,7 +47,7 @@ class ManageRoleController extends Controller
         $role = Role::find($id);
         $validateData = $request->validate([
             'rl_name' => 'sometimes | required | string | min:3 | max:255',
-            'rl_description' => 'sometimes | nullable | string | max:255',
+            'rl_description' => 'sometimes | nullable | string | max:65535',
             'rl_admin' => 'sometimes | nullable | boolean',
         ]);
 
