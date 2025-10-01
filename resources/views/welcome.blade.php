@@ -60,7 +60,7 @@
 
     </div>
     <!-- Tentang Kami -->
-    <section id="about" data-aos="zoom-out" data-aos-duration="1500">
+    <section id="about" data-aos="zoom-out" data-aos-duration="1500" class="mb-5">
         <h2>TENTANG KAMI</h2>
         <p>
             Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
@@ -70,7 +70,7 @@
     </section>
 
     <!-- Keunggulan Kami -->
-    <section id="keunggulan">
+    <section class="mt-4" id="keunggulan">
 
         <h1 class="text-center mb-4 text-uppercase text-bold " data-aos="fade-down"
             data-aos-duration="1500">Keunggulan Kami</h1>
@@ -182,7 +182,6 @@
                     </iframe>
                 </div>
             </div>
-
         </div>
     </footer>
 </x-guest-layout>
