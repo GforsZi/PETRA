@@ -210,36 +210,7 @@
                                     </form>
                                 </div>
                                 
-           <div class="modal fade"
-    id="LabelBook{{ $bk_cp->bk_cp_id }}"
-    data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
-    aria-hidden="true">
-    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
-        method="post" class="modal-dialog modal-dialog-centered">
-        @csrf
-        @method('DELETE')
-        <div class="modal-content rounded-3 shadow p-3" >
-            <div class="labelcode mx-auto" 
-                 style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-                
-             <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-    <tr style="height:90px;"> 
-        <!-- Kolom logo -->
-        <td style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-            <img src="{{ asset('logo/landing/smk.png') }}" 
-                 alt="Logo Petra"
-                 style="width:80px; height:80px;" class="rounded-circle">
-        </td>
-
-        <!-- Kolom teks -->
-        <td style="text-align:center; vertical-align:middle;">
-            <h5 class="fw-bold mb-0">PERPUSTAKAAN</h5>
-            <h5 class="fw-bold mb-0">SMK MAHAPUTRA</h5>
-        </td>
-    </tr>
-</table>
+        
 
                                 <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}"
                                     data-bs-backdrop="static" data-bs-keyboard="false"
@@ -250,28 +221,23 @@
                                         method="post" class="modal-dialog modal-dialog-centered">
                                         @csrf
                                         @method('DELETE')
-                                        <div class="modal-content rounded-3 shadow p-3">
-                                            <div class="labelcode mx-auto"
+                                        <div class="modal-content rounded-3 shadow p-3" >
+                                            <div class="labelcode mx-auto" 
                                                 style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-
-                                                <table
-                                                    style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                                                    <tr>
-                                                        <td class="d-flex justify-content-center text-center h-100"
-                                                            style="width:80px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                                                            <img src="{{ asset('logo/landing/smk.png') }}"
-                                                                alt="Logo Petra"
-                                                                class=" rounded-circle"
-                                                                style="width:55px; height:55px;">
-                                                        </td>
-                                                        <td class="text-center p-2">
-                                                            <h6 class="fw-bold mb-0">PERPUSTAKAAN
-                                                            </h6>
-                                                            <h6 class="fw-bold mb-0">SMK MAHAPUTRA
-                                                            </h6>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                
+                                            <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                                    <tr style="height:90px;"> 
+                                        <td style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                            <img src="{{ asset('logo/landing/smk.png') }}" 
+                                                alt="Logo Petra"
+                                                style="width:80px; height:80px;" class="rounded-circle">
+                                        </td>
+                                        <td style="text-align:center; vertical-align:middle;">
+                                            <h5 class="fw-bold mb-0">PERPUSTAKAAN</h5>
+                                            <h5 class="fw-bold mb-0">SMK MAHAPUTRA</h5>
+                                        </td>
+                                    </tr>
+                                </table>
 
                                                 <div class="text-center py-3">
                                                     <h4 class="fw-bold mb-1">600</h4>
