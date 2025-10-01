@@ -1,16 +1,26 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <form action="" method="get">
+
+    <form id="searchForm" action="{{ url('/search/book') }}" method="get">
         <div class="input-group mb-3 shadow-sm border border-body rounded">
-            <input type="text" class="form-control border-0" placeholder="Cari sesuatu..."
+            <input type="text" id="searchInput" name="search" value="{{ request('search') }}"
+                class="form-control border-0" placeholder="Cari judul buku..."
                 aria-label="Search">
             <button
                 class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
-                type="button">
+                type="submit">
                 <i class="bi bi-search fs-5"></i>
             </button>
         </div>
     </form>
+
+    <div class="container mt-3">
+        <div class="border border-body rounded p-3">
+            <h5 class="mb-2"><b>Hasil Pencarian</b></h5>
+            <div id="searchResult" class="row gx-2 gy-2"></div>
+        </div>
+    </div>
+
     <div class="container mt-3">
         <div class="border border-body rounded p-2">
 
@@ -313,5 +323,61 @@
             scrollbar-width: none;
         }
     </style>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById('searchForm');
+        const input = document.getElementById('searchInput');
+        const resultContainer = document.getElementById('searchResult');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // cegah reload
+
+            let query = input.value.trim();
+            if (query === "") {
+                resultContainer.innerHTML = '<p class="text-muted">Masukkan kata kunci dulu.</p>';
+                return;
+            }
+
+            fetch(`/search/book/${encodeURIComponent(query)}`, {
+                headers: {
+                    "Accept": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    resultContainer.innerHTML = '';
+
+                    if (!data || data.length === 0) {
+                        resultContainer.innerHTML =
+                            '<p class="text-muted">Tidak ada buku ditemukan.</p>';
+                        return;
+                    }
+
+                    data.forEach(book => {
+                        let col = document.createElement('div');
+                        col.classList.add('col-6', 'col-md-3', 'col-lg-2', 'mb-3');
+
+                        col.innerHTML = `
+                            <div class="card h-100 shadow-sm">
+                                <img src="${book.cover_url ?? '{{ asset("logo/landing/Aesop.png") }}'}"
+                                    class="card-img-top book-img" alt="${book.bk_title}">
+                                <div class="card-body p-2">
+                                    <p class="small text-center mb-0">${book.bk_title}</p>
+                                </div>
+                            </div>
+                        `;
+
+                        resultContainer.appendChild(col);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    resultContainer.innerHTML = '<p class="text-danger">Terjadi kesalahan.</p>';
+                });
+        });
+    });
+    </script>
+
 
 </x-app-layout>

@@ -56,7 +56,10 @@ class UserController extends Controller
 
     public function search_name_book_page($name)
     {
-        return view('user.book.search', ['title' => 'Halaman Cari Buku']);
+        $books = Book::where('bk_title', 'like', "%{$name}%")
+                    ->select('bk_id','bk_title','bk_img_url')
+                    ->get();
+        return response()->json($books);
     }
 
     public function detail_book_page($id)
