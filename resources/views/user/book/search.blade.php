@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
-    <div class="input-group mb-3 shadow-sm border border-body rounded">
-        <input type="text" class="form-control border-0" placeholder="Cari sesuatu..."
-            aria-label="Search">
-        <button
-            class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
-            type="button">
-            <i class="bi bi-search fs-5"></i>
-        </button>
-    </div>
-
+    <form action="" method="get">
+        <div class="input-group mb-3 shadow-sm border border-body rounded">
+            <input type="text" class="form-control border-0" placeholder="Cari sesuatu..."
+                aria-label="Search">
+            <button
+                class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
+                type="button">
+                <i class="bi bi-search fs-5"></i>
+            </button>
+        </div>
+    </form>
     <div class="container mt-3">
         <div class="border border-body rounded p-2">
 
