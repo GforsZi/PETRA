@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
+    
     <form>
         <div class="row g-4 align-items-start">
             <!-- Kolom Daftar Buku Dipilih -->
@@ -19,22 +19,24 @@
 
             <!-- Kolom Form -->
             <div class="col-md-8">
-                <div class="mb-3">
-                    <label class="form-label">Tujuan Peminjaman</label>
-                    <input type="text" class="form-control">
-                </div>
+               <div class="mb-3">
+  <label class="form-label">Tujuan Peminjaman</label>
+  <select class="form-select" name="tujuan_peminjaman" required>
+    <option value="" selected disabled>Pilih tujuan</option>
+    <option value="belajar">Kegiatan Belajar Mengajar</option>
+    <option value="pribadi">Pribadi</option>
+  </select>
+</div>
+
 
                 <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
                     <textarea class="form-control"></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Tanggal Peminjaman</label>
-                    <input type="datetime-local" class="form-control">
-                </div>
+                
 
-                <button type="submit" class="btn btn-outline-success w-100">Kirim</button>
+                <button type="submit" class="btn btn-outline-success w-100">Selesai</button>
             </div>
         </div>
     </form>
@@ -116,53 +118,78 @@
     </div>
 
     <!-- Script -->
-    <script>
-        document.querySelectorAll('.pilih-buku').forEach(img => {
-            img.addEventListener('click', function() {
-                const listContainer = document.getElementById('listBukuDipilih');
-                const noText = document.getElementById('noBukuText');
+  
+<script>
+document.querySelectorAll('.pilih-buku').forEach(img => {
+    img.addEventListener('click', function() {
+        const listContainer = document.getElementById('listBukuDipilih');
+        const noText = document.getElementById('noBukuText');
 
-                // hilangkan teks default
-                if (noText) noText.remove();
+        // hilangkan teks default
+        if (noText) noText.remove();
 
-                // buat card kecil buku yang dipilih
-                const card = document.createElement('div');
-                card.className = "card mb-2 shadow-sm bg-body";
-                card.style.maxWidth = "100%";
+        // buat card kecil buku yang dipilih
+        const card = document.createElement('div');
+        card.className = "card mb-2 shadow-sm bg-body";
+        card.style.maxWidth = "100%";
 
-                card.innerHTML = `
-  <div class="row g-0 align-items-stretch">
-    <div class="col-4">
-      <img src="${this.src}" class="img-fluid rounded-start h-100" alt="buku" style="object-fit:cover;">
-    </div>
-    <div class="col-8 d-flex flex-column justify-content-between">
-      <div class="p-2">
-        <h6 class="card-title fw-bold mb-0">${this.dataset.nama}</h6>
-      </div>
-      <div class="p-2 d-flex justify-content-end">
-        <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
-      </div>
-    </div>
-  </div>
-`;
+        card.innerHTML = `
+          <div class="row g-0 align-items-stretch">
+            <div class="col-4">
+              <img src="${this.src}" class="img-fluid rounded-start h-100" alt="buku" style="object-fit:cover;">
+            </div>
+            <div class="col-8 d-flex flex-column justify-content-between">
+            
+              <div class="p-2 d-flex justify-content-between align-items-center">
+                <h6 class="card-title fw-bold mb-0">${this.dataset.nama}</h6>
+                <div class="input-group input-group-sm" style="width: 110px;">
+                <button class="btn btn-outline-danger minus-btn" type="button">−</button>
+                <input type="text" class="form-control text-center jumlah-buku" value="1" readonly>
+                <button class="btn btn-outline-primary plus-btn" type="button">+</button>
+                </div>
+              </div>
+              <div class="p-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
+              </div>
+            </div>
+          </div>
+        `;
 
-                // tambahkan ke list
-                listContainer.appendChild(card);
+        const jumlahEl = card.querySelector('.jumlah-buku');
+        let jumlah = 1;
 
-                // event hapus
-                card.querySelector('.hapus-buku').addEventListener('click', () => {
-                    card.remove();
-                    if (listContainer.children.length === 0) {
-                        listContainer.innerHTML =
-                            '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-                    }
-                });
-
-                // tutup modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById(
-                    'exampleModal'));
-                modal.hide();
-            });
+        // event tambah
+        card.querySelector('.plus-btn').addEventListener('click', () => {
+            if (jumlah < 3) { // 🔹 maksimal 3
+                jumlah++;
+                jumlahEl.value = jumlah;
+            }
         });
-    </script>
+
+        // event kurang
+        card.querySelector('.minus-btn').addEventListener('click', () => {
+            if (jumlah > 1) {
+                jumlah--;
+                jumlahEl.value = jumlah;
+            }
+        });
+
+        // tambahkan ke list
+        listContainer.appendChild(card);
+
+        // event hapus
+        card.querySelector('.hapus-buku').addEventListener('click', () => {
+            card.remove();
+            if (listContainer.querySelectorAll('.card').length === 0) {
+                listContainer.innerHTML =
+                    '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+            }
+        });
+
+        // tutup modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+        modal.hide();
+    });
+});
+</script>
 </x-app-layout>
