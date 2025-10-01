@@ -19,6 +19,11 @@
                             value="{{ $option['cht_opt_title'] }}"
                             class="form-control @error('cht_opt_title') is-invalid @enderror"
                             id="inputEmail3">
+                            @error('cht_opt_title')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -26,6 +31,11 @@
                     <div class="col-sm-10">
                         <textarea name="cht_opt_message" class="form-control @error('cht_opt_message') is-invalid @enderror"
                             id="autoExpand">{{ $option['cht_opt_message'] }}</textarea>
+                            @error('cht_opt_message')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak sesuai</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">

@@ -19,7 +19,7 @@
                             id="inputEmail3">
                             @error('name')
                                 <div class="invalid-feedback">
-                                    <p style="text-align: right;">' {{ old('name') }} ' Input tidak termasuk ke dalam format yang valid</p>
+                                    <p style="text-align: right;">Input tidak valid</p>
                                 </div>
                             @enderror
                     </div>
@@ -32,7 +32,7 @@
                             id="inputEmail3">
                             @error('device')
                                 <div class="invalid-feedback">
-                                    <p style="text-align: right;">' {{ old('device') }} ' Input tidak termasuk ke dalam format yang valid</p>
+                                    <p style="text-align: right;">Input tidak valid</p>
                                 </div>
                             @enderror
                     </div>
