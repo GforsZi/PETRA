@@ -19,6 +19,11 @@
                     <label for="nama" class="form-label">Nama</label>
                     <input value="{{ $user['name'] }}" name="name" type="text" id="nama"
                         class="form-control @error('name') is-invalid @enderror" autocomplete="off">
+                        @error('Name')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">Input tidak sesuai</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -26,11 +31,21 @@
                     <input value="{{ $user['usr_no_wa'] }}" name="usr_no_wa" type="text"
                         id="whatsapp"
                         class="form-control @error('usr_no_wa') is-invalid @enderror">
+                        @error('usr_no_Wa')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">Input tidak sesuai</p>
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="whatsapp" class="form-label">Bio</label>
                     <textarea name="usr_bio" class="form-control @error('usr_bio') is-invalid @enderror"
                         id="autoExpand">{{ $user['usr_bio'] }}</textarea>
+                        @error('usr_bio')
+                        <div class="invalid-feedback">
+                            <p style="text-align: right;">Input tidak sesuai</p>
+                        </div>
+                    @enderror
                 </div>
 
                 <!-- From Uiverse.io by adamgiebl -->

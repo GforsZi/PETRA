@@ -24,7 +24,7 @@
                         class="form-control  shadow object-fit-cover @error('name') is-invalid @enderror" autocomplete="off">
                         @error('name')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">' {{ old('name') }} ' Input tidak sesuai</p>
+                            <p style="text-align: right;">Input tidak sesuai</p>
                         </div>
                     @enderror
                 </div>
@@ -36,7 +36,7 @@
                         class="form-control  shadow object-fit-cover @error('usr_no_wa') is-invalid @enderror">
                         @error('usr_no_wa')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">' {{ old('usr_no_wa') }} ' Merupakan input yang tidak sesuai dengan format nomor WhatsApp</p>
+                            <p style="text-align: right;">Input tidak sesuai </p>
                         </div>
                     @enderror
                 </div>

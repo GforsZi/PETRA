@@ -39,7 +39,7 @@
 
     .quick-item {
         max-width: 180px;
-        text-wrap: balance:
+        text-wrap: balance;
     }
 </style>
 

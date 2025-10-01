@@ -19,7 +19,7 @@
                             id="inputEmail3">
                             @error('bk_mjr_class')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">' {{ old('bk_mjr_class') }} ' Merupakan input yang tidak sesuai dengan format kelas</p>
+                                <p style="text-align: right;">Input tidak sesuai</p>
                             </div>
                         @enderror
                     </div>
@@ -33,7 +33,7 @@
                             id="inputEmail3">
                             @error('bk_mjr_major')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">' {{ old('bk_mjr_major') }} ' Merupakan input yang tidak sesuai dengan format kejuruan</p>
+                                <p style="text-align: right;">Input tidak sesuai</p>
                             </div>
                         @enderror
                     </div>
