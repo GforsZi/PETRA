@@ -54,6 +54,11 @@ class UserController extends Controller
         return view('user.book.search', ['title' => 'Halaman Cari Buku']);
     }
 
+    public function search_name_book_page($name)
+    {
+        return view('user.book.search', ['title' => 'Halaman Cari Buku']);
+    }
+
     public function detail_book_page($id)
     {
         $book = Book::select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_edition_volume', 'bk_published_year', 'bk_publisher_id', 'bk_major_id')->with('authors:athr_id,athr_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name','deweyDecimalClassfications:ddc_id,ddc_code',)->find($id);

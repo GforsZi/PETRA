@@ -185,6 +185,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/search/book', [UserController::class, 'search_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
+    Route::get('/search/book/{name}', [UserController::class, 'search_name_book_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::get('/search/book/{id}/detail', [UserController::class, 'detail_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
