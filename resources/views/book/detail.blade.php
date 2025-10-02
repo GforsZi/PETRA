@@ -7,12 +7,30 @@
                 aria-label="Close"></button>
         </div>
     @endif
-    <div class="row g-0 ">
-        <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
-                class="card-img-top object-fit-contain cover" alt="" height="300">
-        </div>
-        <div class="card mb-4 col-12 col-md-8">
+  <div class="row g-0 p-3 bg-light rounded">
+  <div class="col-12 col-md-4 d-flex justify-content-center">
+    <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}" 
+         class="img-fluid object-fit-contain shadow"
+         alt="Book cover showing classical painting and dark themed cover"
+         height="300">
+  </div>
+  <div class="col-12 col-md-8 ps-md-3 mt-3 mt-md-0">
+    
+    <h5>Buku digital</h5>
+    <h4 class="fw-bold mb-1">Ujang si pejuang</h4>
+    <p class="mb-1 text-primary">
+      <a href="#" class="text-decoration-none">Dyonns</a> | no isbn
+    </p>
+    <hr>
+    <p class="text-muted" style="line-height: 1.5;">
+     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem ducimus quidem debitis dolore in mollitia corrupti natus ratione ipsa eveniet, quos, dolorum temporibus tempora? Exercitationem placeat sint odio soluta earum autem nostrum fugit, voluptatibus quaerat, id eaque at est cumque, tempora deserunt tenetur. Eligendi obcaecati odit laboriosam explicabo voluptatibus est, aperiam autem ipsum deserunt voluptatem necessitatibus adipisci. Pariatur neque nostrum odit explicabo, voluptatem corrupti ad quaerat hic sapiente necessitatibus eaque id iste ab molestias aspernatur amet illum voluptates in vel? Delectus accusamus, veniam repellendus alias dolorem atque, quasi ab temporibus eligendi, id esse nam architecto doloremque itaque voluptatem consequuntur dolore.
+    </p>
+  </div>
+</div>
+
+
+        
+        <div class="card mb-4 col-12 col-md-8 w-100">
             <div class="card-header">
                 <h3 class="card-title">Detail book</h3>
             </div>
