@@ -21,7 +21,9 @@
                                 </h3>
                                 <div class="mb-2"><strong>Penulis:</strong> <span class="ms-2">
                                         @foreach ($book['authors'] as $author)
-                                            {{ $author->athr_name ?? '' }} |
+                                            {{ $author->athr_name ?? '' }} @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
                                     </span></div> <!-- isian data disini -->
                                 <div class="mb-2"><strong>Penerbit:</strong> <span class="ms-2">
@@ -37,7 +39,9 @@
                                 <div class="mb-2"><strong>Klasifikasi:</strong> <span
                                         class="ms-2">
                                         @foreach ($book['deweyDecimalClassfications'] as $classfication)
-                                            {{ $classfication->ddc_code ?? '' }} |
+                                            {{ $classfication->ddc_code ?? '' }} @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
                                     </span></div>
                             </div>

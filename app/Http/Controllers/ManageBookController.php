@@ -521,7 +521,7 @@ class ManageBookController extends Controller
     }
 
     public function detail_book_origin_page($id) {
-        $origin = BookOrigin::find($id);
+        $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
         return view('book.origin.detail', ['title' => 'Halaman Detail Asal Buku'], compact('origin'));
     }
 
