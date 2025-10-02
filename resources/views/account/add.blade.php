@@ -23,7 +23,7 @@
             <div class="col-12 col-md-8">
                 <div class="mb-1">
                     <label for="nama" class="form-label">Nama</label>
-                    <input name="name" type="text" id="nama"
+                    <input value="{{ old('name') }}" name="name" type="text" id="nama"
                         class="form-control @error('name') is-invalid @enderror" autocomplete="off">
                     @error('name')
                         <div class="invalid-feedback">
@@ -34,7 +34,7 @@
 
                 <div class="mb-1">
                     <label for="whatsapp" class="form-label">No WhatsApp</label>
-                    <input name="usr_no_wa" type="text" id="whatsapp"
+                    <input value="{{ old('usr_no_Wa') }}" name="usr_no_wa" type="text" id="whatsapp"
                         class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
@@ -45,7 +45,7 @@
 
                 <div class="mb-1">
                     <label for="password" class="form-label">Password</label>
-                    <input name="password" type="password" id="password"
+                    <input  name="password" type="password" id="password"
                         class="form-control @error('password') is-invalid @enderror"
                         autocomplete="off">
                     @error('password')

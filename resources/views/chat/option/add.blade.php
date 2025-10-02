@@ -21,7 +21,7 @@
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label">Judul opsi</label>
                     <div class="col-sm-10">
-                        <input type="text" name="cht_opt_title"
+                        <input value="{{ old('cht_opt_title') }}" type="text" name="cht_opt_title"
                             class="form-control @error('cht_opt_title') is-invalid @enderror"
                             id="title">
                         @error('cht_opt_title')
@@ -35,7 +35,7 @@
                     <label for="message" class="col-sm-2 col-form-label">Pesan opsi</label>
                     <div class="col-sm-10">
                         <textarea name="cht_opt_message" id="message"
-                            class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand"></textarea>
+                            class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand">{{ old('cht_opt_message) }}</textarea>
                         @error('cht_opt_message')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Input tidak sesuai</p>

@@ -44,7 +44,7 @@
                 <div class="row mb-3">
                     <label for="sibn" class="col-sm-2 col-form-label">ISBN Buku</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_isbn"
+                        <input value="{{ old('bk_isbn') }}" type="text" name="bk_isbn"
                             class="form-control @error('bk_isbn') is-invalid @enderror"
                             id="sibn">
                     </div>
@@ -52,7 +52,7 @@
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label">Judul Buku</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_title"
+                        <input value="{{ old('bk_title') }}" type="text" name="bk_title"
                             class="form-control @error('bk_title') is-invalid @enderror"
                             id="title">
                         @error('bk_title')
@@ -67,13 +67,13 @@
                         Buku</label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
-                            id="autoExpand"></textarea>
+                            id="autoExpand">{{ old('bk_description') }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="price" class="col-sm-2 col-form-label">Harga Perbuku</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bk_unit_price"
+                        <input value="{{ old('bk_unit price') }}" type="number" name="bk_unit_price"
                             class="form-control @error('bk_unit_price') is-invalid @enderror"
                             id="price">
                     </div>
@@ -81,7 +81,7 @@
                 <div class="row mb-3">
                     <label for="page" class="col-sm-2 col-form-label">Halaman Buku</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bk_page"
+                        <input value="{{ old('bk_page') }}" type="number" name="bk_page"
                             class="form-control @error('bk_page') is-invalid @enderror"
                             id="page">
                     </div>
@@ -89,7 +89,7 @@
                 <div class="row mb-3">
                     <label for="edition" class="col-sm-2 col-form-label">Edisi Buku</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_edition_volume"
+                        <input value="{{ old('bk_edition_volume') }}" type="text" name="bk_edition_volume"
                             class="form-control @error('bk_edition_volume') is-invalid @enderror"
                             id="edition">
                     </div>
@@ -98,7 +98,7 @@
                     <label for="published" class="col-sm-2 col-form-label">Tahun Terbit
                         Buku</label>
                     <div class="col-sm-10">
-                        <input type="number" id="published" min="1500"
+                        <input value="{{ old('bk_published_year') }}" type="number" id="published" min="1500"
                             max="{{ date('Y') }}" step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror"
                             id="published">
@@ -111,9 +111,8 @@
                         <input type="text" id="publisher-input"
                             class="form-control @error('bk_publisher_id') is-invalid @enderror"
                             autocomplete="off">
-                        <input type="hidden" name="bk_publisher_id" id="publisher-id">
+                        <input value="{{ old('bk_publisher_id') }}" type="hidden" name="bk_publisher_id" id="publisher-id">
 
-                        {{-- wadah suggestion --}}
                         <div id="publisher-suggestions"
                             class="list-group position-absolute shadow-sm"
                             style="z-index: 1000; display:none; width: 80%;">
@@ -127,9 +126,8 @@
                         <input type="text" id="origin-input"
                             class="form-control @error('bk_origin_id') is-invalid @enderror"
                             autocomplete="off">
-                        <input type="hidden" name="bk_origin_id" id="origin-id">
+                        <input value="{{ old('bk_origin_id') }}" type="hidden" name="bk_origin_id" id="origin-id">
 
-                        {{-- wadah suggestion --}}
                         <div id="origin-suggestions"
                             class="list-group position-absolute shadow-sm"
                             style="z-index: 1000; display:none; width: 80%;">
@@ -169,7 +167,6 @@
                             name="classfications[]" multiple></select>
 
                         <div id="ddc-tags" class="mt-2">
-                            {{-- badge penulis akan muncul di sini --}}
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Tingkatan Kelas</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_mjr_class"
+                        <input value="{{ old('bk_mjr_class') }}" type="text" name="bk_mjr_class"
                             class="form-control @error('bk_mjr_class') is-invalid @enderror"
                             id="inputEmail3">
                             @error('bk_mjr_class')
@@ -28,7 +28,7 @@
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Jurusan Kelas
                         Klasifikasi</label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_mjr_major"
+                        <input value="{{ old('bk_mjr_major') }}" type="text" name="bk_mjr_major"
                             class="form-control @error('bk_mjr_major') is-invalid @enderror"
                             id="inputEmail3">
                             @error('bk_mjr_major')

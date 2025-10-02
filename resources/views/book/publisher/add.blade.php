@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Penerbit</label>
                     <div class="col-sm-10">
-                        <input type="text" name="pub_name"
+                        <input value="{{ old('pub_name') }}" type="text" name="pub_name"
                             class="form-control @error('pub_name') is-invalid @enderror"
                             id="inputEmail3">
                             @error('pub_name')
@@ -27,7 +27,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Alamat Penerbit</label>
                     <div class="col-sm-10">
-                        <input type="text" name="pub_address"
+                        <input value="{{ old('pub_address') }}" type="text" name="pub_address"
                             class="form-control @error('pub_address') is-invalid @enderror"
                             id="inputEmail3">
                             @error('pub_address')

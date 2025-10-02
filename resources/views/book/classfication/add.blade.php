@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Code Klasifikasi</label>
                     <div class="col-sm-10">
-                        <input type="text" name="ddc_code"
+                        <input value="{{ old('ddc_code') }}" type="text" name="ddc_code"
                             class="form-control @error('ddc_code') is-invalid @enderror"
                             id="inputEmail3">
                             @error('ddc_code')
@@ -29,7 +29,7 @@
                         Klasifikasi</label>
                     <div class="col-sm-10">
                         <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror"
-                            id="autoExpand"></textarea>
+                            id="autoExpand">{{ old('ddc_description') }}</textarea>
                             @error('ddc_description')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Input tidak sesuai</p>

@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Peran</label>
                     <div class="col-sm-10">
-                        <input type="text" name="rl_name"
+                        <input value="{{ old('rl_name') }}" type="text" name="rl_name"
                             class="form-control @error('rl_name') is-invalid @enderror"
                             id="inputEmail3">
                             @error('rl_name')
@@ -28,8 +28,7 @@
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Keterangan Peran</label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror"
-                            id="autoExpand">
-                        </textarea>
+                            id="autoExpand">{{ old('rl_description') }}</textarea>
                             @error('rl_description')
                                 <div class="invalid-feedback">
                                     <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input melebihi jumlah karakter Maksimal</p>

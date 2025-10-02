@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    
+
     <form>
         <div class="row g-4 align-items-start">
             <!-- Kolom Daftar Buku Dipilih -->
@@ -20,22 +20,17 @@
             <!-- Kolom Form -->
             <div class="col-md-8">
                <div class="mb-3">
-  <label class="form-label">Tujuan Peminjaman</label>
-  <select class="form-select" name="tujuan_peminjaman" required>
-    <option value="" selected disabled>Pilih tujuan</option>
-    <option value="belajar">Kegiatan Belajar Mengajar</option>
-    <option value="pribadi">Pribadi</option>
-  </select>
-</div>
-
-
-                <div class="mb-3">
+                <label class="form-label">Tujuan Peminjaman</label>
+                <select class="form-select" name="tujuan_peminjaman" required>
+                    <option value="" selected disabled>Pilih tujuan</option>
+                    <option value="belajar">Kegiatan Belajar Mengajar</option>
+                    <option value="pribadi">Pribadi</option>
+                </select>
+            </div>
+            <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
                     <textarea class="form-control"></textarea>
-                </div>
-
-                
-
+            </div>
                 <button type="submit" class="btn btn-outline-success w-100">Selesai</button>
             </div>
         </div>
@@ -55,7 +50,7 @@
                 <div class="modal-body">
                     <!-- search -->
                     <div class="input-group mb-3 shadow-sm border border-dark rounded">
-                        <input type="text" class="form-control border-0"
+                        <input value="{{ old('cht_opt_title) }}"type="text" class="form-control border-0"
                             placeholder="Cari sesuatu..." aria-label="Search">
                         <button
                             class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
@@ -118,7 +113,7 @@
     </div>
 
     <!-- Script -->
-  
+
 <script>
 document.querySelectorAll('.pilih-buku').forEach(img => {
     img.addEventListener('click', function() {
@@ -139,7 +134,7 @@ document.querySelectorAll('.pilih-buku').forEach(img => {
               <img src="${this.src}" class="img-fluid rounded-start h-100" alt="buku" style="object-fit:cover;">
             </div>
             <div class="col-8 d-flex flex-column justify-content-between">
-            
+
               <div class="p-2 d-flex justify-content-between align-items-center">
                 <h6 class="card-title fw-bold mb-0">${this.dataset.nama}</h6>
                 <div class="input-group input-group-sm" style="width: 110px;">
