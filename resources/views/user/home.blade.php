@@ -59,13 +59,13 @@
         <h6>Buku Terpopuler</h6>
         <div class="scroll-x">
             @foreach ($book_new as $bk_nw)
-                <div class="book text-center ">
+                <div class="book text-center border rounded pt-2" style="width: 140px;">
                     <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
                         style="text-decoration: none;">
-                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/uni_invt.png') }}"
-                            class="object-fit-cover" style="height: 160px;">
+                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
+                            class="object-fit-contain" style="height: 167px; width: 128px;">
                         <br>
-                        <p class="text-body">{{ $bk_nw->bk_title }}</p>
+                        <p class="text-body text-wrap">{{ $bk_nw->bk_title }}</p>
                     </a>
                 </div>
             @endforeach
@@ -75,13 +75,13 @@
         <h6>Buku Terbaru</h6>
         <div class="scroll-x">
             @foreach ($book_new as $bk_nw)
-                <div class="book text-center ">
+                <div class="book text-center border rounded pt-2" style="width: 140px;">
                     <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
                         style="text-decoration: none;">
-                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/uni_invt.png') }}"
-                            class="object-fit-cover" style="height: 160px;">
+                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
+                            class="object-fit-contain" style="height: 167px; width: 128px;">
                         <br>
-                        <p class="text-body">{{ $bk_nw->bk_title }}</p>
+                        <p class="text-body text-wrap">{{ $bk_nw->bk_title }}</p>
                     </a>
                 </div>
             @endforeach

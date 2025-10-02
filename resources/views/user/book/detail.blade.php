@@ -10,8 +10,9 @@
                     <div class="row g-0">
 
                         <div class="col-md-5 p-4 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset($book['bk_img_url'] ?? 'logo/landing/Aesop.png') }}"
-                                class="object-fit-cover" style="height: 160px;" alt="Buku">
+                            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
+                                class="object-fit-contain" style="height: 167px; width: 128px;"
+                                alt="Buku">
                         </div>
 
                         <div class="col">

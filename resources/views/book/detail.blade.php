@@ -115,10 +115,13 @@
                     data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
                     aria-controls="desc_ast">Tambah Salinan Buku</a>
                 @if ($book['bk_type'] == '2')
-                    <a class="btn btn-success"
-                        href="{{ asset($book['bk_file_url'] ?? 'logo/uni-invt.jpg') }}">Lihat
+                    <a class="btn btn-success" href="/manage/book/{{ $book['bk_id'] }}/pdf">Lihat
                         ebook</a>
                 @endif
+                <a class="btn btn-secondary"style="cursor: pointer;"
+                    href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
+                    ">Cetak
+                    Label</a>
                 <a class="btn btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
                     data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}">Hapus Buku</a>
 
@@ -209,41 +212,59 @@
                                         </div>
                                     </form>
                                 </div>
-                                
-        
 
                                 <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}"
                                     data-bs-backdrop="static" data-bs-keyboard="false"
                                     tabindex="-1"
                                     aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
                                     aria-hidden="true">
-                                    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
-                                        method="post" class="modal-dialog modal-dialog-centered">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="modal-content rounded-3 shadow p-3" >
-                                            <div class="labelcode mx-auto" 
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content rounded-3 shadow p-3">
+                                            <div class="labelcode mx-auto"
                                                 style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-                                                
-                                            <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                                    <tr style="height:90px;"> 
-                                        <td style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                                            <img src="{{ asset('logo/landing/smk.png') }}" 
-                                                alt="Logo Petra"
-                                                style="width:80px; height:80px;" class="rounded-circle">
-                                        </td>
-                                        <td style="text-align:center; vertical-align:middle;">
-                                            <h5 class="fw-bold mb-0">PERPUSTAKAAN</h5>
-                                            <h5 class="fw-bold mb-0">SMK MAHAPUTRA</h5>
-                                        </td>
-                                    </tr>
-                                </table>
+
+                                                <table
+                                                    style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                                                    <tr style="height:90px;">
+                                                        <td class="p-0 m-0"
+                                                            style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                                            <img src="{{ asset('logo/landing/smk.png') }}"
+                                                                alt="Logo Petra"
+                                                                style="width:80px; height:80px;"
+                                                                class="rounded-circle">
+                                                        </td>
+                                                        <td
+                                                            style="text-align:center; vertical-align:middle;">
+                                                            <h5 class="fw-bold mb-0">PERPUSTAKAAN
+                                                            </h5>
+                                                            <h5 class="fw-bold mb-0">SMK MAHAPUTRA
+                                                            </h5>
+                                                        </td>
+                                                    </tr>
+                                                </table>
 
                                                 <div class="text-center py-3">
-                                                    <h4 class="fw-bold mb-1">600</h4>
-                                                    <h5 class="fw-bold mb-1">ZAC</h5>
-                                                    <p class="mb-1">s</p>
-                                                    <p class="mb-0 fw-bold">BK0027/126</p>
+                                                    <h4 class="fw-bold mb-1">
+                                                        @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                                            <span>{{ $ddc->ddc_code }}</span>
+                                                            @if (!$loop->last)
+                                                                .
+                                                            @endif
+                                                        @endforeach
+                                                    </h4>
+                                                    <h5 class="fw-bold mb-1">
+                                                        @foreach ($book['authors'] as $author)
+                                                            <span>{{ Str::substr(strtoupper($author->athr_name), 0, 3) }}</span>
+                                                            @if (!$loop->last)
+                                                                .
+                                                            @endif
+                                                        @endforeach
+                                                    </h5>
+                                                    <p class="mb-1">
+                                                        {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
+                                                    </p>
+                                                    <p class="mb-0 fw-bold">
+                                                        {{ $bk_cp->bk_cp_number }}</p>
                                                 </div>
                                             </div>
 
@@ -253,7 +274,7 @@
                                                     data-bs-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
 
                                     <style>
                                         .labelcode {

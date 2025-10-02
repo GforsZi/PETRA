@@ -47,9 +47,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/book', [ManageBookController::class, 'manage_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/{id}/pdf', [ManageBookController::class, 'pdf_book_publisher_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/book/{id}/detail', [ManageBookController::class, 'detail_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/book/{id}/detail/print_label', [ManageBookController::class, 'print_label_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('labels.print');
     Route::get('/manage/book/add', [ManageBookController::class, 'add_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');

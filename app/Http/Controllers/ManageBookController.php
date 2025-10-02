@@ -10,6 +10,7 @@ use App\Models\BookOrigin;
 use App\Models\DeweyDecimalClassfication;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Spatie\Browsershot\Browsershot;
 
 class ManageBookController extends Controller
 {
@@ -410,6 +411,12 @@ class ManageBookController extends Controller
         return view('book.publisher.detail', ['title' => 'Halaman Detail Penerbit'], compact('publisher'));
     }
 
+    public function pdf_book_publisher_page($id)
+    {
+        $book = Book::select('bk_id', 'bk_title', 'bk_file_url')->find($id);
+        return view('book.pdf', ['title' => 'Halaman Detail Ebook'], compact('book'));
+    }
+
     public function add_book_publisher_page()
     {
         return view('book.publisher.add', ['title' => 'Halaman Tambah Penerbit']);
@@ -473,7 +480,7 @@ class ManageBookController extends Controller
     public function add_book_classfication_system(Request $request)
     {
         $validateData = $request->validate([
-            'ddc_code' => 'required | regex:/^[0-9]+$/ | max:255',
+            'ddc_code' => 'required | regex:/^\d{3}-\d{3}$/ | max:255',
             'ddc_description' => 'required | string | max:65535',
         ]);
 
@@ -550,5 +557,22 @@ class ManageBookController extends Controller
     public function delete_book_origin_system(Request $request, $id) {
         $origin = BookOrigin::find($id)->delete();
         return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Dihapus');
+    }
+
+    public function print_label_system($id)
+    {
+        // Contoh data, bisa ambil dari DB
+        $books = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
+
+        $path = storage_path('app/public/labels.pdf');
+        $html = view('book.print_label', compact('books'))->render();
+
+        Browsershot::html($html)
+            ->format('A4')
+            ->margins(10, 10, 10, 10) // margin 10mm
+            ->save($path);
+
+        return response()->download($path);
+
     }
 }

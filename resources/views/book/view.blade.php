@@ -26,6 +26,9 @@
                                 <strong>Penulis:</strong>
                                 @foreach ($book->authors as $author)
                                     {{ $author->athr_name }}
+                                    @if (!$loop->last)
+                                        &
+                                    @endif
                                 @endforeach
                             </p>
                             <p class="card-text"><small class="text-muted">Tahun Terbit:

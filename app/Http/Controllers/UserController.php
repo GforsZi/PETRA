@@ -51,7 +51,8 @@ class UserController extends Controller
 
     public function search_book_page()
     {
-        return view('user.book.search', ['title' => 'Halaman Cari Buku']);
+        $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->latest()->get();
+        return view('user.book.search', ['title' => 'Halaman Cari Buku'], compact('book_new'));
     }
 
     public function search_name_book_page($name)

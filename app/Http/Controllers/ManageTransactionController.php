@@ -13,8 +13,8 @@ class ManageTransactionController extends Controller
     }
 
     public function manage_return_page() {
-        $return = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->paginate(10);
-        return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian']);
+        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->paginate(10);
+        return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
     public function add_transaction_page()
