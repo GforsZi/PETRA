@@ -24,7 +24,7 @@
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-book"></i>
                             <p>
-                                Kelola Data Buku
+                                BIBLIOGRAPHY
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -32,41 +32,41 @@
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Buku</p>
+                                    <p>DATA BUKU</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book/major" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Jurusan</p>
+                                    <p>DATA JURUSAN</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book/author" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Penulis</p>
+                                    <p>DATA PENULIS</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book/publisher" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Penerbit</p>
+                                    <p>DATA PENERBIT</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book/origin" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Asal</p>
+                                    <p>DATA ASAL</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/book/ddc" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Klasifikasi</p>
+                                    <p>DATA KLASIFIKASI</p>
                                 </a>
                             </li>
                         </ul>
@@ -76,7 +76,7 @@
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-person-badge"></i>
                             <p>
-                                Kelola Pengguna
+                                KEANGGOTAAN
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -84,13 +84,13 @@
                             <li class="nav-item">
                                 <a href="/manage/account" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Akun</p>
+                                    <p>DATA AKUN</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/manage/role" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Peran</p>
+                                    <p>DATA PERAN</p>
                                 </a>
                             </li>
                         </ul>
@@ -100,7 +100,7 @@
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-whatsapp"></i>
                             <p>
-                                Kelola Chatbot
+                                SISTEM
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -109,14 +109,14 @@
                                 <a href="/manage/chat/device" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Perangkat</p>
+                                    <p>DATA PERANGKAT</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/manage/chat/option" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Opsi</p>
+                                    <p>DATA OPSI</p>
                                 </a>
                             </li>
                         </ul>
@@ -126,7 +126,7 @@
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-file-earmark-ruled"></i>
                             <p>
-                                Kelola Transaksi
+                                SIRKULASI
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -134,14 +134,14 @@
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/loan" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Peminjaman</p>
+                                    <p>DATA PEMINJAMAN</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/return" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Kelola Pengembalian</p>
+                                    <p>DATA PENGEMBALIAN</p>
                                 </a>
                             </li>
                         </ul>
@@ -151,7 +151,7 @@
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-filetype-pdf"></i>
                             <p>
-                                Kelola Laporan
+                                PELAPORAN
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -159,7 +159,7 @@
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Lihat</p>
+                                    <p>LIHAT</p>
                                 </a>
                         </ul>
                     </li>
