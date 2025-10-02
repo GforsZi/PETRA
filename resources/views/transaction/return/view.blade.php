@@ -8,7 +8,7 @@
         </div>
     @endif
     <x-table_data :paginator="$returns">
-        <x-slot:title>Manage return</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Tanggal Peminjaman</th>
@@ -77,7 +77,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="6" class="w-100 text-center">404 | data not found</td>
+                <td colspan="6" class="w-100 text-center">404 | Data tidak ditemukan</td>
             </tr>
         @endforelse
     </x-table_data>

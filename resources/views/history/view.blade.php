@@ -16,13 +16,12 @@
     @endif
     @if ($histories)
         <x-table_data :paginator="$histories">
-            <x-slot:title><a class="text-body" href="/manage/history">Kelola
-                    Riwayat</a></x-slot:title>
+            <x-slot:title></x-slot:title>
             <x-slot:header>
                 <th style="width: 10px">#</th>
                 <th>Atribut</th>
                 <th>Dihapus Pada</th>
-                <th style="width: 50px">option</th>
+                <th style="width: 50px">Pilihan</th>
             </x-slot:header>
             @forelse ($histories as $index => $history)
                 <tr class="align-middle">
@@ -65,8 +64,8 @@
                                 @method('DELETE')
                                 <div class="modal-content rounded-3 shadow">
                                     <div class="modal-body p-4 text-center">
-                                        <h5 class="mb-0">Delete this data?</h5>
-                                        <p class="mb-0">are you sure to delete data
+                                        <h5 class="mb-0">Hapus data ini?</h5>
+                                        <p class="mb-0">Apakah anda yakin untuk menghapus data ini?
                                             {{ $histories->firstItem() + $index }}.</p>
                                     </div>
                                     <div class="modal-footer flex-nowrap p-0">
@@ -83,7 +82,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="w-100 text-center">404 | data not found</td>
+                    <td colspan="6" class="w-100 text-center">404 | Data tidak ditemukan</td>
                 </tr>
             @endforelse
         </x-table_data>
@@ -92,11 +91,17 @@
             <div class="row w-100">
                 @foreach ($pages as $page)
                     <div class="col-sm-4 my-4">
-                        <div class="card">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $page['title'] }}</h5>
-                                <p class="card-text">Lihat daftar data yang pernah di hapus.</p>
-                                <a href="{{ $page['page'] }}" class="btn btn-primary">Lihat</a>
+                        <div class="card shadow-sm border-0 rounded-4 h-100 d-flex flex-row">
+                            <div class="d-flex align-items-center justify-content-center text-white rounded-start-4 px-4"
+                                style="background: linear-gradient(135deg, #0d6efd, #6f42c1);">
+                                <i class="bi bi-journal-bookmark fs-1"></i>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center p-4">
+                                <h5 class="fw-bold">{{ $page['title'] }}</h5>
+                                <p class="text-muted">Lihat daftar data yang pernah dihapus.</p>
+                                <a href="{{ $page['page'] }}" class="btn btn-outline-primary rounded-pill mt-2">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -104,4 +109,5 @@
             </div>
         </div>
     @endif
+
 </x-app-layout>

@@ -75,7 +75,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="5" class="w-100 text-center">404 | data not found</td>
+                <td colspan="6" class="w-100 text-center">404 | Data tidak ditemukan</td>
             </tr>
         @endforelse
     </x-table_data>
