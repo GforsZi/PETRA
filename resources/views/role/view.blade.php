@@ -18,7 +18,7 @@
         <a href="/manage/role/add" class="btn btn-outline-primary w-100">Tambah Peran Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$roles">
-        <x-slot:title>Manage Role</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Name</th>

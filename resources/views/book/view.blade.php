@@ -11,7 +11,7 @@
         <a href="/manage/book/add" class="btn btn-outline-primary w-100">Tambah Buku Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$books">
-        <x-slot:title>Manage Book</x-slot:title>
+        <x-slot:title></x-slot:title>
 
         <div class="row w-100">
             @forelse ($books as $index => $book)

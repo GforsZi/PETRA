@@ -12,7 +12,7 @@
             Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$majors">
-        <x-slot:title>Manage Major</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Tingkatan</th>

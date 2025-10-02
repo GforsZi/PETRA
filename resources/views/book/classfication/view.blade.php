@@ -12,7 +12,7 @@
             Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$classfications">
-        <x-slot:title>Manage Classfication</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Name</th>

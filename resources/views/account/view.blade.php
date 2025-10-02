@@ -11,7 +11,7 @@
         <a href="/manage/account/add" class="btn btn-outline-primary w-100">Tambah Akun Baru</a>
     </x-slot:header_layout>
     <x-table-data :paginator="$accounts">
-        <x-slot:title>Manage Account</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th style="width: 150px">photo profile</th>

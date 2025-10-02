@@ -12,7 +12,7 @@
             Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$options">
-        <x-slot:title>Manage option</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Judul opsi</th>

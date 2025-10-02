@@ -8,7 +8,7 @@
         </div>
     @endif
     <x-table_data :paginator="$loans">
-        <x-slot:title>Manage loan</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Tanggal Peminjaman</th>

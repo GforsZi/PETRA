@@ -12,7 +12,7 @@
             Baru</a>
     </x-slot:header_layout>
     <x-table_data :paginator="$origins">
-        <x-slot:title>Manage origin</x-slot:title>
+        <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Pemberi</th>
