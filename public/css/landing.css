@@ -1,5 +1,5 @@
 body {
-    background-color: #f9fafc;
+    background-color: hsl(220, 33%, 98%);
     overflow-x: hidden;
 }
 /* bacground perpus */
@@ -354,11 +354,20 @@ body {
     }
 }
 
+.about-custom{
+    margin-top: 150px;
+    margin-bottom: 100px;
+    align-items: center;
+    display: flex;
+}
+
 .navbar-custom {
     background-color: #121740;
     position: sticky;
     top: 0;
     z-index: 1000;
+    height: 80px;
+    box-shadow :black 0px 0px 10px ;
 }
 
 .navbar-brand img {
@@ -378,7 +387,6 @@ body {
 
 /* Hero Section */
 .hero-section {
-    /* position: relative; */
     display: flex;
     justify-content: start;
     background: #f9fafc;

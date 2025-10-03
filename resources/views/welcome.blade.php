@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/landing.css') }}">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
             <a class="navbar-brand text-light text-center d-flex align-items-center" href="#HOME">
                 <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" alt="Logo PETRA"
@@ -34,7 +34,7 @@
 
     <div class="view">
 
-        <section class="hero-section d-flex align-items-center" id="HOME">
+        <section class="hero-section view-custom d-flex align-items-center" id="HOME">
             <div class="container hero-content" data-aos="fade-up-right" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
                 <hr />
                 <h1>SELAMAT DATANG</h1>
@@ -57,24 +57,18 @@
                     style="height: 10%;">
             </div>
         </section>
-
     </div>
-    <!-- Tentang Kami -->
    <section id="about" class="mb-5" data-aos="zoom-out" data-aos-duration="1500">
-  <div class="container">
+  <div class="container about-custom">
     <div class="row align-items-center">
-      
-      
       <div class="col-md-8">
         <h2 class="mb-3">TENTANG KAMI</h2>
         <p>
           Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
           percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
-          
         </p>
       </div>
-      
-     
+
 <div class="col-md-4 d-flex justify-content-end d-none d-md-flex">
   <div class="newtonsCradle">
     <div class="frameCover"></div>
@@ -99,7 +93,7 @@
 
 
 
-          
+
     </section>
 
     <!-- Keunggulan Kami -->
@@ -147,16 +141,16 @@
 
 
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-    
-   
+
+
     <div class="d-flex align-items-center gap-2 mb-3 mb-md-0">
-      <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" 
+      <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}"
            alt="Logo Petra"
            style="width: 50px; height: 65px;">
       <h3 class="mb-0 text-uppercase">PETRA</h3>
     </div>
 
-  
+
     <div class="d-flex align-items-center gap-3 text-center text-md-end">
       <div>
         <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
@@ -164,12 +158,12 @@
           <i class="bi bi-geo-alt-fill me-1"></i> SMK Mahaputra
         </p>
       </div>
-      <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}" 
+      <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}"
            alt="Logo Mahaputra"
-           style="width: 50px; height: 50px;" 
+           style="width: 50px; height: 50px;"
            class="rounded-circle">
     </div>
-    
+
   </div>
 
 
@@ -178,7 +172,7 @@
 
 
 
-            
+
                     <div class="d-flex gap-3 justify-content-center justify-content-md-start">
                         <!-- From Uiverse.io by javierBarroso -->
                         <div class="social-login-icons">
@@ -224,8 +218,8 @@
                     </div>
                 </div>
 
-              
-            
+
+
             <div class="row mt-3">
                 <div class="col-12">
                     <iframe
