@@ -480,7 +480,7 @@ class ManageBookController extends Controller
     public function add_book_classfication_system(Request $request)
     {
         $validateData = $request->validate([
-            'ddc_code' => 'required | regex:/^\d{3}-\d{3}$/ | max:255',
+            'ddc_code' => 'required | regex:/^\d{3}(-\d{3})?$/ | max:255',
             'ddc_description' => 'required | string | max:65535',
         ]);
 
@@ -499,7 +499,7 @@ class ManageBookController extends Controller
         $classfication = DeweyDecimalClassfication::find($id);
 
         $validateData = $request->validate([
-            'ddc_code' => 'sometimes | required | regex:/^[0-9]+$/ | max:255',
+            'ddc_code' => 'sometimes | required | regex:/^\d{3}(-\d{3})?$/ | max:255',
             'ddc_description' => 'sometimes | required | string | max:65535',
         ]);
 
