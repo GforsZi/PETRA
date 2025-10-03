@@ -8,8 +8,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/chat/option/add" class="btn btn-outline-primary w-100">Tambah Opsi
-            Baru</a>
+        <a href="/manage/chat/option/add" class="btn btn-outline-primary w-100"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$options">
         <x-slot:title></x-slot:title>

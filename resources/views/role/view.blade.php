@@ -15,7 +15,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/role/add" class="btn btn-outline-primary w-100">Tambah Peran Baru</a>
+        <a href="/manage/role/add" class="btn btn-outline-primary w-100"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$roles">
         <x-slot:title></x-slot:title>

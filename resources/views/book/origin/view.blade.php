@@ -8,8 +8,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/origin/add" class="btn btn-outline-primary w-100">Tambah Penerbit
-            Baru</a>
+        <a href="/manage/book/origin/add" class="btn btn-lg btn-outline-primary w-100"><i class="bi bi-book-half"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$origins">
         <x-slot:title></x-slot:title>

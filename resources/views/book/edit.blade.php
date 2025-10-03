@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+        <button type="button" class="btn btn-lg btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#authorModal">
-            Tambah Penulis
+            <i class="bi bi-person-plus-fill"></i>
         </button>
-        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+        <button type="button" class="btn btn-lg btn-outline-warning" data-bs-toggle="modal"
             data-bs-target="#ddcModal">
-            Tambah Klasifikasi
+            <i class="bi bi-123"></i>
         </button>
     </x-slot:header_layout>
     <div class="card card-warning card-outline mb-4">

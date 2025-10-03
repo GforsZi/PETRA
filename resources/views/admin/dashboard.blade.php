@@ -1,11 +1,11 @@
 <x-app-layout>
     <style>
         @media (max-width: 990px) {
-            .hero-card-3 {
-                width: 100%;
-                height: auto;
-            }
+        .hero-card-3 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
         }
+    }
     </style>
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))

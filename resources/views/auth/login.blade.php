@@ -30,7 +30,7 @@
                     <div class="bar">
                         <form action="/system/login" method="post">
                             @csrf
-                            <input name="usr_no_wa" type="text" class="form-control mb-3"
+                            <input value="{{ old('usr_no_wa') }}" name="usr_no_wa" type="text" class="form-control mb-3"
                                 placeholder="Masukan No.Tlp">
                             <input name="password" type="password" class="form-control mb-4"
                                 placeholder="Password">
