@@ -442,7 +442,7 @@ body {
 }
 
 .btn-gradient {
-    background: linear-gradient(90deg, #6a4eff, #8366ff);
+    background: linear-gradient(90deg, #FF9B00, #FAB12F);
     border: none;
     color: white;
     font-weight: 600;
@@ -453,15 +453,14 @@ body {
 }
 
 .btn-gradient:hover {
-    box-shadow: 0 14px 40px rgba(131, 102, 255, 0.7);
+    box-shadow: 0 14px 40px #FFE100;
 }
 
 /* Section Tentang Kami */
 #about {
     background: #f9fafc;
     padding: 70px 15px 60px;
-    text-align: center;
-    max-width: 700px;
+    max-width: 100%;       /* jangan dibatasi 700px */
     margin: 0 auto;
 }
 
@@ -475,8 +474,152 @@ body {
     font-weight: 400;
     font-size: 1.125rem;
     color: #6c757d;
-    line-height: 1.6;
+    line-height: 1.8;
+    text-align: justify;
 }
+
+/* Batas ukuran objek */
+#about .newtonsCradle {
+    max-width: 280px;
+    width: 100%;
+}
+
+/* objek tiktak */
+.newtonsCradle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transform: scale(1.4);
+}
+
+.frameCover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  z-index: 11;
+  height: 1px;
+  width: 150px;
+  background-color: #d4e4ff;
+  border-top: 3px solid #d4e4ff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 0 2px #0F0E0E, 0 0 0 8px #d9fff5, 0 0 0 10.5px #0F0E0E;
+}
+
+.frame {
+  z-index: 10;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100px;
+  width: 150px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 0 2.5px #0F0E0E, 0 0 0 8px #d9fff5, 0 0 0 10.5px #0F0E0E;
+}
+.frame::before, .frame::after {
+  z-index: 10;
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  height: 10px;
+  width: 22.5px;
+  border: 2.5px solid #7ab1fd;
+  border-radius: 2px;
+  background-color: #0F0E0E;
+}
+.frame::before {
+  left: -18px;
+}
+.frame::after {
+  right: -18px;
+}
+
+.base {
+  z-index: 11;
+  margin-top: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 202.5px;
+  border-radius: 4px 4px 0 0;
+  background-image: linear-gradient(#121740 0 70%, #121740 70%);
+}
+
+.sphere-wrap {
+  position: relative;
+  display: flex;
+  z-index: 9;
+  flex-direction: column;
+  align-items: center;
+}
+.sphere-wrap.left {
+  animation: swing-left 2s ease-in-out infinite;
+  transform-origin: top right;
+}
+.sphere-wrap.right {
+  animation: swing-right 2s ease-in-out infinite;
+  transform-origin: top left;
+}
+
+.string {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  height: 50px;
+  width: 2px;
+  background-color: #11426a;
+  z-index: 0;
+}
+
+.sphere {
+  z-index: 9;
+  position: relative;
+  height: 19.5px;
+  width: 19.5px;
+  margin-top: 58px;
+  border-radius: 50%;
+  border: 1.75px solid #11426a;
+  background: radial-gradient(circle at 28% 28%, white 0% 20%, #ffe791 20% 60%, #eec223 60% 100%);
+}
+
+.sphere.center::before {
+  content: "";
+  display: block;
+  height: 60px;
+  width: 2px;
+  background-color: #11426a;
+  transform: translateX(7.5px) translateY(-61px);
+}
+
+@keyframes swing-left {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(25deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes swing-right {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-25deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+/* akhir */
 
 /* Section Keunggulan Kami */
 #keunggulan {
