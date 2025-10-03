@@ -269,6 +269,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/system/major/{id}/delete', [ManageBookController::class, 'delete_book_major_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/system/book', [ManageBookController::class, 'search_book_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->name('books.search');
     Route::get('/system/author/search', [ManageBookController::class, 'search_book_author_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')

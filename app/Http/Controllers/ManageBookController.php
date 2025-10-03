@@ -20,6 +20,16 @@ class ManageBookController extends Controller
         return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
     }
 
+    public function search_book_system(Request $request)
+    {
+        $query = $request->get('q');
+        $books = Book::select('bk_id', 'bk_title', 'bk_img_url')
+            ->where('bk_title', 'like', "%$query%")
+            ->orderBy('bk_title', 'asc')
+            ->get();
+        return response()->json($books);
+    }
+
     public function search_book_author_system(Request $request)
     {
         $query = $request->get('q');

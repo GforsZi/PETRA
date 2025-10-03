@@ -50,9 +50,8 @@
                 <div class="modal-body">
                     <!-- search -->
                     <div class="input-group mb-3 shadow-sm border border-body rounded">
-                        <input value="{{ old('cht_opt_title') }}" type="text"
-                            class="form-control border-0" placeholder="Cari sesuatu..."
-                            aria-label="Search">
+                        <input id="book-search" type="text" class="form-control border-0"
+                            placeholder="Cari sesuatu..." aria-label="Search">
                         <button
                             class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
                             type="button">
@@ -61,16 +60,13 @@
                     </div>
 
                     <!-- kolom buku dengan scroll -->
-                    <div class="container-fluid text-center"
+                    <div class="container text-center border"
                         style="max-height: 200px; overflow-y: auto;">
-                        <div class="row row-cols-2 row-cols-md-4 g-3">
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 1"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
+                        <h3>Hasil Pencarian</h3>
+                        <hr>
+                        <div class="row g-3" id="book-list">
                         </div>
+                        <hr>
                     </div>
                     <!-- akhir -->
                 </div>
@@ -86,53 +82,82 @@
     <!-- Script -->
 
     <script>
-        document.querySelectorAll('.pilih-buku').forEach(img => {
-            img.addEventListener('click', function() {
+        let bokList = document.getElementById('book-list');
+
+        document.getElementById('book-search').addEventListener('keyup', function() {
+            let query = this.value;
+
+            fetch("{{ route('books.search') }}?q=" + query)
+                .then(res => res.json())
+                .then(data => {
+                    bokList.innerHTML = '';
+                    data.forEach(book => {
+                        let div = document.createElement('div');
+                        div.classList.add('col');
+                        if (book.bk_img_url) {
+                            div.innerHTML = `
+                        <img src="{{ asset('${book.bk_img_url}') }}"
+                            class="object-fit-contain pilih-buku"
+                            style="cursor: pointer;height: 167px; width: 128px;"
+                            data-nama="Buku ${book.bk_id}">
+                    `;
+                        } else {
+                            div.innerHTML = `
+                        <img src="{{ asset('logo/book_placeholder.jpg') }}"
+                            class="object-fit-contain pilih-buku"
+                            style="cursor: pointer;height: 167px; width: 128px;"
+                            data-nama="Buku ${book.bk_id}">
+                    `;
+                        }
+                        bokList.appendChild(div);
+                    });
+                });
+        });
+
+        // 🔹 Gunakan event delegation
+        bokList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('pilih-buku')) {
                 const listContainer = document.getElementById('listBukuDipilih');
                 const noText = document.getElementById('noBukuText');
 
-                // hilangkan teks default
                 if (noText) noText.remove();
 
-                // buat card kecil buku yang dipilih
                 const card = document.createElement('div');
                 card.className = "card mb-2 shadow-sm bg-body";
                 card.style.maxWidth = "100%";
 
                 card.innerHTML = `
-          <div class="row g-0 align-items-stretch">
-            <div class="col-4">
-              <img src="${this.src}" class="img-fluid rounded-start h-100" alt="buku" style="object-fit:cover;">
-            </div>
-            <div class="col-8 d-flex flex-column justify-content-between">
-
-              <div class="p-2 d-flex justify-content-between align-items-center">
-                <h6 class="card-title fw-bold mb-0">${this.dataset.nama}</h6>
-                <div class="input-group input-group-sm" style="width: 110px;">
-                <button class="btn btn-outline-danger minus-btn" type="button">−</button>
-                <input type="text" class="form-control text-center jumlah-buku" value="1" readonly>
-                <button class="btn btn-outline-primary plus-btn" type="button">+</button>
+            <div class="row g-0 align-items-stretch">
+                <div class="col-4">
+                    <img src="${e.target.src}" class="img-fluid rounded-start h-100"
+                        alt="buku" style="object-fit:cover;">
                 </div>
-              </div>
-              <div class="p-2 d-flex justify-content-end">
-                <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
-              </div>
+                <div class="col-8 d-flex flex-column justify-content-between">
+                    <div class="p-2 d-flex justify-content-between align-items-center">
+                        <h6 class="card-title fw-bold mb-0">${e.target.dataset.nama}</h6>
+                        <div class="input-group input-group-sm" style="width: 110px;">
+                            <button class="btn btn-outline-danger minus-btn" type="button">−</button>
+                            <input type="text" class="form-control text-center jumlah-buku" value="1" readonly>
+                            <button class="btn btn-outline-primary plus-btn" type="button">+</button>
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex justify-content-end">
+                        <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
+                    </div>
+                </div>
             </div>
-          </div>
         `;
 
                 const jumlahEl = card.querySelector('.jumlah-buku');
                 let jumlah = 1;
 
-                // event tambah
                 card.querySelector('.plus-btn').addEventListener('click', () => {
-                    if (jumlah < 3) { // 🔹 maksimal 3
+                    if (jumlah < 3) {
                         jumlah++;
                         jumlahEl.value = jumlah;
                     }
                 });
 
-                // event kurang
                 card.querySelector('.minus-btn').addEventListener('click', () => {
                     if (jumlah > 1) {
                         jumlah--;
@@ -140,10 +165,8 @@
                     }
                 });
 
-                // tambahkan ke list
                 listContainer.appendChild(card);
 
-                // event hapus
                 card.querySelector('.hapus-buku').addEventListener('click', () => {
                     card.remove();
                     if (listContainer.querySelectorAll('.card').length === 0) {
@@ -156,7 +179,7 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById(
                     'exampleModal'));
                 modal.hide();
-            });
+            }
         });
     </script>
 </x-app-layout>
