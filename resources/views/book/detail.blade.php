@@ -7,148 +7,154 @@
                 aria-label="Close"></button>
         </div>
     @endif
-  <div class="row g-0 p-3 bg-light rounded">
-  <div class="col-12 col-md-4 d-flex justify-content-center">
-    <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}" 
-         class="img-fluid object-fit-contain shadow"
-         alt="Book cover showing classical painting and dark themed cover"
-         height="300">
-  </div>
-  <div class="col-12 col-md-8 ps-md-3 mt-3 mt-md-0">
-    
-    <h5>Buku digital</h5>
-    <h4 class="fw-bold mb-1">Ujang si pejuang</h4>
-    <p class="mb-1 text-primary">
-      <a href="#" class="text-decoration-none">Dyonns</a> | no isbn
-    </p>
-    <hr>
-    <p class="text-muted" style="line-height: 1.5;">
-     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem ducimus quidem debitis dolore in mollitia corrupti natus ratione ipsa eveniet, quos, dolorum temporibus tempora? Exercitationem placeat sint odio soluta earum autem nostrum fugit, voluptatibus quaerat, id eaque at est cumque, tempora deserunt tenetur. Eligendi obcaecati odit laboriosam explicabo voluptatibus est, aperiam autem ipsum deserunt voluptatem necessitatibus adipisci. Pariatur neque nostrum odit explicabo, voluptatem corrupti ad quaerat hic sapiente necessitatibus eaque id iste ab molestias aspernatur amet illum voluptates in vel? Delectus accusamus, veniam repellendus alias dolorem atque, quasi ab temporibus eligendi, id esse nam architecto doloremque itaque voluptatem consequuntur dolore.
-    </p>
-  </div>
-</div>
+    <div class="row g-0 p-3 bg-body rounded">
+        <div class="col-12 col-md-4 d-flex justify-content-center">
+            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
+                class="img-fluid object-fit-contain shadow"
+                alt="Book cover showing classical painting and dark themed cover" height="300">
+        </div>
+        <div class="col-12 col-md-8 ps-md-3 mt-3 mt-md-0">
 
-
-        
-        <div class="card mb-4 col-12 col-md-8 w-100">
-            <div class="card-header">
-                <h3 class="card-title">Detail book</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body p-0">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>title</th>
-                            <th>value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="align-middle">
-                            <td>Judul</td>
-                            <td>{{ $book['bk_title'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>ISBN</td>
-                            <td>{{ $book['bk_isbn'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>deskripsi</td>
-                            <td>{{ $book['bk_description'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Tahun terbit</td>
-                            <td>{{ $book['bk_published_year'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Jenis</td>
-                            <td>
-                                @if ($book['bk_type'] == '1')
-                                    Buku Fisik
-                                @else
-                                    Buku Digital
-                                @endif
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Klasifikasi</td>
-                            <td>
-                                @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                    <span class="badge text-bg-warning">{{ $ddc->ddc_code }}</span>
-                                @endforeach
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Penulis</td>
-                            <td>
-                                @foreach ($book['authors'] as $author)
-                                    <span
-                                        class="badge text-bg-primary">{{ $author->athr_name }}</span>
-                                @endforeach
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Penerbit</td>
-                            <td>
-                                {{ $book['publisher']['pub_name'] ?? '' }}
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Edisi</td>
-                            <td>
-                                {{ $book['bk_edition_volume'] ?? '' }}
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dibuat oleh</td>
-                            <td>{{ $book['created_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Diubah oleh</td>
-                            <td>{{ $book['updated_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dihapus oleh</td>
-                            <td>{{ $book['deleted_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dibuat Pada</td>
-                            <td>{{ $book['bk_created_at'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Diubah pada</td>
-                            <td>{{ $book['bk_updated_at'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dihapus pada</td>
-                            <td>{{ $book['bk_deleted_at'] ?? '' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <!-- /.card-body -->
-            <div class="d-flex m-2 gap-2">
-                <a class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
-                    aria-controls="desc_ast">Tambah Salinan Buku</a>
-                @if ($book['bk_type'] == '2')
-                    <a class="btn btn-success" href="/manage/book/{{ $book['bk_id'] }}/pdf">Lihat
-                        ebook</a>
+            <h5>
+                @if ($book['bk_type'] == '1')
+                    Buku Fisik
+                @else
+                    Buku Digital
                 @endif
-                <a class="btn btn-secondary"style="cursor: pointer;"
-                    href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
-                    ">Cetak
-                    Label</a>
-                <a class="btn btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}">Hapus Buku</a>
+            </h5>
+            <h4 class="fw-bold mb-1">{{ $book['bk_title'] ?? '' }}</h4>
+            <p class="mb-1 text-primary">
+                <a href="#" class="text-decoration-none">
+                    @foreach ($book['authors'] as $author)
+                        {{ $author->athr_name }}
+                        @if (!$loop->last)
+                            &
+                        @endif
+                    @endforeach
+                </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
+            </p>
+            <hr>
+            <p class="text-muted" style="line-height: 1.5;">
+                {{ $book['bk_description'] ?? '' }}
+            </p>
+        </div>
+    </div>
 
-            </div>
+    <div class="card my-4  col-12 col-md-8 w-100">
+        <div class="card-header">
+            <h3 class="card-title">Detail book</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Judul</td>
+                        <td>{{ $book['bk_title'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>ISBN</td>
+                        <td>{{ $book['bk_isbn'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Tahun terbit</td>
+                        <td>{{ $book['bk_published_year'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Jenis</td>
+                        <td>
+                            @if ($book['bk_type'] == '1')
+                                Buku Fisik
+                            @else
+                                Buku Digital
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Klasifikasi</td>
+                        <td>
+                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                <span class="badge text-bg-warning">{{ $ddc->ddc_code }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Penulis</td>
+                        <td>
+                            @foreach ($book['authors'] as $author)
+                                <span class="badge text-bg-primary">{{ $author->athr_name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Penerbit</td>
+                        <td>
+                            {{ $book['publisher']['pub_name'] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Edisi</td>
+                        <td>
+                            {{ $book['bk_edition_volume'] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Dibuat oleh</td>
+                        <td>{{ $book['created_by']['name'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Diubah oleh</td>
+                        <td>{{ $book['updated_by']['name'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Dihapus oleh</td>
+                        <td>{{ $book['deleted_by']['name'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Dibuat Pada</td>
+                        <td>{{ $book['bk_created_at'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Diubah pada</td>
+                        <td>{{ $book['bk_updated_at'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Dihapus pada</td>
+                        <td>{{ $book['bk_deleted_at'] ?? '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="d-flex m-2 gap-2">
+            @if ($book['bk_type'] == '2')
+                <a class="btn btn-success" href="/manage/book/{{ $book['bk_id'] }}/pdf">Lihat
+                    ebook</a>
+            @endif
+            <a class="btn btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
+                data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}">Hapus Buku</a>
+
         </div>
     </div>
     <div class="card mb-4">
-        <div class="card-header">
-            <h3 class="card-title">Salinan Buku</h3>
+        <div class="card-header d-flex">
+            <h3 class="card-title w-100">Salinan Buku</h3>
+            <div class="card-tools d-flex justify-content-end w-100 ">
+                <a class="btn btn-primary mx-1" data-bs-toggle="modal"
+                    data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
+                    aria-controls="desc_ast">Tambah Salinan Buku</a>
+                <a class="btn btn-success float-end mx-1" style="cursor: pointer;"
+                    href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
+                ">Cetak
+                    Label</a>
+            </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0" id="bk_cp">

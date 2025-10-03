@@ -46,8 +46,7 @@
         <div class="col-4">
             <div class="card text-white bg-danger" style="height: 100%;">
                 <div class="card-body">
-                    <h3 class="card-title">44</h3>
-                    <p class="card-text">Laporan</p>
+                    <canvas id="doughnutChart" style="height:100px;"></canvas>
                     <i
                         class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
                 </div>
@@ -87,4 +86,29 @@
             @endforeach
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Doughnut Chart
+        const config = {
+            type: 'doughnut',
+            data: {
+                labels: ['Red', 'Yellow', 'Blue'],
+                datasets: [{
+                    data: [10, 20, 30],
+                    backgroundColor: ['#ff6384', '#ffcd56', '#36a2eb'],
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false // <-- matikan legend
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('doughnutChart'), config);
+    </script>
 </x-app-layout>

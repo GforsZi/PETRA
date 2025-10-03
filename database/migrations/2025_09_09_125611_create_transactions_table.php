@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->dateTime('trx_due_date');
             $table->dateTime('trx_return_date')->nullable();
             $table->enum('trx_status', ['1', '2', '3'])->default('1');
-            $table->string('trx_title');
+            $table->enum('trx_title', ['1', '2'])->default('1');
             $table->text('trx_description')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('trx_created_by')->unsigned()->nullable();

@@ -19,18 +19,18 @@
 
             <!-- Kolom Form -->
             <div class="col-md-8">
-               <div class="mb-3">
-                <label class="form-label">Tujuan Peminjaman</label>
-                <select class="form-select" name="tujuan_peminjaman" required>
-                    <option value="" selected disabled>Pilih tujuan</option>
-                    <option value="belajar">Kegiatan Belajar Mengajar</option>
-                    <option value="pribadi">Pribadi</option>
-                </select>
-            </div>
-            <div class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label">Tujuan Peminjaman</label>
+                    <select class="form-select" name="tujuan_peminjaman" required>
+                        <option value="" selected disabled>Pilih tujuan</option>
+                        <option value="belajar">Kegiatan Belajar Mengajar</option>
+                        <option value="pribadi">Pribadi</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
                     <textarea class="form-control"></textarea>
-            </div>
+                </div>
                 <button type="submit" class="btn btn-outline-success w-100">Selesai</button>
             </div>
         </div>
@@ -49,9 +49,10 @@
 
                 <div class="modal-body">
                     <!-- search -->
-                    <div class="input-group mb-3 shadow-sm border border-dark rounded">
-                        <input value="{{ old('cht_opt_title) }}"type="text" class="form-control border-0"
-                            placeholder="Cari sesuatu..." aria-label="Search">
+                    <div class="input-group mb-3 shadow-sm border border-body rounded">
+                        <input value="{{ old('cht_opt_title') }}" type="text"
+                            class="form-control border-0" placeholder="Cari sesuatu..."
+                            aria-label="Search">
                         <button
                             class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
                             type="button">
@@ -69,36 +70,6 @@
                                     data-nama="Buku 1"
                                     style="max-width: 120px; height: auto; cursor: pointer;">
                             </div>
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 2"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 3"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 4"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 5"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
-                            <div class="col">
-                                <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                                    class="img-fluid border rounded shadow-sm pilih-buku"
-                                    data-nama="Buku 6"
-                                    style="max-width: 120px; height: auto; cursor: pointer;">
-                            </div>
                         </div>
                     </div>
                     <!-- akhir -->
@@ -114,21 +85,21 @@
 
     <!-- Script -->
 
-<script>
-document.querySelectorAll('.pilih-buku').forEach(img => {
-    img.addEventListener('click', function() {
-        const listContainer = document.getElementById('listBukuDipilih');
-        const noText = document.getElementById('noBukuText');
+    <script>
+        document.querySelectorAll('.pilih-buku').forEach(img => {
+            img.addEventListener('click', function() {
+                const listContainer = document.getElementById('listBukuDipilih');
+                const noText = document.getElementById('noBukuText');
 
-        // hilangkan teks default
-        if (noText) noText.remove();
+                // hilangkan teks default
+                if (noText) noText.remove();
 
-        // buat card kecil buku yang dipilih
-        const card = document.createElement('div');
-        card.className = "card mb-2 shadow-sm bg-body";
-        card.style.maxWidth = "100%";
+                // buat card kecil buku yang dipilih
+                const card = document.createElement('div');
+                card.className = "card mb-2 shadow-sm bg-body";
+                card.style.maxWidth = "100%";
 
-        card.innerHTML = `
+                card.innerHTML = `
           <div class="row g-0 align-items-stretch">
             <div class="col-4">
               <img src="${this.src}" class="img-fluid rounded-start h-100" alt="buku" style="object-fit:cover;">
@@ -150,41 +121,42 @@ document.querySelectorAll('.pilih-buku').forEach(img => {
           </div>
         `;
 
-        const jumlahEl = card.querySelector('.jumlah-buku');
-        let jumlah = 1;
+                const jumlahEl = card.querySelector('.jumlah-buku');
+                let jumlah = 1;
 
-        // event tambah
-        card.querySelector('.plus-btn').addEventListener('click', () => {
-            if (jumlah < 3) { // 🔹 maksimal 3
-                jumlah++;
-                jumlahEl.value = jumlah;
-            }
+                // event tambah
+                card.querySelector('.plus-btn').addEventListener('click', () => {
+                    if (jumlah < 3) { // 🔹 maksimal 3
+                        jumlah++;
+                        jumlahEl.value = jumlah;
+                    }
+                });
+
+                // event kurang
+                card.querySelector('.minus-btn').addEventListener('click', () => {
+                    if (jumlah > 1) {
+                        jumlah--;
+                        jumlahEl.value = jumlah;
+                    }
+                });
+
+                // tambahkan ke list
+                listContainer.appendChild(card);
+
+                // event hapus
+                card.querySelector('.hapus-buku').addEventListener('click', () => {
+                    card.remove();
+                    if (listContainer.querySelectorAll('.card').length === 0) {
+                        listContainer.innerHTML =
+                            '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+                    }
+                });
+
+                // tutup modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById(
+                    'exampleModal'));
+                modal.hide();
+            });
         });
-
-        // event kurang
-        card.querySelector('.minus-btn').addEventListener('click', () => {
-            if (jumlah > 1) {
-                jumlah--;
-                jumlahEl.value = jumlah;
-            }
-        });
-
-        // tambahkan ke list
-        listContainer.appendChild(card);
-
-        // event hapus
-        card.querySelector('.hapus-buku').addEventListener('click', () => {
-            card.remove();
-            if (listContainer.querySelectorAll('.card').length === 0) {
-                listContainer.innerHTML =
-                    '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-            }
-        });
-
-        // tutup modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-        modal.hide();
-    });
-});
-</script>
+    </script>
 </x-app-layout>

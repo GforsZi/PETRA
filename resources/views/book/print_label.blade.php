@@ -15,6 +15,7 @@
             font-size: 11px;
         }
 
+        /* Grid utama */
         .page {
             display: grid;
             grid-template-columns: repeat(2, 8cm);
@@ -24,30 +25,36 @@
             gap: 20px 30px;
             /* jarak antar label */
             justify-content: center;
-            /* posisi ke tengah halaman */
+            page-break-inside: avoid;
         }
 
+        /* Label cell */
         .label-cell {
-            margin-bottom: 50px;
             width: 8cm;
             height: 4cm;
             border: 2px solid black;
             background: #fff;
             padding: 0;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            /* modern browser */
+            page-break-before: auto;
+            page-break-after: auto;
         }
 
+        /* Bungkus label agar tidak pecah */
         .label-wrapper {
             width: 100%;
             height: 100%;
             display: table;
             border-collapse: collapse;
+            page-break-inside: avoid;
         }
 
-        /* Header pakai grid agar garis pemisah nyambung */
+        /* Header */
         .label-header {
             display: grid;
             grid-template-columns: 2cm auto;
-            /* kolom logo | kolom teks */
             height: 1.5cm;
             border-bottom: 2px solid black;
         }
@@ -69,7 +76,6 @@
             justify-content: center;
             text-align: center;
             border-left: 2px solid black;
-            /* garis pemisah rapi */
         }
 
         .label-header-text h5 {
