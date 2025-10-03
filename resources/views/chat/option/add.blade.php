@@ -35,7 +35,7 @@
                     <label for="message" class="col-sm-2 col-form-label">Pesan opsi</label>
                     <div class="col-sm-10">
                         <textarea name="cht_opt_message" id="message"
-                            class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand">{{ old('cht_opt_message) }}</textarea>
+                            class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand">{{ old('cht_opt_message') }}</textarea>
                         @error('cht_opt_message')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Input tidak sesuai</p>
