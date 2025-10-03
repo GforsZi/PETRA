@@ -142,7 +142,7 @@
                                 @endif
                             @endforeach
                         </h5>
-                        <p>{{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}</p>
+                        <p>{{ Str::substr(strtolower($books['bk_title']), 0, 1) ?? '' }}</p>
                         <p><strong>{{ $book->bk_cp_number ?? '' }}</strong></p>
                     </div>
                 </div>
