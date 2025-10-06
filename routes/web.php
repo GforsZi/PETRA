@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/profile/edit', [AdminController::class, 'profile_edit_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/admin/profile/activation', [AdminController::class, 'activation_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/book', [ManageBookController::class, 'manage_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -218,6 +221,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/system/admin/profile/edit', [AdminController::class, 'edit_profile_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/admin/activation', [AdminController::class, 'activation_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('profile.activation');
     Route::post('/system/account/add', [ManageAcoountController::class, 'add_account_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');

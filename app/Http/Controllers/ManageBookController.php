@@ -84,7 +84,7 @@ class ManageBookController extends Controller
 
     public function detail_book_page($id)
     {
-        $book = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
+        $book = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name,pub_address', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
         return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
 

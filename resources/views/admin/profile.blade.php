@@ -59,6 +59,10 @@
                                 <a href="/admin/profile/edit"> <i
                                         class="bi bi-pencil-square text-info fs-4"></i></a>
                             </button>
+                            <button class="button bg-body flex-center" title="Ubah profil">
+                                <a href="/admin/profile/activation"> <i
+                                        class="bi bi-pencil-square text-info fs-4"></i></a>
+                            </button>
                         </div>
 
                     </div>

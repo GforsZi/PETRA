@@ -99,6 +99,18 @@
                         </td>
                     </tr>
                     <tr class="align-middle">
+                        <td>Alamat penerbit</td>
+                        <td>
+                            {{ $book['publisher']['pub_address'] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Pemberian</td>
+                        <td>
+                            {{ $book['origin']['bk_orgn_name'] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
                         <td>Edisi</td>
                         <td>
                             {{ $book['bk_edition_volume'] ?? '' }}
@@ -139,7 +151,8 @@
                     ebook</a>
             @endif
             <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}"><i class="bi bi-trash"></i></a>
+                data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}"><i
+                    class="bi bi-trash"></i></a>
 
         </div>
     </div>
@@ -152,7 +165,8 @@
                     aria-controls="desc_ast"><i class="bi bi-plus-lg"></i></a>
                 <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
                     href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
-                "><i class="bi bi-printer-fill"></i></a>
+                "><i
+                        class="bi bi-printer-fill"></i></a>
             </div>
         </div>
         <!-- /.card-header -->
@@ -222,7 +236,8 @@
                                                 <p class="mb-0">Apakah anda yakin untuk menghapus
                                                     salinan ini?
                                                 </p>
-                                                <input type="hidden" value="{{ $book['bk_id'] }}"
+                                                <input type="hidden"
+                                                    value="{{ $book['bk_id'] }}"
                                                     name="book_id" />
                                             </div>
                                             <div class="modal-footer flex-nowrap p-0">

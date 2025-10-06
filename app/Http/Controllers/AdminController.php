@@ -14,6 +14,10 @@ class AdminController extends Controller
         return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user'));
     }
 
+    public function activation_page() {
+        return view('admin.activation', ['title' => 'Halaman Aktifasi']);
+    }
+
     public function profile_page()
     {
         $user = User::where('usr_id', Auth::user()->usr_id)
@@ -26,6 +30,10 @@ class AdminController extends Controller
     {
         $user = User::select('usr_id', 'name', 'usr_bio', 'usr_img_url', 'usr_no_wa')->find(Auth::user()->usr_id);
         return view('admin.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
+    }
+
+    public function activation_system(Request $request) {
+        return response()->json(['message' => 'Berhasil disimpan']);
     }
 
     public function edit_profile_system(Request $request)

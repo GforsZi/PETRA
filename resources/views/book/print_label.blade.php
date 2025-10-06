@@ -30,8 +30,8 @@
 
         /* Label cell */
         .label-cell {
-            width: 8cm;
-            height: 4cm;
+            width: 77mm;
+            height: 41mm;
             border: 2px solid black;
             background: #fff;
             padding: 0;
