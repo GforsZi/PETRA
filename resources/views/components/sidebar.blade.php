@@ -159,9 +159,35 @@
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>LIHAT</p>
+                                    <p>STATISTIK KOLEKSI</p>
                                 </a>
-                        </ul>
+                            </li>
+                            <li class="nav-item" style='color: #E9AD01;'>
+                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>STATISTIK PERBULAN</p>
+                                </a>
+                            </li>
+                            <li class="nav-item" style='color: #E9AD01;'>
+                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>LAPORAN PEMINJAMAN</p>
+                                </a>
+                            </li>
+                            <li class="nav-item" style='color: #E9AD01;'>
+                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>LAPORAN ANGGOTA</p>
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item" style='color: #E9AD01;'>
+                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>STATISTIK PENGEMBALIAN</p>
+                                </a>
+                            </ul>
                     </li>
                 @else
                     <li class="nav-item">

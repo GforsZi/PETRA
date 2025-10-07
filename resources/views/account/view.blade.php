@@ -54,6 +54,11 @@
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmation{{ $accounts->firstItem() + $index }}">Hapus</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" style="cursor: pointer;"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#chatConfirmation{{ $accounts->firstItem() + $index }}">Kirim pesan</a></a>
+                            </li>
                         </ul>
                     </div>
                     <div class="modal fade"
@@ -77,6 +82,32 @@
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit"
                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal fade"
+                        id="chatConfirmation{{ $accounts->firstItem() + $index }}"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="chatConfirmation{{ $accounts->firstItem() + $index }}Label"
+                        aria-hidden="true">
+                        <form action="/system/account/{{ $account->usr_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
+                            @csrf
+                            <div class="modal-content rounded-4 border-success border-2">
+                                <div class="modal-header bg-success text-white rounded-top-4">
+                                    <h5 class="modal-title"><i class="bi bi-whatsapp"></i> Kirim Pesan WhatsApp</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="form-label">Nomor Tujuan</label>
+                                    <input type="text" value="{{ $account->usr_no_wa }}" class="form-control mb-3" readonly>
+
+                                    <label class="form-label">Isi Pesan</label>
+                                    <textarea class="form-control" rows="3" placeholder="Tulis pesan untuk pengguna ini..."></textarea>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-send"></i> Kirim</button>
                                 </div>
                             </div>
                         </form>
