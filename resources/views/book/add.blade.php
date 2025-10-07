@@ -73,7 +73,8 @@
                 <div class="row mb-3">
                     <label for="price" class="col-sm-2 col-form-label">Harga Perbuku</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_unit price') }}" type="number" name="bk_unit_price"
+                        <input value="{{ old('bk_unit price') }}" type="number"
+                            name="bk_unit_price"
                             class="form-control @error('bk_unit_price') is-invalid @enderror"
                             id="price">
                     </div>
@@ -89,7 +90,8 @@
                 <div class="row mb-3">
                     <label for="edition" class="col-sm-2 col-form-label">Edisi Buku</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_edition_volume') }}" type="text" name="bk_edition_volume"
+                        <input value="{{ old('bk_edition_volume') }}" type="text"
+                            name="bk_edition_volume"
                             class="form-control @error('bk_edition_volume') is-invalid @enderror"
                             id="edition">
                     </div>
@@ -98,8 +100,9 @@
                     <label for="published" class="col-sm-2 col-form-label">Tahun Terbit
                         Buku</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_published_year') }}" type="number" id="published" min="1500"
-                            max="{{ date('Y') }}" step="1" name="bk_published_year"
+                        <input value="{{ old('bk_published_year') }}" type="number" id="published"
+                            min="1500" max="{{ date('Y') }}" step="1"
+                            name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror"
                             id="published">
                     </div>
@@ -111,7 +114,8 @@
                         <input type="text" id="publisher-input"
                             class="form-control @error('bk_publisher_id') is-invalid @enderror"
                             autocomplete="off">
-                        <input value="{{ old('bk_publisher_id') }}" type="hidden" name="bk_publisher_id" id="publisher-id">
+                        <input value="{{ old('bk_publisher_id') }}" type="hidden"
+                            name="bk_publisher_id" id="publisher-id">
 
                         <div id="publisher-suggestions"
                             class="list-group position-absolute shadow-sm"
@@ -122,7 +126,10 @@
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label">Asal Buku</label>
                     <div class="col-sm-10 position-relative">
-                        <div class="position-relative">
+                        <div class="position-relative" data-bs-container="body"
+                            data-bs-toggle="popover" data-bs-placement="bottom"
+                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            data-bs-content="Untuk memilih asal buku anda harus menekan opsi sugesti, dan untuk menghapusnya dengan menekan tombol X di sebelah kanan">
                             <input type="text" id="origin-input"
                                 class="form-control pe-5 @error('bk_origin_id') is-invalid @enderror"
                                 autocomplete="off"
@@ -142,13 +149,17 @@
                     <label class="col-sm-2 col-form-label">Jurusan
                         Buku</label>
                     <div class="col-sm-10">
-                        <select name="bk_major_id"
+                        <select name="bk_major_id" data-bs-container="body"
+                            data-bs-toggle="popover" data-bs-placement="bottom"
+                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran"
                             class="form-select @error('bk_major_id') is-invalid @enderror"
                             aria-label="Default select example">
                             <option value="">Pilih Jurusan</option>
                             @foreach ($majors as $major)
                                 <option value="{{ $major->bk_mjr_id }}">
-                                    {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}</option>
+                                    {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -452,105 +463,124 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-    const input_org = document.getElementById('origin-input');
-    const hiddenId_org = document.getElementById('origin-id');
-    const suggestionsBox_org = document.getElementById('origin-suggestions');
-    const clearBtn = document.getElementById('clear-origin');
+        document.addEventListener('DOMContentLoaded', function() {
+            const input_org = document.getElementById('origin-input');
+            const hiddenId_org = document.getElementById('origin-id');
+            const suggestionsBox_org = document.getElementById('origin-suggestions');
+            const clearBtn = document.getElementById('clear-origin');
 
-    // tampilkan tombol X kalau ada teks
-    function toggleClearButton() {
-        clearBtn.style.display = input_org.value.trim() ? 'block' : 'none';
-    }
+            // tampilkan tombol X kalau ada teks
+            function toggleClearButton() {
+                clearBtn.style.display = input_org.value.trim() ? 'block' : 'none';
+            }
 
-    // hapus input & id
-    clearBtn.addEventListener('click', function () {
-        input_org.value = '';
-        hiddenId_org.value = '';
-        toggleClearButton();
-        suggestionsBox_org.style.display = 'none';
-    });
-
-    // tampilkan saran riwayat saat fokus
-    input_org.addEventListener('focus', function () {
-        const history = JSON.parse(localStorage.getItem('originHistory') || '[]');
-        if (history.length > 0) {
-            suggestionsBox_org.innerHTML = '';
-            history.forEach(item => {
-                let btn = document.createElement('button');
-                btn.type = 'button';
-                btn.classList.add('list-group-item', 'list-group-item-action');
-                btn.textContent = item.name;
-                btn.addEventListener('click', function () {
-                    input_org.value = item.name;
-                    hiddenId_org.value = item.id;
-                    suggestionsBox_org.style.display = 'none';
-                    toggleClearButton();
-                });
-                suggestionsBox_org.appendChild(btn);
-            });
-            suggestionsBox_org.style.display = 'block';
-        }
-    });
-
-    // ambil data dari server saat user mengetik
-    input_org.addEventListener('keyup', function () {
-        const query = this.value.trim();
-        toggleClearButton();
-
-        if (query.length === 0) {
-            suggestionsBox_org.style.display = 'none';
-            return;
-        }
-
-        fetch(`{{ route('origins.search') }}?q=${encodeURIComponent(query)}`)
-            .then(res => res.json())
-            .then(data => {
-                suggestionsBox_org.innerHTML = '';
-
-                if (data.length > 0) {
-                    data.forEach(orgn => {
-                        let item = document.createElement('button');
-                        item.type = 'button';
-                        item.classList.add('list-group-item', 'list-group-item-action');
-                        item.textContent = orgn.bk_orgn_name;
-
-                        item.addEventListener('click', function () {
-                            input_org.value = orgn.bk_orgn_name;
-                            hiddenId_org.value = orgn.bk_orgn_id;
-                            suggestionsBox_org.style.display = 'none';
-                            toggleClearButton();
-
-                            // simpan ke riwayat
-                            let history = JSON.parse(localStorage.getItem('originHistory') || '[]');
-                            if (!history.some(h => h.id === orgn.bk_orgn_id)) {
-                                history.push({ id: orgn.bk_orgn_id, name: orgn.bk_orgn_name });
-                                localStorage.setItem('originHistory', JSON.stringify(history));
-                            }
-                        });
-
-                        suggestionsBox_org.appendChild(item);
-                    });
-                    suggestionsBox_org.style.display = 'block';
-                } else {
-                    suggestionsBox_org.style.display = 'none';
-                }
-            })
-            .catch(err => {
-                console.error(err);
+            // hapus input & id
+            clearBtn.addEventListener('click', function() {
+                input_org.value = '';
+                hiddenId_org.value = '';
+                toggleClearButton();
                 suggestionsBox_org.style.display = 'none';
             });
-    });
 
-    // klik di luar → tutup suggestion
-    document.addEventListener('click', function (e) {
-        if (!input_org.contains(e.target) && !suggestionsBox_org.contains(e.target)) {
-            suggestionsBox_org.style.display = 'none';
-        }
-    });
+            // tampilkan saran riwayat saat fokus
+            input_org.addEventListener('focus', function() {
+                const history = JSON.parse(localStorage.getItem('originHistory') ||
+                    '[]');
+                if (history.length > 0) {
+                    suggestionsBox_org.innerHTML = '';
+                    history.forEach(item => {
+                        let btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.classList.add('list-group-item',
+                            'list-group-item-action');
+                        btn.textContent = item.name;
+                        btn.addEventListener('click', function() {
+                            input_org.value = item.name;
+                            hiddenId_org.value = item.id;
+                            suggestionsBox_org.style.display = 'none';
+                            toggleClearButton();
+                        });
+                        suggestionsBox_org.appendChild(btn);
+                    });
+                    suggestionsBox_org.style.display = 'block';
+                }
+            });
 
-    // inisialisasi awal
-    toggleClearButton();
-});
+            // ambil data dari server saat user mengetik
+            input_org.addEventListener('keyup', function() {
+                const query = this.value.trim();
+                toggleClearButton();
+
+                if (query.length === 0) {
+                    suggestionsBox_org.style.display = 'none';
+                    return;
+                }
+
+                fetch(`{{ route('origins.search') }}?q=${encodeURIComponent(query)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        suggestionsBox_org.innerHTML = '';
+
+                        if (data.length > 0) {
+                            data.forEach(orgn => {
+                                let item = document.createElement('button');
+                                item.type = 'button';
+                                item.classList.add('list-group-item',
+                                    'list-group-item-action');
+                                item.textContent = orgn.bk_orgn_name;
+
+                                item.addEventListener('click', function() {
+                                    input_org.value = orgn
+                                        .bk_orgn_name;
+                                    hiddenId_org.value = orgn
+                                        .bk_orgn_id;
+                                    suggestionsBox_org.style
+                                        .display = 'none';
+                                    toggleClearButton();
+
+                                    // simpan ke riwayat
+                                    let history = JSON.parse(
+                                        localStorage.getItem(
+                                            'originHistory') ||
+                                        '[]');
+                                    if (!history.some(h => h.id ===
+                                            orgn.bk_orgn_id)) {
+                                        history.push({
+                                            id: orgn
+                                                .bk_orgn_id,
+                                            name: orgn
+                                                .bk_orgn_name
+                                        });
+                                        localStorage.setItem(
+                                            'originHistory',
+                                            JSON.stringify(
+                                                history));
+                                    }
+                                });
+
+                                suggestionsBox_org.appendChild(item);
+                            });
+                            suggestionsBox_org.style.display = 'block';
+                        } else {
+                            suggestionsBox_org.style.display = 'none';
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        suggestionsBox_org.style.display = 'none';
+                    });
+            });
+
+            // klik di luar → tutup suggestion
+            document.addEventListener('click', function(e) {
+                if (!input_org.contains(e.target) && !suggestionsBox_org.contains(e
+                        .target)) {
+                    suggestionsBox_org.style.display = 'none';
+                }
+            });
+
+            // inisialisasi awal
+            toggleClearButton();
+        });
     </script>
 </x-app-layout>

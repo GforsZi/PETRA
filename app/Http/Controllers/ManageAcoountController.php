@@ -12,8 +12,34 @@ class ManageAcoountController extends Controller
 {
     public function manage_account_page()
     {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.fonnte.com/get-devices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: ' . config('services.fonnte.account_token'),
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data = json_decode($response, true);
+
+        // Ambil satu device token yang aktif
+        $activeDeviceToken = null;
+
+        if (!empty($data['data'])) {
+            foreach ($data['data'] as $device) {
+                if (($device['active'] ?? false) === true) {
+                    $activeDeviceToken = $device['token'];
+                    break; // stop setelah ketemu satu yang aktif
+                }
+            }
+        }
         $accounts = User::with('roles')->paginate(10);
-        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts]);
+        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts], compact('activeDeviceToken'));
     }
 
     public function detail_account_page($id)

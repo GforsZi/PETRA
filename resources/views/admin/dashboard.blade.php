@@ -1,11 +1,11 @@
 <x-app-layout>
     <style>
         @media (max-width: 990px) {
-        .hero-card-3 {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
+            .hero-card-3 {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
         }
-    }
     </style>
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
@@ -19,8 +19,8 @@
         <div class="col-lg-4 col-6">
             <div class="small-box bg-primary">
                 <div class="inner">
-                    <h3>150</h3>
-                    <p>Users</p>
+                    <h3>{{ $user_amount }}</h3>
+                    <p>Pengguna Aktif</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>
@@ -30,8 +30,8 @@
         <div class="col-lg-4 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-                    <p>Growth</p>
+                    <h3>{{ $total_book }}</h3>
+                    <p>Total Buku</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-line"></i>
@@ -41,8 +41,8 @@
         <div class="col-lg-4 col-6 hero-card-3">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>44</h3>
-                    <p>Errors</p>
+                    <h3>{{ $total_transaction }}</h3>
+                    <p>Total Transaksi</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-exclamation-triangle"></i>

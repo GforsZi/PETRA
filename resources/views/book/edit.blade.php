@@ -157,7 +157,10 @@
                     <label class="col-sm-2 col-form-label">Asal Buku</label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
-                            <input type="text" id="origin-input"
+                            <input type="text" id="origin-input" data-bs-container="body"
+                                data-bs-toggle="popover" data-bs-placement="bottom"
+                                data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                                data-bs-content="Untuk memilih asal buku anda harus menekan opsi sugesti, dan untuk menghapusnya dengan menekan tombol X di sebelah kanan"
                                 class="form-control pe-5 @error('bk_origin_id') is-invalid @enderror"
                                 autocomplete="off"
                                 value="{{ $book['origin']['bk_orgn_name'] ?? '' }}">
@@ -176,12 +179,18 @@
                     <label class="col-sm-2 col-form-label">Jurusan
                         Buku</label>
                     <div class="col-sm-10">
-                        <select name="bk_major_id"
+                        <select name="bk_major_id" data-bs-container="body"
+                            data-bs-toggle="popover" data-bs-placement="bottom"
+                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran"
                             class="form-select @error('bk_major_id') is-invalid @enderror"
                             aria-label="Default select example">
-                            <option value="{{ $book['bk_major_id'] }}">
-                                {{ $book['major']['bk_mjr_class'] ?? 'Pilih Jurusan Buku' }}{{ $book['major']['bk_mjr_major'] ?? '' }}
-                            </option>
+                            @if ($book['major'])
+                                <option value="{{ $book['bk_major_id'] }}">
+                                    {{ $book['major']['bk_mjr_class'] ?? 'Pilih Jurusan Buku' }}{{ ' ' . $book['major']['bk_mjr_major'] ?? '' }}
+                                </option>
+                            @endif
+                            <option value="">Kosongkan Jurusan</option>
                             @foreach ($majors as $major)
                                 <option value="{{ $major->bk_mjr_id }}">
                                     {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}
@@ -612,105 +621,127 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-        const input_org = document.getElementById('origin-input');
-        const hiddenId_org = document.getElementById('origin-id');
-        const suggestionsBox_org = document.getElementById('origin-suggestions');
-        const clearBtn = document.getElementById('clear-origin');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('hallo');
 
-        // tampilkan tombol X kalau ada teks
-        function toggleClearButton() {
-            clearBtn.style.display = input_org.value.trim() ? 'block' : 'none';
-        }
+            const input_org = document.getElementById('origin-input');
+            const hiddenId_org = document.getElementById('origin-id');
+            const suggestionsBox_org = document.getElementById('origin-suggestions');
+            const clearBtn = document.getElementById('clear-origin');
 
-        // tombol hapus input & id
-        clearBtn.addEventListener('click', function () {
-            input_org.value = '';
-            hiddenId_org.value = '';
-            toggleClearButton();
-            suggestionsBox_org.style.display = 'none';
-        });
-
-        // tampilkan riwayat input saat fokus
-        input_org.addEventListener('focus', function () {
-            const history = JSON.parse(localStorage.getItem('originHistory') || '[]');
-            if (history.length > 0) {
-                suggestionsBox_org.innerHTML = '';
-                history.forEach(item => {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.classList.add('list-group-item', 'list-group-item-action');
-                    btn.textContent = item.name;
-                    btn.addEventListener('click', function () {
-                        input_org.value = item.name;
-                        hiddenId_org.value = item.id;
-                        suggestionsBox_org.style.display = 'none';
-                        toggleClearButton();
-                    });
-                    suggestionsBox_org.appendChild(btn);
-                });
-                suggestionsBox_org.style.display = 'block';
+            // tampilkan tombol X kalau ada teks
+            function toggleClearButton() {
+                clearBtn.style.display = input_org.value.trim() ? 'block' : 'none';
             }
-        });
 
-        // fetch suggestion dari server saat mengetik
-        input_org.addEventListener('keyup', function () {
-            const query = this.value.trim();
-            toggleClearButton();
-
-            if (query.length === 0) {
+            // tombol hapus input & id
+            clearBtn.addEventListener('click', function() {
+                input_org.value = '';
+                hiddenId_org.value = '';
+                toggleClearButton();
                 suggestionsBox_org.style.display = 'none';
-                return;
-            }
+            });
 
-            fetch(`{{ route('origins.search') }}?q=${encodeURIComponent(query)}`)
-                .then(res => res.json())
-                .then(data => {
+            // tampilkan riwayat input saat fokus
+            input_org.addEventListener('focus', function() {
+                const history = JSON.parse(localStorage.getItem('originHistory') ||
+                    '[]');
+                if (history.length > 0) {
                     suggestionsBox_org.innerHTML = '';
-
-                    if (data.length > 0) {
-                        data.forEach(orgn => {
-                            const item = document.createElement('button');
-                            item.type = 'button';
-                            item.classList.add('list-group-item', 'list-group-item-action');
-                            item.textContent = orgn.bk_orgn_name;
-
-                            item.addEventListener('click', function () {
-                                input_org.value = orgn.bk_orgn_name;
-                                hiddenId_org.value = orgn.bk_orgn_id;
-                                suggestionsBox_org.style.display = 'none';
-                                toggleClearButton();
-
-                                // simpan ke riwayat
-                                let history = JSON.parse(localStorage.getItem('originHistory') || '[]');
-                                if (!history.some(h => h.id === orgn.bk_orgn_id)) {
-                                    history.push({ id: orgn.bk_orgn_id, name: orgn.bk_orgn_name });
-                                    localStorage.setItem('originHistory', JSON.stringify(history));
-                                }
-                            });
-
-                            suggestionsBox_org.appendChild(item);
+                    history.forEach(item => {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.classList.add('list-group-item',
+                            'list-group-item-action');
+                        btn.textContent = item.name;
+                        btn.addEventListener('click', function() {
+                            input_org.value = item.name;
+                            hiddenId_org.value = item.id;
+                            suggestionsBox_org.style.display = 'none';
+                            toggleClearButton();
                         });
-                        suggestionsBox_org.style.display = 'block';
-                    } else {
-                        suggestionsBox_org.style.display = 'none';
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
+                        suggestionsBox_org.appendChild(btn);
+                    });
+                    suggestionsBox_org.style.display = 'block';
+                }
+            });
+
+            // fetch suggestion dari server saat mengetik
+            input_org.addEventListener('keyup', function() {
+                const query = this.value.trim();
+                toggleClearButton();
+
+                if (query.length === 0) {
                     suggestionsBox_org.style.display = 'none';
-                });
-        });
+                    return;
+                }
 
-        // klik di luar → tutup suggestion
-        document.addEventListener('click', function (e) {
-            if (!input_org.contains(e.target) && !suggestionsBox_org.contains(e.target)) {
-                suggestionsBox_org.style.display = 'none';
-            }
-        });
+                fetch(`{{ route('origins.search') }}?q=${encodeURIComponent(query)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        suggestionsBox_org.innerHTML = '';
 
-        // tampilkan tombol X kalau ada value awal
-        toggleClearButton();
-    });
-</script>
+                        if (data.length > 0) {
+                            data.forEach(orgn => {
+                                const item = document.createElement(
+                                    'button');
+                                item.type = 'button';
+                                item.classList.add('list-group-item',
+                                    'list-group-item-action');
+                                item.textContent = orgn.bk_orgn_name;
+
+                                item.addEventListener('click', function() {
+                                    input_org.value = orgn
+                                        .bk_orgn_name;
+                                    hiddenId_org.value = orgn
+                                        .bk_orgn_id;
+                                    suggestionsBox_org.style
+                                        .display = 'none';
+                                    toggleClearButton();
+
+                                    // simpan ke riwayat
+                                    let history = JSON.parse(
+                                        localStorage.getItem(
+                                            'originHistory') ||
+                                        '[]');
+                                    if (!history.some(h => h.id ===
+                                            orgn.bk_orgn_id)) {
+                                        history.push({
+                                            id: orgn
+                                                .bk_orgn_id,
+                                            name: orgn
+                                                .bk_orgn_name
+                                        });
+                                        localStorage.setItem(
+                                            'originHistory',
+                                            JSON.stringify(
+                                                history));
+                                    }
+                                });
+
+                                suggestionsBox_org.appendChild(item);
+                            });
+                            suggestionsBox_org.style.display = 'block';
+                        } else {
+                            suggestionsBox_org.style.display = 'none';
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        suggestionsBox_org.style.display = 'none';
+                    });
+            });
+
+            // klik di luar → tutup suggestion
+            document.addEventListener('click', function(e) {
+                if (!input_org.contains(e.target) && !suggestionsBox_org.contains(e
+                        .target)) {
+                    suggestionsBox_org.style.display = 'none';
+                }
+            });
+
+            // tampilkan tombol X kalau ada value awal
+            toggleClearButton();
+        });
+    </script>
 </x-app-layout>

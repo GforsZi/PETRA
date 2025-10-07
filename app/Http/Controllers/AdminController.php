@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +13,10 @@ class AdminController extends Controller
     public function dashboard_page()
     {
         $user = User::with('roles:rl_id,rl_name')->find(Auth::user()->usr_id);
-        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user'));
+        $user_amount = User::select('usr_id')->where('usr_activation', true)->where('usr_role_id', '!=', null )->get()->count();
+        $total_book = Book::select('bk_id')->get()->count();
+        $total_transaction = Transaction::select()->get()->count();
+        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction'));
     }
 
     public function activation_page() {

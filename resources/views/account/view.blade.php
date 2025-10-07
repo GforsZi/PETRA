@@ -8,7 +8,8 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/account/add" class="btn btn-outline-primary w-100"><i class="bi bi-plus-lg"></i></a>
+        <a href="/manage/account/add" class="btn btn-outline-primary w-100"><i
+                class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table-data :paginator="$accounts">
         <x-slot:title></x-slot:title>
@@ -57,7 +58,8 @@
                             <li>
                                 <a class="dropdown-item" style="cursor: pointer;"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#chatConfirmation{{ $accounts->firstItem() + $index }}">Kirim pesan</a></a>
+                                    data-bs-target="#chatConfirmation{{ $accounts->firstItem() + $index }}">Kirim
+                                    pesan</a></a>
                             </li>
                         </ul>
                     </div>
@@ -91,23 +93,43 @@
                         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="chatConfirmation{{ $accounts->firstItem() + $index }}Label"
                         aria-hidden="true">
-                        <form action="/system/account/{{ $account->usr_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
+                        <form id="sendMessageForm" class="modal-dialog modal-dialog-centered">
                             @csrf
                             <div class="modal-content rounded-4 border-success border-2">
-                                <div class="modal-header bg-success text-white rounded-top-4">
-                                    <h5 class="modal-title"><i class="bi bi-whatsapp"></i> Kirim Pesan WhatsApp</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                <div class="modal-header  bg-success text-white rounded-top-4">
+                                    <h5 class="modal-title"><i class="bi bi-whatsapp"></i> Kirim
+                                        Pesan WhatsApp</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+                                <div id="errorContainer" class="alert mt-2 alert-danger d-none"
+                                    role="alert">
+                                    <p class="mb-0" id="errorMessage"></p>
                                 </div>
                                 <div class="modal-body">
                                     <label class="form-label">Nomor Tujuan</label>
-                                    <input type="text" value="{{ $account->usr_no_wa }}" class="form-control mb-3" readonly>
+                                    <input type="text" name="target" id="target" required
+                                        value="{{ $account->usr_no_wa }}" class="form-control mb-3"
+                                        readonly>
 
                                     <label class="form-label">Isi Pesan</label>
-                                    <textarea class="form-control" rows="3" placeholder="Tulis pesan untuk pengguna ini..."></textarea>
+                                    <textarea id="message" required name="message" class="form-control" rows="3"
+                                        placeholder="Tulis pesan untuk pengguna ini..."></textarea>
+                                    <input type="hidden" name="device_token"
+                                        value="{{ $activeDeviceToken }}">
                                 </div>
                                 <div class="modal-footer border-0">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-success"><i class="bi bi-send"></i> Kirim</button>
+                                    <button type="button" class="btn btn-light"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button id="sendMessageButton" class="btn btn-success"><i
+                                            class="bi bi-send"></i> <span
+                                            id="buttonText">Kirim</span>
+                                        <div id="spinner"
+                                            class="spinner-border spinner-border-sm text-light ms-2 d-none"
+                                            role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -120,4 +142,55 @@
             </tr>
         @endforelse
     </x-table-data>
+    <script>
+        document.getElementById('sendMessageForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+
+            const formData = new FormData(this);
+            const deviceToken = formData.get('device_token');
+            const sendButton = document.getElementById('sendMessageButton');
+            const buttonText = document.getElementById('buttonText');
+            const spinner = document.getElementById('spinner');
+
+            buttonText.textContent = 'Sending...';
+            spinner.classList.remove('d-none');
+            sendButton.disabled = true;
+
+            try {
+                const response = await fetch('/system/chat/send_message', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Authorization': deviceToken,
+                    },
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Pesan berhasil dikirim!');
+                    closeSendMessageModal();
+                } else {
+                    showError(result.error || 'Gagal mengirim pesan.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Terjadi kesalahan. Coba lagi.');
+            } finally {
+                buttonText.textContent = 'Send';
+                spinner.classList.add('d-none');
+                sendButton.disabled = false;
+            }
+        });
+
+
+        function showError(message) {
+            const errorContainer = document.getElementById('errorContainer');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorContainer.classList.remove('d-none');
+        }
+    </script>
 </x-app-layout>
