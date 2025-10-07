@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-<style>
+
+    <style>
     /* From Uiverse.io by Botwe-Felix5820 */ 
 .camera {
   height: 2.8em;
@@ -60,20 +61,19 @@
 }
 
 </style>
-    
 <div class="container text-center mt-4">
   <div class="custom-card p-4 shadow-sm rounded">
-    <h3 class="fw-bold text-xl mb-3">Ambil Foto Profil</h3>
+    <h3 class="fw-bold text-xl mb-3">Ambil Foto untuk kartu </h3>
 
     <div class="row justify-content-center align-items-center">
-     
+      <!-- Kamera di kiri -->
       <div class="col-md-6 mb-3 mb-md-0">
         <div class="position-relative d-inline-block w-100" style="max-width: 400px;">
-         
+          <!-- Video Kamera -->
           <video id="camera" autoplay playsinline width="100%" height="auto"
-            class="border rounded w-100"></video>
+            class="border rounded w-100 bg-dark"></video>
 
-         
+          <!-- Overlay Gridlines -->
           <div class="position-absolute top-0 start-0 w-100 h-100"
             style="pointer-events:none;">
             <svg width="100%" height="100%">
@@ -90,16 +90,20 @@
         <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
         <div class="mt-3">
-          <button id="captureBtn" class="camera btn btn-primary me-2">
-            <i class="bi bi-camera-fill"></i>Ambil Gambar
+           <button id="captureBtn" class="camera btn btn-primary me-2">
+            <i class="bi bi-camera-fill"></i>
           </button>
-          <button id="uploadBtn" class="btn btn-success d-none">
+          <button id="uploadBtn" class="btn btn-success d-none" disabled>
             <i class="bi bi-bookmark-check-fill"></i> Simpan Gambar
           </button>
         </div>
+
+        <p id="cameraError" class="text-danger mt-2" style="display:none;">
+          ❌ Kamera tidak dapat diakses. Pastikan browser mengizinkan penggunaan kamera.
+        </p>
       </div>
 
-     
+      <!-- Hasil foto di kanan -->
       <div class="col-md-6">
         <div class="d-flex justify-content-center">
           <img id="preview" src="" 
@@ -118,48 +122,63 @@
 </div>
 
 <script>
-    const video = document.getElementById('camera');
-    const canvas = document.getElementById('canvas');
-    const captureBtn = document.getElementById('captureBtn');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const imageInput = document.getElementById('imageInput');
-    const preview = document.getElementById('preview');
-    const previewLabel = document.getElementById('previewLabel');
+  const video = document.getElementById('camera');
+  const canvas = document.getElementById('canvas');
+  const captureBtn = document.getElementById('captureBtn');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const imageInput = document.getElementById('imageInput');
+  const preview = document.getElementById('preview');
+  const previewLabel = document.getElementById('previewLabel');
+  const cameraError = document.getElementById('cameraError');
 
-    // Aktifkan kamera
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        video.srcObject = stream;
-      })
-      .catch(err => {
-        alert('Tidak dapat mengakses kamera: ' + err);
+  // Fungsi untuk nonaktifkan tombol
+  function disableCameraControls() {
+    captureBtn.disabled = true;
+    uploadBtn.disabled = true;
+  }
+
+  function enableCameraControls() {
+    captureBtn.disabled = false;
+  }
+
+  // Coba aktifkan kamera
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+      enableCameraControls(); // Aktifkan tombol jika kamera berhasil
+    })
+    .catch(err => {
+      cameraError.style.display = 'block';
+      disableCameraControls(); // Nonaktifkan tombol jika gagal
+      console.error('Kamera error:', err);
+    });
+
+  // Ambil gambar
+  captureBtn.onclick = function() {
+      if (captureBtn.disabled) return;
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataURL = canvas.toDataURL('image/png');
+      preview.src = dataURL;
+      preview.style.display = 'block';
+      previewLabel.style.display = 'block';
+      imageInput.value = dataURL;
+      uploadBtn.classList.remove('d-none');
+      uploadBtn.disabled = false;
+  };
+
+  // Upload ke server
+  uploadBtn.onclick = async function() {
+      if (uploadBtn.disabled) return;
+      const formData = new FormData(document.getElementById('uploadForm'));
+      const response = await fetch('{{ route('profile.activation') }}', {
+          method: 'POST',
+          headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+          body: formData
       });
 
-    // Ambil gambar
-    captureBtn.onclick = function() {
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const dataURL = canvas.toDataURL('image/png');
-        preview.src = dataURL;
-        preview.style.display = 'block';
-        previewLabel.style.display = 'block';
-        imageInput.value = dataURL;
-        uploadBtn.classList.remove('d-none');
-    };
-
-    // Upload ke server
-    uploadBtn.onclick = async function() {
-        const formData = new FormData(document.getElementById('uploadForm'));
-        const response = await fetch('{{ route('profile.activation') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: formData
-        });
-
-        const result = await response.json();
-        alert(result.message);
-    };
+      const result = await response.json();
+      alert(result.message);
+  };
 </script>
 </x-app-layout>

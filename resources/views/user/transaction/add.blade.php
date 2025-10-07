@@ -3,25 +3,24 @@
 
     <form>
         <div class="row g-4 align-items-start">
-            <!-- Kolom Daftar Buku Dipilih -->
+         
             <div class="col-md-4">
                 <h5 class="mb-3">Buku yang Dipinjam</h5>
                 <div id="listBukuDipilih" class="border rounded p-2 bg-body"
                     style="max-height: 300px; overflow-y: auto;">
                     <p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>
                 </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary mt-3 w-100" data-bs-toggle="modal"
+                
+                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                     Pilih Buku
                 </button>
             </div>
 
-            <!-- Kolom Form -->
             <div class="col-md-8">
                 <div class="mb-3">
                     <label class="form-label">Tujuan Peminjaman</label>
-                    <select class="form-select" name="tujuan_peminjaman" required>
+                    <select class="form-select" name="tujuan_peminjaman" id="tujuanSelect" required>
                         <option value="" selected disabled>Pilih tujuan</option>
                         <option value="belajar">Kegiatan Belajar Mengajar</option>
                         <option value="pribadi">Pribadi</option>
@@ -36,7 +35,7 @@
         </div>
     </form>
 
-    <!-- Modal -->
+   
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -59,16 +58,14 @@
                         </button>
                     </div>
 
-                    <!-- kolom buku dengan scroll -->
+                    
                     <div class="container text-center border"
                         style="max-height: 200px; overflow-y: auto;">
                         <h3>Hasil Pencarian</h3>
                         <hr>
-                        <div class="row g-3" id="book-list">
-                        </div>
+                        <div class="row g-3" id="book-list"></div>
                         <hr>
                     </div>
-                    <!-- akhir -->
                 </div>
 
                 <div class="modal-footer">
@@ -79,107 +76,125 @@
         </div>
     </div>
 
-    <!-- Script -->
+   
+   <script>
+    const bokList = document.getElementById('book-list');
+    const tujuanSelect = document.getElementById('tujuanSelect');
+    const listContainer = document.getElementById('listBukuDipilih');
+    const btnPilihBuku = document.getElementById('btnPilihBuku');
 
-    <script>
-        let bokList = document.getElementById('book-list');
+    document.getElementById('book-search').addEventListener('keyup', function() {
+        let query = this.value;
 
-        document.getElementById('book-search').addEventListener('keyup', function() {
-            let query = this.value;
-
-            fetch("{{ route('books.search') }}?q=" + query)
-                .then(res => res.json())
-                .then(data => {
-                    bokList.innerHTML = '';
-                    data.forEach(book => {
-                        let div = document.createElement('div');
-                        div.classList.add('col');
-                        if (book.bk_img_url) {
-                            div.innerHTML = `
-                        <img src="{{ asset('${book.bk_img_url}') }}"
+        fetch("{{ route('books.search') }}?q=" + query)
+            .then(res => res.json())
+            .then(data => {
+                bokList.innerHTML = '';
+                data.forEach(book => {
+                    let div = document.createElement('div');
+                    div.classList.add('col');
+                    let imgSrc = book.bk_img_url
+                        ? `{{ asset('') }}${book.bk_img_url}`
+                        : `{{ asset('logo/book_placeholder.jpg') }}`;
+                    div.innerHTML = `
+                        <img src="${imgSrc}"
                             class="object-fit-contain pilih-buku"
                             style="cursor: pointer;height: 167px; width: 128px;"
-                            data-nama="Buku ${book.bk_id}">
+                            data-nama="${book.bk_nama || 'Buku ' + book.bk_id}">
                     `;
-                        } else {
-                            div.innerHTML = `
-                        <img src="{{ asset('logo/book_placeholder.jpg') }}"
-                            class="object-fit-contain pilih-buku"
-                            style="cursor: pointer;height: 167px; width: 128px;"
-                            data-nama="Buku ${book.bk_id}">
-                    `;
-                        }
-                        bokList.appendChild(div);
-                    });
+                    bokList.appendChild(div);
                 });
-        });
+            });
+    });
 
-        // 🔹 Gunakan event delegation
-        bokList.addEventListener('click', function(e) {
-            if (e.target.classList.contains('pilih-buku')) {
-                const listContainer = document.getElementById('listBukuDipilih');
-                const noText = document.getElementById('noBukuText');
+    // Fungsi bantu untuk update tombol
+    function updateButtonVisibility() {
+        const tujuan = tujuanSelect.value;
+        const count = listContainer.querySelectorAll('.card').length;
 
-                if (noText) noText.remove();
+        if (!tujuan) {
+            btnPilihBuku.style.display = 'block';
+            return;
+        }
 
-                const card = document.createElement('div');
-                card.className = "card mb-2 shadow-sm bg-body";
-                card.style.maxWidth = "100%";
+        if (tujuan === "belajar" && count >= 1) {
+            btnPilihBuku.style.display = 'none';
+        } else if (tujuan === "pribadi" && count >= 3) {
+            btnPilihBuku.style.display = 'none';
+        } else {
+            btnPilihBuku.style.display = 'block';
+        }
+    }
 
-                card.innerHTML = `
-            <div class="row g-0 align-items-stretch">
-                <div class="col-4">
-                    <img src="${e.target.src}" class="img-fluid rounded-start h-100"
-                        alt="buku" style="object-fit:cover;">
-                </div>
-                <div class="col-8 d-flex flex-column justify-content-between">
-                    <div class="p-2 d-flex justify-content-between align-items-center">
-                        <h6 class="card-title fw-bold mb-0">${e.target.dataset.nama}</h6>
-                        <div class="input-group input-group-sm" style="width: 110px;">
-                            <button class="btn btn-outline-danger minus-btn" type="button">−</button>
-                            <input type="text" class="form-control text-center jumlah-buku" value="1" readonly>
-                            <button class="btn btn-outline-primary plus-btn" type="button">+</button>
+    // Jika dropdown berubah → hapus semua buku yang sudah dipilih
+    tujuanSelect.addEventListener('change', () => {
+        listContainer.innerHTML = '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+        updateButtonVisibility();
+    });
+
+    // Event klik buku dari modal
+    bokList.addEventListener('click', function(e) {
+        if (e.target.classList.contains('pilih-buku')) {
+            const tujuan = tujuanSelect.value;
+            if (!tujuan) {
+                alert("Pilih tujuan peminjaman terlebih dahulu!");
+                return;
+            }
+
+            const currentCount = listContainer.querySelectorAll('.card').length;
+
+            if (tujuan === "belajar" && currentCount >= 1) {
+                alert("Untuk kegiatan belajar mengajar hanya boleh 1 buku.");
+                return;
+            }
+            if (tujuan === "pribadi" && currentCount >= 3) {
+                alert("Untuk tujuan pribadi hanya boleh maksimal 3 buku.");
+                return;
+            }
+
+            const noText = document.getElementById('noBukuText');
+            if (noText) noText.remove();
+
+            const card = document.createElement('div');
+            card.className = "card mb-2 shadow-sm bg-body";
+            card.style.maxWidth = "100%";
+
+            card.innerHTML = `
+                <div class="row g-0 align-items-stretch">
+                    <div class="col-4">
+                        <img src="${e.target.src}" class="img-fluid rounded-start h-100"
+                            alt="buku" style="object-fit:cover;">
+                    </div>
+                    <div class="col-8 d-flex flex-column justify-content-between">
+                        <div class="p-2 d-flex justify-content-between align-items-center">
+                            <h6 class="card-title fw-bold mb-0">${e.target.dataset.nama}</h6>
+                        </div>
+                        <div class="p-2 d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
                         </div>
                     </div>
-                    <div class="p-2 d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm btn-danger hapus-buku">Hapus</button>
-                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
-                const jumlahEl = card.querySelector('.jumlah-buku');
-                let jumlah = 1;
+            // Tombol hapus
+            card.querySelector('.hapus-buku').addEventListener('click', () => {
+                card.remove();
+                if (listContainer.querySelectorAll('.card').length === 0) {
+                    listContainer.innerHTML =
+                        '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+                }
+                updateButtonVisibility();
+            });
 
-                card.querySelector('.plus-btn').addEventListener('click', () => {
-                    if (jumlah < 3) {
-                        jumlah++;
-                        jumlahEl.value = jumlah;
-                    }
-                });
+            listContainer.appendChild(card);
 
-                card.querySelector('.minus-btn').addEventListener('click', () => {
-                    if (jumlah > 1) {
-                        jumlah--;
-                        jumlahEl.value = jumlah;
-                    }
-                });
+            // Tutup modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+            modal.hide();
 
-                listContainer.appendChild(card);
+            updateButtonVisibility();
+        }
+    });
+</script>
 
-                card.querySelector('.hapus-buku').addEventListener('click', () => {
-                    card.remove();
-                    if (listContainer.querySelectorAll('.card').length === 0) {
-                        listContainer.innerHTML =
-                            '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-                    }
-                });
-
-                // tutup modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById(
-                    'exampleModal'));
-                modal.hide();
-            }
-        });
-    </script>
 </x-app-layout>
