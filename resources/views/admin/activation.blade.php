@@ -1,159 +1,163 @@
 <x-app-layout>
-  <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:title>{{ $title }}</x-slot:title>
 
-  <style>
-    /* Tombol kamera */
-    .camera {
-      height: 2.8em;
-      width: 9em;
-      background: transparent;
-      border: 2px solid #016dd9;
-      color: #016dd9;
-      cursor: pointer;
-      font-size: 17px;
-      transition: all 0.3s ease;
-    }
-    .camera:hover {
-      background: #016dd9;
-      color: #fff;
-    }
+    <style>
+        /* Tombol kamera */
+        .camera {
+            height: 2.8em;
+            width: 9em;
+            background: transparent;
+            border: 2px solid #016dd9;
+            color: #016dd9;
+            cursor: pointer;
+            font-size: 17px;
+            transition: all 0.3s ease;
+        }
 
-    /* Desain kartu perpustakaan */
-    .kartu-perpus {
-      width: 450px;
-      border: 1px solid #000;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #fff;
-    }
+        .camera:hover {
+            background: #016dd9;
+            color: #fff;
+        }
 
-    .kartu-body {
-      display: flex;
-      align-items: flex-start;
-      padding: 20px;
-      gap: 20px;
-    }
+        /* Desain kartu perpustakaan */
+        .kartu-perpus {
+            width: 450px;
+            border: 1px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
 
-    .foto-box {
-      width: 120px;
-      height: 150px;
-      border: 1px solid #000;
-      background: #f5f5f5;
-      object-fit: cover;
-      border-radius: 6px;
-    }
+        .kartu-body {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 20px;
+        }
 
-    .form-box {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      padding-top: 5px;
-    }
+        .foto-box {
+            width: 120px;
+            height: 150px;
+            border: 1px solid #000;
+            background: #f5f5f5;
+            object-fit: cover;
+            border-radius: 6px;
+        }
 
-    .form-box span {
-      display: block;
-      background: #e0e0e0;
-      border-radius: 20px;
-      padding: 6px 15px;
-      font-size: 14px;
-    }
+        .form-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            padding-top: 5px;
+        }
 
-    #role {
-      width: 50%;
-    }
-    .damy {
-  display: flex;
-  flex-direction: column;
-  gap: 14px; 
-  font-size: 14px;
-  font-weight: 500;
-}
+        .form-box span {
+            display: block;
+            background: #e0e0e0;
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-size: 14px;
+        }
 
-.damy span {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  letter-spacing: 0.3px;
-}
+        #role {
+            width: 50%;
+        }
 
+        .damy {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-.damy strong {
-  display: inline-block;
-  width: 120px; 
-  text-align: left;
-}
+        .damy span {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            letter-spacing: 0.3px;
+        }
 
-  </style>
+        .damy strong {
+            display: inline-block;
+            width: 120px;
+            text-align: left;
+        }
+    </style>
 
-  <div class="container mt-4">
-    <div class="row justify-content-center align-items-start g-4">
-      <!-- Kamera -->
-      <div class="col-md-5 text-center">
-        <h4 class="fw-bold mb-3">Ambil Foto</h4>
-        <video id="camera" autoplay playsinline width="100%" class="border rounded bg-dark"></video>
-        <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
+    <div class="container mt-4">
+        <div class="row justify-content-center align-items-start g-4">
+            <!-- Kamera -->
+            <div class="col-md-5 text-center">
+                <h4 class="fw-bold mb-3">Ambil Foto</h4>
+                <video id="camera" autoplay playsinline width="100%"
+                    class="border rounded bg-dark"></video>
+                <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
-        <div class="mt-3">
-          <button id="captureBtn" class="camera me-2">
-            <i class="bi bi-camera-fill"></i> Ambil
-          </button>
-          <button id="uploadBtn" class="btn btn-success d-none">
-            <i class="bi bi-bookmark-check-fill"></i> Simpan
-          </button>
-        </div>
+                <div class="mt-3">
+                    <button id="captureBtn" class="camera me-2">
+                        <i class="bi bi-camera-fill"></i> Ambil
+                    </button>
+                    <button id="uploadBtn" class="btn btn-success d-none">
+                        <i class="bi bi-bookmark-check-fill"></i> Simpan
+                    </button>
+                </div>
 
-        <p id="cameraError" class="text-danger mt-2" style="display:none;">
-          ❌ Kamera tidak dapat diakses. Pastikan izin diberikan.
-        </p>
-      </div>
-
-      <!-- Kartu di samping kanan -->
-      <div class="col-md-6">
-        <div class="kartu-perpus shadow">
-          <!-- Header pakai file SVG cop_kartu -->
-          <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:auto; display:block;">
-
-        
-          <div class="kartu-body">
-            <img id="preview" src="" class="foto-box" alt="Foto" />
-            <div class="damy">
-              <span><strong>Nama Lengkap</strong>: </span>
-              <span><strong>No. WhatsApp</strong>: </span>
-              <span><strong>Sebagai</strong>: </span>
+                <p id="cameraError" class="text-danger mt-2" style="display:none;">
+                    ❌ Kamera tidak dapat diakses. Pastikan izin diberikan.
+                </p>
             </div>
 
-          </div>
+            <!-- Kartu di samping kanan -->
+            <div class="col-md-6">
+                <div class="kartu-perpus shadow">
+                    <!-- Header pakai file SVG cop_kartu -->
+                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu"
+                        style="width:100%; height:auto; display:block;">
+
+                    <div class="kartu-body">
+                        <img id="preview" src="{{ asset('logo/user_placeholder.jpg') }}"
+                            class="foto-box" alt="Foto" />
+                        <div class="damy">
+                            <span style="color: black;"><strong>Nama Lengkap</strong>: </span>
+                            <span style="color: black;"><strong>No. WhatsApp</strong>: </span>
+                            <span style="color: black;"><strong>Sebagai</strong>: </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <script>
-    const video = document.getElementById("camera");
-    const canvas = document.getElementById("canvas");
-    const captureBtn = document.getElementById("captureBtn");
-    const uploadBtn = document.getElementById("uploadBtn");
-    const preview = document.getElementById("preview");
-    const cameraError = document.getElementById("cameraError");
+    <script>
+        const video = document.getElementById("camera");
+        const canvas = document.getElementById("canvas");
+        const captureBtn = document.getElementById("captureBtn");
+        const uploadBtn = document.getElementById("uploadBtn");
+        const preview = document.getElementById("preview");
+        const cameraError = document.getElementById("cameraError");
 
-    // Aktifkan kamera
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        video.srcObject = stream;
-      })
-      .catch(err => {
-        cameraError.style.display = "block";
-        console.error("Kamera error:", err);
-      });
+        // Aktifkan kamera
+        navigator.mediaDevices.getUserMedia({
+                video: true
+            })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                cameraError.style.display = "block";
+                console.error("Kamera error:", err);
+            });
 
-    // Ambil foto
-    captureBtn.onclick = function () {
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataURL = canvas.toDataURL("image/png");
-      preview.src = dataURL;
-    };
-  </script>
+        // Ambil foto
+        captureBtn.onclick = function() {
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL("image/png");
+            preview.src = dataURL;
+        };
+    </script>
 </x-app-layout>

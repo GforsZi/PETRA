@@ -17,6 +17,7 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css"
         integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg=" crossorigin="anonymous" />
+    <link rel="icon" href="{{ asset('logo/PETRA-LOGO.png') }}">
 
 </head>
 

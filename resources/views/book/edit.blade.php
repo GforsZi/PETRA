@@ -26,6 +26,28 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Jenis Buku</label>
                     <div class="col-sm-10">
+                        <select name="bk_permission"
+                            class="form-select @error('bk_permission') is-invalid @enderror"
+                            required aria-label="Default select example">
+                            @if ($book['bk_permission'] == '1')
+                                <option value="1" selected>Dapat dipinjam</option>
+                                <option value="2">Semi pinjam</option>
+                                <option value="3">Tidak untuk dipinjam</option>
+                            @elseif ($book['bk_permission'] == '2')
+                                <option value="1">Dapat dipinjam</option>
+                                <option value="2" selected>Semi pinjam</option>
+                                <option value="3">Tidak untuk dipinjam</option>
+                            @else
+                                <option value="1">Dapat dipinjam</option>
+                                <option value="2">Semi pinjam</option>
+                                <option value="3" selected>Tidak untuk dipinjam</option>
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Jenis Buku</label>
+                    <div class="col-sm-10">
                         <select name="bk_type" id="image-option"
                             class="form-select @error('bk_type') is-invalid @enderror" required
                             aria-label="Default select example">

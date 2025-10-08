@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\UserLogin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,43 @@ class AdminController extends Controller
         $user_amount = User::select('usr_id')->where('usr_activation', true)->where('usr_role_id', '!=', null )->get()->count();
         $total_book = Book::select('bk_id')->get()->count();
         $total_transaction = Transaction::select()->get()->count();
-        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction'));
+
+        $days = 30;
+        $startDate = Carbon::now()->startOfDay()->subDays($days - 1); // 29 hari sebelum hari ini
+        $endDate = Carbon::now()->endOfDay();
+
+        // Ambil jumlah login per tanggal (total login, bukan user unik)
+        $raw = UserLogin::selectRaw('DATE(usr_lg_logged_in_at) as date, COUNT(*) as total')
+            ->whereBetween('usr_lg_logged_in_at', [$startDate, $endDate])
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get()
+            ->pluck('total', 'date')
+            ->toArray();
+
+        $labels = [];
+        $data = [];
+
+        for ($i = 0; $i < $days; $i++) {
+            $day = $startDate->copy()->addDays($i);
+            $key = $day->toDateString();
+            $labels[] = $day->format('d M');
+            $data[] = isset($raw[$key]) ? (int) $raw[$key] : 0;
+        }
+
+        $tableRows = [];
+        for ($i = 0; $i < $days; $i++) {
+            $day = $startDate->copy()->addDays($i);
+            $key = $day->toDateString();
+            $tableRows[] = [
+                'date' => $key,
+                'label' => $day->format('d F Y'),
+                'total' => isset($raw[$key]) ? (int) $raw[$key] : 0,
+            ];
+        }
+
+
+        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction', 'labels', 'data', 'tableRows', 'days'));
     }
 
     public function activation_page() {

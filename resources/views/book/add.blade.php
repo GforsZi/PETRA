@@ -24,6 +24,18 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Jenis Buku</label>
                     <div class="col-sm-10">
+                        <select name="bk_permission"
+                            class="form-select @error('bk_permission') is-invalid @enderror"
+                            required aria-label="Default select example">
+                            <option value="1">Dapat dipinjam</option>
+                            <option value="2">Semi pinjam</option>
+                            <option value="3">Tidak untuk dipinjam</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Jenis Buku</label>
+                    <div class="col-sm-10">
                         <select name="bk_type" id="image-option"
                             class="form-select @error('bk_type') is-invalid @enderror" required
                             aria-label="Default select example">
@@ -100,9 +112,9 @@
                     <label for="published" class="col-sm-2 col-form-label">Tahun Terbit
                         Buku</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_published_year') }}" type="number" id="published"
-                            min="1500" max="{{ date('Y') }}" step="1"
-                            name="bk_published_year"
+                        <input value="{{ old('bk_published_year') }}" type="number"
+                            id="published" min="1500" max="{{ date('Y') }}"
+                            step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror"
                             id="published">
                     </div>

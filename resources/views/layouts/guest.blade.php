@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title }}</title>
     @vite(['resources/css/app.css'])
-
+    <link rel="icon" href="{{ asset('logo/PETRA-LOGO.png') }}">
 </head>
 
 <body style="background-color: #f9fafc ;">

@@ -53,14 +53,20 @@
     <!-- Row Chart -->
     <div class="row">
         <div class="col-md-8">
+            <canvas id="loginChart" height="120"></canvas>
             <div class="card">
-                <div class="card-body">
-                    <canvas id="barChart" style="height:300px;"></canvas>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Ringkasan</h5>
+                    <p>Periode: {{ $days }} hari terakhir</p>
+                    <p>Total Login: <strong>{{ array_sum($data) }}</strong></p>
+                    <p>Rata-rata per hari:
+                        <strong>{{ round(array_sum($data) / max(1, count($data)), 2) }}</strong>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
                     <canvas id="doughnutChart" style="height:300px;"></canvas>
                 </div>
@@ -69,6 +75,58 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        (function() {
+            const labels = {!! json_encode($labels) !!}; // ['09 Sep', '10 Sep', ...]
+            const data = {!! json_encode($data) !!}; // [12, 5, 0, ...]
+
+            const ctx = document.getElementById('loginChart').getContext('2d');
+
+            const loginChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Login per Hari',
+                        data: data,
+                        borderWidth: 1,
+                        // Jangan set warna agar sesuai permintaan awal (Chart.js default colors)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: false,
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            },
+                            title: {
+                                display: true,
+                                text: 'Jumlah Login'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' login';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        })();
         // Bar Chart
         new Chart(document.getElementById('barChart'), {
             type: 'bar',

@@ -103,6 +103,7 @@ class ManageBookController extends Controller
             'bk_description' => 'nullable | string | max:65535',
             'bk_page' => 'nullable | integer | max:9999999',
             'bk_type' => 'nullable | in:1,2',
+            'bk_permission' => 'nullable | in:1,2,3',
             'bk_unit_price' => 'nullable | integer | max:999999999',
             'bk_edition_volume' => 'nullable | string | max:255',
             'bk_published_year' => 'nullable | digits:4 | integer | max:' . date('Y'),
@@ -167,7 +168,7 @@ class ManageBookController extends Controller
 
     public function edit_book_page($id)
     {
-        $book = Book::with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id', 'bk_origin_id')->find($id);
+        $book = Book::with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_permission', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id', 'bk_origin_id')->find($id);
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
         return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors', 'book'));
@@ -181,6 +182,7 @@ class ManageBookController extends Controller
             'bk_description' => 'sometimes | nullable | string | max:65535',
             'bk_page' => 'nullable | integer | max:9999999',
             'bk_type' => 'sometimes | nullable | in:1,2',
+            'bk_permission' => 'sometimes | nullable | in:1,2,3',
             'bk_unit_price' => 'sometimes | nullable | integer | max:999999999',
             'bk_edition_volume' => 'sometimes | nullable | string | max:255',
             'bk_published_year' => 'sometimes | nullable | digits:4 | integer | max:' . date('Y'),

@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('bk_img_url')->nullable();
             $table->string('bk_img_public_id')->nullable();
             $table->enum('bk_type', ['1', '2'])->nullable();
+            $table->enum('bk_permission', ['1', '2', '3'])->nullable();
             $table->string('bk_file_url')->nullable();
             $table->string('bk_file_public_id')->nullable();
             $table->integer('bk_unit_price')->nullable();

@@ -55,6 +55,18 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle">
+                        <td>Perizinan</td>
+                        <td>
+                            @if ($book['bk_permission'] == '1')
+                                Dapat dipinjam
+                            @elseif ($book['bk_permission'] == '2')
+                                Semi pinjam
+                            @else
+                                Tidak dapat dipinjam
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
                         <td>Judul</td>
                         <td>{{ $book['bk_title'] ?? '' }}</td>
                     </tr>
@@ -313,22 +325,28 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <style>
-                                        .labelcode {
-                                            background-color: white;
-                                            color: black;
-                                        }
-
-                                        /* .labelcode{
-                            background-color: #DC143C;
-                           color: black;
-                        }
-                        .labelcode{
-                            background-color: #FAB12F;
-                            color: black;
-                        } */
-                                    </style>
+                                    @if ($book['bk_permission'] == '1')
+                                        <style>
+                                            .labelcode {
+                                                background-color: white;
+                                                color: black;
+                                            }
+                                        </style>
+                                    @elseif ($book['bk_permission'] == '2')
+                                        <style>
+                                            .labelcode {
+                                                background-color: #FAB12F;
+                                                color: black;
+                                            }
+                                        </style>
+                                    @else
+                                        <style>
+                                            .labelcode {
+                                                background-color: #DC143C;
+                                                color: black;
+                                            }
+                                        </style>
+                                    @endif
                                 </div>
 
                                 <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}"
