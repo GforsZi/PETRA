@@ -27,35 +27,11 @@
       background: #fff;
     }
 
-    .kartu-header {
-      background-color: #0c1b45;
-      color: #ffd700;
-      padding: 10px 20px;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .kartu-header img {
-      height: 45px;
-      margin-right: 10px;
-    }
-
-    .kartu-header::after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 120px;
-      background: #e76124;
-      clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
-    }
-
     .kartu-body {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding: 20px;
+      gap: 20px;
     }
 
     .foto-box {
@@ -64,29 +40,51 @@
       border: 1px solid #000;
       background: #f5f5f5;
       object-fit: cover;
+      border-radius: 6px;
     }
 
     .form-box {
       flex: 1;
-      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 5px;
     }
 
-    .form-box input {
-      width: 100%;
-      height: 32px;
-      border-radius: 20px;
-      border: none;
+    .form-box span {
+      display: block;
       background: #e0e0e0;
-      margin-bottom: 10px;
-      padding: 5px 15px;
+      border-radius: 20px;
+      padding: 6px 15px;
       font-size: 14px;
     }
 
-    .form-box input:focus {
-      outline: none;
-      background: #fff;
-      border: 1px solid #0c1b45;
+    #role {
+      width: 50%;
     }
+    .damy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; 
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.damy span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  letter-spacing: 0.3px;
+}
+
+
+.damy strong {
+  display: inline-block;
+  width: 120px; 
+  text-align: left;
+}
+
   </style>
 
   <div class="container mt-4">
@@ -114,24 +112,18 @@
       <!-- Kartu di samping kanan -->
       <div class="col-md-6">
         <div class="kartu-perpus shadow">
-          <!-- Header -->
-          <div class="kartu-header">
-            <img src="{{ asset('logo/logo.png') }}" alt="Logo Sekolah">
-            <div>
-              <div style="font-weight:bold;">KARTU KEANGGOTAAN PERPUSTAKAAN</div>
-              <div>SMKS MAHAPUTRA CERDAS UTAMA</div>
-            </div>
-          </div>
+          <!-- Header pakai file SVG cop_kartu -->
+          <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:auto; display:block;">
 
-          <!-- Isi -->
+        
           <div class="kartu-body">
-            <img id="preview" src="" class="foto-box rounded" alt="Foto" />
-
-            <div class="form-box">
-              <input type="text" placeholder="Nama Lengkap" id="nama" />
-              <input type="text" placeholder="Kelas" id="kelas" />
-              <input type="text" placeholder="NIS" id="nis" />
+            <img id="preview" src="" class="foto-box" alt="Foto" />
+            <div class="damy">
+              <span><strong>Nama Lengkap</strong>: </span>
+              <span><strong>No. WhatsApp</strong>: </span>
+              <span><strong>Sebagai</strong>: </span>
             </div>
+
           </div>
         </div>
       </div>

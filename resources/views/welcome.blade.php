@@ -181,7 +181,7 @@
 
                                     <i class="bi bi-instagram"></i>
                                 </div>
-                                <a href="#" class="text-light">
+                                <a href="https://www.instagram.com/smkmahaputra_official?igsh=MTUyZW43NWMwNW1sMw==" class="text-light">
 
                                     <div class="social-icon-2">
                                         <i class="bi bi-instagram"></i>
@@ -189,24 +189,22 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="socialcontainer">
-                                <div class="icon social-icon-3-3">
-
-                                    <i class="bi bi-facebook"></i>
-                                </div>
-                                <a href="#" class="text-light">
-
-                                    <div class="social-icon-3">
-                                        <i class="bi bi-facebook"></i>
+                             <div class="socialcontainer">
+                            <div class="icon social-icon-3-3">
+                                        <i class="bi bi-globe"></i>
                                     </div>
-                                </a>
-                            </div>
+                                    <a href="https://www.smkmahaputra.sch.id" class="text-light" target="_blank" rel="noopener noreferrer">
+                                        <div class="social-icon-3">
+                                            <i class="bi bi-globe"></i>
+                                        </div>
+                                    </a>
+                                </div>
                             <div class="socialcontainer">
                                 <div class="icon social-icon-4-4">
                                     <i class="bi bi-tiktok"></i>
 
                                 </div>
-                                <a href="#" class="text-light">
+                                <a href="https://www.tiktok.com/@smkmahaputra_official?_t=ZS-90ER2mFsQ5q&_r=1" class="text-light">
                                     <div class="social-icon-4">
 
                                         <i class="bi bi-tiktok"></i>
