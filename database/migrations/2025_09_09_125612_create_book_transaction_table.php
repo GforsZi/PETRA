@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('book_transaction', function (Blueprint $table) {
             $table->bigIncrements('bk_trx_id');
             $table->unsignedBigInteger('bk_trx_book_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('bk_trx_book_copy_id')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_trx_transaction_id')->unsigned()->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('bk_trx_created_by')->unsigned()->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->renameColumn('deleted_at', 'bk_trx_deleted_at');
 
             $table->foreign('bk_trx_book_id')->references('bk_id')->on('books')->onDelete('cascade');
+            $table->foreign('bk_trx_book_copy_id')->references('bk_cp_id')->on('book_copies')->onDelete('cascade');
             $table->foreign('bk_trx_transaction_id')->references('trx_id')->on('transactions')->onDelete('cascade');
         });
     }

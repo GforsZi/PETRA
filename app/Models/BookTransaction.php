@@ -12,10 +12,10 @@ class BookTransaction extends Pivot
     use HasFactory, SoftDeletes, Blameable;
 
     protected $guarded = ['id', 'timestamps'];
-    protected $primaryKey = 'bk_mjr_id';
-    protected $blameablePrefix = 'bk_mjr_';
+    protected $primaryKey = 'bk_trx_id';
+    protected $blameablePrefix = 'bk_trx_';
 
-    const CREATED_AT = 'bk_mjr_created_at';
-    const UPDATED_AT = 'bk_mjr_updated_at';
-    const DELETED_AT = 'bk_mjr_deleted_at';
+    const CREATED_AT = 'bk_trx_created_at';
+    const UPDATED_AT = 'bk_trx_updated_at';
+    const DELETED_AT = 'bk_trx_deleted_at';
 }

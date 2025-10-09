@@ -47,7 +47,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #fff200; 
+            background: #fff200;
             z-index: 0;
         }
 
@@ -122,6 +122,43 @@
             color: black;
         }
     </style>
+    @if ($books['bk_permission'] == '1')
+        <style>
+            .label-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: white;
+                z-index: 0;
+            }
+        </style>
+    @elseif ($books['bk_permission'] == '2')
+        <style>
+            .label-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #FAB12F;
+                z-index: 0;
+            }
+        </style>
+    @else
+        <style>
+            .label-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #EF5A6F;
+                z-index: 0;
+            }
+        </style>
+    @endif
 
 </head>
 
@@ -137,7 +174,8 @@
                 <div class="label-wrapper">
                     <div class="label-header">
                         <div class="label-logo-cell">
-                            <img src="{{ public_path('logo/landing/smk.png') }}" alt="Logo" class="label-logo">
+                            <img src="{{ public_path('logo/landing/smk.png') }}" alt="Logo"
+                                class="label-logo">
                         </div>
                         <div class="label-header-text">
                             <h5>PERPUSTAKAAN</h5>

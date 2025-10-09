@@ -71,22 +71,17 @@ class UserController extends Controller
 
     public function view_transaction_page()
     {
-        $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title')->where('trx_user_id', Auth::user()->usr_id)->latest()->paginate(10);
+        $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title', 'trx_status')->where('trx_user_id', Auth::user()->usr_id)->latest()->paginate(10);
         return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman'], compact('transactions'));
     }
-
-    public function add_transaction_page()
+        public function add_transaction_page()
     {
         return view('user.transaction.add', ['title' => 'Halaman Tambah Peminjaman']);
     }
 
-    public function edit_transaction_page($id)
-    {
-        return view('user.transaction.edit', ['title' => 'Halaman Ubah Peminjaman']);
-    }
-
     public function detail_transaction_page($id)
     {
-        return view('user.transaction.detail', ['title' => 'Halaman Detail Peminjaman']);
+        $transaction = Transaction::with('users', 'books')->find($id);
+        return view('user.transaction.detail', ['title' => 'Halaman Detail Peminjaman'], compact('transaction'));
     }
 }

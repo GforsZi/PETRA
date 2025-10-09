@@ -24,43 +24,45 @@
                         <tbody>
                             <tr>
                                 <td>ID Peminjaman</td>
-                                <td>PMJ-001</td>
+                                <td>{{ $transaction['trx_id'] }}</td>
                             </tr>
                             <tr>
                                 <td>Nama Peminjam</td>
-                                <td>John Doe</td>
+                                <td>{{ $transaction['users']['name'] }}</td>
                             </tr>
                             <tr>
-                                <td>Email Peminjam</td>
-                                <td>john.doe@mail.com</td>
+                                <td>Nomor Peminjam</td>
+                                <td>{{ $transaction['users']['usr_no_wa'] }}</td>
                             </tr>
                             <tr>
-                                <td>Judul Buku</td>
-                                <td>Pemrograman Laravel</td>
+                                <td>Tujuan pinjaman</td>
+                                <td>
+                                    @if ($transaction['trx_title'] == '1')
+                                        Kegiatan Belajar Mengajar
+                                    @else
+                                        Peribadi
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
-                                <td>Tanggal Pinjam</td>
-                                <td>2025-09-27 12:30:00</td>
+                                <td>Tanggal Pengajuan Pinjam</td>
+                                <td>{{ $transaction['trx_borrow_date'] }}</td>
                             </tr>
                             <tr>
-                                <td>Tanggal Kembali</td>
-                                <td>2025-10-04 12:30:00</td>
+                                <td>Tenggat Kembali</td>
+                                <td>{{ $transaction['trx_due_date'] }}</td>
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td><span class="badge bg-success">Dipinjam</span></td>
-                            </tr>
-                            <tr>
-                                <td>Dibuat Pada</td>
-                                <td>2025-09-27 12:30:00</td>
-                            </tr>
-                            <tr>
-                                <td>Diubah Pada</td>
-                                <td>2025-09-27 12:45:00</td>
-                            </tr>
-                            <tr>
-                                <td>Dihapus Pada</td>
-                                <td>-</td>
+                                <td>
+                                    @if ($transaction['trx_status'] == '1')
+                                        <span class="badge bg-warning">Dalam proses</span>
+                                    @elseif ($transaction['trx_status'] == '2')
+                                        <span class="badge bg-success">Diterima</span>
+                                    @else
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    @endif
+                                </td>
                             </tr>
                         </tbody>
                     </table>

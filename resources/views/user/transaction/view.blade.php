@@ -8,23 +8,40 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/transaction/add" class="btn btn-outline-primary w-100" title="Tambah Transaksi"><i class="bi bi-plus-lg"></i></a>
+        <a href="/transaction/add" class="btn btn-outline-primary w-100" title="Tambah Transaksi"><i
+                class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$transactions">
         <x-slot:title>Manage transaction</x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th>Tanggal peminjam</th>
-            <th style="width: 50px">Tenggak peminjam</th>
-            <th style="width: 50px">Tujuan Peminjaman</th>
+            <th>Tanggal pengajuan</th>
+            <th>Tujuan</th>
+            <th>Status</th>
+            <th>Tenggak waktu</th>
             <th style="width: 50px">Aksi</th>
         </x-slot:header>
         @forelse ($transactions as $index => $transaction)
             <tr class="align-middle">
                 <td>{{ $transactions->firstItem() + $index }}</td>
                 <td>{{ $transaction->trx_borrow_date }}</td>
+                <td>
+                    @if ($transaction->trx_title == '1')
+                        Kegiatan Belajar Mengajar
+                    @elseif ($transaction->trx_title == '2')
+                        Pribadi
+                    @endif
+                </td>
+                <td>
+                    @if ($transaction->trx_status == '1')
+                        Dalam proses
+                    @elseif ($transaction->trx_status == '2')
+                        Diterima
+                    @else
+                        Ditolak
+                    @endif
+                </td>
                 <td>{{ $transaction->trx_due_date }}</td>
-                <td>{{ $transaction->trx_title }}</td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
@@ -33,15 +50,14 @@
                         </button>
                         <ul class="dropdown-menu ">
                             <li><a class="dropdown-item"
-                                    href="/manage/book/transaction/{{ $transaction->trx_id }}/detail">Detail</a>
+                                    href="/transaction/{{ $transaction->trx_id }}/detail">Detail</a>
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="/manage/book/transaction/{{ $transaction->trx_id }}/edit">Ubah</a>
-                            </li>
-                            <li><a class="dropdown-item" style="cursor: pointer;"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmation{{ $transactions->firstItem() + $index }}">Hapus</a>
-                            </li>
+                            @if ($transaction->trx_status == '1')
+                                <li><a class="dropdown-item" style="cursor: pointer;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteConfirmation{{ $transactions->firstItem() + $index }}">Batalkan</a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="modal fade"

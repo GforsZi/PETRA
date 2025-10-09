@@ -358,9 +358,11 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1');
     Route::post('/system/option/chat/reply', [ManageChatbotController::class, 'reply_system'])
         ->middleware(CheckActivation::class . ':1');
-    Route::PUT('/system/restore/{id}', [ManageHistoryController::class, 'restore_system'])
+        Route::PUT('/system/restore/{id}', [ManageHistoryController::class, 'restore_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/transaction/add', [ManageTransactionController::class, 'add_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])

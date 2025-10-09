@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->bigIncrements('trx_id');
             $table->unsignedBigInteger('trx_user_id')->unsigned()->nullable();
             $table->dateTime('trx_borrow_date');
-            $table->dateTime('trx_due_date');
+            $table->dateTime('trx_due_date')->nullable();
             $table->dateTime('trx_return_date')->nullable();
             $table->enum('trx_status', ['1', '2', '3'])->default('1');
-            $table->enum('trx_title', ['1', '2'])->default('1');
+            $table->enum('trx_title', ['1', '2']);
             $table->text('trx_description')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('trx_created_by')->unsigned()->nullable();

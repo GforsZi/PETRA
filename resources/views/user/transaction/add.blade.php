@@ -1,18 +1,25 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
-    <form>
+    @if (session()->has('error'))
+        <div class="alert alert-error alert-dismissible fade show" role="alert">
+            <h5>Error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
+    <form action="/system/transaction/add" method="POST">
+        @csrf
         <div class="row g-4 align-items-start">
-         
+
             <div class="col-md-4">
                 <h5 class="mb-3">Buku yang Dipinjam</h5>
                 <div id="listBukuDipilih" class="border rounded p-2 bg-body"
                     style="max-height: 300px; overflow-y: auto;">
                     <p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>
                 </div>
-                
-                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
+
+                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Pilih Buku
                 </button>
             </div>
@@ -20,22 +27,26 @@
             <div class="col-md-8">
                 <div class="mb-3">
                     <label class="form-label">Tujuan Peminjaman</label>
-                    <select class="form-select" name="tujuan_peminjaman" id="tujuanSelect" required>
+                    <select class="form-select" name="trx_title" id="tujuanSelect" required>
                         <option value="" selected disabled>Pilih tujuan</option>
-                        <option value="belajar">Kegiatan Belajar Mengajar</option>
-                        <option value="pribadi">Pribadi</option>
+                        <option value="1">Kegiatan Belajar Mengajar</option>
+                        <option value="2">Pribadi</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" name="trx_description"></textarea>
                 </div>
+
+                <!-- tanggal otomatis -->
+                <input type="hidden" name="trx_borrow_date" value="{{ now() }}">
+
                 <button type="submit" class="btn btn-outline-success w-100">Selesai</button>
             </div>
         </div>
     </form>
 
-   
+    <!-- Modal Pilih Buku -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -58,13 +69,12 @@
                         </button>
                     </div>
 
-                    
                     <div class="container text-center border"
                         style="max-height: 200px; overflow-y: auto;">
                         <h3>Hasil Pencarian</h3>
                         <hr>
                         <div class="row g-3" id="book-list"></div>
-                        <hr>
+                        <br>
                     </div>
                 </div>
 
@@ -76,90 +86,94 @@
         </div>
     </div>
 
-   
-   <script>
-    const bokList = document.getElementById('book-list');
-    const tujuanSelect = document.getElementById('tujuanSelect');
-    const listContainer = document.getElementById('listBukuDipilih');
-    const btnPilihBuku = document.getElementById('btnPilihBuku');
+    <script>
+        const bokList = document.getElementById('book-list');
+        const tujuanSelect = document.getElementById('tujuanSelect');
+        const listContainer = document.getElementById('listBukuDipilih');
+        const btnPilihBuku = document.getElementById('btnPilihBuku');
 
-    document.getElementById('book-search').addEventListener('keyup', function() {
-        let query = this.value;
+        // cari buku
+        document.getElementById('book-search').addEventListener('keyup', function() {
+            let query = this.value;
 
-        fetch("{{ route('books.search') }}?q=" + query)
-            .then(res => res.json())
-            .then(data => {
-                bokList.innerHTML = '';
-                data.forEach(book => {
-                    let div = document.createElement('div');
-                    div.classList.add('col');
-                    let imgSrc = book.bk_img_url
-                        ? `{{ asset('') }}${book.bk_img_url}`
-                        : `{{ asset('logo/book_placeholder.jpg') }}`;
-                    div.innerHTML = `
+            fetch("{{ route('books.search') }}?q=" + query)
+                .then(res => res.json())
+                .then(data => {
+                    bokList.innerHTML = '';
+                    data.forEach(book => {
+                        let div = document.createElement('div');
+                        div.classList.add('col');
+                        let imgSrc = book.bk_img_url ?
+                            `{{ asset('') }}${book.bk_img_url}` :
+                            `{{ asset('logo/book_placeholder.jpg') }}`;
+                        div.innerHTML = `
                         <img src="${imgSrc}"
                             class="object-fit-contain pilih-buku"
                             style="cursor: pointer;height: 167px; width: 128px;"
+                            data-id="${book.bk_id}"
                             data-nama="${book.bk_nama || 'Buku ' + book.bk_id}">
                     `;
-                    bokList.appendChild(div);
+                        bokList.appendChild(div);
+                    });
                 });
-            });
-    });
+        });
 
-    // Fungsi bantu untuk update tombol
-    function updateButtonVisibility() {
-        const tujuan = tujuanSelect.value;
-        const count = listContainer.querySelectorAll('.card').length;
-
-        if (!tujuan) {
-            btnPilihBuku.style.display = 'block';
-            return;
-        }
-
-        if (tujuan === "belajar" && count >= 1) {
-            btnPilihBuku.style.display = 'none';
-        } else if (tujuan === "pribadi" && count >= 3) {
-            btnPilihBuku.style.display = 'none';
-        } else {
-            btnPilihBuku.style.display = 'block';
-        }
-    }
-
-    // Jika dropdown berubah → hapus semua buku yang sudah dipilih
-    tujuanSelect.addEventListener('change', () => {
-        listContainer.innerHTML = '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-        updateButtonVisibility();
-    });
-
-    // Event klik buku dari modal
-    bokList.addEventListener('click', function(e) {
-        if (e.target.classList.contains('pilih-buku')) {
+        // update tombol
+        function updateButtonVisibility() {
             const tujuan = tujuanSelect.value;
+            const count = listContainer.querySelectorAll('.card').length;
+
             if (!tujuan) {
-                alert("Pilih tujuan peminjaman terlebih dahulu!");
+                btnPilihBuku.style.display = 'block';
                 return;
             }
 
-            const currentCount = listContainer.querySelectorAll('.card').length;
-
-            if (tujuan === "belajar" && currentCount >= 1) {
-                alert("Untuk kegiatan belajar mengajar hanya boleh 1 buku.");
-                return;
+            if (tujuan === "1" && count >= 1) {
+                btnPilihBuku.style.display = 'none';
+            } else if (tujuan === "2" && count >= 3) {
+                btnPilihBuku.style.display = 'none';
+            } else {
+                btnPilihBuku.style.display = 'block';
             }
-            if (tujuan === "pribadi" && currentCount >= 3) {
-                alert("Untuk tujuan pribadi hanya boleh maksimal 3 buku.");
-                return;
-            }
+        }
 
-            const noText = document.getElementById('noBukuText');
-            if (noText) noText.remove();
+        // jika tujuan berubah
+        tujuanSelect.addEventListener('change', () => {
+            listContainer.innerHTML =
+                '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+            updateButtonVisibility();
+        });
 
-            const card = document.createElement('div');
-            card.className = "card mb-2 shadow-sm bg-body";
-            card.style.maxWidth = "100%";
+        // klik pilih buku
+        bokList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('pilih-buku')) {
+                const tujuan = tujuanSelect.value;
+                if (!tujuan) {
+                    alert("Pilih tujuan peminjaman terlebih dahulu!");
+                    return;
+                }
 
-            card.innerHTML = `
+                const currentCount = listContainer.querySelectorAll('.card').length;
+
+                if (tujuan === "1" && currentCount >= 1) {
+                    alert("Untuk kegiatan belajar mengajar hanya boleh 1 buku.");
+                    return;
+                }
+                if (tujuan === "2" && currentCount >= 3) {
+                    alert("Untuk tujuan pribadi hanya boleh maksimal 3 buku.");
+                    return;
+                }
+
+                const noText = document.getElementById('noBukuText');
+                if (noText) noText.remove();
+
+                const card = document.createElement('div');
+                card.className = "card mb-2 shadow-sm bg-body";
+                card.style.maxWidth = "100%";
+
+                const bookId = e.target.dataset.id;
+
+                card.innerHTML = `
                 <div class="row g-0 align-items-stretch">
                     <div class="col-4">
                         <img src="${e.target.src}" class="img-fluid rounded-start h-100"
@@ -174,27 +188,29 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="book_ids[]" value="${bookId}">
             `;
 
-            // Tombol hapus
-            card.querySelector('.hapus-buku').addEventListener('click', () => {
-                card.remove();
-                if (listContainer.querySelectorAll('.card').length === 0) {
-                    listContainer.innerHTML =
-                        '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-                }
+                // tombol hapus
+                card.querySelector('.hapus-buku').addEventListener('click', () => {
+                    card.remove();
+                    if (listContainer.querySelectorAll('.card').length === 0) {
+                        listContainer.innerHTML =
+                            '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+                    }
+                    updateButtonVisibility();
+                });
+
+                listContainer.appendChild(card);
+
+                // tutup modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById(
+                    'exampleModal'));
+                modal.hide();
+
                 updateButtonVisibility();
-            });
-
-            listContainer.appendChild(card);
-
-            // Tutup modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-            modal.hide();
-
-            updateButtonVisibility();
-        }
-    });
-</script>
+            }
+        });
+    </script>
 
 </x-app-layout>

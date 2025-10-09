@@ -23,13 +23,15 @@ class Transaction extends Model
     const UPDATED_AT = 'trx_updated_at';
     const DELETED_AT = 'trx_deleted_at';
 
-    public function transactions(): BelongsToMany {
-        return $this->belongsToMany(BookTransaction::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_id');
-    }
+public function books()
+{
+    return $this->belongsToMany(Book::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_id')
+         ;
+}
 
-    public function users(): HasMany
+    public function users(): BelongsTo
     {
-        return $this->hasMany(User::class, 'trx_user_id', 'usr_id');
+        return $this->belongsTo(User::class, 'trx_user_id', 'usr_id');
     }
 
     public function created_by(): BelongsTo
