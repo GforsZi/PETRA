@@ -53,7 +53,7 @@
                         <div class="mt-3 d-flex gap-2">
                             <button class="button bg-body flex-center" title="Hapus">
                                 <a href="/manage/history"><i
-                                        class="bi bi-trash text-danger fs-4"></i></a>
+                                class="bi bi-clock-history text-danger  fs-4"></i></a>
                             </button>
                             <button class="button bg-body flex-center" title="Ubah profil">
                                 <a href="/admin/profile/edit"> <i

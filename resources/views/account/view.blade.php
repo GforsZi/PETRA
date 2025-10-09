@@ -8,7 +8,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/account/add" class="btn btn-outline-primary w-100"><i
+        <a href="/manage/account/add" class="btn btn-outline-primary w-100" title="Tambah Akun Baru"><i
                 class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table-data :paginator="$accounts">

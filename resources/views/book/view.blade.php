@@ -8,7 +8,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/add" class="btn btn-lg btn-outline-primary w-100x"><i
+        <a href="/manage/book/add" class="btn btn-lg btn-outline-primary w-100x" title="Tambah Buku"><i
                 class="bi bi-journal-plus"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$books">

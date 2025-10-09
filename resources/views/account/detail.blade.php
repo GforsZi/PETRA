@@ -82,16 +82,16 @@
                     @csrf
                     @method('PUT')
                     <input hidden name='usr_activation' value="1" />
-                    <button type="submit" class="btn btn-lg btn-success"><i class="bi bi-check2-all"></i></button>
+                    <button type="submit" class="btn btn-lg btn-success" title="Tambah Aktifkan Akun"><i class="bi bi-check2-all"></i></button>
                 </form>
                 <form method="post" action="/system/account/{{ $account['usr_id'] }}/ban">
                     @csrf
                     @method('PUT')
                     <input hidden name='usr_activation' value="0" />
-                    <button type="submit" class="btn btn-lg btn-warning"><i class="bi bi-ban"></i></button>
+                    <button type="submit" class="btn btn-lg btn-warning" title="Nonaktifkan Akun"><i class="bi bi-ban"></i></button>
                 </form>
                 <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#deleteConfirmation{{ $account['usr_id'] }}"><i class="bi bi-trash"></i></a>
+                    data-bs-target="#deleteConfirmation{{ $account['usr_id'] }}" title="Hapus Data Akun"><i class="bi bi-trash" ></i></a>
 
             </div>
         </div>

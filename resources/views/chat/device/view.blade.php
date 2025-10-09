@@ -8,7 +8,8 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/chat/device/add" class="btn btn-outline-primary w-100"><i class="bi bi-whatsapp"></i></a>
+        <a href="/manage/chat/device/add" class="btn btn-outline-primary w-100"
+        title="Tambahkan Perangkat"><i class="bi bi-whatsapp"></i></a>
     </x-slot:header_layout>
     <!-- Toast Notification -->
     <div id="notification"

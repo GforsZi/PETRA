@@ -163,7 +163,7 @@
                     ebook</a>
             @endif
             <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}"><i
+                data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}" title="Hapus Buku"><i
                     class="bi bi-trash"></i></a>
 
         </div>
@@ -174,11 +174,12 @@
             <div class="card-tools d-flex justify-content-end w-100 ">
                 <a class="btn btn-lg btn-primary mx-1" data-bs-toggle="modal"
                     data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
-                    aria-controls="desc_ast"><i class="bi bi-plus-lg"></i></a>
+                    aria-controls="desc_ast" title="Tambah Salinan Buku"><i class="bi bi-plus-lg"></i></a>
+
                 <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
                     href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
-                "><i
-                        class="bi bi-printer-fill"></i></a>
+                " title="Cetak Label">
+                <i class="bi bi-printer-fill"></i></a>
             </div>
         </div>
         <!-- /.card-header -->

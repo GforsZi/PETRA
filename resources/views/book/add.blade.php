@@ -2,11 +2,11 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
         <button type="button" class="btn btn-lg btn-outline-primary" data-bs-toggle="modal"
-            data-bs-target="#authorModal">
+            data-bs-target="#authorModal" title="Tambah Penerbit">
             <i class="bi bi-person-plus-fill"></i>
         </button>
         <button type="button" class="btn btn-lg btn-outline-warning" data-bs-toggle="modal"
-            data-bs-target="#ddcModal">
+            data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
             <i class="bi bi-123"></i>
         </button>
     </x-slot:header_layout>
@@ -121,17 +121,24 @@
                 </div>
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label">Penerbit</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 position-relative">
+                        <div class="position-relative" data-bs-container="body"
+                            data-bs-toggle="popover" data-bs-placement="bottom"
+                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            data-bs-content="Untuk memilih penerbit, tekan opsi dari sugesti. Untuk menghapus pilihan, tekan tombol X di kanan.">
 
-                        <input type="text" id="publisher-input"
-                            class="form-control @error('bk_publisher_id') is-invalid @enderror"
-                            autocomplete="off">
-                        <input value="{{ old('bk_publisher_id') }}" type="hidden"
-                            name="bk_publisher_id" id="publisher-id">
-
-                        <div id="publisher-suggestions"
-                            class="list-group position-absolute shadow-sm"
-                            style="z-index: 1000; display:none; width: 80%;">
+                            <input type="text" id="publisher-input"
+                                class="form-control pe-5 @error('bk_publisher_id') is-invalid @enderror"
+                                autocomplete="off"
+                                value="{{ $book['publisher']['pub_name'] ?? ''}}">
+                            <input type="hidden" name="bk_publisher_id" id="publisher-id"
+                                value="{{ $book['bk_publisher_id'] ?? ''}}">
+                            <button type="button" id="clear-publisher"
+                                class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2"
+                                style="display:none;">❌</button>
+                            <div id="publisher-suggestions"
+                                class="list-group position-absolute shadow-sm"
+                                style="z-index:1000; display:none; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -213,7 +220,6 @@
                                 placeholder="Cari penulis...">
 
                             <div id="author-list" style="max-height: 300px; overflow-y:auto;">
-                                {{-- Hasil pencarian AJAX akan muncul disini --}}
                             </div>
 
                         </div>
@@ -421,59 +427,113 @@
             }
         });
 
-        const input = document.getElementById('publisher-input');
-        const hiddenId = document.getElementById('publisher-id');
-        const suggestionsBox = document.getElementById('publisher-suggestions');
+        document.addEventListener('DOMContentLoaded', function() {
+        console.log('publisher ready');
 
-        input.addEventListener('keyup', function() {
-            let query = this.value.trim();
+        const input_pub = document.getElementById('publisher-input');
+        const hiddenId_pub = document.getElementById('publisher-id');
+        const suggestionsBox_pub = document.getElementById('publisher-suggestions');
+        const clearBtn_pub = document.getElementById('clear-publisher');
 
-            if (query.length < 0) {
-                suggestionsBox.style.display = 'none';
+        // tampilkan tombol X kalau ada teks
+        function toggleClearButton() {
+            clearBtn_pub.style.display = input_pub.value.trim() ? 'block' : 'none';
+        }
+
+        // tombol hapus input & id
+        clearBtn_pub.addEventListener('click', function() {
+            input_pub.value = '';
+            hiddenId_pub.value = '';
+            toggleClearButton();
+            suggestionsBox_pub.style.display = 'none';
+        });
+
+        // tampilkan riwayat input saat fokus
+        input_pub.addEventListener('focus', function() {
+            const history = JSON.parse(localStorage.getItem('publisherHistory') || '[]');
+            if (history.length > 0) {
+                suggestionsBox_pub.innerHTML = '';
+                history.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.classList.add('list-group-item', 'list-group-item-action');
+                    btn.textContent = item.name;
+                    btn.addEventListener('click', function() {
+                        input_pub.value = item.name;
+                        hiddenId_pub.value = item.id;
+                        suggestionsBox_pub.style.display = 'none';
+                        toggleClearButton();
+                    });
+                    suggestionsBox_pub.appendChild(btn);
+                });
+                suggestionsBox_pub.style.display = 'block';
+            }
+        });
+
+        // fetch suggestion dari server saat mengetik
+        input_pub.addEventListener('keyup', function() {
+            const query = this.value.trim();
+            toggleClearButton();
+
+            if (query.length === 0) {
+                suggestionsBox_pub.style.display = 'none';
                 return;
             }
 
-            fetch(`{{ route('publishers.search') }}?q=${query}`)
+            fetch(`{{ route('publishers.search') }}?q=${encodeURIComponent(query) }`)
                 .then(res => res.json())
                 .then(data => {
-                    suggestionsBox.innerHTML = '';
+                    suggestionsBox_pub.innerHTML = '';
 
                     if (data.length > 0) {
                         data.forEach(pub => {
-                            let item = document.createElement('button');
+                            console.log(pub.pub_id);
+
+                            const item = document.createElement('button');
                             item.type = 'button';
-                            item.classList.add('list-group-item',
-                                'list-group-item-action');
+                            item.classList.add('list-group-item', 'list-group-item-action');
                             item.textContent = pub.pub_name;
 
-                            // Klik → set value
                             item.addEventListener('click', function() {
-                                input.value = pub
-                                    .pub_name; // tampilkan nama
-                                hiddenId.value = pub.pub_id; // simpan id
-                                suggestionsBox.style.display = 'none';
+                                input_pub.value = pub.pub_name;
+                                hiddenId_pub.value = pub.pub_id;
+                                suggestionsBox_pub.style.display = 'none';
+                                toggleClearButton();
+
+                                // simpan ke riwayat
+                                let history = JSON.parse(localStorage.getItem('publisherHistory') || '[]');
+                                if (!history.some(h => h.id === pub.pub_id)) {
+                                    history.push({
+                                        id: pub.pub_id,
+                                        name: pub.pub_name
+                                    });
+                                    localStorage.setItem('publisherHistory', JSON.stringify(history));
+                                }
                             });
 
-                            suggestionsBox.appendChild(item);
+                            suggestionsBox_pub.appendChild(item);
                         });
-
-                        suggestionsBox.style.display = 'block';
+                        suggestionsBox_pub.style.display = 'block';
                     } else {
-                        suggestionsBox.style.display = 'none';
+                        suggestionsBox_pub.style.display = 'none';
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    suggestionsBox.style.display = 'none';
+                    suggestionsBox_pub.style.display = 'none';
                 });
         });
 
         // klik di luar → tutup suggestion
         document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
-                suggestionsBox.style.display = 'none';
+            if (!input_pub.contains(e.target) && !suggestionsBox_pub.contains(e.target)) {
+                suggestionsBox_pub.style.display = 'none';
             }
         });
+
+        // tampilkan tombol X kalau ada value awal
+        toggleClearButton();
+    });
 
         document.addEventListener('DOMContentLoaded', function() {
             const input_org = document.getElementById('origin-input');
