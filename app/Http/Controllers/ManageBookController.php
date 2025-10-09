@@ -527,21 +527,25 @@ class ManageBookController extends Controller
         return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Dihapus');
     }
 
-    public function manage_book_origin_page() {
+    public function manage_book_origin_page()
+    {
         $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->latest()->paginate(10);
         return view('book.origin.view', ['title' => 'Halaman Kelola Asal Buku'], compact('origins'));
     }
 
-    public function detail_book_origin_page($id) {
+    public function detail_book_origin_page($id)
+    {
         $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
         return view('book.origin.detail', ['title' => 'Halaman Detail Asal Buku'], compact('origin'));
     }
 
-    public function add_book_origin_page() {
+    public function add_book_origin_page()
+    {
         return view('book.origin.add', ['title' => 'Halaman Tambah Asal Buku']);
     }
 
-    public function add_book_origin_system(Request $request) {
+    public function add_book_origin_system(Request $request)
+    {
         $validateData = $request->validate([
             'bk_orgn_name' => 'required | string | max:255',
             'bk_orgn_description' => 'nullable | string | max:65535'
@@ -551,12 +555,14 @@ class ManageBookController extends Controller
         return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Ditambahkan');
     }
 
-    public function edit_book_origin_page($id) {
+    public function edit_book_origin_page($id)
+    {
         $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->find($id);
         return view('book.origin.edit', ['title' => 'Halaman Ubah Asal Buku'], compact('origin'));
     }
 
-    public function edit_book_origin_system(Request $request, $id) {
+    public function edit_book_origin_system(Request $request, $id)
+    {
         $origin = BookOrigin::find($id);
         $validateData = $request->validate([
             'bk_orgn_name' => 'sometimes | required | string | max:255',
@@ -566,7 +572,8 @@ class ManageBookController extends Controller
         return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Diubah');
     }
 
-    public function delete_book_origin_system(Request $request, $id) {
+    public function delete_book_origin_system(Request $request, $id)
+    {
         $origin = BookOrigin::find($id)->delete();
         return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Dihapus');
     }
@@ -580,11 +587,11 @@ class ManageBookController extends Controller
         $html = view('book.print_label', compact('books'))->render();
 
         Browsershot::html($html)
+            ->showBackground()
             ->format('A4')
             ->margins(10, 10, 10, 10) // margin 10mm
             ->save($path);
 
         return response()->download($path);
-
     }
 }

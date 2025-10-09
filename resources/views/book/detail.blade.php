@@ -342,7 +342,7 @@
                                     @else
                                         <style>
                                             .labelcode {
-                                                background-color: #DC143C;
+                                                background-color: #EF5A6F;
                                                 color: black;
                                             }
                                         </style>
