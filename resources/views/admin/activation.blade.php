@@ -3,21 +3,63 @@
 
     <style>
         /* Tombol kamera */
-        .camera {
-            height: 2.8em;
-            width: 9em;
-            background: transparent;
-            border: 2px solid #016dd9;
-            color: #016dd9;
-            cursor: pointer;
-            font-size: 17px;
-            transition: all 0.3s ease;
-        }
+        /* From Uiverse.io by Botwe-Felix5820 */ 
+button {
+  height: 2.8em;
+  width: 9em;
+  background: transparent;
+  -webkit-animation: jello-horizontal 0.9s both;
+  animation: jello-horizontal 0.9s both;
+  border: 2px solid #016dd9;
+  outline: none;
+  color: #016dd9;
+  cursor: pointer;
+  font-size: 17px;
+}
 
-        .camera:hover {
-            background: #016dd9;
-            color: #fff;
-        }
+button:hover {
+  background: #016dd9;
+  color: #ffffff;
+  animation: squeeze3124 0.9s both;
+}
+
+@keyframes squeeze3124 {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 
         /* Desain kartu perpustakaan */
         .kartu-perpus {
@@ -97,8 +139,8 @@
                 <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
                 <div class="mt-3">
-                    <button id="captureBtn" class="camera me-2">
-                        <i class="bi bi-camera-fill"></i> Ambil
+                    <button id="captureBtn" class="kamera me-2" title="Ambil gambar">
+                        <i class="bi bi-camera-fill"></i>
                     </button>
                     <button id="uploadBtn" class="btn btn-success d-none">
                         <i class="bi bi-bookmark-check-fill"></i> Simpan
@@ -111,26 +153,7 @@
             </div>
 
             <!-- Kartu di samping kanan -->
-            <div class="col-md-6">
-                <div class="kartu-perpus shadow">
-                    <!-- Header pakai file SVG cop_kartu -->
-                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu"
-                        style="width:100%; height:auto; display:block;">
-
-                    <div class="kartu-body">
-                        <img id="preview" src="{{ asset('logo/user_placeholder.jpg') }}"
-                            class="foto-box" alt="Foto" />
-                        <div class="damy">
-                            <span style="color: black;"><strong>Nama Lengkap</strong>: </span>
-                            <span style="color: black;"><strong>No. WhatsApp</strong>: </span>
-                            <span style="color: black;"><strong>Sebagai</strong>: </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+           
 
     <script>
         const video = document.getElementById("camera");
