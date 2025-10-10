@@ -14,17 +14,32 @@ body {
   background: white;
   font-family: 'Poppins', sans-serif;
   display: grid;
-  grid-template-columns: repeat(2, 86mm); /* 2 kartu per baris */
-  place-content: start center; /* ⬅️ posisi grid di tengah atas halaman */
-  gap: 1cm 2cm; /* jarak antar kartu */
-  min-height: 100vh;
+  grid-template-columns: repeat(2, 86mm);
+  place-content: start center;
+  gap: 1cm 2cm;
   padding: 1cm 0;
+  margin: 0;
   box-sizing: border-box;
+}
+
+@media print {
+  html, body {
+    height: auto;
+    overflow: visible !important;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 }
 
 /* Kartu */
 .card {
-  width: 86mm; 
+  width: 86mm;
   height: 54mm;
   background: #fff;
   border: 1.5px solid #1a2238;
@@ -35,28 +50,27 @@ body {
   flex-direction: column;
 }
 
-/* Header kop — nempel tanpa potong gambar */
+/* Header: fix garis biru bawah */
 .card-header {
   width: 100%;
-  height: 1.5cm;
+  height: 1.55cm; /* sedikit lebih tinggi agar gambar bisa diangkat */
   margin: 0;
   padding: 0;
   border: none;
   line-height: 0;
+  background: #0b1840;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0b1840; /* fallback */
 }
 
 .card-header img {
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* tampil penuh tanpa terpotong */
+  height: auto;
   display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
+  object-fit: cover;
+  transform: translateY(-0.1px); /* ⬅️ angkat gambar 0.6px biar garis biru ilang */
 }
 
 /* Isi kartu */
@@ -87,7 +101,7 @@ body {
   object-fit: cover;
 }
 
-/* Info teks */
+/* Info */
 .info {
   flex: 1;
   display: flex;
@@ -103,19 +117,16 @@ body {
   margin: 1px 0;
 }
 
-/* Label kiri */
 .label {
   width: 2.8cm;
   font-weight: 600;
 }
 
-/* Titik dua */
 .separator {
   width: 0.3cm;
   text-align: center;
 }
 
-/* Isi kanan */
 .value {
   flex: 1;
 }
@@ -157,7 +168,6 @@ body {
   </div>
 </div>
 @endforeach
-
 
 </body>
 </html>
