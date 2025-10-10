@@ -11,23 +11,35 @@
         <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th>Tanggal Peminjaman</th>
-            <th>Batas Tanggal Peminjaman</th>
-            <th>Status Peminjaman</th>
+            <th>Peminjam</th>
+            <th>Tanggal pengajuan</th>
+            <th>Tujuan</th>
+            <th>Status</th>
+            <th>Tenggak waktu</th>
             <th style="width: 50px">option</th>
         </x-slot:header>
         @forelse ($loans as $index => $loan)
             <tr class="align-middle">
                 <td>{{ $loans->firstItem() + $index }}</td>
+                <td>{{ $loan->users->name }}</td>
                 <td>{{ $loan->trx_borrow_date }}</td>
-                <td>{{ $loan->trx_due_date }}</td>
                 <td>
-                    @if ($loan->trx_status == '1')
-                        Dipinjam
-                    @elseif ($loan->trx_status == '2')
-                        Dikembalikan
+                    @if ($loan->trx_title == '1')
+                        Kegiatan Belajar Mengajar
+                    @elseif ($loan->trx_title == '2')
+                        Pribadi
                     @endif
                 </td>
+                <td>
+                    @if ($loan->trx_status == '1')
+                        Pengajuan
+                    @elseif ($loan->trx_status == '2')
+                        Dipinjam
+                    @else
+                        Ditolak
+                    @endif
+                </td>
+                <td>{{ $loan->trx_due_date }}</td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button"
@@ -36,10 +48,10 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"
-                                    href="/manage/loan/{{ $loan->bk_orgn_id }}/detail">Detail</a>
+                                    href="/manage/transaction/{{ $loan->trx_id }}/detail">Detail</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="/manage/loan/{{ $loan->bk_orgn_id }}/edit">Ubah</a>
+                                    href="/manage/loan/{{ $loan->trx_id }}/edit">Ubah</a>
                             </li>
                             <li><a class="dropdown-item" style="cursor: pointer;"
                                     data-bs-toggle="modal"
@@ -52,7 +64,7 @@
                         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="deleteConfirmation{{ $loans->firstItem() + $index }}Label"
                         aria-hidden="true">
-                        <form action="/system/loan/{{ $loan->bk_orgn_id }}/delete" method="post"
+                        <form action="/system/loan/{{ $loan->trx_id }}/delete" method="post"
                             class="modal-dialog modal-dialog-centered">
                             @csrf
                             @method('DELETE')

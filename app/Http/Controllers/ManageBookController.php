@@ -580,7 +580,6 @@ class ManageBookController extends Controller
 
     public function print_label_system($id)
     {
-        // Contoh data, bisa ambil dari DB
         $books = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
 
         $path = storage_path('app/public/labels.pdf');
@@ -589,7 +588,7 @@ class ManageBookController extends Controller
         Browsershot::html($html)
             ->showBackground()
             ->format('A4')
-            ->margins(10, 10, 10, 10) // margin 10mm
+            ->margins(10, 10, 10, 10)
             ->save($path);
 
         return response()->download($path);

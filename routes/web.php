@@ -176,10 +176,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/loan', [ManageTransactionController::class, 'manage_loan_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
-    Route::get('/manage/return', [ManageTransactionController::class, 'manage_return_page'])
+        Route::get('/manage/return', [ManageTransactionController::class, 'manage_return_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
-});
+    Route::get('/manage/transaction/{id}/detail', [ManageTransactionController::class, 'detail_transaction_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [UserController::class, 'home_page'])
@@ -363,6 +366,8 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/transaction/add', [ManageTransactionController::class, 'add_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
+    Route::post('/system/print/card', [ManageAcoountController::class, 'print_card_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])

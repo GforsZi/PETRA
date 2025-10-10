@@ -2,14 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <style>
-        /* Tombol kamera */
-        /* From Uiverse.io by Botwe-Felix5820 */
         .kamera {
             height: 2.8em;
             width: 9em;
             background: transparent;
-            -webkit-animation: jello-horizontal 0.9s both;
-            animation: jello-horizontal 0.9s both;
             border: 2px solid #016dd9;
             outline: none;
             color: #016dd9;
@@ -23,41 +19,11 @@
             animation: squeeze3124 0.9s both;
         }
 
-        @keyframes squeeze3124 {
-            0% {
-                transform: scale3d(1, 1, 1);
-            }
-
-            30% {
-                transform: scale3d(1.25, 0.75, 1);
-            }
-
-            40% {
-                transform: scale3d(0.75, 1.25, 1);
-            }
-
-            50% {
-                transform: scale3d(1.15, 0.85, 1);
-            }
-
-            65% {
-                transform: scale3d(0.95, 1.05, 1);
-            }
-
-            75% {
-                transform: scale3d(1.05, 0.95, 1);
-            }
-
-            100% {
-                transform: scale3d(1, 1, 1);
-            }
-        }
-
-        .save{
-             height: 2.8em;
+        .save {
+            height: 2.8em;
             width: 9em;
         }
-        /* Gridline overlay di kamera */
+
         .camera-container {
             position: relative;
             display: inline-block;
@@ -77,7 +43,6 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        /* Desain kartu perpustakaan */
         .kartu-perpus {
             width: 450px;
             border: 1px solid #000;
@@ -109,59 +74,7 @@
             font-size: 14px;
             font-weight: 500;
         }
-
-        .damy span {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            letter-spacing: 0.3px;
-        }
-
-        .damy strong {
-            display: inline-block;
-            width: 120px;
-            text-align: left;
-        }
-
-     
-@media (min-width: 992px) {
-    .kartu-perpus {
-        margin-top: 45px; /* atur jarak ke bawah biar sejajar dengan kamera */
-    }
-}
-
-   
-@media (max-width: 767.98px) {
-
-  .row.justify-content-center.align-items-start.g-4 {
-    flex-direction: column;
-    align-items: center !important;
-    
-  }
-
- 
-  .col-md-6 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0; 
-  }
-
- 
-  .kartu-perpus {
-    margin: 16px auto;     
-    position: static;     
-    left: auto;
-    transform: none;
-    width: 450px;          
-    max-width: 92vw;
-           
-  }
-}
-
-
     </style>
-
     <div class="container mt-4">
         <div class="row justify-content-center align-items-start g-4">
             <!-- Kamera -->
@@ -172,24 +85,38 @@
                     <video id="camera" autoplay playsinline width="100%"
                         class="border rounded bg-dark"></video>
 
-                    <!-- Garis grid -->
                     <div class="camera-grid">
-                        <div></div><div></div><div></div>
-                        <div></div><div></div><div></div>
-                        <div></div><div></div><div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
 
                 <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
-                <div class="mt-3">
-                    <button id="captureBtn" class="kamera me-2" title="Ambil gambar">
-                        <i class="bi bi-camera-fill"></i>
-                    </button>
-                    <button id="uploadBtn" class="save btn btn-success d-none me-2">
-                        <i class="bi bi-bookmark-check-fill"></i> Simpan
-                    </button>
-                </div>
+                <!-- Form Upload -->
+                <form id="photoForm" method="POST" action="/system/admin/activation"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                    <input type="file" name="image" id="photoInput" class="d-none"
+                        accept="image/*">
+
+                    <div class="mt-3">
+                        <button type="button" id="captureBtn" class="kamera me-2">
+                            <i class="bi bi-camera-fill"></i> Ambil
+                        </button>
+                        <button type="submit" id="uploadBtn" class="save btn btn-success d-none">
+                            <i class="bi bi-bookmark-check-fill"></i> Simpan
+                        </button>
+                    </div>
+                </form>
 
                 <p id="cameraError" class="text-danger mt-2" style="display:none;">
                     ❌ Kamera tidak dapat diakses. Pastikan izin diberikan.
@@ -203,13 +130,18 @@
                         style="width:100%; height:100%; display:block; object-fit: cover;">
 
                     <div class="kartu-body">
-                        <img id="preview" src="{{ asset('logo/user_placeholder.jpg') }}"
+                        <img id="preview"
+                            src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}"
                             class="foto-box" alt="Foto" />
                         <div class="damy">
-                            <span style="color: black;"><strong>Nama Lengkap</strong>: </span>
-                            <span style="color: black;"><strong>No. WhatsApp</strong>: </span>
-                            <span style="color: black;"><strong>Bergabung sejak</strong>: </span>
-                            <span style="color: black;"><strong>Sebagai</strong>: </span>
+                            <span style="color: black;"><strong>Nama Lengkap</strong>:
+                                {{ $user->name }}</span>
+                            <span style="color: black;"><strong>Nomor Whatsapp</strong>:
+                                {{ $user->usr_no_wa }}</span>
+                            <span style="color: black;"><strong>Bergabung sejak</strong>:
+                                {{ $user->usr_created_at->format('d M Y') }}</span>
+                            <span style="color: black;"><strong>Peran</strong>:
+                                {{ $user->roles->rl_name }}</span>
                         </div>
                     </div>
                 </div>
@@ -218,35 +150,49 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const video = document.getElementById("camera");
-        const canvas = document.getElementById("canvas");
-        const captureBtn = document.getElementById("captureBtn");
-        const uploadBtn = document.getElementById("uploadBtn");
-        const preview = document.getElementById("preview");
-        const cameraError = document.getElementById("cameraError");
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById("camera");
+            const canvas = document.getElementById("canvas");
+            const captureBtn = document.getElementById("captureBtn");
+            const uploadBtn = document.getElementById("uploadBtn");
+            const preview = document.getElementById("preview");
+            const cameraError = document.getElementById("cameraError");
+            const photoInput = document.getElementById("photoInput");
 
-        // Aktifkan kamera
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(err => {
-                cameraError.style.display = "block";
-                console.error("Kamera error:", err);
+            // Aktifkan kamera
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(err => {
+                    cameraError.style.display = "block";
+                    console.error("Kamera error:", err);
+                });
+
+            // Ambil foto
+            captureBtn.addEventListener("click", () => {
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL("image/png");
+                preview.src = dataURL;
+
+                // Ubah base64 jadi blob lalu masukkan ke input file
+                fetch(dataURL)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], "photo.png", {
+                            type: "image/png"
+                        });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        photoInput.files = dataTransfer.files;
+                    });
+
+                uploadBtn.classList.remove("d-none");
             });
-
-        // Ambil foto
-        captureBtn.addEventListener("click", () => {
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL("image/png");
-            preview.src = dataURL;
-
-            // Tampilkan tombol simpan setelah foto diambil
-            uploadBtn.classList.remove("d-none");
         });
-    });
     </script>
 </x-app-layout>

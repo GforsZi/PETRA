@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('usr_bio')->nullable();
             $table->boolean('usr_activation')->default(false);
             $table->string('usr_img_url')->nullable();
+            $table->string('usr_card_url')->nullable();
             $table->string('usr_img_public_id')->nullable();
             $table->unsignedBigInteger('usr_role_id')->unsigned()->nullable();
             $table->rememberToken();

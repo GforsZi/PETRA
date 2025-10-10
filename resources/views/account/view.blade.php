@@ -8,9 +8,49 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/account/add" class="btn btn-outline-primary w-100" title="Tambah Akun Baru"><i
-                class="bi bi-plus-lg"></i></a>
+        <a href="/manage/account/add" class="btn btn-lg btn-outline-primary"
+            title="Tambah Akun Baru"><i class="bi bi-plus-lg"></i></a>
+        <a class="btn btn-lg btn-outline-success" style="cursor: pointer;" title="Cetak Kartu"
+            data-bs-toggle="modal" data-bs-target="#printCardModal"><i
+                class="bi bi-printer-fill"></i></a>
     </x-slot:header_layout>
+    <!-- Modal Print Card -->
+    <div class="modal fade" id="printCardModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="printCardModalLabel" aria-hidden="true">
+        <form action="/system/print/card" method="post" class="modal-dialog modal-dialog-centered">
+            @csrf
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-3">Pilih Peran</h5>
+                    <p class="text-muted mb-3">Silakan pilih satu atau beberapa role yang ingin
+                        dicetak kartunya.</p>
+
+                    <div class="mb-3 text-start">
+                        <label for="role" class="form-label fw-semibold">Role</label>
+                        <select name="role[]" id="role" class="form-select" multiple required>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->rl_id }}">{{ $role->rl_name }}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-muted">Tekan Ctrl (atau Command di Mac) untuk memilih
+                            lebih dari satu.</small>
+                    </div>
+                </div>
+
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Batal</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0">
+                        <strong>Print</strong>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    </div>
     <x-table-data :paginator="$accounts">
         <x-slot:title></x-slot:title>
         <x-slot:header>
@@ -89,12 +129,36 @@
                         </form>
                     </div>
                     <div class="modal fade"
+                        id="roleConfirmation{{ $accounts->firstItem() + $index }}"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="roleConfirmation{{ $accounts->firstItem() + $index }}Label"
+                        aria-hidden="true">
+                        <form action="/system/account/{{ $account->usr_id }}/delete"
+                            method="post" class="modal-dialog modal-dialog-centered">
+                            @csrf
+                            @method('DELETE')
+                            <div class="modal-content rounded-3 shadow">
+                                <div class="modal-body p-4 text-center">
+                                    <h5 class="mb-0">Konfirmasi</h5>
+                                    <p class="mb-0">Yakin ingin menghapus data ini?
+                                        {{ $accounts->firstItem() + $index }}.</p>
+                                </div>
+                                <div class="modal-footer flex-nowrap p-0">
+                                    <button type="button"
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit"
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal fade"
                         id="chatConfirmation{{ $accounts->firstItem() + $index }}"
                         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="chatConfirmation{{ $accounts->firstItem() + $index }}Label"
                         aria-hidden="true">
                         <form id="sendMessageForm" class="modal-dialog modal-dialog-centered">
-                            @csrf
                             <div class="modal-content rounded-4 border-success border-2">
                                 <div class="modal-header  bg-success text-white rounded-top-4">
                                     <h5 class="modal-title"><i class="bi bi-whatsapp"></i> Kirim
@@ -109,8 +173,8 @@
                                 <div class="modal-body">
                                     <label class="form-label">Nomor Tujuan</label>
                                     <input type="text" name="target" id="target" required
-                                        value="{{ $account->usr_no_wa }}" class="form-control mb-3"
-                                        readonly>
+                                        value="{{ $account->usr_no_wa }}"
+                                        class="form-control mb-3" readonly>
 
                                     <label class="form-label">Isi Pesan</label>
                                     <textarea id="message" required name="message" class="form-control" rows="3"
@@ -121,8 +185,8 @@
                                 <div class="modal-footer border-0">
                                     <button type="button" class="btn btn-light"
                                         data-bs-dismiss="modal">Batal</button>
-                                    <button id="sendMessageButton" class="btn btn-success"><i
-                                            class="bi bi-send"></i> <span
+                                    <button type="submit" id="sendMessageButton"
+                                        class="btn btn-success"><i class="bi bi-send"></i> <span
                                             id="buttonText">Kirim</span>
                                         <div id="spinner"
                                             class="spinner-border spinner-border-sm text-light ms-2 d-none"
@@ -143,52 +207,54 @@
         @endforelse
     </x-table-data>
     <script>
-        document.getElementById('sendMessageForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+        document.querySelectorAll('form#sendMessageForm').forEach(form => {
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
 
+                const formData = new FormData(this);
+                const deviceToken = formData.get('device_token');
+                const sendButton = this.querySelector('#sendMessageButton');
+                const buttonText = this.querySelector('#buttonText');
+                const spinner = this.querySelector('#spinner');
 
-            const formData = new FormData(this);
-            const deviceToken = formData.get('device_token');
-            const sendButton = document.getElementById('sendMessageButton');
-            const buttonText = document.getElementById('buttonText');
-            const spinner = document.getElementById('spinner');
+                buttonText.textContent = 'Sending...';
+                spinner.classList.remove('d-none');
+                sendButton.disabled = true;
 
-            buttonText.textContent = 'Sending...';
-            spinner.classList.remove('d-none');
-            sendButton.disabled = true;
+                try {
+                    const response = await fetch('/system/chat/send_message', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Authorization': deviceToken,
+                        },
+                        body: formData,
+                    });
 
-            try {
-                const response = await fetch('/system/chat/send_message', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Authorization': deviceToken,
-                    },
-                    body: formData,
-                });
+                    const result = await response.json();
 
-                const result = await response.json();
-
-                if (response.ok) {
-                    alert('Pesan berhasil dikirim!');
-                    closeSendMessageModal();
-                } else {
-                    showError(result.error || 'Gagal mengirim pesan.');
+                    if (response.ok) {
+                        alert('Pesan berhasil dikirim!');
+                        const modalEl = bootstrap.Modal.getInstance(this.closest(
+                            '.modal'));
+                        modalEl.hide();
+                    } else {
+                        showError(result.error || 'Gagal mengirim pesan.', this);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError('Terjadi kesalahan. Coba lagi.', this);
+                } finally {
+                    buttonText.textContent = 'Kirim';
+                    spinner.classList.add('d-none');
+                    sendButton.disabled = false;
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                showError('Terjadi kesalahan. Coba lagi.');
-            } finally {
-                buttonText.textContent = 'Send';
-                spinner.classList.add('d-none');
-                sendButton.disabled = false;
-            }
+            });
         });
 
-
-        function showError(message) {
-            const errorContainer = document.getElementById('errorContainer');
-            const errorMessage = document.getElementById('errorMessage');
+        function showError(message, context) {
+            const errorContainer = context.querySelector('#errorContainer');
+            const errorMessage = context.querySelector('#errorMessage');
             errorMessage.textContent = message;
             errorContainer.classList.remove('d-none');
         }

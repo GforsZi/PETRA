@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Browsershot\Browsershot;
 
 class ManageAcoountController extends Controller
 {
@@ -17,8 +18,14 @@ class ManageAcoountController extends Controller
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.fonnte.com/get-devices',
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_HTTPHEADER => [
-                'Authorization: ' . config('services.fonnte.account_token'),
+                'Authorization: ' . config('services.fonnte.account_token'), // Get the token from the services config
             ],
         ]);
 
@@ -27,19 +34,19 @@ class ManageAcoountController extends Controller
 
         $data = json_decode($response, true);
 
-        // Ambil satu device token yang aktif
         $activeDeviceToken = null;
 
         if (!empty($data['data'])) {
             foreach ($data['data'] as $device) {
-                if (($device['active'] ?? false) === true) {
+                if (($device['status'] ?? false) == 'connect') {
                     $activeDeviceToken = $device['token'];
-                    break; // stop setelah ketemu satu yang aktif
+                    break;
                 }
             }
         }
+        $roles = Role::select('rl_id', 'rl_name')->get();
         $accounts = User::with('roles')->paginate(10);
-        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts], compact('activeDeviceToken'));
+        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts], compact('activeDeviceToken', 'roles'));
     }
 
     public function detail_account_page($id)
@@ -179,5 +186,17 @@ class ManageAcoountController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect('/manage/account')->with('success', 'Akun Berhasil Dihapus');
+    }
+
+    public function print_card_system(Request $request) {
+        $users = User::select('usr_id', 'name', 'usr_no_wa','usr_role_id', 'usr_created_at', 'usr_card_url')->with('roles')->where('usr_card_url', '!=', null)->where('usr_role_id', $request->role)->get();
+        $path = storage_path('app/public/cards.pdf');
+        $html = view('account.print_card', compact('users'))->render();
+                Browsershot::html($html)
+            ->showBackground()
+            ->format('A4')
+            ->margins(10, 10, 10, 10)
+            ->save($path);
+        return response()->download($path);
     }
 }

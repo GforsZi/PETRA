@@ -21,6 +21,14 @@
                 data-accordion="false">
                 @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
                     <li class="nav-item">
+                        <a href="/dashboard" class="nav-link" style='color: #E9AD01;'>
+                            <i class="bi bi-grid-1x2"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link" style='color: #E9AD01;'>
                             <i class="bi bi-book"></i>
                             <p>

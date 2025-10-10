@@ -38,10 +38,10 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"
-                                    href="/manage/return/{{ $return->bk_orgn_id }}/detail">Detail</a>
+                                    href="/manage/transaction/{{ $return->trx_id }}/detail">Detail</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="/manage/return/{{ $return->bk_orgn_id }}/edit">Ubah</a>
+                                    href="/manage/return/{{ $return->trx_id }}/edit">Ubah</a>
                             </li>
                             <li><a class="dropdown-item" style="cursor: pointer;"
                                     data-bs-toggle="modal"
@@ -54,8 +54,8 @@
                         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="deleteConfirmation{{ $returns->firstItem() + $index }}Label"
                         aria-hidden="true">
-                        <form action="/system/return/{{ $return->bk_orgn_id }}/delete"
-                            method="post" class="modal-dialog modal-dialog-centered">
+                        <form action="/system/return/{{ $return->trx_id }}/delete" method="post"
+                            class="modal-dialog modal-dialog-centered">
                             @csrf
                             @method('DELETE')
                             <div class="modal-content rounded-3 shadow">
