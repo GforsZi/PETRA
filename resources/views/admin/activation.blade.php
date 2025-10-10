@@ -4,7 +4,7 @@
     <style>
         /* Tombol kamera */
         /* From Uiverse.io by Botwe-Felix5820 */ 
-button {
+.kamera {
   height: 2.8em;
   width: 9em;
   background: transparent;
@@ -17,7 +17,7 @@ button {
   font-size: 17px;
 }
 
-button:hover {
+.kamera:hover {
   background: #016dd9;
   color: #ffffff;
   animation: squeeze3124 0.9s both;
@@ -153,6 +153,27 @@ button:hover {
             </div>
 
             <!-- Kartu di samping kanan -->
+               <div class="col-md-6">
+                <div class="kartu-perpus shadow">
+                    <!-- Header pakai file SVG cop_kartu -->
+                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu"
+                        style="width:100%; height:auto; display:block;">
+
+                    <div class="kartu-body">
+                        <img id="preview" src="{{ asset('logo/user_placeholder.jpg') }}"
+                            class="foto-box" alt="Foto" />
+                        <div class="damy">
+                            <span style="color: black;"><strong>Nama Lengkap</strong>: </span>
+                            <span style="color: black;"><strong>No. WhatsApp</strong>: </span>
+                            <span style="color: black;"><strong>Sebagai</strong>: </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
            
 
     <script>
