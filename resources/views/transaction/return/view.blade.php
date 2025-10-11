@@ -31,48 +31,8 @@
                     @endif
                 </td>
                 <td>
-                    <div class="dropdown dropstart">
-                        <button class="btn btn-warning dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-menu-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"
-                                    href="/manage/transaction/{{ $return->trx_id }}/detail">Detail</a>
-                            </li>
-                            <li><a class="dropdown-item"
-                                    href="/manage/return/{{ $return->trx_id }}/edit">Ubah</a>
-                            </li>
-                            <li><a class="dropdown-item" style="cursor: pointer;"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmation{{ $returns->firstItem() + $index }}">Hapus</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal fade"
-                        id="deleteConfirmation{{ $returns->firstItem() + $index }}"
-                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                        aria-labelledby="deleteConfirmation{{ $returns->firstItem() + $index }}Label"
-                        aria-hidden="true">
-                        <form action="/system/return/{{ $return->trx_id }}/delete" method="post"
-                            class="modal-dialog modal-dialog-centered">
-                            @csrf
-                            @method('DELETE')
-                            <div class="modal-content rounded-3 shadow">
-                                <div class="modal-body p-4 text-center">
-                                    <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?</p>
-                                </div>
-                                <div class="modal-footer flex-nowrap p-0">
-                                    <button type="button"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    <a href="/manage/transaction/{{ $loan->trx_id }}/detail"
+                        class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
                 </td>
             </tr>
         @empty

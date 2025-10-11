@@ -49,16 +49,18 @@
                                 <td>{{ $transaction['trx_borrow_date'] }}</td>
                             </tr>
                             <tr>
-                                <td>Tenggat Kembali</td>
+                                <td>Tenggat Pengembalian</td>
                                 <td>{{ $transaction['trx_due_date'] }}</td>
                             </tr>
                             <tr>
                                 <td>Status</td>
                                 <td>
                                     @if ($transaction['trx_status'] == '1')
-                                        <span class="badge bg-warning">Dalam proses</span>
+                                        <span class="badge bg-warning">Pengajuan</span>
                                     @elseif ($transaction['trx_status'] == '2')
-                                        <span class="badge bg-success">Diterima</span>
+                                        <span class="badge bg-info">Dipinjam</span>
+                                    @elseif ($transaction['trx_status'] == '3')
+                                        <span class="badge bg-success">Dikembalikan</span>
                                     @else
                                         <span class="badge bg-danger">Ditolak</span>
                                     @endif

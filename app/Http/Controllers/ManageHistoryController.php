@@ -64,7 +64,7 @@ class ManageHistoryController extends Controller
                     break;
                 case 'Transaction':
                     $histories = Transaction::onlyTrashed()->select('trx_id as id', 'trx_title as title', 'trx_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/transaction']);
                     break;
                 default:
                     $histories = null;

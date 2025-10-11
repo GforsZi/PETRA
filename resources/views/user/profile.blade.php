@@ -55,6 +55,10 @@
                                 <a href="/user/profile/edit"> <i
                                         class="bi bi-pencil-square text-info fs-4"></i></a>
                             </button>
+                            <button class="button bg-body flex-center" title="Buat Kartu">
+                                <a href="/user/profile/activation"> <i
+                                        class="bi bi-camera text-primary fs-4"></i></a>
+                            </button>
                         </div>
 
                     </div>

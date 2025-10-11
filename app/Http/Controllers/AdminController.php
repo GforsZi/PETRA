@@ -9,6 +9,7 @@ use App\Models\UserLogin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -53,8 +54,21 @@ class AdminController extends Controller
             ];
         }
 
+                $dataD = DB::table('transactions')
+            ->select('trx_status', DB::raw('COUNT(*) as total'))
+            ->groupBy('trx_status')
+            ->pluck('total', 'trx_status')
+            ->toArray();
 
-        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction', 'labels', 'data', 'tableRows', 'days'));
+        // Map agar urutan selalu 1, 2, 3
+        $chartData = [
+            'proses'   => $dataD['1'] ?? 0,
+            'diterima' => $dataD['2'] ?? 0,
+            'ditolak'  => $dataD['3'] ?? 0,
+        ];
+
+
+        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction', 'labels', 'data', 'tableRows', 'days', 'chartData'));
     }
 
     public function activation_page() {

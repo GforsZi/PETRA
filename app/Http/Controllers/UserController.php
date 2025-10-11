@@ -49,6 +49,34 @@ class UserController extends Controller
         return redirect('/user/profile')->with('success', 'Profile Berhasil Diubah');
     }
 
+    public function activation_page() {
+        $user = User::select('usr_id', 'name', 'usr_no_wa', 'usr_role_id', 'usr_card_url','usr_created_at')->with('roles')->find(Auth::user()->usr_id);
+        return view('user.activation', ['title' => 'Halaman Aktifasi'], compact('user'));
+    }
+
+    public function activation_system(Request $request) {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $validateData = null;
+        $user = Auth::user();
+        if ($request->hasFile('image')) {
+            $destinationPath = public_path('media/card_img/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+
+            $request->file('image')->move($destinationPath, $filename);
+
+            $validateData['usr_card_url'] = 'media/card_img/' . $filename;
+        }
+        $user->update($validateData);
+        return redirect('/user/profile')->with('success', 'Berhasil mengaktifasi akun');
+    }
+
     public function search_book_page()
     {
         $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->latest()->get();

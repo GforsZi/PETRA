@@ -530,18 +530,18 @@ class ManageBookController extends Controller
     public function manage_book_origin_page()
     {
         $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->latest()->paginate(10);
-        return view('book.origin.view', ['title' => 'Halaman Kelola Asal Buku'], compact('origins'));
+        return view('book.origin.view', ['title' => 'Halaman Kelola Pemberi'], compact('origins'));
     }
 
     public function detail_book_origin_page($id)
     {
         $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
-        return view('book.origin.detail', ['title' => 'Halaman Detail Asal Buku'], compact('origin'));
+        return view('book.origin.detail', ['title' => 'Halaman Detail Pemberi'], compact('origin'));
     }
 
     public function add_book_origin_page()
     {
-        return view('book.origin.add', ['title' => 'Halaman Tambah Asal Buku']);
+        return view('book.origin.add', ['title' => 'Halaman Tambah Pemberi']);
     }
 
     public function add_book_origin_system(Request $request)
@@ -552,13 +552,13 @@ class ManageBookController extends Controller
         ]);
 
         BookOrigin::create($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Ditambahkan');
+        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Ditambahkan');
     }
 
     public function edit_book_origin_page($id)
     {
         $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->find($id);
-        return view('book.origin.edit', ['title' => 'Halaman Ubah Asal Buku'], compact('origin'));
+        return view('book.origin.edit', ['title' => 'Halaman Ubah Pemberi'], compact('origin'));
     }
 
     public function edit_book_origin_system(Request $request, $id)
@@ -569,13 +569,13 @@ class ManageBookController extends Controller
             'bk_orgn_description' => 'sometimes | nullable | string | max:65535'
         ]);
         $origin->update($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Diubah');
+        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Diubah');
     }
 
     public function delete_book_origin_system(Request $request, $id)
     {
         $origin = BookOrigin::find($id)->delete();
-        return redirect('/manage/book/origin')->with('success', 'Asal Buku Berhasil Dihapus');
+        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Dihapus');
     }
 
     public function print_label_system($id)

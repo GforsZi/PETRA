@@ -70,10 +70,10 @@
                     </div>
 
                     <div class="container text-center border"
-                        style="max-height: 200px; overflow-y: auto;">
+                        style="height: 300px; max-height: 300px; overflow-y: auto;">
                         <h3>Hasil Pencarian</h3>
                         <hr>
-                        <div class="row g-3" id="book-list"></div>
+                        <div class="row row-cols-2 row-cols-lg-3 g-3" id="book-list"></div>
                         <br>
                     </div>
                 </div>
@@ -102,16 +102,22 @@
                     bokList.innerHTML = '';
                     data.forEach(book => {
                         let div = document.createElement('div');
-                        div.classList.add('col');
+                        div.classList.add('col', 'd-flex',
+                            'justify-content-center');
                         let imgSrc = book.bk_img_url ?
-                            `{{ asset('') }}${book.bk_img_url}` :
+                            `{{ asset('${book.bk_img_url}') }}` :
                             `{{ asset('logo/book_placeholder.jpg') }}`;
                         div.innerHTML = `
+                        <div class="card h-100 p-1 border shadow-sm" style="max-width: 140px;">
                         <img src="${imgSrc}"
                             class="object-fit-contain pilih-buku"
                             style="cursor: pointer;height: 167px; width: 128px;"
-                            data-id="${book.bk_id}"
-                            data-nama="${book.bk_nama || 'Buku ' + book.bk_id}">
+                            data-id="${book.bk_id}" title="${book.bk_title}"
+                            data-nama="${book.bk_title || 'Buku ' + book.bk_id}">
+                            <div class="card-body m-0 p-0">
+                                <p class="card-title text-start text-wrap mb-0" style="word-wrap: break-word; white-space: normal; font-size: 0.9rem; float: none;">${book.bk_title}</p>
+                            </div>
+                        </div>
                     `;
                         bokList.appendChild(div);
                     });

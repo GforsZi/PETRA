@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class ManageTransactionController extends Controller
 {
     public function manage_loan_page() {
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->paginate(10);
+        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->latest()->paginate(10);
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
@@ -22,8 +22,8 @@ class ManageTransactionController extends Controller
     }
 
     public function detail_transaction_page($id) {
-        $transaction = Transaction::withTrashed()->with('books', 'users', 'created_by', 'updated_by', 'deleted_by')->find($id);
-        return view('transaction.detail', ['title' => 'Halaman Detail transaksi'], compact('transaction'));
+        $transaction = Transaction::withTrashed()->with('books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by')->find($id);
+        return view('transaction.detail', ['title' => 'Halaman Detail Transaksi'], compact('transaction'));
     }
 
     public function add_transaction_system(Request $request)
@@ -93,8 +93,42 @@ class ManageTransactionController extends Controller
         dd($validateData);
     }
 
-    public function edit_transaction_page($id)
-    {
-        return view('user.transaction.edit', ['title' => 'Halaman Ubah Transaksi']);
+    public function approve_transaction_system(Request $request, $id) {
+        $loan = Transaction::find($id);
+        $request->validate([
+            'datetime' => ['required', 'date']
+        ]);
+
+        $loan->update([
+            'trx_status' => '2',
+            'trx_due_date' => $request->datetime
+        ]);
+        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil diterima');
+    }
+
+    public function reject_transaction_system(Request $request, $id) {
+        $loan = Transaction::with('book_copies')->find($id);
+        $copyID = BookTransaction::select('bk_trx_id','bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
+        if ($loan->book_copies->toArray() != []) {
+            foreach ($copyID as $copyId) {
+                BookCopy::find($copyId['bk_trx_book_copy_id'])->update(['bk_cp_status' => '1']);
+            }
+        } else {
+            foreach ($request->all_book_ids as $copy) {
+                $copyB = BookCopy::select('bk_cp_number', 'bk_cp_id')->where('bk_cp_book_id', $copy)->where('bk_cp_status', '2')->get()->toArray();
+                foreach ($copyB as $idC) {
+                    BookCopy::find($idC['bk_cp_id'])->update(['bk_cp_status' => '1']);
+                }
+            }
+        }
+
+
+        $loan->update(['trx_status' => '4']);
+        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil ditolak');
+    }
+
+    public function delete_transaction_system($id) {
+        Transaction::find($id)->delete();
+        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil dihapus');
     }
 }

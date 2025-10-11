@@ -189,7 +189,11 @@ class ManageAcoountController extends Controller
     }
 
     public function print_card_system(Request $request) {
-        $users = User::select('usr_id', 'name', 'usr_no_wa','usr_role_id', 'usr_created_at', 'usr_card_url')->with('roles')->where('usr_card_url', '!=', null)->where('usr_role_id', $request->role)->get();
+            $request->validate([
+        'role' => 'required|array',
+        'role.*' => 'exists:roles,rl_id',
+    ]);
+        $users = User::select('usr_id', 'name', 'usr_no_wa','usr_role_id', 'usr_created_at', 'usr_card_url')->with('roles')->where('usr_card_url', '!=', null)->whereIn('usr_role_id', $request->role)->get();
         $path = storage_path('app/public/cards.pdf');
         $html = view('account.print_card', compact('users'))->render();
                 Browsershot::html($html)

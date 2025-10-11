@@ -191,6 +191,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
+    Route::get('/user/profile/activation', [UserController::class, 'activation_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::get('/user/profile/edit', [UserController::class, 'profile_edit_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
@@ -219,6 +222,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/system/user/profile/edit', [UserController::class, 'edit_profile_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
+    Route::post('/system/user/activation', [UserController::class, 'activation_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
     Route::post('/system/admin/profile/edit', [AdminController::class, 'edit_profile_system'])
@@ -366,8 +372,15 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/transaction/add', [ManageTransactionController::class, 'add_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':0');
+    Route::put('/system/transaction/{id}/approve', [ManageTransactionController::class, 'approve_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/transaction/{id}/reject', [ManageTransactionController::class, 'reject_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/transaction/{id}/delete', [ManageTransactionController::class, 'delete_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::post('/system/print/card', [ManageAcoountController::class, 'print_card_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+
 });
 
 Route::get('/logout', [AuthController::class, 'logout_system'])
