@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <form class="container mt-4" action="/system/account/add" method="post"
-        enctype="multipart/form-data">
+    <form class="container mt-4" action="/system/account/add" method="post">
         @csrf
         <div class="row g-4 align-items-start">
 
@@ -10,9 +9,6 @@
                 <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/user_placeholder.jpg') }}"
                     class="rounded-circle shadow object-fit-cover mb-2" alt="Profile Image"
                     width="200" height="200">
-                <input type="file" name="image" id="profileImage" class="d-none">
-                <a href="#" class="text-decoration-none"
-                    onclick="document.getElementById('profileImage').click();">Ubah Foto Profil</a>
             </div>
             @error('image')
                 <div class="invalid-feedback">
@@ -34,7 +30,8 @@
 
                 <div class="mb-1">
                     <label for="whatsapp" class="form-label">No WhatsApp</label>
-                    <input value="{{ old('usr_no_Wa') }}" name="usr_no_wa" type="text" id="whatsapp"
+                    <input value="{{ old('usr_no_Wa') }}" name="usr_no_wa" type="text"
+                        id="whatsapp"
                         class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
@@ -45,7 +42,7 @@
 
                 <div class="mb-1">
                     <label for="password" class="form-label">Password</label>
-                    <input  name="password" type="password" id="password"
+                    <input name="password" type="password" id="password"
                         class="form-control @error('password') is-invalid @enderror"
                         autocomplete="off">
                     @error('password')

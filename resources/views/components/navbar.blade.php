@@ -108,14 +108,14 @@
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/user_placeholder.jpg') }}"
+                    <img src="{{ asset(Auth::user()->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
                         class="user-image rounded-circle shadow object-fit-cover"
                         alt="" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
                     <li class="user-header" style="background-color: #121740;">
-                        <img src="{{ asset(Auth::user()->usr_photo_path ?? '/logo/user_placeholder.jpg') }}"
+                        <img src="{{ asset(Auth::user()->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
                             class="rounded-circle shadow object-fit-cover" alt="" />
                         <p style='color: #E9AD01;'>
                             {{ Auth::user()->name }}

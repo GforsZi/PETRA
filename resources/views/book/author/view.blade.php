@@ -8,7 +8,8 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/author/add" class="btn btn-lg btn-outline-primary w-100" title="Tambah Penulis"><i class="bi bi-person-plus-fill"></i></a>
+        <a href="/manage/book/author/add" class="btn btn-lg btn-outline-primary w-100"
+            title="Tambah Penulis"><i class="bi bi-person-plus-fill"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$authors">
         <x-slot:title></x-slot:title>
@@ -52,8 +53,16 @@
                             <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $authors->firstItem() + $index }}.</p>
+                                    <p class="mb-0">Yakin ingin menghapus data ini ?</p>
+                                </div>
+                                <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center"
+                                    role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <div class="text-wrap">
+                                        Penghapusan ini bersifat <strong>soft
+                                            delete</strong> — data masih dapat
+                                        dipulihkan dari halaman riwayat.
+                                    </div>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button"

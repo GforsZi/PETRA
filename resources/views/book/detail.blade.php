@@ -174,12 +174,18 @@
             <div class="card-tools d-flex justify-content-end w-100 ">
                 <a class="btn btn-lg btn-primary mx-1" data-bs-toggle="modal"
                     data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
-                    aria-controls="desc_ast" title="Tambah Salinan Buku"><i class="bi bi-plus-lg"></i></a>
+                    aria-controls="desc_ast" title="Tambah Salinan Buku"><i
+                        class="bi bi-plus-lg"></i></a>
+                <a class="btn btn-lg btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteCopiesModal" title="Hapus Banyak Salinan Buku">
+                    <i class="bi bi-trash"></i>
+                </a>
 
                 <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
                     href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
-                " title="Cetak Label">
-                <i class="bi bi-printer-fill"></i></a>
+                "
+                    title="Cetak Label">
+                    <i class="bi bi-printer-fill"></i></a>
             </div>
         </div>
         <!-- /.card-header -->
@@ -249,6 +255,15 @@
                                                 <p class="mb-0">Apakah anda yakin untuk menghapus
                                                     salinan ini?
                                                 </p>
+                                                <div class="alert mt-4 alert-warning d-flex text-start align-items-center"
+                                                    role="alert">
+                                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                                    <div>
+                                                        Penghapusan ini bersifat <strong>soft
+                                                            delete</strong> — data masih dapat
+                                                        dipulihkan dari halaman riwayat.
+                                                    </div>
+                                                </div>
                                                 <input type="hidden"
                                                     value="{{ $book['bk_id'] }}"
                                                     name="book_id" />
@@ -384,6 +399,66 @@
                                         </div>
                                     </form>
                                 </div>
+                                <div class="modal fade" id="deleteCopiesModal" tabindex="-1"
+                                    aria-labelledby="deleteCopiesModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <form action="/system/book/copy/delete/many"
+                                            method="POST" class="modal-content shadow-sm">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"
+                                                    id="deleteCopiesModalLabel">Hapus Salinan Buku
+                                                </h5>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Tutup"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p class="text-muted mb-2">
+                                                    Pilih salinan yang ingin Anda hapus. Tekan
+                                                    <kbd>Ctrl</kbd> (atau <kbd>Cmd</kbd> di Mac)
+                                                    untuk memilih lebih dari satu.
+                                                </p>
+
+                                                <div class="mb-3">
+                                                    <label for="copy_ids"
+                                                        class="form-label fw-semibold">Pilih
+                                                        Salinan Buku</label>
+                                                    <select name="copy_ids[]" id="copy_ids"
+                                                        class="form-select" multiple required>
+                                                        @foreach ($book['bookCopies'] as $copy)
+                                                            <option value="{{ $copy->bk_cp_id }}">
+                                                                {{ $copy->bk_cp_number }} —
+                                                                {{ $copy->book->bk_title ?? 'Tidak diketahui' }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="alert alert-warning d-flex align-items-center"
+                                                    role="alert">
+                                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                                    <div>
+                                                        Penghapusan ini bersifat <strong>soft
+                                                            delete</strong> — data masih dapat
+                                                        dipulihkan dari halaman riwayat.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i> Hapus Terpilih
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -407,7 +482,16 @@
             <div class="modal-content rounded-3 shadow">
                 <div class="modal-body p-4 text-center">
                     <h5 class="mb-0">Konfirmasi</h5>
-                    <p class="mb-0">Yakin ingin menghapus data ini? {{ $book['name'] }}</p>
+                    <p class="mb-0">Yakin ingin menghapus data ini?</p>
+                    <div class="alert mt-4 alert-warning d-flex text-start align-items-center"
+                        role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        <div>
+                            Penghapusan ini bersifat <strong>soft
+                                delete</strong> — data masih dapat
+                            dipulihkan dari halaman riwayat.
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"
@@ -435,8 +519,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="kode"
-                                aria-label="kode" name="code">
+                            <input type="text"
+                                value="{{ collect(explode(' ', strtoupper(trim($book['bk_title']))))->filter()->map(fn($word) => Str::substr($word, 0, 1))->implode('') }}"
+                                class="form-control" placeholder="kode" aria-label="kode"
+                                name="code">
                             <span class="input-group-text">-</span>
                             <input type="number" class="form-control" placeholder="jumlah"
                                 aria-label="jumlah" name="number">

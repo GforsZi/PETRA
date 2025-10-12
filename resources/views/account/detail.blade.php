@@ -7,9 +7,9 @@
                 aria-label="Close"></button>
         </div>
     @endif
-    <div class="row g-0 align-items-center">
+    <div class="row g-0">
         <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <img src="{{ asset($account['usr_img_url'] ?? '/logo/user_placeholder.jpg') }}"
+            <img src="{{ asset($account['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}"
                 class="rounded-circle shadow object-fit-cover" alt="Profile Image" width="200"
                 height="200">
         </div>
@@ -82,41 +82,18 @@
                     @csrf
                     @method('PUT')
                     <input hidden name='usr_activation' value="1" />
-                    <button type="submit" class="btn btn-lg btn-success" title="Tambah Aktifkan Akun"><i class="bi bi-check2-all"></i></button>
+                    <button type="submit" class="btn btn-lg btn-success" title="Aktifkan Akun"><i
+                            class="bi bi-check2-all"></i></button>
                 </form>
                 <form method="post" action="/system/account/{{ $account['usr_id'] }}/ban">
                     @csrf
                     @method('PUT')
                     <input hidden name='usr_activation' value="0" />
-                    <button type="submit" class="btn btn-lg btn-warning" title="Nonaktifkan Akun"><i class="bi bi-ban"></i></button>
+                    <button type="submit" class="btn btn-lg btn-warning"
+                        title="Nonaktifkan Akun"><i class="bi bi-ban"></i></button>
                 </form>
-                <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#deleteConfirmation{{ $account['usr_id'] }}" title="Hapus Data Akun"><i class="bi bi-trash" ></i></a>
 
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="deleteConfirmation{{ $account['usr_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="deleteConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/account/{{ $account['usr_id'] }}/delete">
-            @csrf
-            @method('DELETE')
-            <div class="modal-content rounded-3 shadow">
-                <div class="modal-body p-4 text-center">
-                    <h5 class="mb-0">Delete this data?</h5>
-                    <p class="mb-0">are you sure to delete user {{ $account['name'] }}.</p>
-                </div>
-                <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Cancle</button>
-                    <input hidden value="{{ $account['usr_id'] }}" />
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Submit</strong></button>
-                </div>
-            </div>
-        </form>
     </div>
 </x-app-layout>

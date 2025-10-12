@@ -77,25 +77,9 @@ class ManageAcoountController extends Controller
             'password' => 'required | min:5 | max:30 | confirmed',
             'usr_activation' => 'nullable | boolean',
             'usr_role_id' => 'required | exists:roles,rl_id',
-            'image' => 'nullable|image|max:2048',
         ]);
 
         $validateData['password'] = Hash::make($validateData['password']);
-
-        if ($request->hasFile('image')) {
-            $destinationPath = public_path('media/profile_img/');
-
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-
-            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-
-            $request->file('image')->move($destinationPath, $filename);
-
-            $validateData['usr_img_url'] = 'media/profile_img/' . $filename;
-            $validateData['usr_img_public_id'] = $filename;
-        }
 
         User::create($validateData);
         return redirect('/manage/account')->with('success', 'Akun Berhasil Dibuat');
@@ -108,7 +92,6 @@ class ManageAcoountController extends Controller
             'name' => 'sometimes | required | min:3 | max:255',
             'usr_activation' => 'sometimes | nullable | boolean',
             'usr_role_id' => 'sometimes | required | exists:roles,rl_id',
-            'image' => 'sometimes | nullable|image|max:2048',
         ]);
 
         if ($request->usr_no_wa != $user['usr_no_wa']) {
@@ -123,22 +106,6 @@ class ManageAcoountController extends Controller
                 'password' => 'sometimes | nullable | min:5 | max:30 | confirmed',
             ]);
             $validateData['password'] = Hash::make($password['password']);
-        }
-
-
-        if ($request->hasFile('image')) {
-            $destinationPath = public_path('media/profile_img/');
-
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-
-            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-
-            $request->file('image')->move($destinationPath, $filename);
-
-            $validateData['usr_img_url'] = 'media/profile_img/' . $filename;
-            $validateData['usr_img_public_id'] = $filename;
         }
 
         $user->update($validateData);

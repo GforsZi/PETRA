@@ -15,7 +15,7 @@
             <div class="row g-0 align-items-center">
 
                 <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-                    <img src="{{ asset($account['usr_img_url'] ?? '/logo/user_placeholder.jpg') }}"
+                    <img src="{{ asset($user['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}"
                         class="rounded-circle shadow object-fit-cover" alt="Profile Image"
                         width="200" height="200">
                 </div>
@@ -53,14 +53,15 @@
                         <div class="mt-3 d-flex gap-2">
                             <button class="button bg-body flex-center" title="Hapus">
                                 <a href="/manage/history"><i
-                                class="bi bi-clock-history text-danger  fs-4"></i></a>
+                                        class="bi bi-clock-history text-danger  fs-4"></i></a>
                             </button>
                             <button class="button bg-body flex-center" title="Ubah profil">
                                 <a href="/admin/profile/edit"> <i
                                         class="bi bi-pencil-square text-info fs-4"></i></a>
                             </button>
                             <button class="button bg-body flex-center" title="Buat Kartu">
-                                <a href="/admin/profile/activation"> <i class="bi bi-camera text-primary fs-4"></i></a>
+                                <a href="/admin/profile/activation"> <i
+                                        class="bi bi-camera text-primary fs-4"></i></a>
                             </button>
                         </div>
 

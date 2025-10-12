@@ -306,6 +306,19 @@ class ManageBookController extends Controller
         return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Dihapus');
     }
 
+public function delete_many_book_copy_system(Request $request)
+{
+    $request->validate([
+        'copy_ids' => 'required|array',
+    ]);
+
+    $copies = BookCopy::whereIn('bk_cp_id', $request->copy_ids);
+    $deletedCount = $copies->delete();
+
+    return back()->with('success', "{$deletedCount} salinan berhasil dihapus.");
+}
+
+
     public function manage_book_major_page()
     {
         $majors = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->latest()->paginate(10);

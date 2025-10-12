@@ -50,7 +50,6 @@
         </form>
     </div>
 
-    </div>
     <x-table-data :paginator="$accounts">
         <x-slot:title></x-slot:title>
         <x-slot:header>
@@ -65,7 +64,7 @@
             <tr class="align-middle">
                 <td>{{ $accounts->firstItem() + $index }}</td>
                 <td>
-                    <img src="{{ asset($account->usr_img_url ?? '/logo/user_placeholder.jpg') }}"
+                    <img src="{{ asset($account->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
                         class="rounded-circle shadow object-fit-cover" width="50" height="50"
                         alt="User Image" />
                 </td>
@@ -115,8 +114,16 @@
                             <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $accounts->firstItem() + $index }}.</p>
+                                    <p class="mb-0">Yakin ingin menghapus data ini ?</p>
+                                </div>
+                                <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center"
+                                    role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <div class="text-wrap">
+                                        Penghapusan ini bersifat <strong>soft
+                                            delete</strong> — data masih dapat
+                                        dipulihkan dari halaman riwayat.
+                                    </div>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button"

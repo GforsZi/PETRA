@@ -6,12 +6,9 @@
         <div class="row g-4 align-items-start">
 
             <div class="col-12 col-md-4 d-flex flex-column align-items-center">
-                <img src="{{ asset($user['usr_img_url'] ?? 'logo/user_placeholder.jpg') }}"
+                <img src="{{ asset($user['usr_card_url'] ?? 'logo/user_placeholder.jpg') }}"
                     class="rounded-circle shadow object-fit-cover mb-2" alt="Profile Image"
                     width="200" height="200">
-                <input type="file" id="profileImage" class="d-none">
-                <a href="#" class="text-decoration-none"
-                    onclick="document.getElementById('profileImage').click();">Ubah Foto Profil</a>
             </div>
 
             <div class="col-12 col-md-8">

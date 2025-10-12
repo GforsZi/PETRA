@@ -15,7 +15,7 @@
             <div class="row g-0 align-items-center">
 
                 <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-                    <img src="{{ asset($account['usr_img_url'] ?? '/logo/user_placeholder.jpg') }}"
+                    <img src="{{ asset($user['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}"
                         class="rounded-circle shadow object-fit-cover" alt="Profile Image"
                         width="200" height="200">
                 </div>

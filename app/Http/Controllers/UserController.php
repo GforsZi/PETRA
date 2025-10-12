@@ -26,7 +26,7 @@ class UserController extends Controller
     }
     public function profile_edit_page()
     {
-        $user = User::select('usr_id', 'name', 'usr_bio', 'usr_img_url', 'usr_no_wa')->find(Auth::user()->usr_id);
+        $user = User::select('usr_id', 'name', 'usr_bio', 'usr_card_url', 'usr_no_wa')->find(Auth::user()->usr_id);
         return view('user.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
     }
 

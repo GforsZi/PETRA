@@ -21,7 +21,7 @@ class AdminController extends Controller
         $total_transaction = Transaction::select()->get()->count();
 
         $days = 30;
-        $startDate = Carbon::now()->startOfDay()->subDays($days - 1); // 29 hari sebelum hari ini
+        $startDate = Carbon::now()->startOfDay()->subDays($days - 1);
         $endDate = Carbon::now()->endOfDay();
 
         // Ambil jumlah login per tanggal (total login, bukan user unik)
@@ -54,13 +54,12 @@ class AdminController extends Controller
             ];
         }
 
-                $dataD = DB::table('transactions')
+        $dataD = DB::table('transactions')
             ->select('trx_status', DB::raw('COUNT(*) as total'))
             ->groupBy('trx_status')
             ->pluck('total', 'trx_status')
             ->toArray();
 
-        // Map agar urutan selalu 1, 2, 3
         $chartData = [
             'proses'   => $dataD['1'] ?? 0,
             'diterima' => $dataD['2'] ?? 0,
@@ -109,7 +108,7 @@ class AdminController extends Controller
     }
     public function profile_edit_page()
     {
-        $user = User::select('usr_id', 'name', 'usr_bio', 'usr_img_url', 'usr_no_wa')->find(Auth::user()->usr_id);
+        $user = User::select('usr_id', 'name', 'usr_bio', 'usr_card_url', 'usr_no_wa')->find(Auth::user()->usr_id);
         return view('admin.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
     }
 

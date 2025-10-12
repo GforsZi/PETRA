@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\ManageAcoountController;
 use App\Http\Controllers\ManageBookController;
 use App\Http\Controllers\ManageChatbotController;
@@ -182,6 +183,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/transaction/{id}/detail', [ManageTransactionController::class, 'detail_transaction_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/export/memberships', [ExportsController::class, 'memberships_export_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     });
 
 Route::middleware('auth')->group(function () {
@@ -261,6 +265,9 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::delete('/system/book/copy/{id}/delete', [ManageBookController::class, 'delete_book_copy_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::delete('/system/book/copy/delete/many', [ManageBookController::class, 'delete_many_book_copy_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::post('/system/book/add', [ManageBookController::class, 'add_book_system'])
@@ -379,6 +386,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/system/transaction/{id}/delete', [ManageTransactionController::class, 'delete_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::post('/system/print/card', [ManageAcoountController::class, 'print_card_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/export/membership', [ExportsController::class, 'memberships_export_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 
 });

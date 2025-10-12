@@ -76,9 +76,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         (function() {
-            const labels = {!! json_encode($labels) !!}; // ['09 Sep', '10 Sep', ...]
-            const data = {!! json_encode($data) !!}; // [12, 5, 0, ...]
-
+            const labels = {!! json_encode($labels) !!};
+            const data = {!! json_encode($data) !!};
             const ctx = document.getElementById('loginChart').getContext('2d');
 
             const loginChart = new Chart(ctx, {
@@ -89,7 +88,6 @@
                         label: 'Login per Hari',
                         data: data,
                         borderWidth: 1,
-                        // Jangan set warna agar sesuai permintaan awal (Chart.js default colors)
                     }]
                 },
                 options: {
@@ -134,7 +132,7 @@
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Dalam Proses', 'Diterima', 'Ditolak'],
+                labels: ['Pengajuan', 'Diterima', 'Ditolak'],
                 datasets: [{
                     label: 'Jumlah Transaksi',
                     data: [
@@ -143,9 +141,9 @@
                         {{ $chartData['ditolak'] }}
                     ],
                     backgroundColor: [
-                        'rgb(255, 205, 86)', // Kuning - Dalam Proses
-                        'rgb(75, 192, 192)', // Hijau - Diterima
-                        'rgb(255, 99, 132)' // Merah - Ditolak
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 99, 132)'
                     ],
                     hoverOffset: 4
                 }]
