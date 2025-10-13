@@ -62,7 +62,8 @@
                     <select name="usr_role_id"
                         class="form-select @error('usr_role_id') is-invalid @enderror" required
                         aria-label="Default select example">
-                        {{ $account[0]['roles']['rl_name'] ?? 'select role' }}</option>
+                        <option selected>
+                            {{ $account[0]['roles']['rl_name'] ?? 'select role' }}</option>
                         @foreach ($roles as $role)
                             @if ($role['rl_admin'])
                                 <option style="color: #E9AD01;" value="{{ $role->rl_id }}">

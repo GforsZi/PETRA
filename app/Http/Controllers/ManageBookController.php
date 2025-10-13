@@ -11,6 +11,8 @@ use App\Models\DeweyDecimalClassfication;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Spatie\Browsershot\Browsershot;
+use Spatie\PdfToImage\Pdf as PdfToImage;
+use Illuminate\Support\Facades\Storage;
 
 class ManageBookController extends Controller
 {
@@ -23,7 +25,7 @@ class ManageBookController extends Controller
     public function search_book_system(Request $request)
     {
         $query = $request->get('q');
-        $books = Book::select('bk_id', 'bk_title', 'bk_img_url')
+        $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')
             ->where('bk_title', 'like', "%$query%")
             ->orderBy('bk_title', 'asc')
             ->get();
@@ -130,18 +132,34 @@ class ManageBookController extends Controller
         }
 
         if ($request->hasFile('file_pdf')) {
-            $destinationPath = public_path('media/ebook_pdf/');
+            $destinationPath = public_path('media/ebook_pdf');
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
 
             $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
-
             $request->file('file_pdf')->move($destinationPath, $filename);
 
             $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
             $validateData['bk_file_public_id'] = $filename;
+
+            $pdfFilePath = $destinationPath . '/' . $filename;
+            $pdfToImage = new PdfToImage($pdfFilePath);
+
+            $totalPages = $pdfToImage->getNumberOfPages();
+
+            $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->bk_title);
+            $destinationPathPdf = public_path('media/pdf-image/' . $safeTitle);
+
+            if (!file_exists($destinationPathPdf)) {
+                mkdir($destinationPathPdf, 0777, true);
+            }
+
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $imagePath = $destinationPathPdf . "/page-{$i}.jpg";
+                $pdfToImage->setPage($i)->saveImage($imagePath);
+            }
         }
 
         $book = Book::create($validateData);
@@ -216,18 +234,47 @@ class ManageBookController extends Controller
         }
 
         if ($request->hasFile('file_pdf')) {
-            $destinationPath = public_path('media/ebook_pdf/');
-
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
+        if (!empty($book->bk_file_url)) {
+            $oldPdfPath = public_path($book->bk_file_url);
+            if (file_exists($oldPdfPath)) {
+                unlink($oldPdfPath);
             }
+        }
 
-            $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
+        $oldSafeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $book->bk_title);
+        $oldImageDir = public_path('media/pdf-image/' . $oldSafeTitle);
 
-            $request->file('file_pdf')->move($destinationPath, $filename);
+        if (file_exists($oldImageDir)) {
+            $this->deleteDirectory($oldImageDir);
+        }
 
-            $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
-            $validateData['bk_file_public_id'] = $filename;
+        $destinationPath = public_path('media/ebook_pdf');
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+
+        $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
+        $request->file('file_pdf')->move($destinationPath, $filename);
+
+        $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
+        $validateData['bk_file_public_id'] = $filename;
+
+        $pdfFilePath = $destinationPath . '/' . $filename;
+        $pdfToImage = new PdfToImage($pdfFilePath);
+        $totalPages = $pdfToImage->getNumberOfPages();
+
+        $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->bk_title);
+        $destinationPathPdf = public_path('media/pdf-image/' . $safeTitle);
+
+        if (!file_exists($destinationPathPdf)) {
+            mkdir($destinationPathPdf, 0777, true);
+        }
+
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $imagePath = $destinationPathPdf . "/page-{$i}.jpg";
+            $pdfToImage->setPage($i)->saveImage($imagePath);
+        }
+
         }
 
         $book->update($validateData);
@@ -605,5 +652,25 @@ public function delete_many_book_copy_system(Request $request)
             ->save($path);
 
         return response()->download($path);
+    }
+
+    private function deleteDirectory($dirPath)
+    {
+        if (!is_dir($dirPath)) {
+            return;
+        }
+
+        $files = array_diff(scandir($dirPath), ['.', '..']);
+
+        foreach ($files as $file) {
+            $filePath = $dirPath . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($filePath)) {
+                $this->deleteDirectory($filePath);
+            } else {
+                unlink($filePath);
+            }
+        }
+
+        rmdir($dirPath);
     }
 }

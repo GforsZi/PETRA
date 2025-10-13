@@ -159,8 +159,8 @@
         <!-- /.card-body -->
         <div class="d-flex m-2 gap-2">
             @if ($book['bk_type'] == '2')
-                <a class="btn btn-success" href="/manage/book/{{ $book['bk_id'] }}/pdf">Lihat
-                    ebook</a>
+                <a class="btn btn-lg btn-success" title="Lihat Ebook"
+                    href="/manage/book/{{ $book['bk_id'] }}/pdf"><i class="bi bi-book"></i></a>
             @endif
             <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
                 data-bs-target="#deleteConfirmation{{ $book['bk_id'] }}" title="Hapus Buku"><i
@@ -168,310 +168,330 @@
 
         </div>
     </div>
-    <div class="card mb-4">
-        <div class="card-header d-flex">
-            <h3 class="card-title w-100">Salinan Buku</h3>
-            <div class="card-tools d-flex justify-content-end w-100 ">
-                <a class="btn btn-lg btn-primary mx-1" data-bs-toggle="modal"
-                    data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
-                    aria-controls="desc_ast" title="Tambah Salinan Buku"><i
-                        class="bi bi-plus-lg"></i></a>
-                <a class="btn btn-lg btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteCopiesModal" title="Hapus Banyak Salinan Buku">
-                    <i class="bi bi-trash"></i>
-                </a>
+    @if ($book['bk_type'] == '1')
 
-                <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
-                    href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
+        <div class="card mb-4">
+            <div class="card-header d-flex">
+                <h3 class="card-title w-100">Salinan Buku</h3>
+                <div class="card-tools d-flex justify-content-end w-100 ">
+                    <a class="btn btn-lg btn-primary mx-1" data-bs-toggle="modal"
+                        data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
+                        aria-controls="desc_ast" title="Tambah Salinan Buku"><i
+                            class="bi bi-plus-lg"></i></a>
+                    <a class="btn btn-lg btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteCopiesModal" title="Hapus Banyak Salinan Buku">
+                        <i class="bi bi-trash"></i>
+                    </a>
+
+                    <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
+                        href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
                 "
-                    title="Cetak Label">
-                    <i class="bi bi-printer-fill"></i></a>
+                        title="Cetak Label">
+                        <i class="bi bi-printer-fill"></i></a>
+                </div>
             </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body p-0" id="bk_cp">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 20%">ID salinan</th>
-                        <th>Status</th>
-                        <th style="width: 10%">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($book['bookCopies'] as $bk_cp)
-                        <tr class="align-middle" id="bk_cp_{{ $bk_cp->bk_cp_id }}">
-                            <td>{{ $bk_cp->bk_cp_number }}</td>
-                            <td>
-                                @if ($bk_cp->bk_cp_status == '1')
-                                    Tersedia
-                                @elseif ($bk_cp->bk_cp_status == '2')
-                                    Dipinjam
-                                @elseif ($bk_cp->bk_cp_status == '3')
-                                    Hilang
-                                @else
-                                    Rusak
-                                @endif
-                            </td>
-                            <td>
-                                <div class="dropdown dropstart">
-                                    <button class="btn btn-warning dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-menu-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" style="cursor: pointer;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
-                                                Label
-                                            </a>
-                                        </li>
-                                        <li><a class="dropdown-item" style="cursor: pointer;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#changeStatus{{ $bk_cp->bk_cp_id }}">Ubah
-                                                Status</a>
-                                        </li>
-                                        <li><a class="dropdown-item" style="cursor: pointer;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#deleteConfirmation{{ $bk_cp->bk_cp_id }}">Hapus</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <div class="modal fade"
-                                    id="deleteConfirmation{{ $bk_cp->bk_cp_id }}"
-                                    data-bs-backdrop="static" data-bs-keyboard="false"
-                                    tabindex="-1"
-                                    aria-labelledby="deleteConfirmation{{ $bk_cp->bk_cp_id }}Label"
-                                    aria-hidden="true">
-                                    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
-                                        method="post" class="modal-dialog modal-dialog-centered">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="modal-content rounded-3 shadow">
-                                            <div class="modal-body p-4 text-center">
-                                                <h5 class="mb-0">Menghapus data..</h5>
-                                                <p class="mb-0">Apakah anda yakin untuk menghapus
-                                                    salinan ini?
-                                                </p>
-                                                <div class="alert mt-4 alert-warning d-flex text-start align-items-center"
-                                                    role="alert">
-                                                    <i class="bi bi-exclamation-triangle me-2"></i>
-                                                    <div>
-                                                        Penghapusan ini bersifat <strong>soft
-                                                            delete</strong> — data masih dapat
-                                                        dipulihkan dari halaman riwayat.
-                                                    </div>
-                                                </div>
-                                                <input type="hidden"
-                                                    value="{{ $book['bk_id'] }}"
-                                                    name="book_id" />
-                                            </div>
-                                            <div class="modal-footer flex-nowrap p-0">
-                                                <button type="button"
-                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit"
-                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}"
-                                    data-bs-backdrop="static" data-bs-keyboard="false"
-                                    tabindex="-1"
-                                    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content rounded-3 shadow p-3">
-                                            <div class="labelcode mx-auto"
-                                                style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-
-                                                <table
-                                                    style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                                                    <tr style="height:90px;">
-                                                        <td class="p-0 m-0"
-                                                            style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                                                            <img src="{{ asset('logo/landing/smk.png') }}"
-                                                                alt="Logo Petra"
-                                                                style="width:80px; height:80px;"
-                                                                class="rounded-circle">
-                                                        </td>
-                                                        <td
-                                                            style="text-align:center; vertical-align:middle;">
-                                                            <h5 class="fw-bold mb-0">PERPUSTAKAAN
-                                                            </h5>
-                                                            <h5 class="fw-bold mb-0">SMK MAHAPUTRA
-                                                            </h5>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-
-                                                <div class="text-center py-3">
-                                                    <h4 class="fw-bold mb-1">
-                                                        @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                                            <span>{{ $ddc->ddc_code }}</span>
-                                                            @if (!$loop->last)
-                                                                .
-                                                            @endif
-                                                        @endforeach
-                                                    </h4>
-                                                    <h5 class="fw-bold mb-1">
-                                                        @foreach ($book['authors'] as $author)
-                                                            <span>{{ Str::substr(strtoupper($author->athr_name), 0, 3) }}</span>
-                                                            @if (!$loop->last)
-                                                                .
-                                                            @endif
-                                                        @endforeach
-                                                    </h5>
-                                                    <p class="mb-1">
-                                                        {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
-                                                    </p>
-                                                    <p class="mb-0 fw-bold">
-                                                        {{ $bk_cp->bk_cp_number }}</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer flex-nowrap p-0 mt-3">
-                                                <button type="button"
-                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
-                                                    data-bs-dismiss="modal">Tutup</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($book['bk_permission'] == '1')
-                                        <style>
-                                            .labelcode {
-                                                background-color: white;
-                                                color: black;
-                                            }
-                                        </style>
-                                    @elseif ($book['bk_permission'] == '2')
-                                        <style>
-                                            .labelcode {
-                                                background-color: #FAB12F;
-                                                color: black;
-                                            }
-                                        </style>
+            <!-- /.card-header -->
+            <div class="card-body p-0" id="bk_cp">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">ID salinan</th>
+                            <th>Status</th>
+                            <th style="width: 10%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($book['bookCopies'] as $bk_cp)
+                            <tr class="align-middle" id="bk_cp_{{ $bk_cp->bk_cp_id }}">
+                                <td>{{ $bk_cp->bk_cp_number }}</td>
+                                <td>
+                                    @if ($bk_cp->bk_cp_status == '1')
+                                        Tersedia
+                                    @elseif ($bk_cp->bk_cp_status == '2')
+                                        Dipinjam
+                                    @elseif ($bk_cp->bk_cp_status == '3')
+                                        Hilang
                                     @else
-                                        <style>
-                                            .labelcode {
-                                                background-color: #EF5A6F;
-                                                color: black;
-                                            }
-                                        </style>
+                                        Rusak
                                     @endif
-                                </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown dropstart">
+                                        <button class="btn btn-warning dropdown-toggle"
+                                            type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="bi bi-menu-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
+                                                    Label
+                                                </a>
+                                            </li>
+                                            <li><a class="dropdown-item" style="cursor: pointer;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#changeStatus{{ $bk_cp->bk_cp_id }}">Ubah
+                                                    Status</a>
+                                            </li>
+                                            <li><a class="dropdown-item" style="cursor: pointer;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#deleteConfirmation{{ $bk_cp->bk_cp_id }}">Hapus</a>
+                                            </li>
 
-                                <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}"
-                                    data-bs-backdrop="static" data-bs-keyboard="false"
-                                    tabindex="-1"
-                                    aria-labelledby="changeStatus{{ $bk_cp->bk_cp_id }}Label"
-                                    aria-hidden="true">
-                                    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/edit"
-                                        method="post" class="modal-dialog modal-dialog-centered">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="modal-content rounded-3 shadow">
-                                            <div class="modal-body p-4 text-center">
-                                                <h5 class="mb-3">Ubah Status</h5>
-                                                <input type="hidden"
-                                                    value="{{ $book['bk_id'] }}" name="book_id">
-                                                <select name="bk_cp_status"
-                                                    class="form-select @error('bk_cp_status') is-invalid @enderror"
-                                                    required aria-label="Default select example">
-                                                    <option value="1">Tersedia
-                                                    </option>
-                                                    <option value="2">Dipinjam</option>
-                                                    <option value="3">Hilang</option>
-                                                    <option value="4">Rusak</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer flex-nowrap p-0">
-                                                <button type="button"
-                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit"
-                                                    class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ubah</strong></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal fade" id="deleteCopiesModal" tabindex="-1"
-                                    aria-labelledby="deleteCopiesModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <form action="/system/book/copy/delete/many"
-                                            method="POST" class="modal-content shadow-sm">
+                                        </ul>
+                                    </div>
+                                    <div class="modal fade"
+                                        id="deleteConfirmation{{ $bk_cp->bk_cp_id }}"
+                                        data-bs-backdrop="static" data-bs-keyboard="false"
+                                        tabindex="-1"
+                                        aria-labelledby="deleteConfirmation{{ $bk_cp->bk_cp_id }}Label"
+                                        aria-hidden="true">
+                                        <form
+                                            action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete"
+                                            method="post"
+                                            class="modal-dialog modal-dialog-centered">
                                             @csrf
                                             @method('DELETE')
-
-                                            <div class="modal-header">
-                                                <h5 class="modal-title"
-                                                    id="deleteCopiesModalLabel">Hapus Salinan Buku
-                                                </h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Tutup"></button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <p class="text-muted mb-2">
-                                                    Pilih salinan yang ingin Anda hapus. Tekan
-                                                    <kbd>Ctrl</kbd> (atau <kbd>Cmd</kbd> di Mac)
-                                                    untuk memilih lebih dari satu.
-                                                </p>
-
-                                                <div class="mb-3">
-                                                    <label for="copy_ids"
-                                                        class="form-label fw-semibold">Pilih
-                                                        Salinan Buku</label>
-                                                    <select name="copy_ids[]" id="copy_ids"
-                                                        class="form-select" multiple required>
-                                                        @foreach ($book['bookCopies'] as $copy)
-                                                            <option value="{{ $copy->bk_cp_id }}">
-                                                                {{ $copy->bk_cp_number }} —
-                                                                {{ $copy->book->bk_title ?? 'Tidak diketahui' }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="alert alert-warning d-flex align-items-center"
-                                                    role="alert">
-                                                    <i class="bi bi-exclamation-triangle me-2"></i>
-                                                    <div>
-                                                        Penghapusan ini bersifat <strong>soft
-                                                            delete</strong> — data masih dapat
-                                                        dipulihkan dari halaman riwayat.
+                                            <div class="modal-content rounded-3 shadow">
+                                                <div class="modal-body p-4 text-center">
+                                                    <h5 class="mb-0">Menghapus data..</h5>
+                                                    <p class="mb-0">Apakah anda yakin untuk
+                                                        menghapus
+                                                        salinan ini?
+                                                    </p>
+                                                    <div class="alert mt-4 alert-warning d-flex text-start align-items-center"
+                                                        role="alert">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle me-2"></i>
+                                                        <div>
+                                                            Penghapusan ini bersifat <strong>soft
+                                                                delete</strong> — data masih dapat
+                                                            dipulihkan dari halaman riwayat.
+                                                        </div>
                                                     </div>
+                                                    <input type="hidden"
+                                                        value="{{ $book['bk_id'] }}"
+                                                        name="book_id" />
                                                 </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="bi bi-trash"></i> Hapus Terpilih
-                                                </button>
+                                                <div class="modal-footer flex-nowrap p-0">
+                                                    <button type="button"
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit"
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3" class="w-100 text-center">404 | data tidak
-                                ditemukan</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+
+                                    <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}"
+                                        data-bs-backdrop="static" data-bs-keyboard="false"
+                                        tabindex="-1"
+                                        aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content rounded-3 shadow p-3">
+                                                <div class="labelcode mx-auto"
+                                                    style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
+
+                                                    <table
+                                                        style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                                                        <tr style="height:90px;">
+                                                            <td class="p-0 m-0"
+                                                                style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                                                <img src="{{ asset('logo/landing/smk.png') }}"
+                                                                    alt="Logo Petra"
+                                                                    style="width:80px; height:80px;"
+                                                                    class="rounded-circle">
+                                                            </td>
+                                                            <td
+                                                                style="text-align:center; vertical-align:middle;">
+                                                                <h5 class="fw-bold mb-0">
+                                                                    PERPUSTAKAAN
+                                                                </h5>
+                                                                <h5 class="fw-bold mb-0">SMK
+                                                                    MAHAPUTRA
+                                                                </h5>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <div class="text-center py-3">
+                                                        <h4 class="fw-bold mb-1">
+                                                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                                                <span>{{ $ddc->ddc_code }}</span>
+                                                                @if (!$loop->last)
+                                                                    .
+                                                                @endif
+                                                            @endforeach
+                                                        </h4>
+                                                        <h5 class="fw-bold mb-1">
+                                                            @foreach ($book['authors'] as $author)
+                                                                <span>{{ Str::substr(strtoupper($author->athr_name), 0, 3) }}</span>
+                                                                @if (!$loop->last)
+                                                                    .
+                                                                @endif
+                                                            @endforeach
+                                                        </h5>
+                                                        <p class="mb-1">
+                                                            {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
+                                                        </p>
+                                                        <p class="mb-0 fw-bold">
+                                                            {{ $bk_cp->bk_cp_number }}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer flex-nowrap p-0 mt-3">
+                                                    <button type="button"
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($book['bk_permission'] == '1')
+                                            <style>
+                                                .labelcode {
+                                                    background-color: white;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        @elseif ($book['bk_permission'] == '2')
+                                            <style>
+                                                .labelcode {
+                                                    background-color: #FAB12F;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        @else
+                                            <style>
+                                                .labelcode {
+                                                    background-color: #EF5A6F;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        @endif
+                                    </div>
+
+                                    <div class="modal fade"
+                                        id="changeStatus{{ $bk_cp->bk_cp_id }}"
+                                        data-bs-backdrop="static" data-bs-keyboard="false"
+                                        tabindex="-1"
+                                        aria-labelledby="changeStatus{{ $bk_cp->bk_cp_id }}Label"
+                                        aria-hidden="true">
+                                        <form
+                                            action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/edit"
+                                            method="post"
+                                            class="modal-dialog modal-dialog-centered">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-content rounded-3 shadow">
+                                                <div class="modal-body p-4 text-center">
+                                                    <h5 class="mb-3">Ubah Status</h5>
+                                                    <input type="hidden"
+                                                        value="{{ $book['bk_id'] }}"
+                                                        name="book_id">
+                                                    <select name="bk_cp_status"
+                                                        class="form-select @error('bk_cp_status') is-invalid @enderror"
+                                                        required
+                                                        aria-label="Default select example">
+                                                        <option value="1">Tersedia
+                                                        </option>
+                                                        <option value="2">Dipinjam</option>
+                                                        <option value="3">Hilang</option>
+                                                        <option value="4">Rusak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer flex-nowrap p-0">
+                                                    <button type="button"
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit"
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ubah</strong></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal fade" id="deleteCopiesModal" tabindex="-1"
+                                        aria-labelledby="deleteCopiesModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <form action="/system/book/copy/delete/many"
+                                                method="POST" class="modal-content shadow-sm">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title"
+                                                        id="deleteCopiesModalLabel">Hapus Salinan
+                                                        Buku
+                                                    </h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Tutup"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-2">
+                                                        Pilih salinan yang ingin Anda hapus. Tekan
+                                                        <kbd>Ctrl</kbd> (atau <kbd>Cmd</kbd> di Mac)
+                                                        untuk memilih lebih dari satu.
+                                                    </p>
+
+                                                    <div class="mb-3">
+                                                        <label for="copy_ids"
+                                                            class="form-label fw-semibold">Pilih
+                                                            Salinan Buku</label>
+                                                        <select name="copy_ids[]" id="copy_ids"
+                                                            class="form-select" multiple required>
+                                                            @foreach ($book['bookCopies'] as $copy)
+                                                                <option
+                                                                    value="{{ $copy->bk_cp_id }}">
+                                                                    {{ $copy->bk_cp_number }} —
+                                                                    {{ $copy->book->bk_title ?? 'Tidak diketahui' }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="alert alert-warning d-flex align-items-center"
+                                                        role="alert">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle me-2"></i>
+                                                        <div>
+                                                            Penghapusan ini bersifat <strong>soft
+                                                                delete</strong> — data masih dapat
+                                                            dipulihkan dari halaman riwayat.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="bi bi-trash"></i> Hapus Terpilih
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="w-100 text-center">404 | data tidak
+                                    ditemukan</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
-    </div>
+    @endif
     <div class="modal fade" id="deleteConfirmation{{ $book['bk_id'] }}"
         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="deleteConfirmation{{ $book['bk_id'] }}Label" aria-hidden="true">

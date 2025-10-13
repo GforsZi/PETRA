@@ -45,7 +45,7 @@
                                 @if ($account['usr_activation'])
                                     Sudah teraktivasi
                                 @else
-                                    Terblokir
+                                    Belum teraktivasi
                                 @endif
                             </td>
                         </tr>
@@ -78,22 +78,74 @@
             </div>
             <!-- /.card-body -->
             <div class="d-flex m-2 gap-2">
-                <form method="post" action="/system/account/{{ $account['usr_id'] }}/activate">
-                    @csrf
-                    @method('PUT')
-                    <input hidden name='usr_activation' value="1" />
-                    <button type="submit" class="btn btn-lg btn-success" title="Aktifkan Akun"><i
-                            class="bi bi-check2-all"></i></button>
-                </form>
-                <form method="post" action="/system/account/{{ $account['usr_id'] }}/ban">
-                    @csrf
-                    @method('PUT')
-                    <input hidden name='usr_activation' value="0" />
-                    <button type="submit" class="btn btn-lg btn-warning"
-                        title="Nonaktifkan Akun"><i class="bi bi-ban"></i></button>
-                </form>
-
+                @if (auth()->user()->usr_id != $account['usr_id'])
+                    @if ($account['usr_activation'])
+                        <a class="btn btn-lg btn-warning" style="cursor: pointer;"
+                            title="Nonaktifkan akun" data-bs-toggle="modal"
+                            data-bs-target="#banConfirmation{{ $account['usr_id'] }}"><i
+                                class="bi bi-ban"></i></a>
+                    @else
+                        <a class="btn btn-lg btn-success" style="cursor: pointer;"
+                            title="Aktifasi akun" data-bs-toggle="modal"
+                            data-bs-target="#activationConfirmation{{ $account['usr_id'] }}"><i
+                                class="bi bi-check2-all"></i></a>
+                    @endif
+                @endif
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="banConfirmation{{ $account['usr_id'] }}" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="banConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
+        <form action="/system/account/{{ $account['usr_id'] }}/ban" method="post"
+            class="modal-dialog modal-dialog-centered">
+            @csrf
+            @method('PUT')
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Konfirmasi</h5>
+                    <p class="mb-0">Yakin ingin menghapus data ini ?</p>
+                </div>
+                <input hidden name='usr_activation' value="0" />
+                <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center"
+                    role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <div class="text-wrap">
+                        Jika akun dinonaktifkan maka pengguna akun ini tidak dapat mengakses
+                        aplikasi.
+                    </div>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Batal</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="activationConfirmation{{ $account['usr_id'] }}"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="activationConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
+        <form action="/system/account/{{ $account['usr_id'] }}/activate" method="post"
+            class="modal-dialog modal-dialog-centered">
+            @csrf
+            @method('PUT')
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Konfirmasi</h5>
+                    <p class="mb-0">Yakin ingin melakukan aktifasi pada akun ini ?</p>
+                </div>
+                <input hidden name='usr_activation' value="1" />
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Batal</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                </div>
+            </div>
+        </form>
     </div>
 </x-app-layout>

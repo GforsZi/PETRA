@@ -30,15 +30,21 @@
         <div class="col-8">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
-                    <h3 class="card-title">150</h3>
-                    <p class="card-text">Pengguna</p>
+                    <h3 class="card-title me-2">Status:</h3>
+                    <p class="card-text">
+                        @if (Auth::user()->usr_activation == true)
+                            Sudah teraktifasi
+                        @else
+                            Belum teraktifasi
+                        @endif
+                    </p>
                     <i class="fas fa-users fa-2x position-absolute top-0 end-0 m-3"></i>
                 </div>
             </div>
             <div class="card text-dark bg-warning">
                 <div class="card-body">
-                    <h3 class="card-title">53<sup style="font-size: 20px">%</sup></h3>
-                    <p class="card-text">Pendatang Baru</p>
+                    <h3 class="card-title me-2">Peran:</h3>
+                    <p class="card-text">{{ Auth::user()->roles?->rl_name ?? 'Tidak ada' }}</p>
                     <i class="fas fa-chart-line fa-1x position-absolute top-0 end-0 m-3"></i>
                 </div>
             </div>
@@ -89,26 +95,33 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Doughnut Chart
-        const config = {
+        const ctx = document.getElementById('doughnutChart');
+
+        new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Red', 'Yellow', 'Blue'],
                 datasets: [{
-                    data: [10, 20, 30],
-                    backgroundColor: ['#ff6384', '#ffcd56', '#36a2eb'],
-                    borderColor: '#fff'
+                    label: 'Jumlah Transaksi',
+                    data: [
+                        {{ $chartData['proses'] }},
+                        {{ $chartData['diterima'] }},
+                        {{ $chartData['ditolak'] }}
+                    ],
+                    backgroundColor: [
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 99, 132)'
+                    ],
                 }]
             },
             options: {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false // <-- matikan legend
+                        display: false
                     }
                 }
             }
-        };
-
-        new Chart(document.getElementById('doughnutChart'), config);
+        });
     </script>
 </x-app-layout>

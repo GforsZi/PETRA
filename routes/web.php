@@ -210,6 +210,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/search/book/{id}/detail', [UserController::class, 'detail_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');
+    Route::get('/search/book/{id}/detail/ebook', [UserController::class, 'read_ebook_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::get('/transaction', [UserController::class, 'view_transaction_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':0');

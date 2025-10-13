@@ -84,6 +84,12 @@
                             <i class="bi bi-menu-down"></i>
                         </button>
                         <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" style="cursor: pointer;"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#chatConfirmation{{ $accounts->firstItem() + $index }}">Kirim
+                                    pesan</a></a>
+                            </li>
                             <li><a class="dropdown-item"
                                     href="/manage/account/{{ $account->usr_id }}/detail">Detail</a>
                             </li>
@@ -93,12 +99,6 @@
                             <li><a class="dropdown-item" style="cursor: pointer;"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmation{{ $accounts->firstItem() + $index }}">Hapus</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" style="cursor: pointer;"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#chatConfirmation{{ $accounts->firstItem() + $index }}">Kirim
-                                    pesan</a></a>
                             </li>
                         </ul>
                     </div>
