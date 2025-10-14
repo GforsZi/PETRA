@@ -70,7 +70,7 @@
                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>

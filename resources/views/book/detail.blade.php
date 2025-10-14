@@ -280,7 +280,7 @@
                                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit"
-                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -408,7 +408,7 @@
                                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit"
-                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ubah</strong></button>
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Ubah</strong></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -472,7 +472,7 @@
                                                         class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit" class="btn btn-danger">
-                                                        <i class="bi bi-trash"></i> Hapus Terpilih
+                                                        <i class="bi bi-trash" onclick="this.disabled=true; this.form.submit();"></i> Hapus Terpilih
                                                     </button>
                                                 </div>
                                             </form>
@@ -518,7 +518,7 @@
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                         data-bs-dismiss="modal">Tidak</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
@@ -554,7 +554,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Buat salinan</button>
+                        <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Buat salinan</button>
                     </div>
                 </form>
             </div>

@@ -79,7 +79,7 @@
         <div class="row justify-content-center align-items-start g-4">
             <!-- Kamera -->
             <div class="col-md-5 text-center">
-                <h4 class="fw-bold mb-3">Ambil Foto</h4>
+                <h4 class="fw-bold mb-3" onclick="this.disabled=true; this.form.submit();">Ambil Foto</h4>
 
                 <div class="camera-container">
                     <video id="camera" autoplay playsinline width="100%"
@@ -110,10 +110,10 @@
 
                     <div class="mt-3">
                         <button type="button" id="captureBtn" class="kamera me-2">
-                            <i class="bi bi-camera-fill"></i> Ambil
+                            <i class="bi bi-camera-fill" onclick="this.disabled=true; this.form.submit();"></i> Ambil
                         </button>
                         <button type="submit" id="uploadBtn" class="save btn btn-success d-none">
-                            <i class="bi bi-bookmark-check-fill"></i> Simpan
+                            <i class="bi bi-bookmark-check-fill" onclick="this.disabled=true; this.form.submit();"></i> Simpan
                         </button>
                     </div>
                 </form>

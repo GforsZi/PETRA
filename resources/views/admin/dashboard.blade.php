@@ -12,7 +12,7 @@
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+                aria-label="Close" onclick="this.disabled=true; this.form.submit();"></button>
         </div>
     @endif
     <div class="row">

@@ -35,7 +35,7 @@
                             <input name="password" type="password" class="form-control mb-4"
                                 placeholder="Password">
                     </div>
-                    <button type="submit" class="control">Kirim</button>
+                    <button type="submit" class="control" onclick="this.disabled=true; this.form.submit();">Kirim</button>
                     </form>
 
                     <p class="text-center">

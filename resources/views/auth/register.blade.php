@@ -55,7 +55,7 @@
                                 <p class="text-danger" style="text-align: right;">Konfirmasi kata sandi tidak sesuai.</p>
                             @enderror
 
-                            <button type="submit" class="control mt-4">Daftar</button>
+                            <button type="submit" class="control mt-4" onclick="this.disabled=true; this.form.submit();">Daftar</button>
                         </form>
 
                     <p class="text-center">

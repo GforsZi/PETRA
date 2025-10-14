@@ -112,7 +112,7 @@
                         <button type="button" id="captureBtn" class="kamera me-2">
                             <i class="bi bi-camera-fill"></i> Ambil
                         </button>
-                        <button type="submit" id="uploadBtn" class="save btn btn-success d-none">
+                        <button type="submit" id="uploadBtn" class="save btn btn-success d-none" onclick="this.disabled=true; this.form.submit();">
                             <i class="bi bi-bookmark-check-fill"></i> Simpan
                         </button>
                     </div>

@@ -47,7 +47,7 @@
                                         <input type="hidden"
                                             value="{{ request()->query('category') }}"
                                             name="model">
-                                        <button class="dropdown-item" type="submit">Pulihkan
+                                        <button class="dropdown-item" type="submit" onclick="this.disabled=true; this.form.submit();">Pulihkan
                                         </button>
                                     </form>
                                 </li>
@@ -73,7 +73,7 @@
                                             class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                             data-bs-dismiss="modal">Cancle</button>
                                         <button type="submit"
-                                            class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Delete</strong></button>
+                                            class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Delete</strong></button>
                                     </div>
                                 </div>
                             </form>

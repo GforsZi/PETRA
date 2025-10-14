@@ -36,13 +36,12 @@
                             lebih dari satu.</small>
                     </div>
                 </div>
-
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                         data-bs-dismiss="modal">Batal</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0">
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();">
                         <strong>Print</strong>
                     </button>
                 </div>

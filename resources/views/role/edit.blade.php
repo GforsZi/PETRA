@@ -61,7 +61,7 @@
             <!--begin::Footer-->
             <div class="card-footer">
                 <button type="submit" class="btn btn-outline-warning px-5"
-                    id="tombol">submit</button>
+                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

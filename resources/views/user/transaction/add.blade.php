@@ -41,7 +41,7 @@
                 <!-- tanggal otomatis -->
                 <input type="hidden" name="trx_borrow_date" value="{{ now() }}">
 
-                <button type="submit" class="btn btn-outline-success w-100">Selesai</button>
+                <button type="submit" class="btn btn-outline-success w-100" onclick="this.disabled=true; this.form.submit();">Selesai</button>
             </div>
         </div>
     </form>

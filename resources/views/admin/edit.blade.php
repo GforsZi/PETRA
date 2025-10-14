@@ -49,7 +49,7 @@
                 <div class="d-flex justify-content-start">
                     <button type="submit"
                         class=" btn btn-outline-warning px-5 d-flex justify-content-center align-items-center"
-                        id="tombol"> Submit</button>
+                        id="tombol" onclick="this.disabled=true; this.form.submit();"> Submit</button>
 
                 </div>
             </div>
