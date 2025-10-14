@@ -58,7 +58,7 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                        <p class="card-text"> {{ $book['bk_description'] ?? '' }}
+                        <p class="card-text">  {!! nl2br(e($book['bk_description'] ?? '')) !!}
                         </p> <!-- isian descripsi  -->
                     </div>
                 </div>

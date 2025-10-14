@@ -10,8 +10,10 @@
     <div class="row g-0 p-3 bg-body rounded">
         <div class="col-12 col-md-4 d-flex justify-content-center">
             <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
-                class="img-fluid object-fit-contain shadow"
-                alt="Book cover showing classical painting and dark themed cover" height="300">
+                class="img-fluid shadow"
+                style="height: 300px; width: auto; object-fit: contain;"
+                alt="Book cover showing classical painting and dark themed cover">
+
         </div>
         <div class="col-12 col-md-8 ps-md-3 mt-3 mt-md-0">
 
@@ -34,9 +36,10 @@
                 </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
             </p>
             <hr>
-            <p class="text-muted" style="line-height: 1.5;">
-                {{ $book['bk_description'] ?? '' }}
+            <p class="text-muted" style="line-height: 1.5; white-space: pre-line;">
+            {!! nl2br(e($book['bk_description'] ?? '')) !!}
             </p>
+
         </div>
     </div>
 
