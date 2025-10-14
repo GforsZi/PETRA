@@ -36,9 +36,11 @@
                 </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
             </p>
             <hr>
-            <p class="text-muted" style="line-height: 1.5; white-space: pre-line;">
-            {!! nl2br(e($book['bk_description'] ?? '')) !!}
-            </p>
+            <p class="text-muted" 
+   style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
+    {!! nl2br(e($book['bk_description'] ?? '')) !!}
+</p>
+
 
         </div>
     </div>

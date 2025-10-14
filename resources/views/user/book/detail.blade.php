@@ -58,8 +58,11 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                        <p class="card-text">  {!! nl2br(e($book['bk_description'] ?? '')) !!}
-                        </p> <!-- isian descripsi  -->
+                        <p class="text-muted" 
+   style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
+    {!! nl2br(e($book['bk_description'] ?? '')) !!}
+</p>
+ <!-- isian descripsi  -->
                     </div>
                 </div>
             </div>
