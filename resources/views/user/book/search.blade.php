@@ -22,19 +22,21 @@
 
     <div class="mt-3">
         <div class="border border-body rounded p-2">
-
             <h5 class="mb-2"><b>Buku Terbaru</b></h5>
 
             <div class="overflow-auto">
-                <div class="row gx-1 flex-nowrap overflow-x-scroll">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
                     @foreach ($book_new as $bk_nw)
-                        <div class="book col mx-2 text-center rounded pt-2" style="width: 140px;">
-                            <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
-                                style="text-decoration: none;">
+                        <div class="book col border mx-2 text-center rounded pt-2"
+                            style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">
                                 <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                                    class="object-fit-contain" style="height: 167px; width: 128px;">
-                                <br>
-                                <p class="text-body text-wrap">{{ $bk_nw->bk_title }}</p>
+                                    class="object-fit-contain"
+                                    style="height: 167px; width: 128px;">
+                                <p class="text-body text-wrap mt-1 mb-0"
+                                style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;">
+                                    {{ $bk_nw->bk_title }}
+                                </p>
                             </a>
                         </div>
                     @endforeach
