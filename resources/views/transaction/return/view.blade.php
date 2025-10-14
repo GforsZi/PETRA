@@ -31,7 +31,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="/manage/transaction/{{ $loan->trx_id }}/detail"
+                    <a href="/manage/transaction/{{ $return->trx_id }}/detail"
                         class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
                 </td>
             </tr>

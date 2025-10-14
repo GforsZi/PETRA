@@ -1,3 +1,7 @@
+@php
+    $now = \Carbon\Carbon::now();
+    $maxDate = $now->copy()->addDays(7)->format('Y-m-d\TH:i');
+@endphp
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
@@ -169,9 +173,11 @@
                 <div class="mb-3 container">
                     <label for="datetime" class="form-label">Pilih Tanggal & Waktu, untuk tenggat
                         pengembalian</label>
-                    <input type="datetime-local" name='datetime'
-                        class="form-control @error('datetime') is-invalid @enderror" id="datetime"
-                        name="datetime" {{ old(\Carbon\Carbon::now()->format('Y-m-d\TH:i')) }}>
+                    <input type="datetime-local" name="datetime" id="datetime"
+                        class="form-control @error('datetime') is-invalid @enderror"
+                        value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}"
+                        min="{{ $now->format('Y-m-d\TH:i') }}" max="{{ $maxDate }}">
+
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"

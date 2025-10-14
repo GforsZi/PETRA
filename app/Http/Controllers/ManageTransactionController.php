@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookCopy;
 use App\Models\BookTransaction;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,12 +13,12 @@ use Illuminate\Support\Facades\DB;
 class ManageTransactionController extends Controller
 {
     public function manage_loan_page() {
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->latest()->paginate(10);
+        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '1')->latest()->paginate(10);
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
     public function manage_return_page() {
-        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->paginate(10);
+        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '2')->paginate(10);
         return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
@@ -98,10 +99,11 @@ class ManageTransactionController extends Controller
         $request->validate([
             'datetime' => ['required', 'date']
         ]);
+        $trx_due_date = Carbon::createFromFormat('Y-m-d\TH:i', $request->datetime);
 
         $loan->update([
             'trx_status' => '2',
-            'trx_due_date' => $request->datetime
+            'trx_due_date' => $trx_due_date
         ]);
         return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil diterima');
     }
