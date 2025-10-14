@@ -21,26 +21,33 @@
         background: var(--bs-dark);
         color: #fff;
     }
+#quickPanel.row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;      
+  justify-content: flex-start;    
+  gap: .5rem !important;
+  width: 100% !important;          
+  height: auto !important;         
+  max-height: 180px !important;   
+  overflow-y: auto !important;     
+  overflow-x: hidden !important;   
+}
 
-    .quick-messages {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: .5rem;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: max-height .3s ease, opacity .3s ease;
-    }
+#quickPanel.row > * {
+  flex: 1 1 calc(25% - .5rem);     
+  min-width: 200px;               
+  box-sizing: border-box;
+}
 
-    .quick-messages.show {
-        max-height: 300px;
-        opacity: 1;
-    }
+#quickPanel {
+  height: 700px !important;      /* 👉 ubah angkanya sesuai keinginan */
+  max-height: 350px !important;
+  overflow-y: auto !important;   
+  overflow-x: hidden !important;
+}
 
-    .quick-item {
-        max-width: 180px;
-        text-wrap: balance;
-    }
+
 </style>
 
 <main class="card shadow-lg rounded-0 h-100 w-100 border-0">
@@ -72,7 +79,7 @@
             </div>
         </div>
 
-        <div class="quick-messages mt-3 overflow-y-scroll row" style="height: 200px ;"
+        <div class="quick-messages mt-3 overflow-y-scroll row"
             id="quickPanel">
         </div>
     </div>
