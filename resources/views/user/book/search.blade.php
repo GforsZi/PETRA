@@ -33,10 +33,14 @@
                                 <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
                                     class="object-fit-contain"
                                     style="height: 167px; width: 128px;">
-                                <p class="text-body text-wrap mt-1 mb-0"
-                                style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;">
-                                    {{ $bk_nw->bk_title }}
-                                </p>
+                               <p class="text-body text-start text-wrap mt-1 mb-0"
+    title="{{ $bk_nw->bk_title }}"
+    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+           overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">    
+    {{ $bk_nw->bk_title }}
+</p>
+
                             </a>
                         </div>
                     @endforeach
