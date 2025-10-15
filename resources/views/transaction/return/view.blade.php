@@ -25,9 +25,13 @@
                 <td>{{ $return->trx_due_date }}</td>
                 <td>
                     @if ($return->trx_status == '1')
-                        Dipinjam
+                        Pengajuan
                     @elseif ($return->trx_status == '2')
+                        Dipinjam
+                    @elseif ($return->trx_status == '3')
                         Dikembalikan
+                    @else
+                        Ditolak
                     @endif
                 </td>
                 <td>

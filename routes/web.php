@@ -386,6 +386,8 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::put('/system/transaction/{id}/reject', [ManageTransactionController::class, 'reject_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/transaction/{id}/return', [ManageTransactionController::class, 'return_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::delete('/system/transaction/{id}/delete', [ManageTransactionController::class, 'delete_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::post('/system/print/card', [ManageAcoountController::class, 'print_card_system'])

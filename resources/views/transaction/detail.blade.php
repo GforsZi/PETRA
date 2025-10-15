@@ -56,6 +56,10 @@
                         <td>{{ $transaction['trx_due_date'] }}</td>
                     </tr>
                     <tr>
+                        <td>Tanggal Pengembalian</td>
+                        <td>{{ $transaction['trx_return_date'] }}</td>
+                    </tr>
+                    <tr>
                         <td>Status</td>
                         <td>
                             @if ($transaction['trx_status'] == '1')
@@ -109,6 +113,14 @@
                 <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal"
                     data-bs-target="#approveconfirmation{{ $transaction['trx_id'] }}"
                     title="Terima Transaksi"><i class="bi bi-check2-all"></i></a>
+            @endif
+            @if ($transaction['trx_status'] == '2' ?? $transaction['trx_due_date'] == null)
+                <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal"
+                    data-bs-target="#editconfirmation{{ $transaction['trx_id'] }}"
+                    title="Tolak Transaksi"><i class="bi bi-calendar-plus"></i></a>
+                <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal"
+                    data-bs-target="#returnconfirmation{{ $transaction['trx_id'] }}"
+                    title="Terima Transaksi"><i class="bi bi-clipboard2-check"></i></a>
             @endif
 
         </div>
@@ -184,7 +196,64 @@
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                         data-bs-dismiss="modal">Batalkan</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Terima</strong></button>
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        onclick="this.disabled=true; this.form.submit();"><strong>Terima</strong></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="returnconfirmation{{ $transaction['trx_id'] }}"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="returnconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
+        <form method="post" class="modal-dialog modal-dialog-centered"
+            action="/system/transaction/{{ $transaction['trx_id'] }}/return">
+            @csrf
+            @method('PUT')
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Konfirmasi</h5>
+                    <p class="mb-0">Yakin ingin mengembalikan pinjaman ini ?</p>
+                </div>
+                @foreach ($transaction['books'] as $book)
+                    <input type="hidden" name="all_book_ids[]" value="{{ $book->bk_id }}">
+                @endforeach
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="editconfirmation{{ $transaction['trx_id'] }}"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="editconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
+        <form method="post" class="modal-dialog modal-dialog-centered"
+            action="/system/transaction/{{ $transaction['trx_id'] }}/edit">
+            @csrf
+            @method('PUT')
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Konfirmasi Penambahan waktu</h5>
+                </div>
+                <div class="mb-3 container">
+                    <label for="datetime" class="form-label">Pilih Tanggal & Waktu, untuk tenggat
+                        pengembalian</label>
+                    <input type="datetime-local" name="datetime" id="datetime"
+                        class="form-control @error('datetime') is-invalid @enderror"
+                        value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}"
+                        min="{{ $now->format('Y-m-d\TH:i') }}" max="{{ $maxDate }}">
+
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Batalkan</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        onclick="this.disabled=true; this.form.submit();"><strong>Terima</strong></button>
                 </div>
             </div>
         </form>

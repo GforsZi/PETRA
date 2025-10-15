@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook" class="btn btn-success btn-lg w-100"
-            title="Tambahkan Opsi"><i class="bi bi-book"></i></a>
+        @if ($book['bk_type'] == '2')
+            <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook"
+                class="btn btn-success btn-lg w-100" title="Tambahkan Opsi"><i
+                    class="bi bi-book"></i></a>
+        @endif
     </x-slot:header_layout>
 
     <div class="container mt-4">
@@ -58,11 +61,11 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                        <p class="text-muted" 
-   style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
-    {!! nl2br(e($book['bk_description'] ?? '')) !!}
-</p>
- <!-- isian descripsi  -->
+                        <p class="text-muted"
+                            style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
+                            {!! nl2br(e($book['bk_description'] ?? '')) !!}
+                        </p>
+                        <!-- isian descripsi  -->
                     </div>
                 </div>
             </div>
