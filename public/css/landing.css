@@ -362,6 +362,70 @@ body {
 }
 
 .navbar-custom {
+  background-color: #121740;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 80px;
+  box-shadow: black 0px 0px 10px;
+}
+
+.navbar-nav a {
+  color: white !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.navbar-nav a:hover {
+  color: #7a5fff !important;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* === Tampilan MOBILE === */
+@media (max-width: 768px) {
+  .navbar-custom {
+    height: auto;
+    padding: 10px 20px;
+  }
+
+  .navbar-collapse {
+    background-color: #121740; /* tetap warna aslimu */
+    width: 100%; /* full width (bukan full page) */
+    border-radius: 0 0 10px 10px;
+    padding: 10px 0;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+  }
+
+  .navbar-nav {
+    flex-direction: column !important;
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  
+}
+
+
+
+.navbar-custom {
     background-color: #121740;
     position: sticky;
     top: 0;
@@ -1220,21 +1284,39 @@ button:hover:before {
 }
 
 @media (max-width: 768px) {
-    .hero-section {
-        flex-direction: column;
-        text-align: center;
-        padding: 40px 20px;
-    }
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    display: flex;
+    align-items: center; /* isi hero-section ke tengah vertikal */
+    justify-content: center; /* isi hero-section ke tengah horizontal */
+  }
 
-    .hero-section .gambar {
-        order: 2;
-    }
+  .hero-section .gambar {
+    order: 2;
+    margin: 0 auto; /* pastikan blok di tengah */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* agar menyesuaikan lebar layar */
+    padding-right: 0 !important; /* hilangkan dorongan kanan di mobile */
+  }
 
-    .hero-section .hero-content {
-        order: 1;
-    }
+  .hero-section .hero-content {
+    order: 1;
+  }
 
-    .hero-section .d-flex {
-        justify-content: center;
-    }
+  .hero-section .d-flex {
+    justify-content: center;
+  }
+
+  /* tambahan agar ukuran book pas di mobile */
+  .hero-section .book {
+    width: 260px; /* sedikit lebih kecil dari desktop */
+    height: 360px;
+    margin: 0 auto; /* tetap di tengah */
+  }
 }
+
+

@@ -21,33 +21,67 @@
         background: var(--bs-dark);
         color: #fff;
     }
-#quickPanel.row {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;      
-  justify-content: flex-start;    
-  gap: .5rem !important;
-  width: 100% !important;          
-  height: auto !important;         
-  max-height: 180px !important;   
-  overflow-y: auto !important;     
-  overflow-x: hidden !important;   
+
+    #quickPanel.row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start;
+        gap: .5rem !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: 180px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    #quickPanel.row > * {
+        flex: 1 1 calc(25% - .5rem);
+        min-width: 200px;
+        box-sizing: border-box;
+    }
+
+    #quickPanel {
+        height: 700px !important;
+        max-height: 350px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 🔹 Animasi */
+   .card-footer {
+    position: relative;
+    transition: transform 0.35s ease-in-out;
 }
 
-#quickPanel.row > * {
-  flex: 1 1 calc(25% - .5rem);     
-  min-width: 200px;               
-  box-sizing: border-box;
+.card-footer.hide-options {
+    transform: translateY(0);
 }
 
-#quickPanel {
-  height: 700px !important;      /* 👉 ubah angkanya sesuai keinginan */
-  max-height: 350px !important;
-  overflow-y: auto !important;   
-  overflow-x: hidden !important;
+    .card-footer.show-options {
+        transform: translateY(-180px); /* naik sekitar tinggi opsi */
+    }
+
+.quick-messages {
+    position: absolute;
+    top: 100%; /* tampil di bawah input */
+    left: 0;
+    right: 0;
+    background: var(--bs-body-bg);
+    border-top: 1px solid var(--bs-border-color);
+    padding: .75rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.35s ease-in-out;
+    z-index: 10;
 }
 
-
+.quick-messages.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 </style>
 
 <main class="card shadow-lg rounded-0 h-100 w-100 border-0">
@@ -69,20 +103,19 @@
     <section id="chat-body" class="card-body d-flex flex-column gap-2 overflow-auto bg-body">
     </section>
 
-    <div class="card-footer bg-body-tertiary">
-        <div class="d-flex align-items-center gap-2">
-            <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
-            <div class="input-group">
-                <input type="text" id="chatInput" class="form-control"
-                    placeholder="Ketik pesan...">
-                <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
-            </div>
-        </div>
-
-        <div class="quick-messages mt-3 overflow-y-scroll row"
-            id="quickPanel">
+    <div class="card-footer bg-body-tertiary hide-options" id="chatFooter">
+    <div class="d-flex align-items-center gap-2">
+        <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
+        <div class="input-group">
+            <input type="text" id="chatInput" class="form-control" placeholder="Ketik pesan...">
+            <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
         </div>
     </div>
+
+    <!-- 🔽 Dipindahkan ke bawah -->
+    <div class="quick-messages mt-3 overflow-y-scroll row" id="quickPanel"></div>
+</div>
+
 </main>
 
 <script>
@@ -91,8 +124,8 @@
     const sendBtn = document.getElementById('sendBtn');
     const toggleQuickBtn = document.getElementById('toggleQuickBtn');
     const quickPanel = document.getElementById('quickPanel');
+    const chatFooter = document.getElementById('chatFooter');
 
-    // 🔹 Tambah pesan bubble
     function addMessage(text, type) {
         const msg = document.createElement('div');
         msg.classList.add('msg', type);
@@ -115,8 +148,8 @@
         if (typing) typing.remove();
     }
 
-    // 🔹 Ambil balasan bot dari API
-    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
     async function botReply(userMsg) {
         try {
             let response = await fetch('/system/option/chat/reply', {
@@ -138,7 +171,6 @@
         }
     }
 
-    // 🔹 Kirim pesan user
     async function sendUserMessage() {
         const text = chatInput.value.trim();
         if (!text) return;
@@ -160,11 +192,18 @@
         }
     });
 
+    // 🔹 Toggle animasi naik-turun ala WhatsApp
     toggleQuickBtn.addEventListener('click', () => {
-        quickPanel.classList.toggle('show');
+        const isOpen = quickPanel.classList.toggle('show');
+        if (isOpen) {
+            chatFooter.classList.remove('hide-options');
+            chatFooter.classList.add('show-options');
+        } else {
+            chatFooter.classList.remove('show-options');
+            chatFooter.classList.add('hide-options');
+        }
     });
 
-    // 🔹 Ambil quick replies dari API dan generate tombol
     async function loadQuickReplies() {
         try {
             let response = await fetch('/system/option/chat/quick_replies');
@@ -174,21 +213,20 @@
             data.forEach(item => {
                 const btn = document.createElement('button');
                 btn.classList.add('btn', 'btn-outline-secondary', 'col', 'text-wrap',
-                    'btn-sm',
-                    'quick-item');
+                    'btn-sm', 'quick-item');
                 btn.dataset.msg = item.cht_opt_title;
                 btn.textContent = item.cht_opt_title;
 
                 btn.addEventListener('click', async () => {
                     addMessage(item.cht_opt_title, 'user');
                     quickPanel.classList.remove('show');
+                    chatFooter.classList.remove('show-options');
+                    chatFooter.classList.add('hide-options');
 
                     showTyping();
                     setTimeout(async () => {
                         removeTyping();
-                        addMessage(await botReply(item
-                                .cht_opt_title),
-                            'bot');
+                        addMessage(await botReply(item.cht_opt_title), 'bot');
                     }, 1000);
                 });
 
@@ -201,3 +239,4 @@
 
     document.addEventListener('DOMContentLoaded', loadQuickReplies);
 </script>
+<!-- asli -->

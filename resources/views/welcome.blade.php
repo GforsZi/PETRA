@@ -1,233 +1,357 @@
 <x-guest-layout>
-    <x-slot:title>{{ $title }}</x-slot:title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/landing.css') }}">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-        <div class="container">
-            <a class="navbar-brand text-light text-center d-flex align-items-center" href="#HOME">
-                <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" alt="Logo PETRA"
-                    style="height: 40px; width: 35px;">
+  <x-slot:title>{{ $title }}</x-slot:title>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/landing.css') }}">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand text-light text-center d-flex align-items-center" href="#HOME">
+        <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" alt="Logo PETRA"
+          style="height: 40px; width: 35px;">
 
-                <b class="ms-2 fw-bold pt-1">PETRA</b>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-                <i class="bi bi-list"></i>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item mx-2">
-                        <a class="nav-link active fw-bold" href="#about">Tentang</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" href="#keunggulan">Keunggulan</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" href="#Kontak">Kontak</a>
-                    </li>
-                </ul>
-            </div>
+        <b class="ms-2 fw-bold pt-1">PETRA</b>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item mx-2">
+            <a class="nav-link active fw-bold" href="#about">Tentang</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#keunggulan">Keunggulan</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#Kontak">Kontak</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+
+  <div class="view">
+
+    <section class="hero-section view-custom d-flex align-items-center" id="HOME">
+      <div class="container hero-content" data-aos="fade-up-right" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
+        <hr />
+        <h1>SELAMAT DATANG</h1>
+        <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
+        <div class="d-flex gap-3 flex-wrap">
+          @auth
+          @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
+          <a class="btn btn-gradient me-1" href="/dashboard">Dashboard</a>
+          @else
+          <a class="btn btn-gradient me-1" href="/home">Home</a>
+          @endif
+          @else
+          <a class="btn btn-outline-primary" href="/register">SIGN-UP</a>
+          <a class="btn btn-gradient" href="/login">SIGN-IN</a>
+          @endauth
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-
-    <div class="view">
-
-        <section class="hero-section view-custom d-flex align-items-center" id="HOME">
-            <div class="container hero-content" data-aos="fade-up-right" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
-                <hr />
-                <h1>SELAMAT DATANG</h1>
-                <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
-                <div class="d-flex gap-3 flex-wrap">
-                    @auth
-                        @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
-                            <a class="btn btn-gradient me-1" href="/dashboard">Dashboard</a>
-                        @else
-                            <a class="btn btn-gradient me-1" href="/home">Home</a>
-                        @endif
-                    @else
-                        <a class="btn btn-outline-primary" href="/register">SIGN-UP</a>
-                        <a class="btn btn-gradient" href="/login">SIGN-IN</a>
-                    @endauth
-                </div>
-            </div>
-            <div class="gambar z-3" data-aos="fade-down-left" data-aos-duration="1500">
-                <img src="{{ asset('logo/landing/lorem.png') }}" alt="book cover"
-                    style="height: 10%;">
-            </div>
-        </section>
-    </div>
-   <section id="about" class="mb-5" data-aos="zoom-out" data-aos-duration="1500">
-  <div class="container about-custom">
-    <div class="row align-items-center">
-      <div class="col-md-8">
-        <h2 class="mb-3">TENTANG KAMI</h2>
-        <p>
-          Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
-          percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
-        </p>
+      </div>
+      <div class="gambar z-3" data-aos="fade-down-left" data-aos-duration="1500">
+        <!-- From Uiverse.io by eslam-hany -->
+        <div class="book">
+          <!-- <p>Hello</p> -->
+          <img src="{{asset ('logo/book.svg')}}" alt="Book q">
+          <div class="cover">
+            <img src="{{asset ('logo/cover.svg')}}" alt="Book Cover">
+          </div>
+        </div>
       </div>
 
-<div class="col-md-4 d-flex justify-content-end d-none d-md-flex">
-  <div class="newtonsCradle">
-    <div class="frameCover"></div>
-    <div class="frame">
-      <div class="sphere-wrap left">
-        <div class="string string-left"></div>
-        <div class="sphere"></div>
-      </div>
-      <div class="sphere center"></div>
-      <div class="sphere center"></div>
-      <div class="sphere center"></div>
-      <div class="sphere-wrap right">
-        <div class="string string-right"></div>
-        <div class="sphere"></div>
-      </div>
-    </div>
-    <div class="base"></div>
+      <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarCollapse = document.getElementById('navbarNav');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        // Tutup menu setelah klik link
+        if (navbarCollapse.classList.contains('show')) {
+          const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+          bsCollapse.hide();
+        }
+      });
+    });
+  });
+</script>
+
+
+      <style>
+        .gambar {
+          display: flex;
+          justify-content: center;
+          padding-right: 100px;
+        }
+
+        .cover img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+
+        }
+
+
+        /* From Uiverse.io by eslam-hany */
+        .book {
+          position: relative;
+          border-radius: 10px;
+          width: 300px;
+          /* diperbesar dari 220px */
+          height: 400px;
+          /* diperbesar dari 300px */
+          background-color: whitesmoke;
+          -webkit-box-shadow: 1px 1px 12px #000;
+          box-shadow: 1px 1px 12px #000;
+          -webkit-transform: preserve-3d;
+          -ms-transform: preserve-3d;
+          transform: preserve-3d;
+          -webkit-perspective: 2000px;
+          perspective: 2000px;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          color: #000;
+        }
+
+        .cover {
+          top: 0;
+          position: absolute;
+          background-color: lightgray;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          cursor: pointer;
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+          -webkit-transform-origin: 0;
+          -ms-transform-origin: 0;
+          transform-origin: 0;
+          -webkit-box-shadow: 1px 1px 12px #000;
+          box-shadow: 1px 1px 12px #000;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          border-radius: 10px;
+        }
+
+        .book:hover .cover {
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+          -webkit-transform: rotatey(-80deg);
+          -ms-transform: rotatey(-80deg);
+          transform: rotatey(-80deg);
+        }
+
+        .cover img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+
+        /* tambahan kecil agar tulisan Hello lebih proporsional */
+        .book p {
+          font-size: 28px;
+          /* lebih besar dari 20px */
+          font-weight: bold;
+        }
+
+        /* p {
+  font-size: 20px;
+  font-weight: bolder;
+} */
+      </style>
+
+    </section>
   </div>
-</div>
-
-</section>
-
-
-
-
-    </section>
-
-    <!-- Keunggulan Kami -->
-    <section class="mt-4" id="keunggulan">
-
-        <h1 class="text-center mb-4 text-uppercase text-bold " data-aos="fade-down"
-            data-aos-duration="1500">Keunggulan Kami</h1>
-
-        <div class="section-flex">
-
-            <!-- Gambar -->
-            <div class="foto" data-aos="fade-down-right" data-aos-duration="1500">
-                <img src="{{ asset('logo/landing/perpus.jpg') }}" alt="Perpustakaan">
-            </div>
-
-            <!-- Card -->
-            <div class="cards">
-                <div class="card red" data-aos="fade-left" data-aos-duration="1500">
-
-                    <p class="tip">Antarmuka yang Sederhana dan Interaktif</p>
-                </div>
-                <div class="card blue" data-aos="fade-left" data-aos-duration="1500">
-
-                    <p class="tip">Notifikasi & Pengingat Otomatis</p>
-                </div>
-                <div class="card green" data-aos="fade-left" data-aos-duration="1500">
-
-                    <p class="tip">Pelayanan cepat </p>
-                </div>
-            </div>
-
+  <section id="about" class="mb-5" data-aos="zoom-out" data-aos-duration="1500">
+    <div class="container about-custom">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="mb-3">TENTANG KAMI</h2>
+          <p>
+            Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
+            percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
+          </p>
         </div>
 
-    </section>
-    <footer class="footer text-white" id="Kontak">
-        <div class="container py-4" style="height : 85vh">
-            <div class="row align-items-start">
+        <div class="col-md-4 d-flex justify-content-end d-none d-md-flex">
+          <div class="newtonsCradle">
+            <div class="frameCover"></div>
+            <div class="frame">
+              <div class="sphere-wrap left">
+                <div class="string string-left"></div>
+                <div class="sphere"></div>
+              </div>
+              <div class="sphere center"></div>
+              <div class="sphere center"></div>
+              <div class="sphere center"></div>
+              <div class="sphere-wrap right">
+                <div class="string string-right"></div>
+                <div class="sphere"></div>
+              </div>
+            </div>
+            <div class="base"></div>
+          </div>
+        </div>
+
+  </section>
 
 
 
+
+  </section>
+
+  <!-- Keunggulan Kami -->
+  <section class="mt-4" id="keunggulan">
+
+    <h1 class="text-center mb-4 text-uppercase text-bold " data-aos="fade-down"
+      data-aos-duration="1500">Keunggulan Kami</h1>
+
+    <div class="section-flex">
+
+      <!-- Gambar -->
+      <div class="foto" data-aos="fade-down-right" data-aos-duration="1500">
+        <img src="{{ asset('logo/landing/perpus.jpg') }}" alt="Perpustakaan">
+      </div>
+
+      <!-- Card -->
+      <div class="cards">
+        <div class="card red" data-aos="fade-left" data-aos-duration="1500">
+
+          <p class="tip">Antarmuka yang Sederhana dan Interaktif</p>
+        </div>
+        <div class="card blue" data-aos="fade-left" data-aos-duration="1500">
+
+          <p class="tip">Notifikasi & Pengingat Otomatis</p>
+        </div>
+        <div class="card green" data-aos="fade-left" data-aos-duration="1500">
+
+          <p class="tip">Pelayanan cepat </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+  <footer class="footer text-white" id="Kontak">
+    <div class="container py-4" style="height : 85vh">
+      <div class="row align-items-start">
+
+
+
+        <footer class="container-fluid py-4">
+          <div class="row align-items-center">
             <footer class="container-fluid py-4">
-  <div class="row align-items-center">
-  <footer class="container-fluid py-4">
-  <div class="row align-items-center">
+              <div class="row align-items-center">
 
 
-  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
 
 
-    <div class="d-flex align-items-center gap-2 mb-3 mb-md-0">
-      <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}"
-           alt="Logo Petra"
-           style="width: 50px; height: 65px;">
-      <h3 class="mb-0 text-uppercase">PETRA</h3>
-    </div>
+                  <div class="d-flex align-items-center gap-2 mb-3 mb-md-0">
+                    <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}"
+                      alt="Logo Petra"
+                      style="width: 50px; height: 65px;">
+                    <h3 class="mb-0 text-uppercase">PETRA</h3>
+                  </div>
 
 
-    <div class="d-flex align-items-center gap-3 text-center text-md-end">
-      <div>
-        <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
-        <p class="mb-0">
-          <i class="bi bi-geo-alt-fill me-1"></i> SMK Mahaputra
-        </p>
-      </div>
-      <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}"
-           alt="Logo Mahaputra"
-           style="width: 50px; height: 50px;"
-           class="rounded-circle">
-    </div>
+                  <div class="d-flex align-items-center gap-3 text-center text-md-end">
+                    <div>
+                      <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
+                      <p class="mb-0">
+                        <i class="bi bi-geo-alt-fill me-1"></i> SMK Mahaputra
+                      </p>
+                    </div>
+                    <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}"
+                      alt="Logo Mahaputra"
+                      style="width: 50px; height: 50px;"
+                      class="rounded-circle">
+                  </div>
 
-  </div>
+                </div>
 
 
 
-</footer>
+            </footer>
 
 
 
 
-                    <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-                        <!-- From Uiverse.io by javierBarroso -->
-                        <div class="social-login-icons">
-                            <div class="socialcontainer">
-                                <div class="icon social-icon-2-2">
+            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+              <!-- From Uiverse.io by javierBarroso -->
+              <div class="social-login-icons">
+                <div class="socialcontainer">
+                  <div class="icon social-icon-2-2">
 
-                                    <i class="bi bi-instagram"></i>
-                                </div>
-                                <a href="https://www.instagram.com/smkmahaputra_official?igsh=MTUyZW43NWMwNW1sMw==" class="text-light">
+                    <i class="bi bi-instagram"></i>
+                  </div>
+                  <a href="https://www.instagram.com/smkmahaputra_official?igsh=MTUyZW43NWMwNW1sMw==" class="text-light">
 
-                                    <div class="social-icon-2">
-                                        <i class="bi bi-instagram"></i>
-
-                                    </div>
-                                </a>
-                            </div>
-                             <div class="socialcontainer">
-                            <div class="icon social-icon-3-3">
-                                        <i class="bi bi-globe"></i>
-                                    </div>
-                                    <a href="https://www.smkmahaputra.sch.id" class="text-light" target="_blank" rel="noopener noreferrer">
-                                        <div class="social-icon-3">
-                                            <i class="bi bi-globe"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            <div class="socialcontainer">
-                                <div class="icon social-icon-4-4">
-                                    <i class="bi bi-tiktok"></i>
-
-                                </div>
-                                <a href="https://www.tiktok.com/@smkmahaputra_official?_t=ZS-90ER2mFsQ5q&_r=1" class="text-light">
-                                    <div class="social-icon-4">
-
-                                        <i class="bi bi-tiktok"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="social-icon-2">
+                      <i class="bi bi-instagram"></i>
 
                     </div>
+                  </a>
                 </div>
-
-
-
-            <div class="row mt-3">
-                <div class="col-12">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.09561724186!2d107.576833774542!3d-6.998020368538179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9681a28859f%3A0x48f4d9cf5a8ab783!2sSMKS%20Mahaputra%20Cerdas%20Utama!5e0!3m2!1sid!2sid!4v1757997057212!5m2!1sid!2sid"
-                        width="100%" height="250"
-                        style="border:0; border-radius: 8px; margin-top: 60px;" allowfullscreen=""
-                        loading="lazy">
-                    </iframe>
+                <div class="socialcontainer">
+                  <div class="icon social-icon-3-3">
+                    <i class="bi bi-globe"></i>
+                  </div>
+                  <a href="https://www.smkmahaputra.sch.id" class="text-light" target="_blank" rel="noopener noreferrer">
+                    <div class="social-icon-3">
+                      <i class="bi bi-globe"></i>
+                    </div>
+                  </a>
                 </div>
+                <div class="socialcontainer">
+                  <div class="icon social-icon-4-4">
+                    <i class="bi bi-tiktok"></i>
+
+                  </div>
+                  <a href="https://www.tiktok.com/@smkmahaputra_official?_t=ZS-90ER2mFsQ5q&_r=1" class="text-light">
+                    <div class="social-icon-4">
+
+                      <i class="bi bi-tiktok"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
             </div>
-        </div>
-    </footer>
+          </div>
+
+
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.09561724186!2d107.576833774542!3d-6.998020368538179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9681a28859f%3A0x48f4d9cf5a8ab783!2sSMKS%20Mahaputra%20Cerdas%20Utama!5e0!3m2!1sid!2sid!4v1757997057212!5m2!1sid!2sid"
+                width="100%" height="250"
+                style="border:0; border-radius: 8px; margin-top: 60px;" allowfullscreen=""
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+      </div>
+  </footer>
 </x-guest-layout>
