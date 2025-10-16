@@ -60,16 +60,6 @@
                                 value="usr_created_at" checked>
                             <label class="form-check-label">Tanggal Dibuat</label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="usr_updated_at" checked>
-                            <label class="form-check-label">Terakhir Diubah</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="usr_deleted_at" checked>
-                            <label class="form-check-label">Terakhir Dihapus</label>
-                        </div>
                     </div>
 
                     <div class="d-flex justify-content-end">

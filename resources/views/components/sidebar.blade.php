@@ -140,6 +140,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item" style='color: #E9AD01;'>
+                                <a href="/manage/submission" class="nav-link"
+                                    style='color: #E9AD01;'>
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>DATA PENGAJUAN</p>
+                                </a>
+                            </li>
+                            <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/manage/loan" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PEMINJAMAN</p>
@@ -186,13 +193,7 @@
                             <li class="nav-item" style='color: #E9AD01;'>
                                 <a href="/report" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>PEMINJAMAN</p>
-                                </a>
-                            </li>
-                            <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>PENGEMBALIAN</p>
+                                    <p>TRANSAKSI</p>
                                 </a>
                             </li>
 

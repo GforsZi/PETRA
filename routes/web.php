@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/book', [ManageBookController::class, 'manage_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
-    Route::get('/manage/book/{id}/pdf', [ManageBookController::class, 'pdf_book_publisher_page'])
+    Route::get('/manage/book/{id}/pdf', [ManageBookController::class, 'pdf_book_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/book/{id}/detail', [ManageBookController::class, 'detail_book_page'])
@@ -172,6 +172,9 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/chat/option/{id}/edit', [ManageChatbotController::class, 'edit_chatbot_option_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/submission', [ManageTransactionController::class, 'manage_submission_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/loan', [ManageTransactionController::class, 'manage_loan_page'])
@@ -387,6 +390,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/system/transaction/{id}/reject', [ManageTransactionController::class, 'reject_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::put('/system/transaction/{id}/return', [ManageTransactionController::class, 'return_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/transaction/{id}/addtional_time', [ManageTransactionController::class, 'addtional_time_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::delete('/system/transaction/{id}/delete', [ManageTransactionController::class, 'delete_transaction_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');

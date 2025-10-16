@@ -41,7 +41,8 @@
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                         data-bs-dismiss="modal">Batal</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();">
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        onclick="this.disabled=true; this.form.submit();">
                         <strong>Print</strong>
                     </button>
                 </div>
@@ -53,10 +54,10 @@
         <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th style="width: 150px">photo profile</th>
-            <th>username</th>
-            <th>role</th>
-            <th>activation</th>
+            <th style="width: 150px">foto profil</th>
+            <th>Nama Lengkap</th>
+            <th>Peran</th>
+            <th>Aktifasi</th>
             <th style="width: 60px">detail</th>
         </x-slot:header>
         @forelse ($accounts as $index => $account)
@@ -68,12 +69,12 @@
                         alt="User Image" />
                 </td>
                 <td>{{ $account->name }}</td>
-                <td>{{ $account->roles->rl_name ?? 'not have' }}</td>
+                <td>{{ $account->roles->rl_name ?? '' }}</td>
                 <td>
                     @if ($account->usr_activation)
-                        already activated
+                        Sudah Teraktifasi
                     @else
-                        not activated
+                        Belum Teraktifasi
                     @endif
                 </td>
                 <td>

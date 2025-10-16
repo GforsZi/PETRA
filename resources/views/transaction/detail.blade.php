@@ -13,7 +13,7 @@
     @endif
     <div class="card mb-4 ">
         <div class="card-header">
-            <h3 class="card-title">Detail option</h3>
+            <h3 class="card-title">Detail Transaksi</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -231,7 +231,7 @@
         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="editconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
         <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/edit">
+            action="/system/transaction/{{ $transaction['trx_id'] }}/addtional_time">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">

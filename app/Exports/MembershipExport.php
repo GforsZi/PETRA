@@ -32,13 +32,11 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         'usr_no_wa'      => 'Nomor Whatsapp',
         'roles'          => 'Peran',
         'usr_created_at' => 'Tanggal Dibuat',
-        'usr_updated_at' => 'Tanggal Diubah',
-        'usr_deleted_at' => 'Tanggal Dihapus',
     ];
 
     public function collection()
     {
-        $query = User::withTrashed()->with('roles')
+        $query = User::with('roles')
             ->whereBetween('usr_created_at', [Carbon::parse($this->startDate)->startOfDay(),Carbon::parse($this->endDate)->endOfDay()]);
         if ($this->roles) {
             $query->whereHas('roles', fn($q) => $q->whereIn('rl_name', $this->roles));

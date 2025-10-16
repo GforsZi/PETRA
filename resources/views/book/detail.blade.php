@@ -10,8 +10,7 @@
     <div class="row g-0 p-3 bg-body rounded">
         <div class="col-12 col-md-4 d-flex justify-content-center">
             <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
-                class="img-fluid shadow"
-                style="height: 300px; width: auto; object-fit: contain;"
+                class="img-fluid shadow" style="height: 300px; width: auto; object-fit: contain;"
                 alt="Book cover showing classical painting and dark themed cover">
 
         </div>
@@ -36,18 +35,17 @@
                 </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
             </p>
             <hr>
-            <p class="text-muted" 
-   style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
-    {!! nl2br(e($book['bk_description'] ?? '')) !!}
-</p>
-
+            <p class="text-muted"
+                style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
+                {!! nl2br(e($book['bk_description'] ?? '')) !!}
+            </p>
 
         </div>
     </div>
 
     <div class="card my-4  col-12 col-md-8 w-100">
         <div class="card-header">
-            <h3 class="card-title">Detail book</h3>
+            <h3 class="card-title">Detail Buku</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -285,7 +283,8 @@
                                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit"
-                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -413,7 +412,8 @@
                                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit"
-                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Ubah</strong></button>
+                                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                                        onclick="this.disabled=true; this.form.submit();"><strong>Ubah</strong></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -477,7 +477,9 @@
                                                         class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit" class="btn btn-danger">
-                                                        <i class="bi bi-trash" onclick="this.disabled=true; this.form.submit();"></i> Hapus Terpilih
+                                                        <i class="bi bi-trash"
+                                                            onclick="this.disabled=true; this.form.submit();"></i>
+                                                        Hapus Terpilih
                                                     </button>
                                                 </div>
                                             </form>
@@ -523,7 +525,8 @@
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                         data-bs-dismiss="modal">Tidak</button>
                     <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Ya</strong></button>
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        onclick="this.disabled=true; this.form.submit();"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
@@ -559,7 +562,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Buat salinan</button>
+                        <button type="submit" class="btn btn-primary"
+                            onclick="this.disabled=true; this.form.submit();">Buat salinan</button>
                     </div>
                 </form>
             </div>

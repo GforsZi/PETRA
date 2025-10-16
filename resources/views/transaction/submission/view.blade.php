@@ -7,37 +7,41 @@
                 aria-label="Close"></button>
         </div>
     @endif
-    <x-table_data :paginator="$returns">
+    <x-table_data :paginator="$submissons">
         <x-slot:title></x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th>Peminjaman</th>
-            <th>Tanggal Peminjaman</th>
-            <th>Tenggat Peminjaman</th>
-            <th>Tanggal Pengembalian</th>
-            <th>Status Peminjaman</th>
-            <th style="width: 50px">option</th>
+            <th>Peminjam</th>
+            <th>Tanggal pengajuan</th>
+            <th>Tujuan</th>
+            <th>Status</th>
+            <th style="width: 50px">Detail</th>
         </x-slot:header>
-        @forelse ($returns as $index => $return)
+        @forelse ($submissons as $index => $submission)
             <tr class="align-middle">
-                <td>{{ $returns->firstItem() + $index }}</td>
-                <td>{{ $return->users->name }}</td>
-                <td>{{ $return->trx_borrow_date }}</td>
-                <td>{{ $return->trx_due_date }}</td>
-                <td>{{ $return->trx_return_date }}</td>
+                <td>{{ $submissons->firstItem() + $index }}</td>
+                <td>{{ $submission->users->name }}</td>
+                <td>{{ $submission->trx_borrow_date }}</td>
                 <td>
-                    @if ($return->trx_status == '1')
+                    @if ($submission->trx_title == '1')
+                        Kegiatan Belajar Mengajar
+                    @elseif ($submission->trx_title == '2')
+                        Pribadi
+                    @endif
+                </td>
+                <td>
+                    @if ($submission->trx_status == '1')
                         Pengajuan
-                    @elseif ($return->trx_status == '2')
+                    @elseif ($submission->trx_status == '2')
                         Dipinjam
-                    @elseif ($return->trx_status == '3')
+                    @elseif ($submission->trx_status == '3')
                         Dikembalikan
                     @else
                         Ditolak
                     @endif
                 </td>
                 <td>
-                    <a href="/manage/transaction/{{ $return->trx_id }}/detail"
+                    <a href="/manage/transaction/{{ $submission->trx_id }}/detail"
                         class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
                 </td>
             </tr>

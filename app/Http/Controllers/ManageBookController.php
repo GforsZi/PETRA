@@ -12,6 +12,7 @@ use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Spatie\Browsershot\Browsershot;
 use Spatie\PdfToImage\Pdf as PdfToImage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ManageBookController extends Controller
@@ -103,15 +104,15 @@ class ManageBookController extends Controller
             'bk_isbn' => ['nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
             'bk_title' => 'required | string | max:255',
             'bk_description' => 'nullable | string | max:65535',
-            'bk_page' => 'nullable | integer | max:9999999',
+            'bk_page' => 'nullable | integer | max:9999999999 | min:0',
             'bk_type' => 'nullable | in:1,2',
             'bk_permission' => 'nullable | in:1,2,3',
-            'bk_unit_price' => 'nullable | integer | max:999999999',
+            'bk_unit_price' => 'nullable | integer | max:9999999999 | min:0',
             'bk_edition_volume' => 'nullable | string | max:255',
             'bk_published_year' => 'nullable | digits:4 | integer | max:' . date('Y'),
             'bk_publisher_id' => 'nullable | exists:publishers,pub_id',
-            'bk_major_id' => 'nullable | exists:book_majors,bk_mjr_id',
-            'bk_origin_id' => 'nullable | exists:book_origins,bk_orgn_id',
+            'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
+            'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'nullable|image|max:2048',
             'file_pdf' => 'nullable|file|mimes:pdf|max:6144',
         ]);
@@ -198,15 +199,15 @@ class ManageBookController extends Controller
         $validateData = $request->validate([
             'bk_title' => 'sometimes | required | string | max:255',
             'bk_description' => 'sometimes | nullable | string | max:65535',
-            'bk_page' => 'nullable | integer | max:9999999',
+            'bk_page' => 'nullable | integer | max:9999999999 | min:0',
             'bk_type' => 'sometimes | nullable | in:1,2',
             'bk_permission' => 'sometimes | nullable | in:1,2,3',
-            'bk_unit_price' => 'sometimes | nullable | integer | max:999999999',
+            'bk_unit_price' => 'sometimes | nullable | integer | max:9999999999 | min:0',
             'bk_edition_volume' => 'sometimes | nullable | string | max:255',
             'bk_published_year' => 'sometimes | nullable | digits:4 | integer | max:' . date('Y'),
             'bk_publisher_id' => 'sometimes | nullable | exists:publishers,pub_id',
-            'bk_major_id' => 'sometimes | nullable | exists:book_majors,bk_mjr_id',
-            'bk_origin_id' => 'nullable | exists:book_origins,bk_orgn_id',
+            'bk_major_id' => 'sometimes | integer | min:0 | nullable | exists:book_majors,bk_mjr_id',
+            'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'sometimes|nullable|image|max:2048',
             'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144',
         ]);
@@ -314,7 +315,7 @@ class ManageBookController extends Controller
     {
         $request->validate([
             'code' => 'required | string | max:255',
-            'number' => 'required | integer',
+            'number' => 'required | integer | min:0',
         ]);
 
         $str = BookCopy::select('bk_cp_number')->where('bk_cp_book_id', $id)->orderByRaw("
@@ -386,7 +387,7 @@ public function delete_many_book_copy_system(Request $request)
     public function add_book_major_system(Request $request)
     {
         $validateData = $request->validate([
-            'bk_mjr_class' => 'required | regex:/^[0-9]+$/ | max:255',
+            'bk_mjr_class' => 'required | regex:/^[0-9]+$/ | min:0',
             'bk_mjr_major' => 'required | string | max:255',
         ]);
 
@@ -404,7 +405,7 @@ public function delete_many_book_copy_system(Request $request)
     {
         $major = BookMajor::find($id);
         $validateData = $request->validate([
-            'bk_mjr_class' => 'sometimes | required | regex:/^[0-9]+$/ | max:255',
+            'bk_mjr_class' => 'sometimes | required | regex:/^[0-9]+$/ | min:0',
             'bk_mjr_major' => 'sometimes | required | string | max:255',
         ]);
 
@@ -483,10 +484,22 @@ public function delete_many_book_copy_system(Request $request)
         return view('book.publisher.detail', ['title' => 'Halaman Detail Penerbit'], compact('publisher'));
     }
 
-    public function pdf_book_publisher_page($id)
+    public function pdf_book_page($id)
     {
         $book = Book::select('bk_id', 'bk_title', 'bk_file_url')->find($id);
-        return view('book.pdf', ['title' => 'Halaman Detail Ebook'], compact('book'));
+
+        $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $book->bk_title);
+        $folderPath = public_path('media/pdf-image/' . $safeTitle);
+
+        $images = [];
+        if (file_exists($folderPath)) {
+            $files = File::files($folderPath);
+            sort($files);
+            foreach ($files as $file) {
+                $images[] = asset('media/pdf-image/' . $safeTitle . '/' . basename($file));
+            }
+        }
+        return view('book.pdf', ['title' => 'Halaman Detail Ebook'], compact('book', 'images'));
     }
 
     public function add_book_publisher_page()

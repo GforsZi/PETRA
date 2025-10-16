@@ -12,13 +12,18 @@ use Illuminate\Support\Facades\DB;
 
 class ManageTransactionController extends Controller
 {
+    public function manage_submission_page() {
+        $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '1')->latest()->paginate(10);
+        return view('transaction.submission.view', ['title' => 'Halaman Kelola Pengajuan'], compact('submissons'));
+    }
+
     public function manage_loan_page() {
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '1')->latest()->paginate(10);
+        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '2')->latest()->paginate(10);
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
     public function manage_return_page() {
-        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '2')->paginate(10);
+        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '3')->paginate(10);
         return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
@@ -151,6 +156,19 @@ class ManageTransactionController extends Controller
             'trx_return_date' => now()
         ]);
         return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil Kembalikan');
+    }
+
+    public function addtional_time_transaction_system(Request $request, $id) {
+        $loan = Transaction::find($id);
+        $request->validate([
+            'datetime' => ['required', 'date']
+        ]);
+        $trx_due_date = Carbon::createFromFormat('Y-m-d\TH:i', $request->datetime);
+
+        $loan->update([
+            'trx_due_date' => $trx_due_date
+        ]);
+        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil diubah');
     }
 
     public function delete_transaction_system($id) {

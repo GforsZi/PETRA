@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->enum('bk_permission', ['1', '2', '3'])->nullable();
             $table->string('bk_file_url')->nullable();
             $table->string('bk_file_public_id')->nullable();
-            $table->integer('bk_unit_price')->nullable();
+            $table->integer('bk_unit_price')->nullable()->unsigned();
             $table->string('bk_edition_volume')->nullable();
             $table->year('bk_published_year')->nullable();
             $table->unsignedBigInteger('bk_publisher_id')->unsigned()->nullable();

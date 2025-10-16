@@ -24,7 +24,6 @@ class AdminController extends Controller
         $startDate = Carbon::now()->startOfDay()->subDays($days - 1);
         $endDate = Carbon::now()->endOfDay();
 
-        // Ambil jumlah login per tanggal (total login, bukan user unik)
         $raw = UserLogin::selectRaw('DATE(usr_lg_logged_in_at) as date, COUNT(*) as total')
             ->whereBetween('usr_lg_logged_in_at', [$startDate, $endDate])
             ->groupBy('date')

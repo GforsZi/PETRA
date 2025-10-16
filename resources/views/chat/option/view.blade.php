@@ -8,7 +8,7 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/chat/option/add" class="btn btn-outline-primary w-100"
+        <a href="/manage/chat/option/add" class="btn btn-outline-primary btn-lg w-100"
             title="Tambahkan Opsi"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$options">
@@ -79,7 +79,8 @@
                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>
