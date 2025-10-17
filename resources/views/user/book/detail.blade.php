@@ -49,7 +49,7 @@
                                         @endforeach
                                     </span></div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <h5 class="card-title fw-bold">Deskripsi</h5>
                         <p class="text-muted"
                             style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
-                            {!! nl2br(e($book['bk_description'] ?? '')) !!}
+                            {!! ($book['bk_description'] ?? '')) !!}
                         </p>
                         <!-- isian descripsi  -->
                     </div>

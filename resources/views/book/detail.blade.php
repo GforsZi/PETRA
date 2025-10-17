@@ -34,10 +34,10 @@
                     @endforeach
                 </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
             </p>
-            <hr>
+            <hr class="mb-1">
             <p class="text-muted"
                 style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
-                {!! nl2br(e($book['bk_description'] ?? '')) !!}
+                {{ $book['bk_description'] ?? '' }}
             </p>
 
         </div>
