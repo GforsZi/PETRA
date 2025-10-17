@@ -36,7 +36,7 @@
             </p>
             <hr class="mb-1">
             <p class="text-muted"
-                style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
+                style="line-height: 1.5; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                 {{ $book['bk_description'] ?? '' }}
             </p>
 

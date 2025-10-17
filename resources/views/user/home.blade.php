@@ -68,7 +68,7 @@
                     <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
                         style="text-decoration: none;">
                         <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                            class="object-fit-contain" style="height: 167px; width: 128px;">
+                            class="object-fit-contain" style="height: 167px; width: 128px;"></a>
                        <p class="text-body text-start text-wrap mt-1 mb-0"
     title="{{ $bk_nw->bk_title }}"
     style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="mt-4">
-        <h6>Buku Terbaru</h6>
+     <h5>buku terbaru</h5>
         <div class="scroll-x">
             @foreach ($book_new as $bk_nw)
                 <div class="book text-center border rounded pt-2" style="width: 140px;">

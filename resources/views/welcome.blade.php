@@ -34,7 +34,7 @@
 
   <div class="view">
 
-    <section class="hero-section view-custom d-flex align-items-center" id="HOME">
+    <section class="hero-section view-custom d-flex align-items-center mt-5" id="HOME">
       <div class="container hero-content" data-aos="fade-up-right" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
         <hr />
         <h1>SELAMAT DATANG</h1>
@@ -53,17 +53,180 @@
         </div>
       </div>
       <div class="gambar z-3" data-aos="fade-down-left" data-aos-duration="1500">
-        <!-- From Uiverse.io by eslam-hany -->
-        <div class="book">
-          <!-- <p>Hello</p> -->
-          <img src="{{asset ('logo/book.svg')}}" alt="Book q">
-          <div class="cover">
-            <img src="{{asset ('logo/cover.svg')}}" alt="Book Cover">
-          </div>
-        </div>
-      </div>
+  <!-- From Uiverse.io by eslam-hany -->
+  <div class="book">
+    <img src="{{asset ('logo/2.svg')}}" alt="Book">
+    <p class="kata">Bangun masa depanmu dengan selembar buku</p>
+    <h5 class="copy">copyright | Dyons</h5>
+    <div class="cover">
+      <img src="{{asset ('logo/cover.svg')}}" alt="Book Cover">
+    </div>
+  </div>
+</div>
 
-      <script>
+<style>
+  .gambar {
+    display: flex;
+    justify-content: center;
+    padding-right: 100px;
+  }
+
+  .cover img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+  }
+
+  /* From Uiverse.io by eslam-hany */
+  .book {
+    position: relative;
+    border-radius: 10px;
+    width: 300px;
+    height: 400px;
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 12px #000;
+    transform: preserve-3d;
+    perspective: 2000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+  }
+
+  .cover {
+    top: 0;
+    position: absolute;
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+    transform-origin: 0;
+    box-shadow: 1px 1px 12px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    z-index: 2;
+  }
+
+  .book:hover .cover {
+    transition: all 0.5s;
+    transform: rotatey(-80deg);
+  }
+
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* Teks utama di dalam buku */
+  .book p {
+    position: absolute;
+    top: 25%; /* di atas pohon */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 15px;
+    font-weight: normal;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transition-delay: 0s;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff, #b3e5fc, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.7),
+      0 0 15px rgba(173, 216, 230, 0.6),
+      0 0 30px rgba(135, 206, 250, 0.5);
+  }
+
+  .book p::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b3e5fc, transparent);
+    border-radius: 2px;
+    transition: width 1s ease;
+    opacity: 0.8;
+  }
+
+  .book:hover p::after {
+    width: 80%;
+  }
+
+  @keyframes glowPulse {
+    0% {
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.6),
+        0 0 15px rgba(173, 216, 230, 0.5),
+        0 0 30px rgba(135, 206, 250, 0.4);
+    }
+    50% {
+      text-shadow:
+        0 0 12px rgba(255, 255, 255, 0.9),
+        0 0 25px rgba(173, 216, 230, 0.8),
+        0 0 45px rgba(135, 206, 250, 0.6);
+    }
+    100% {
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.6),
+        0 0 15px rgba(173, 216, 230, 0.5),
+        0 0 30px rgba(135, 206, 250, 0.4);
+    }
+  }
+
+  .book:hover p {
+    animation: glowPulse 3s ease-in-out infinite;
+    z-index: 3;
+    opacity: 1;
+    transition-delay: 0.5s;
+  }
+
+  /* 🔹 Gaya dan posisi untuk copyright */
+  .book h5.copy {
+    position: absolute;
+    bottom: 5%; /* di bagian paling bawah gambar 2.svg */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff, #b3e5fc, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.7),
+      0 0 15px rgba(173, 216, 230, 0.6),
+      0 0 30px rgba(135, 206, 250, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transition-delay: 0s;
+    pointer-events: none;
+  }
+
+  .book:hover h5.copy {
+    opacity: 1;
+    animation: glowPulse 3s ease-in-out infinite;
+    transition-delay: 0.5s;
+  }
+</style>
+
+
+    <script>
   document.addEventListener("DOMContentLoaded", function() {
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
     const navbarCollapse = document.getElementById('navbarNav');
@@ -78,107 +241,42 @@
       });
     });
   });
+
+  // book
+   const quotesMain = [
+    "Bangun masa depanmu dengan selembar buku",
+    "Buku adalah jendela menuju kebijaksanaan",
+    "Membaca hari ini, memimpin esok",
+    "Isi harimu dengan ilmu, bukan kebingungan",
+    "Satu buku bisa mengubah hidupmu",
+    "Temukan dunia baru di setiap halaman",
+    "Ilmu datang dari membaca, bukan menunggu",
+    "Buku teman terbaik tanpa syarat",
+    "Membaca adalah investasi seumur hidup",
+    "Buka buku, buka pikiranmu"
+  ];
+
+  const quotesCopy = [
+    "© Dyons | Jadikan membaca sebagai kebiasaan",
+    "© Dyons | Cinta buku, cinta ilmu",
+    "© Dyons | Buku: sahabat sepanjang masa",
+    "© Dyons | Hidupkan pikiranmu lewat membaca",
+    "© Dyons | Setiap halaman adalah pelajaran",
+    "© Dyons | Bacalah dan temukan dirimu",
+    "© Dyons | Pengetahuan dimulai dari buku",
+    "© Dyons | Buku tak pernah mengkhianati pembacanya",
+    "© Dyons | Jadilah bijak dengan membaca",
+    "© Dyons | Membaca, langkah kecil menuju besar"
+  ];
+
+  // Ambil elemen p dan h5
+  const kataEl = document.querySelector(".kata");
+  const copyEl = document.querySelector(".copy");
+
+  // Pilih acak tiap refresh
+  kataEl.textContent = quotesMain[Math.floor(Math.random() * quotesMain.length)];
+  copyEl.textContent = quotesCopy[Math.floor(Math.random() * quotesCopy.length)];
 </script>
-
-
-      <style>
-        .gambar {
-          display: flex;
-          justify-content: center;
-          padding-right: 100px;
-        }
-
-        .cover img {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
-          border-radius: 20px;
-
-        }
-
-
-        /* From Uiverse.io by eslam-hany */
-        .book {
-          position: relative;
-          border-radius: 10px;
-          width: 300px;
-          /* diperbesar dari 220px */
-          height: 400px;
-          /* diperbesar dari 300px */
-          background-color: whitesmoke;
-          -webkit-box-shadow: 1px 1px 12px #000;
-          box-shadow: 1px 1px 12px #000;
-          -webkit-transform: preserve-3d;
-          -ms-transform: preserve-3d;
-          transform: preserve-3d;
-          -webkit-perspective: 2000px;
-          perspective: 2000px;
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          align-items: center;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          justify-content: center;
-          color: #000;
-        }
-
-        .cover {
-          top: 0;
-          position: absolute;
-          background-color: lightgray;
-          width: 100%;
-          height: 100%;
-          border-radius: 10px;
-          cursor: pointer;
-          -webkit-transition: all 0.5s;
-          transition: all 0.5s;
-          -webkit-transform-origin: 0;
-          -ms-transform-origin: 0;
-          transform-origin: 0;
-          -webkit-box-shadow: 1px 1px 12px #000;
-          box-shadow: 1px 1px 12px #000;
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          align-items: center;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          justify-content: center;
-          border-radius: 10px;
-        }
-
-        .book:hover .cover {
-          -webkit-transition: all 0.5s;
-          transition: all 0.5s;
-          -webkit-transform: rotatey(-80deg);
-          -ms-transform: rotatey(-80deg);
-          transform: rotatey(-80deg);
-        }
-
-        .cover img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 10px;
-        }
-
-        /* tambahan kecil agar tulisan Hello lebih proporsional */
-        .book p {
-          font-size: 28px;
-          /* lebih besar dari 20px */
-          font-weight: bold;
-        }
-
-        /* p {
-  font-size: 20px;
-  font-weight: bolder;
-} */
-      </style>
 
     </section>
   </div>

@@ -18,70 +18,30 @@
 
     .msg.bot {
         align-self: flex-start;
-        background: var(--bs-dark);
+        background: #132440;
         color: #fff;
     }
 
-    #quickPanel.row {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: flex-start;
-        gap: .5rem !important;
-        width: 100% !important;
-        height: auto !important;
-        max-height: 180px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+    .quick-messages {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: .5rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height .3s ease, opacity .3s ease;
     }
 
-    #quickPanel.row > * {
-        flex: 1 1 calc(25% - .5rem);
-        min-width: 200px;
-        box-sizing: border-box;
+    .quick-messages.show {
+        max-height: 300px;
+        opacity: 1;
     }
 
-    #quickPanel {
-        height: 700px !important;
-        max-height: 350px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+    .quick-item {
+        max-width: 380px;
+        text-wrap: balance;
+        min-width: 300px;
     }
-
-    /* 🔹 Animasi */
-   .card-footer {
-    position: relative;
-    transition: transform 0.35s ease-in-out;
-}
-
-.card-footer.hide-options {
-    transform: translateY(0);
-}
-
-    .card-footer.show-options {
-        transform: translateY(-180px); /* naik sekitar tinggi opsi */
-    }
-
-.quick-messages {
-    position: absolute;
-    top: 100%; /* tampil di bawah input */
-    left: 0;
-    right: 0;
-    background: var(--bs-body-bg);
-    border-top: 1px solid var(--bs-border-color);
-    padding: .75rem;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: all 0.35s ease-in-out;
-    z-index: 10;
-}
-
-.quick-messages.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
 </style>
 
 <main class="card shadow-lg rounded-0 h-100 w-100 border-0">
@@ -103,19 +63,21 @@
     <section id="chat-body" class="card-body d-flex flex-column gap-2 overflow-auto bg-body">
     </section>
 
-    <div class="card-footer bg-body-tertiary hide-options" id="chatFooter">
-    <div class="d-flex align-items-center gap-2">
-        <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
-        <div class="input-group">
-            <input type="text" id="chatInput" class="form-control" placeholder="Ketik pesan...">
-            <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
+    <!-- ✅ Hanya menambahkan id="chatFooter" di sini -->
+    <div class="card-footer bg-body-tertiary" id="chatFooter">
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
+            <div class="input-group">
+                <input type="text" id="chatInput" class="form-control"
+                    placeholder="Ketik pesan...">
+                <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
+            </div>
+        </div>
+
+        <div class="quick-messages mt-3 overflow-y-scroll row" style="height: 200px ;"
+            id="quickPanel">
         </div>
     </div>
-
-    <!-- 🔽 Dipindahkan ke bawah -->
-    <div class="quick-messages mt-3 overflow-y-scroll row" id="quickPanel"></div>
-</div>
-
 </main>
 
 <script>
@@ -239,4 +201,3 @@
 
     document.addEventListener('DOMContentLoaded', loadQuickReplies);
 </script>
-<!-- asli -->

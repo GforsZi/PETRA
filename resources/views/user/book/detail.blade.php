@@ -58,10 +58,10 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                        <p class="text-muted"
-                            style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
-                            {!! ($book['bk_description'] ?? '') !!}
-                        </p>
+                      <p class="text-muted" style="margin-top:0; white-space: normal;">
+    {!! ($book['bk_description'] ?? '') !!}
+</p>
+
                         <!-- isian descripsi  -->
                     </div>
                 </div>
