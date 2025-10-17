@@ -62,7 +62,8 @@ class AdminController extends Controller
         $chartData = [
             'proses'   => $dataD['1'] ?? 0,
             'diterima' => $dataD['2'] ?? 0,
-            'ditolak'  => $dataD['3'] ?? 0,
+            'dikembalikan' => $dataD['3'] ?? 0,
+            'ditolak'  => $dataD['4'] ?? 0,
         ];
 
 

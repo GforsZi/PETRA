@@ -23,7 +23,7 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         $this->startDate = $startDate;
         $this->endDate   = $endDate;
         $this->roles     = $roles;
-        $this->columns   = $columns ?? ['usr_id', 'name', 'usr_no_wa', 'usr_created_at'];
+        $this->columns   = $columns ?? ['usr_id'];
     }
 
     protected $columnLabels = [
@@ -58,7 +58,7 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
-                'color' => ['rgb' => 'E9AD01'], // Teks putih
+                'color' => ['rgb' => 'E9AD01'],
                 'size' => 12,
             ],
             'alignment' => [

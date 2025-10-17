@@ -11,8 +11,8 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close" onclick="this.disabled=true; this.form.submit();"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                onclick="this.disabled=true; this.form.submit();"></button>
         </div>
     @endif
     <div class="row">
@@ -132,17 +132,19 @@
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Pengajuan', 'Diterima', 'Ditolak'],
+                labels: ['Pengajuan', 'Dipinjam', 'Dikembalikan', 'Ditolak'],
                 datasets: [{
                     label: 'Jumlah Transaksi',
                     data: [
                         {{ $chartData['proses'] }},
                         {{ $chartData['diterima'] }},
+                        {{ $chartData['dikembalikan'] }},
                         {{ $chartData['ditolak'] }}
                     ],
                     backgroundColor: [
                         'rgb(255, 205, 86)',
                         'rgb(75, 192, 192)',
+                        'rgb(120, 200, 65)',
                         'rgb(255, 99, 132)'
                     ],
                     hoverOffset: 4

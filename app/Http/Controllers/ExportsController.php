@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CollectionExport;
 use App\Exports\MembershipExport;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -13,6 +14,11 @@ class ExportsController extends Controller
     {
         $roles = Role::all();
         return view('reports.member', compact('roles'));
+    }
+
+    public function collection_export_page()
+    {
+        return view('reports.collection');
     }
 
 
@@ -31,5 +37,27 @@ class ExportsController extends Controller
             new MembershipExport($request->start_date, $request->end_date, $request->roles, $request->columns),
             $filename
         );
+    }
+
+    public function collection_export_system(Request $request)
+    {
+    $request->validate([
+        'start_date' => 'nullable|date',
+        'end_date'   => 'nullable|date|after_or_equal:start_date',
+        'columns'    => 'required|array|min:1',
+        'all_data'   => 'nullable|boolean',
+    ]);
+
+    $filename = 'Laporan_Koleksi_' . now()->format('Ymd_His') . '.xlsx';
+
+    return Excel::download(
+        new CollectionExport(
+        $request->start_date,
+        $request->end_date,
+        $request->boolean('all_data'),
+        (array) $request->columns
+        ),
+        $filename
+    );
     }
 }

@@ -174,6 +174,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/chat/option/{id}/edit', [ManageChatbotController::class, 'edit_chatbot_option_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/transaction', [ManageTransactionController::class, 'manage_transaction_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/submission', [ManageTransactionController::class, 'manage_submission_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
@@ -187,6 +190,9 @@ Route::middleware('auth')->group(function () {
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/export/memberships', [ExportsController::class, 'memberships_export_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/export/collection', [ExportsController::class, 'collection_export_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
     });
@@ -398,6 +404,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/system/print/card', [ManageAcoountController::class, 'print_card_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::post('/system/export/membership', [ExportsController::class, 'memberships_export_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/export/collection', [ExportsController::class, 'collection_export_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 
 });

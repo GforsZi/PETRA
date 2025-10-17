@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class ManageTransactionController extends Controller
 {
+    public function manage_transaction_page() {
+        $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->latest()->paginate(10);
+        return view('transaction.view', ['title' => 'Halaman Kelola Transaksi'], compact('transactions'));
+    }
+
     public function manage_submission_page() {
         $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '1')->latest()->paginate(10);
         return view('transaction.submission.view', ['title' => 'Halaman Kelola Pengajuan'], compact('submissons'));
