@@ -58,7 +58,7 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                      <p class="text-muted" style="margin-top:0; white-space: normal;">
+                      <p class="text-muted" style="margin-top:0; white-space: pre-line;">
     {!! ($book['bk_description'] ?? '') !!}
 </p>
 
