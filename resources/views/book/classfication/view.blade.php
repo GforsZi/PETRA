@@ -12,11 +12,18 @@
             title="Tambah Klasifikasi"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$classfications">
-        <x-slot:title></x-slot:title>
+        <x-slot:title>
+            <form class="d-flex" role="search" method="get" action="/manage/book/ddc">
+                <input class="form-control me-2" name="s" type="search"
+                    placeholder="Masukan Kode Klasifikasi" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i
+                        class="bi bi-search"></i></button>
+            </form>
+        </x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th>Name</th>
-            <th>Name</th>
+            <th>Kode</th>
+            <th>Deskripsi</th>
             <th style="width: 50px">option</th>
         </x-slot:header>
         @forelse ($classfications as $index => $classfication)
@@ -71,7 +78,8 @@
                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>

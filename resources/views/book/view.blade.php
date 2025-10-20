@@ -12,7 +12,14 @@
                 class="bi bi-journal-plus"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$books">
-        <x-slot:title></x-slot:title>
+        <x-slot:title>
+            <form class="d-flex" role="search" method="get" action="/manage/book">
+                <input class="form-control me-2" name="s" type="search"
+                    placeholder="Masukan Judul Buku" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i
+                        class="bi bi-search"></i></button>
+            </form>
+        </x-slot:title>
 
         <div class="row w-100">
             @forelse ($books as $index => $book)

@@ -127,7 +127,7 @@
     </div>
     <div class="card mb-4">
         <div class="card-header">
-            <h3 class="card-title">Loan asset</h3>
+            <h3 class="card-title">Salinan Buku</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -140,16 +140,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($transaction['books'] as $book)
+                    @forelse ($books as $book)
                         <tr class="align-middle">
                             <td>{{ $book->bk_id }}</td>
                             <td>{{ $book->bk_title }}</td>
                             <td>
                                 @php
-                                    $copies = collect($transaction['book_copies'])->where(
-                                        'bk_cp_book_id',
-                                        $book->bk_id,
-                                    );
+                                    $copies = $copiesGrouped[$book->bk_id] ?? collect();
                                 @endphp
 
                                 @forelse ($copies as $copy)

@@ -19,9 +19,10 @@ class ManageChatbotController extends Controller
         $this->fonnteService = $fonnteService;
     }
 
-    public function manage_chatbot_option_page()
+    public function manage_chatbot_option_page(Request $request)
     {
-        $options = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_type')->latest()->paginate(10);
+        $query = $request->get('s');
+        $options = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_type')->where('cht_opt_title', 'like', "%$query%")->latest()->paginate(10);
         return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot'], compact('options'));
     }
 
@@ -139,7 +140,7 @@ class ManageChatbotController extends Controller
         return null;
     }
 
-    public function manage_device_page()
+    public function manage_device_page(Request $request)
     {
         $curl = curl_init();
 
@@ -169,7 +170,8 @@ class ManageChatbotController extends Controller
         } else {
             $devices = []; // Handle error case
         }
-        $devices_pg = Device::select('dvc_id', 'dvc_name', 'dvc_device')->latest()->paginate(10);
+        $query = $request->get('s');
+        $devices_pg = Device::select('dvc_id', 'dvc_name', 'dvc_device')->where('dvc_name', 'like', "%$query%")->latest()->paginate(10);
         return view('chat.device.view', ['title' => 'Halaman Kelola Perangkat'], compact('devices', 'devices_pg'));
     }
 

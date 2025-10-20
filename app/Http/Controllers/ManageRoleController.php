@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class ManageRoleController extends Controller
 {
-    public function manage_role_page()
+    public function manage_role_page(Request $request)
     {
-        $roles = Role::select('rl_id', 'rl_name', 'rl_description')->latest()->paginate(10);
+        $query = $request->get('s');
+        $roles = Role::select('rl_id', 'rl_name', 'rl_description')->where('rl_name', 'like', "%$query%")->latest()->paginate(10);
         return view('role.view', ['title' => 'Halaman Kelola Peran', 'roles' => $roles]);
     }
 

@@ -12,7 +12,14 @@
             title="Tambahkan Opsi"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$options">
-        <x-slot:title></x-slot:title>
+        <x-slot:title>
+            <form class="d-flex" role="search" method="get" action="/manage/chat/option">
+                <input class="form-control me-2" name="s" type="search"
+                    placeholder="Masukan Judul Opsi" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i
+                        class="bi bi-search"></i></button>
+            </form>
+        </x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Judul opsi</th>

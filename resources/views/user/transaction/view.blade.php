@@ -8,8 +8,8 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/transaction/add" class="btn btn-outline-primary w-100" title="Tambah Transaksi"><i
-                class="bi bi-plus-lg"></i></a>
+        <a href="/transaction/add" class="btn btn-lg btn-outline-primary w-100"
+            title="Tambah Transaksi"><i class="bi bi-plus-lg"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$transactions">
         <x-slot:title>Manage transaction</x-slot:title>
@@ -80,7 +80,8 @@
                                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit"
-                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>

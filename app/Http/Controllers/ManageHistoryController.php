@@ -44,7 +44,7 @@ class ManageHistoryController extends Controller
                     break;
                 case 'DeweyDecimalClassfication':
                     $histories = DeweyDecimalClassfication::onlyTrashed()->select('ddc_id as id', 'ddc_code as title', 'ddc_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/classfication']);
+                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book/ddc']);
                     break;
                 case 'BookMajor':
                     $histories = BookMajor::onlyTrashed()->select('bk_mjr_id as id', 'bk_mjr_class as title', 'bk_mjr_deleted_at as deleted_at')->latest()->paginate(10);
@@ -57,10 +57,6 @@ class ManageHistoryController extends Controller
                 case 'ChatOption':
                     $histories = ChatOption::onlyTrashed()->select('cht_opt_id as id', 'cht_opt_title as title', 'cht_opt_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/chat/option']);
-                    break;
-                case 'BookCopy':
-                    $histories = BookCopy::onlyTrashed()->select('bk_cp_id as id', 'bk_cp_number as title', 'bk_cp_deleted_at as deleted_at')->latest()->paginate(10);
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories, 'page_url' => '/manage/book']);
                     break;
                 case 'Transaction':
                     $histories = Transaction::onlyTrashed()->select('trx_id as id', 'trx_title as title', 'trx_deleted_at as deleted_at')->latest()->paginate(10);
@@ -101,10 +97,6 @@ class ManageHistoryController extends Controller
             [
                 'title' => 'Riwayat Opsi Chat',
                 'page' => '/manage/history?category=ChatOption',
-            ],
-            [
-                'title' => 'Riwayat Salinan Buku',
-                'page' => '/manage/history?category=BookCopy',
             ],
             [
                 'title' => 'Riwayat Transaksi',

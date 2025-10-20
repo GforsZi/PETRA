@@ -17,19 +17,30 @@ use Illuminate\Support\Facades\Storage;
 
 class ManageBookController extends Controller
 {
-    public function manage_book_page()
+    public function manage_book_page(Request $request)
     {
-        $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')->with('publisher:pub_id,pub_name', 'authors:athr_id,athr_name')->latest()->paginate(12);
+        $query = $request->get('s');
+        $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')->with('publisher:pub_id,pub_name', 'authors:athr_id,athr_name')->where('bk_title', 'like', "%$query%")->latest()->paginate(12);
         return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
     }
 
     public function search_book_system(Request $request)
     {
-        $query = $request->get('q');
-        $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')
-            ->where('bk_title', 'like', "%$query%")
+        $queryN = $request->get('q');
+        $queryP = $request->get('perpose');
+        $books = null;
+        if ($queryP === '2') {
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
+            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', null)
             ->orderBy('bk_title', 'asc')
             ->get();
+        } else {
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
+            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', '!=', null)
+            ->orderBy('bk_title', 'asc')
+            ->get();
+        }
+
         return response()->json($books);
     }
 
@@ -367,9 +378,10 @@ public function delete_many_book_copy_system(Request $request)
 }
 
 
-    public function manage_book_major_page()
+    public function manage_book_major_page(Request $request)
     {
-        $majors = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->latest()->paginate(10);
+        $query = $request->get('s');
+        $majors = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->where('bk_mjr_major', 'like', "%$query%")->latest()->paginate(10);
         return view('book.major.view', ['title' => 'Halaman Kelola Jurusan'], compact('majors'));
     }
 
@@ -419,9 +431,10 @@ public function delete_many_book_copy_system(Request $request)
         return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Dihapus');
     }
 
-    public function manage_book_author_page()
+    public function manage_book_author_page(Request $request)
     {
-        $authors = Author::select('athr_id', 'athr_name')->latest()->paginate(10);
+        $query = $request->get('s');
+        $authors = Author::select('athr_id', 'athr_name')->where('athr_name', 'like', "%$query%")->latest()->paginate(10);
         return view('book.author.view', ['title' => 'Halaman Kelola Penulis'], compact('authors'));
     }
 
@@ -472,9 +485,10 @@ public function delete_many_book_copy_system(Request $request)
         return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Dihapus');
     }
 
-    public function manage_book_publisher_page()
+    public function manage_book_publisher_page(Request $request)
     {
-        $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')->latest()->paginate(10);
+        $query = $request->get('s');
+        $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')->where('pub_name', 'like', "%$query%")->latest()->paginate(10);
         return view('book.publisher.view', ['title' => 'Halaman Kelola Penerbit'], compact('publishers'));
     }
 
@@ -545,9 +559,10 @@ public function delete_many_book_copy_system(Request $request)
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Dihapus');
     }
 
-    public function manage_book_classfication_page()
+    public function manage_book_classfication_page(Request $request)
     {
-        $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')->latest()->paginate(10);
+        $query = $request->get('s');
+        $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')->where('ddc_code', 'like', "%$query%")->latest()->paginate(10);
         return view('book.classfication.view', ['title' => 'Halaman Kelola Klasifikasi'], compact('classfications'));
     }
 
@@ -600,9 +615,10 @@ public function delete_many_book_copy_system(Request $request)
         return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Dihapus');
     }
 
-    public function manage_book_origin_page()
+    public function manage_book_origin_page(Request $request)
     {
-        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->latest()->paginate(10);
+        $query = $request->get('s');
+        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->where('bk_orgn_name', 'like', "%$query%")->latest()->paginate(10);
         return view('book.origin.view', ['title' => 'Halaman Kelola Pemberi'], compact('origins'));
     }
 

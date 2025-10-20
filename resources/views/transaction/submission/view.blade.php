@@ -8,7 +8,14 @@
         </div>
     @endif
     <x-table_data :paginator="$submissons">
-        <x-slot:title></x-slot:title>
+        <x-slot:title>
+            <form class="d-flex" role="search" method="get" action="/manage/submission">
+                <input class="form-control me-2" name="s" type="search"
+                    placeholder="Masukan Nama Peminjam" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i
+                        class="bi bi-search"></i></button>
+            </form>
+        </x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
             <th>Peminjam</th>

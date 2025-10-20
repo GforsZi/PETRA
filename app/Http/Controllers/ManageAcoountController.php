@@ -11,7 +11,7 @@ use Spatie\Browsershot\Browsershot;
 
 class ManageAcoountController extends Controller
 {
-    public function manage_account_page()
+    public function manage_account_page(Request $request)
     {
         $curl = curl_init();
 
@@ -44,8 +44,9 @@ class ManageAcoountController extends Controller
                 }
             }
         }
+        $query = $request->get('s');
         $roles = Role::select('rl_id', 'rl_name')->get();
-        $accounts = User::with('roles')->paginate(10);
+        $accounts = User::select('usr_id', 'name', 'usr_no_wa', 'usr_activation', 'usr_card_url', 'usr_role_id')->with('roles')->where('name', 'like', "%$query%")->paginate(10);
         return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts], compact('activeDeviceToken', 'roles'));
     }
 

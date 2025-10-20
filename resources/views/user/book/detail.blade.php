@@ -25,9 +25,9 @@
                                 </h3>
                                 <div class="mb-2"><strong>Penulis:</strong> <span class="ms-2">
                                         @foreach ($book['authors'] as $author)
-                                        {{ $author->athr_name ?? '' }} @if (!$loop->last)
-                                        |
-                                        @endif
+                                            {{ $author->athr_name ?? '' }} @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
                                     </span></div> <!-- isian data disini -->
                                 <div class="mb-2"><strong>Penerbit:</strong> <span class="ms-2">
@@ -43,9 +43,9 @@
                                 <div class="mb-2"><strong>Klasifikasi:</strong> <span
                                         class="ms-2">
                                         @foreach ($book['deweyDecimalClassfications'] as $classfication)
-                                        {{ $classfication->ddc_code ?? '' }} @if (!$loop->last)
-                                        |
-                                        @endif
+                                            {{ $classfication->ddc_code ?? '' }} @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
                                     </span></div>
                             </div>
@@ -58,9 +58,10 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
-                      <p class="text-muted" style="margin-top:0; white-space: pre-line;">
-    {!! ($book['bk_description'] ?? '') !!}
-</p>
+                        <p id="text" class="text-muted"
+                            style="margin-top:0; white-space: pre-line;">
+                            {!! trim($book['bk_description']) ?? '' !!}
+                        </p>
 
                         <!-- isian descripsi  -->
                     </div>
@@ -69,4 +70,8 @@
 
         </div>
     </div>
+    <script>
+        const el = document.getElementById('text');
+        el.textContent = el.textContent.replace(/^\s*\n/, '');
+    </script>
 </x-app-layout>

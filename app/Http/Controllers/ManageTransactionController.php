@@ -12,30 +12,70 @@ use Illuminate\Support\Facades\DB;
 
 class ManageTransactionController extends Controller
 {
-    public function manage_transaction_page() {
-        $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->latest()->paginate(10);
+    public function manage_transaction_page(Request $request) {
+        $keyword = $request->get('s');
+        $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
+            $query->whereHas('users', function ($subQuery) use ($keyword) {
+                $subQuery->where('name', 'like', "%{$keyword}%");
+            });
+        })->latest()->paginate(10);
         return view('transaction.view', ['title' => 'Halaman Kelola Transaksi'], compact('transactions'));
     }
 
-    public function manage_submission_page() {
-        $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '1')->latest()->paginate(10);
+    public function manage_submission_page(Request $request) {
+        $keyword = $request->get('s');
+        $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
+            $query->whereHas('users', function ($subQuery) use ($keyword) {
+                $subQuery->where('name', 'like', "%{$keyword}%");
+            });
+        })->where('trx_status', '1')->latest()->paginate(10);
         return view('transaction.submission.view', ['title' => 'Halaman Kelola Pengajuan'], compact('submissons'));
     }
 
-    public function manage_loan_page() {
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '2')->latest()->paginate(10);
+    public function manage_loan_page(Request $request) {
+        $keyword = $request->get('s');
+        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
+            $query->whereHas('users', function ($subQuery) use ($keyword) {
+                $subQuery->where('name', 'like', "%{$keyword}%");
+            });
+        })->where('trx_status', '2')->latest()->paginate(10);
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
-    public function manage_return_page() {
-        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->where('trx_status', '3')->paginate(10);
+    public function manage_return_page(Request $request) {
+        $keyword = $request->get('s');
+        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
+            $query->whereHas('users', function ($subQuery) use ($keyword) {
+                $subQuery->where('name', 'like', "%{$keyword}%");
+            });
+        })->where('trx_status', '3')->paginate(10);
         return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
-    public function detail_transaction_page($id) {
-        $transaction = Transaction::withTrashed()->with('books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by')->find($id);
-        return view('transaction.detail', ['title' => 'Halaman Detail Transaksi'], compact('transaction'));
-    }
+public function detail_transaction_page($id)
+{
+    $transaction = Transaction::withTrashed()
+        ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
+        ->findOrFail($id);
+
+    // 🔹 Hilangkan duplikat buku berdasarkan bk_id
+    $uniqueBooks = $transaction->books->unique('bk_id')->values();
+
+    // 🔹 Kelompokkan semua salinan berdasarkan bk_cp_book_id
+    $copiesGrouped = $transaction->book_copies
+        ->groupBy('bk_cp_book_id')
+        ->map(function ($copies) {
+            return $copies->unique('bk_cp_number')->sortBy('bk_cp_number')->values();
+        });
+
+    return view('transaction.detail', [
+        'title' => 'Halaman Detail Transaksi',
+        'transaction' => $transaction,
+        'books' => $uniqueBooks,
+        'copiesGrouped' => $copiesGrouped
+    ]);
+}
+
 
     public function add_transaction_system(Request $request)
     {
@@ -45,6 +85,8 @@ class ManageTransactionController extends Controller
             'trx_borrow_date' => 'required|date',
             'book_ids' => 'required|array|min:1',
             'book_ids.*' => 'integer|exists:books,bk_id',
+            'trx_copy_id' => 'required|array|min:1',
+            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
         ]);
         DB::beginTransaction();
         try {
@@ -60,8 +102,9 @@ class ManageTransactionController extends Controller
 
             // Simpan relasi buku yang dipinjam
             if ($request->trx_title == '2') {
-                foreach ($request->book_ids as $bookId) {
-                    $copy = BookCopy::select('bk_cp_status', 'bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_status', '1')->get()->first()->toArray();
+                foreach ($request->book_ids as $index => $bookId) {
+                    $trx_copy_id = $request->trx_copy_id[$index] ?? null;
+                    $copy = BookCopy::select('bk_cp_status', 'bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_id', $trx_copy_id)->get()->first()->toArray();
                     if ($copy['bk_cp_status'] == '1') {
                         BookCopy::find($copy['bk_cp_id'])->update(['bk_cp_status' => '2']);
                         BookTransaction::create([

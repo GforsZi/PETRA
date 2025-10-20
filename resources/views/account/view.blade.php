@@ -51,14 +51,21 @@
     </div>
 
     <x-table-data :paginator="$accounts">
-        <x-slot:title></x-slot:title>
+        <x-slot:title>
+            <form class="d-flex" role="search" method="get" action="/manage/account">
+                <input class="form-control me-2" name="s" type="search"
+                    placeholder="Masukan Nama Pengguna" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i
+                        class="bi bi-search"></i></button>
+            </form>
+        </x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>
-            <th style="width: 150px">foto profil</th>
+            <th style="width: 150px">Foto Profil</th>
             <th>Nama Lengkap</th>
             <th>Peran</th>
             <th>Aktifasi</th>
-            <th style="width: 60px">detail</th>
+            <th style="width: 60px">Detail</th>
         </x-slot:header>
         @forelse ($accounts as $index => $account)
             <tr class="align-middle">

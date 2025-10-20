@@ -35,15 +35,13 @@
                 </a> | no isbn {{ $book['bk_isbn'] ?? '' }}
             </p>
             <hr class="mb-1">
-            <p class="text-muted"
+            <p class="text-muted" id="text"
                 style="line-height: 1.5; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word;">
                 {{ $book['bk_description'] ?? '' }}
             </p>
 
         </div>
     </div>
-
-
 
     <div class="card my-4  col-12 col-md-8 w-100">
         <div class="card-header">
@@ -78,10 +76,6 @@
                     <tr class="align-middle">
                         <td>ISBN</td>
                         <td>{{ $book['bk_isbn'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Tahun terbit</td>
-                        <td>{{ $book['bk_published_year'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Jenis</td>
@@ -122,6 +116,10 @@
                         </td>
                     </tr>
                     <tr class="align-middle">
+                        <td>Tahun terbit</td>
+                        <td>{{ $book['bk_published_year'] ?? '' }}</td>
+                    </tr>
+                    <tr class="align-middle">
                         <td>Pemberian</td>
                         <td>
                             {{ $book['origin']['bk_orgn_name'] ?? '' }}
@@ -131,6 +129,18 @@
                         <td>Edisi</td>
                         <td>
                             {{ $book['bk_edition_volume'] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Harga Satuan</td>
+                        <td>
+                            {{ 'Rp.' . number_format($book['bk_unit_price'] ?? 0, 0, ',', '.') ?? '' }}
+                        </td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Harga Keseluruhan</td>
+                        <td>
+                            {{ 'Rp.' . number_format($book['bk_unit_price'] * $book['bookCopies']->count() ?? 0, 0, ',', '.') ?? '' }}
                         </td>
                     </tr>
                     <tr class="align-middle">
@@ -174,7 +184,6 @@
         </div>
     </div>
     @if ($book['bk_type'] == '1')
-
         <div class="card mb-4">
             <div class="card-header d-flex">
                 <h3 class="card-title w-100">Salinan Buku</h3>
@@ -183,16 +192,18 @@
                         data-bs-target="#addCopy{{ $book['bk_id'] }}" aria-expanded="false"
                         aria-controls="desc_ast" title="Tambah Salinan Buku"><i
                             class="bi bi-plus-lg"></i></a>
-                    <a class="btn btn-lg btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteCopiesModal" title="Hapus Banyak Salinan Buku">
-                        <i class="bi bi-trash"></i>
-                    </a>
+                    @if ($book['bookCopies']->toArray() != [])
+                        <a class="btn btn-lg btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteCopiesModal" title="Hapus Banyak Salinan Buku">
+                            <i class="bi bi-trash"></i>
+                        </a>
 
-                    <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
-                        href="/manage/book/{{ $book['bk_id'] }}/detail/print_label
-                "
-                        title="Cetak Label">
-                        <i class="bi bi-printer-fill"></i></a>
+                        <a class="btn btn-lg btn-success float-end mx-1" style="cursor: pointer;"
+                            href="/manage/book/{{ $book['bk_id'] }}/detail/print_label"
+                            title="Cetak Label">
+                            <i class="bi bi-printer-fill"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->
@@ -571,4 +582,8 @@
             </div>
         </form>
     </div>
+    <script>
+        const el = document.getElementById('text');
+        el.textContent = el.textContent.replace(/^\s*\n/, '');
+    </script>
 </x-app-layout>

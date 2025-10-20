@@ -41,7 +41,8 @@
                 <!-- tanggal otomatis -->
                 <input type="hidden" name="trx_borrow_date" value="{{ now() }}">
 
-                <button type="submit" class="btn btn-outline-success w-100" onclick="this.disabled=true; this.form.submit();">Selesai</button>
+                <button type="submit" class="btn btn-outline-success w-100"
+                    onclick="this.disabled=true; this.form.submit();">Selesai</button>
             </div>
         </div>
     </form>
@@ -86,19 +87,20 @@
         </div>
     </div>
 
- <style>
-.card-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* maksimal 2 baris */
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  word-break: break-word;
-  cursor: help; /* biar kelihatan bisa di-hover */
-}
-</style>
-
+    <style>
+        .card-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* maksimal 2 baris */
+            -webkit-box-orient: vertical;
+            white-space: normal;
+            word-break: break-word;
+            cursor: help;
+            /* biar kelihatan bisa di-hover */
+        }
+    </style>
 
     <script>
         const bokList = document.getElementById('book-list');
@@ -110,7 +112,7 @@
         document.getElementById('book-search').addEventListener('keyup', function() {
             let query = this.value;
 
-            fetch("{{ route('books.search') }}?q=" + query)
+            fetch("{{ route('books.search') }}?q=" + query + "&perpose=" + tujuanSelect.value)
                 .then(res => res.json())
                 .then(data => {
                     bokList.innerHTML = '';
@@ -118,28 +120,35 @@
                         let div = document.createElement('div');
                         div.classList.add('col', 'd-flex',
                             'justify-content-center');
+
+                        // simpan salinan buku ke dalam data attribute (serialized JSON)
+                        const copiesData = JSON.stringify(book.book_copies || []);
+
                         let imgSrc = book.bk_img_url ?
                             `{{ asset('${book.bk_img_url}') }}` :
                             `{{ asset('logo/book_placeholder.jpg') }}`;
-                        div.innerHTML = `
-                        <div class="card h-100 p-1 border shadow-sm" style="max-width: 140px;">
-                        <img src="${imgSrc}"
-                            class="object-fit-contain pilih-buku"
-                            style="cursor: pointer;height: 167px; width: 128px;"
-                            data-id="${book.bk_id}" title="${book.bk_title}"
-                            data-nama="${book.bk_title || 'Buku ' + book.bk_id}">
-                            
-                            <p class="card-title text-start text-wrap mb-0"
-  title="${book.bk_title}"
-  style="word-wrap: break-word; white-space: normal; font-size: 0.9rem; float: none; 
-         overflow: hidden; text-overflow: ellipsis; display: -webkit-box; 
-         -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
-  ${book.bk_title}
-</p>
 
-                    `;
+                        div.innerHTML = `
+        <div class="card h-100 p-1 border shadow-sm" style="max-width: 140px;">
+            <img src="${imgSrc}"
+                class="object-fit-contain pilih-buku"
+                style="cursor: pointer;height: 167px; width: 128px;"
+                data-id="${book.bk_id}"
+                data-nama="${book.bk_title || 'Buku ' + book.bk_id}"
+                data-copies='${copiesData}'
+                title="${book.bk_title}">
+            <p class="card-title text-start text-wrap mb-0"
+                title="${book.bk_title}"
+                style="word-wrap: break-word; white-space: normal; font-size: 0.9rem; float: none;
+                overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                ${book.bk_title}
+            </p>
+        </div>
+    `;
                         bokList.appendChild(div);
                     });
+
                 });
         });
 
@@ -170,44 +179,52 @@
         });
 
         // klik pilih buku
-      bokList.addEventListener('click', function(e) {
-    if (e.target.classList.contains('pilih-buku')) {
-        const tujuan = tujuanSelect.value;
-        if (!tujuan) {
-            alert("Pilih tujuan peminjaman terlebih dahulu!");
-            return;
-        }
+        bokList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('pilih-buku')) {
+                const tujuan = tujuanSelect.value;
+                if (!tujuan) {
+                    alert("Pilih tujuan peminjaman terlebih dahulu!");
+                    return;
+                }
 
-        const currentCount = listContainer.querySelectorAll('.card').length;
+                const currentCount = listContainer.querySelectorAll('.card').length;
 
-        if (tujuan === "1" && currentCount >= 1) {
-            alert("Untuk kegiatan belajar mengajar hanya boleh 1 buku.");
-            return;
-        }
-        if (tujuan === "2" && currentCount >= 3) {
-            alert("Untuk tujuan pribadi hanya boleh maksimal 3 buku.");
-            return;
-        }
+                if (tujuan === "1" && currentCount >= 1) {
+                    alert("Untuk kegiatan belajar mengajar hanya boleh 1 buku.");
+                    return;
+                }
+                if (tujuan === "2" && currentCount >= 3) {
+                    alert("Untuk tujuan pribadi hanya boleh maksimal 3 buku.");
+                    return;
+                }
 
-        const noText = document.getElementById('noBukuText');
-        if (noText) noText.remove();
+                const noText = document.getElementById('noBukuText');
+                if (noText) noText.remove();
 
-        const card = document.createElement('div');
-        card.className = "card mb-2 shadow-sm bg-body";
-        card.style.maxWidth = "100%";
+                const card = document.createElement('div');
+                card.className = "card mb-2 shadow-sm bg-body";
+                card.style.maxWidth = "100%";
 
-        const bookId = e.target.dataset.id;
+                const bookId = e.target.dataset.id;
 
-        // 🔸 tambahkan select hanya jika tujuan = (Pribadi)
-        const selectHTML = tujuan === "2" ? `
-            <select class="form-select w-100 me-2" name="trx_title" required>
-                <option value="" selected disabled>Pilih salinan</option>
-                <option value="1">A-1</option>
-                <option value="2">A-2</option>
-            </select>
-        ` : '';
+                // 🔸 tambahkan select hanya jika tujuan = (Pribadi)
+                // Ambil data salinan dari atribut data-copies
+                const copies = JSON.parse(e.target.dataset.copies || '[]');
 
-        card.innerHTML = `
+                let options = '<option value="" selected disabled>Pilih salinan</option>';
+                copies.forEach(copy => {
+                    options +=
+                        `<option value="${copy.bk_cp_id}">${copy.bk_cp_number}</option>`;
+                });
+
+                const selectHTML = tujuan === "2" && copies.length > 0 ? `
+    <select class="form-select w-100 me-2" name="trx_copy_id[]" required>
+        ${options}
+    </select>
+` : '';
+
+
+                card.innerHTML = `
             <div class="row g-0 align-items-stretch">
                 <div class="col-4">
                     <img src="${e.target.src}" class="img-fluid rounded-start h-100"
@@ -227,19 +244,19 @@
             <input type="hidden" name="book_ids[]" value="${bookId}">
         `;
 
-        // tombol hapus
-        card.querySelector('.hapus-buku').addEventListener('click', () => {
-            card.remove();
-            if (listContainer.querySelectorAll('.card').length === 0) {
-                listContainer.innerHTML =
-                    '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-            }
-            updateButtonVisibility();
-        });
+                // tombol hapus
+                card.querySelector('.hapus-buku').addEventListener('click', () => {
+                    card.remove();
+                    if (listContainer.querySelectorAll('.card').length === 0) {
+                        listContainer.innerHTML =
+                            '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+                    }
+                    updateButtonVisibility();
+                });
 
-        listContainer.appendChild(card);
-        updateButtonVisibility();
-    
+                listContainer.appendChild(card);
+                updateButtonVisibility();
+
 
                 // tutup modal
                 const modal = bootstrap.Modal.getInstance(document.getElementById(

@@ -30,7 +30,7 @@ public function books(): BelongsToMany
 }
 
     public function book_copies(): BelongsToMany {
-        return $this->belongsToMany(BookCopy::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_copy_id');
+        return $this->belongsToMany(BookCopy::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_copy_id')->distinct();
     }
 
     public function users(): BelongsTo

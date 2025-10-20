@@ -12,8 +12,8 @@
             </li>
             <li class="nav-item d-none d-md-block">
                 <a href="{{ url()->previous() }}"
-                   class="nav-link d-flex align-items-center justify-content-center"
-                   style="padding: 0.5rem; height: 40px; width: 40px;">
+                    class="nav-link d-flex align-items-center justify-content-center"
+                    style="padding: 0.5rem; height: 40px; width: 40px;">
                     <i class="bi bi-arrow-left-circle fs-4" style="color: #E9AD01;"></i>
                 </a>
             </li>
@@ -65,32 +65,6 @@
             <!--begin::Messages Dropdown Menu-->
             <!--end::Messages Dropdown Menu-->
             <!--begin::Notifications Dropdown Menu-->
-            <li class="nav-item dropdown" style='color: #E9AD01;'>
-                <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                    <i class="bi bi-bell-fill" style='color: #E9AD01;'></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="bi bi-envelope me-2"></i> 4 new messages
-                        <span class="float-end text-secondary fs-7">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                        <span class="float-end text-secondary fs-7">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                        <span class="float-end text-secondary fs-7">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer"> See All Notifications
-                    </a>
-                </div>
-            </li>
             <!--end::Notifications Dropdown Menu-->
             <!--begin::Fullscreen Toggle-->
             <li class="nav-item">
@@ -106,8 +80,7 @@
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <img src="{{ asset(Auth::user()->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
-                        class="user-image rounded-circle shadow object-fit-cover"
-                        alt="" />
+                        class="user-image rounded-circle shadow object-fit-cover" alt="" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
