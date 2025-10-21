@@ -618,7 +618,6 @@
 
         // tampilkan riwayat input saat fokus
         input_pub.addEventListener('focus', function() {
-            const history = JSON.parse(localStorage.getItem('publisherHistory') || '[]');
             if (history.length > 0) {
                 suggestionsBox_pub.innerHTML = '';
                 history.forEach(item => {
@@ -667,16 +666,6 @@
                                 hiddenId_pub.value = pub.pub_id;
                                 suggestionsBox_pub.style.display = 'none';
                                 toggleClearButton();
-
-                                // simpan ke riwayat
-                                let history = JSON.parse(localStorage.getItem('publisherHistory') || '[]');
-                                if (!history.some(h => h.id === pub.pub_id)) {
-                                    history.push({
-                                        id: pub.pub_id,
-                                        name: pub.pub_name
-                                    });
-                                    localStorage.setItem('publisherHistory', JSON.stringify(history));
-                                }
                             });
 
                             suggestionsBox_pub.appendChild(item);
@@ -726,8 +715,6 @@
 
             // tampilkan riwayat input saat fokus
             input_org.addEventListener('focus', function() {
-                const history = JSON.parse(localStorage.getItem('originHistory') ||
-                    '[]');
                 if (history.length > 0) {
                     suggestionsBox_org.innerHTML = '';
                     history.forEach(item => {
@@ -780,25 +767,6 @@
                                     suggestionsBox_org.style
                                         .display = 'none';
                                     toggleClearButton();
-
-                                    // simpan ke riwayat
-                                    let history = JSON.parse(
-                                        localStorage.getItem(
-                                            'originHistory') ||
-                                        '[]');
-                                    if (!history.some(h => h.id ===
-                                            orgn.bk_orgn_id)) {
-                                        history.push({
-                                            id: orgn
-                                                .bk_orgn_id,
-                                            name: orgn
-                                                .bk_orgn_name
-                                        });
-                                        localStorage.setItem(
-                                            'originHistory',
-                                            JSON.stringify(
-                                                history));
-                                    }
                                 });
 
                                 suggestionsBox_org.appendChild(item);
