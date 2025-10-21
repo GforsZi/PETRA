@@ -163,7 +163,8 @@
     }
 
     .row.g-0 .col-4 > .d-flex {
-        background-color: #121740;
+        background-color: rgba(18, 23, 64, 0.65) !important; /* transparan + paksa override */
+        backdrop-filter: blur(6px);
         padding: 30px 25px;
         border-radius: 15px;
         width: 100%;

@@ -4,7 +4,7 @@
     <div class="row g-0" style="height: 100vh;">
         <!-- Gambar-->
         <div class="col-8 p-0">
-            <img src="{{ asset('logo/relog/book.png') }}" alt="Perpustakaan"
+            <img src="{{ asset('logo/login.jpg') }}" alt="Perpustakaan"
                 style="width: 100%; height: 100vh; object-fit: cover;">
         </div>
 
