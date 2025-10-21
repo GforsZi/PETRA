@@ -30,7 +30,22 @@
                 <td>{{ $returns->firstItem() + $index }}</td>
                 <td>{{ $return->users->name }}</td>
                 <td>{{ $return->trx_borrow_date }}</td>
-                <td>{{ $return->trx_due_date }}</td>
+                @php
+                    $dueDate = $return->trx_due_date
+                        ? \Carbon\Carbon::parse($return->trx_due_date)
+                        : null;
+                @endphp
+
+                <td
+                    class="
+                        @if (is_null($dueDate)) text-muted
+                        @elseif (now()->greaterThan($dueDate))
+                            text-danger
+                        @else
+                            text-warning @endif
+                    ">
+                    {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
+                </td>
                 <td>{{ $return->trx_return_date }}</td>
                 <td>
                     @if ($return->trx_status == '1')

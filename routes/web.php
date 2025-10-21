@@ -195,6 +195,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/export/collection', [ExportsController::class, 'collection_export_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/export/statistics', [ExportsController::class, 'statistics_export_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/export/statistics/pdf', [ExportsController::class, 'export_statistics_Pdf'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1')->name('statistics.export');
     });
 
 Route::middleware('auth')->group(function () {

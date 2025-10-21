@@ -9,15 +9,25 @@
                     @csrf
 
                     {{-- Rentang Tanggal --}}
+                    {{-- Rentang Tanggal --}}
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Tanggal Awal</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <input type="date" name="start_date" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tanggal Akhir</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <input type="date" name="end_date" class="form-control">
                         </div>
+                    </div>
+
+                    {{-- Checkbox Cetak Semua Data --}}
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="print_all"
+                            id="print_all">
+                        <label class="form-check-label" for="print_all">
+                            Cetak Semua Data (abaikan tanggal)
+                        </label>
                     </div>
 
                     {{-- Role (Multiple Select) --}}

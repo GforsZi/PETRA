@@ -48,7 +48,22 @@
                         Ditolak
                     @endif
                 </td>
-                <td>{{ $loan->trx_due_date }}</td>
+                @php
+                    $dueDate = $loan->trx_due_date
+                        ? \Carbon\Carbon::parse($loan->trx_due_date)
+                        : null;
+                @endphp
+
+                <td
+                    class="
+                        @if (is_null($dueDate)) text-muted
+                        @elseif (now()->greaterThan($dueDate))
+                            text-danger
+                        @else
+                            text-warning @endif
+                    ">
+                    {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
+                </td>
                 <td>
                     <a href="/manage/transaction/{{ $loan->trx_id }}/detail"
                         class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>

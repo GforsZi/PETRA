@@ -34,15 +34,26 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         'usr_created_at' => 'Tanggal Dibuat',
     ];
 
-    public function collection()
-    {
-        $query = User::with('roles')
-            ->whereBetween('usr_created_at', [Carbon::parse($this->startDate)->startOfDay(),Carbon::parse($this->endDate)->endOfDay()]);
-        if ($this->roles) {
-            $query->whereHas('roles', fn($q) => $q->whereIn('rl_name', $this->roles));
-        }
-        return $query->get();
+public function collection()
+{
+    $query = User::with('roles');
+
+    // Jika tanggal tidak kosong, filter berdasarkan tanggal
+    if ($this->startDate && $this->endDate) {
+        $query->whereBetween('usr_created_at', [
+            Carbon::parse($this->startDate)->startOfDay(),
+            Carbon::parse($this->endDate)->endOfDay()
+        ]);
     }
+
+    // Filter berdasarkan role (jika ada)
+    if ($this->roles) {
+        $query->whereHas('roles', fn($q) => $q->whereIn('rl_name', $this->roles));
+    }
+
+    return $query->get();
+}
+
 
     public function headings(): array
     {

@@ -49,7 +49,23 @@
                     @endif
                 </td>
                 <td>{{ $transaction->trx_borrow_date }}</td>
-                <td>{{ $transaction->trx_due_date }}</td>
+                @php
+                    $dueDate = $transaction->trx_due_date
+                        ? \Carbon\Carbon::parse($transaction->trx_due_date)
+                        : null;
+                @endphp
+
+                <td
+                    class="
+                        @if (is_null($dueDate)) text-muted
+                        @elseif (now()->greaterThan($dueDate))
+                            text-danger
+                        @else
+                            text-warning @endif
+                    ">
+                    {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
+                </td>
+
                 <td>{{ $transaction->trx_return_date }}</td>
                 <td>
                     <a href="/manage/transaction/{{ $transaction->trx_id }}/detail"
