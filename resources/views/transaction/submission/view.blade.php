@@ -27,8 +27,8 @@
         @forelse ($submissons as $index => $submission)
             <tr class="align-middle">
                 <td>{{ $submissons->firstItem() + $index }}</td>
-                <td>{{ $submission->users->name }}</td>
-                <td>{{ $submission->trx_borrow_date }}</td>
+                <td>{{ $submission->users->name ?? '' }}</td>
+                <td>{{ $submission->trx_borrow_date ?? '' }}</td>
                 <td>
                     @if ($submission->trx_title == '1')
                         Kegiatan Belajar Mengajar

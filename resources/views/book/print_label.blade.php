@@ -142,18 +142,6 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: #FAB12F;
-                z-index: 0;
-            }
-        </style>
-    @else
-        <style>
-            .label-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
                 background: #EF5A6F;
                 z-index: 0;
             }
@@ -186,11 +174,23 @@
                     <div class="label-body">
                         <div class="label-body-content">
                             <h4>
-                                @foreach ($books['deweyDecimalClassfications'] as $ddc)
-                                    {{ $ddc->ddc_code }}@if (!$loop->last)
-                                        .
-                                    @endif
-                                @endforeach
+                                @php
+                                    $formattedDdc = collect($books['deweyDecimalClassfications'])
+                                        ->pluck('ddc_code')
+                                        ->map(
+                                            fn($code) => str_pad(
+                                                preg_replace('/\D/', '', $code),
+                                                3,
+                                                '0',
+                                                STR_PAD_RIGHT,
+                                            ),
+                                        )
+                                        ->take(2) // ambil maksimal dua kode
+                                        ->implode('.');
+                                @endphp
+
+                                <span>{{ $formattedDdc ?: '-' }}</span>
+
                             </h4>
                             <h5>
                                 @foreach ($books['authors'] as $author)

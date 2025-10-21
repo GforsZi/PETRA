@@ -9,7 +9,7 @@
     @endif
     <div class="card mb-4 ">
         <div class="card-header">
-            <h3 class="card-title">Detail Pemberi</h3>
+            <h3 class="card-title">Detail Sumber</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -26,20 +26,16 @@
                         <td>{{ $origin['bk_orgn_id'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Pemberi</td>
+                        <td>Sumber</td>
                         <td>{{ $origin['bk_orgn_name'] }}</td>
                     </tr>
                     <tr class="align-middle">
-                        <td>Keterangan</td>
-                        <td>{{ $origin['bk_orgn_description'] }}</td>
-                    </tr>
-                    <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $origin['created_by']['name'] }}</td>
+                        <td>{{ $origin['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $origin['updated_by']['name'] }}</td>
+                        <td>{{ $origin['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>

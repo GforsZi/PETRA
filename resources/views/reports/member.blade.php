@@ -25,7 +25,7 @@
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" name="print_all"
                             id="print_all">
-                        <label class="form-check-label" for="print_all">
+                        <label class="form-check-label fw-bold text-warning" for="print_all">
                             Cetak Semua Data (abaikan tanggal)
                         </label>
                     </div>
@@ -81,4 +81,19 @@
             </div>
         </div>
     </div>
+    <script>
+        const printAll = document.getElementById('print_all');
+        const start = document.querySelector('input[name="start_date"]');
+        const end = document.querySelector('input[name="end_date"]');
+
+        printAll?.addEventListener('change', function() {
+            const disabled = this.checked;
+            start.disabled = disabled;
+            end.disabled = disabled;
+            if (disabled) {
+                start.value = '';
+                end.value = '';
+            }
+        });
+    </script>
 </x-app-layout>

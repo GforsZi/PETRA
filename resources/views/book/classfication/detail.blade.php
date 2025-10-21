@@ -35,11 +35,11 @@
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $classfication['created_by']['name'] }}</td>
+                        <td>{{ $classfication['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $classfication['updated_by']['name'] }}</td>
+                        <td>{{ $classfication['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>

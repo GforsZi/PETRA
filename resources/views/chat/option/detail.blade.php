@@ -47,11 +47,11 @@
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $option['created_by']['name'] }}</td>
+                        <td>{{ $option['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $option['updated_by']['name'] }}</td>
+                        <td>{{ $option['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>

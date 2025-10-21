@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\CollectionExport;
 use App\Exports\MembershipExport;
+use App\Exports\TransactionExport;
 use App\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -23,6 +24,11 @@ class ExportsController extends Controller
     public function collection_export_page()
     {
         return view('reports.collection');
+    }
+
+    public function transaction_export_page()
+    {
+        return view('reports.transaction');
     }
 
     public function statistics_export_page(Request $request)
@@ -177,5 +183,35 @@ public function memberships_export_system(Request $request)
         ),
         $filename
     );
+    }
+
+    public function transaction_export_system(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date'   => 'nullable|date|after_or_equal:start_date',
+            'columns'    => 'nullable|array',
+            'print_all'  => 'nullable|in:on',
+            'status'     => 'nullable|array' // opsional filter status
+        ]);
+
+        // jika user memilih Cetak Semua Data (checkbox), abaikan tanggal
+        $start = $request->has('print_all') ? null : $request->input('start_date');
+        $end   = $request->has('print_all') ? null : $request->input('end_date');
+
+        $columns = $request->input('columns', [
+            'trx_id',
+            'user_name',
+            'books',
+            'book_copies',
+            'trx_borrow_date',
+            'trx_due_date',
+            'trx_return_date',
+            'trx_status'
+        ]);
+
+        $filename = 'Laporan_Transaksi_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new TransactionExport($start, $end, $columns, $request->input('status')), $filename);
     }
 }

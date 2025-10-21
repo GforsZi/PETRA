@@ -31,12 +31,12 @@ class ManageBookController extends Controller
         $books = null;
         if ($queryP === '2') {
             $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
-            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', null)
+            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', null)->where('bk_permission', '1')
             ->orderBy('bk_title', 'asc')
             ->get();
         } else {
             $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
-            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', '!=', null)
+            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', '!=', null)->where('bk_permission', '1')
             ->orderBy('bk_title', 'asc')
             ->get();
         }
@@ -117,10 +117,10 @@ class ManageBookController extends Controller
             'bk_description' => 'nullable | string | max:65535',
             'bk_page' => 'nullable | integer | max:9999999999 | min:0',
             'bk_type' => 'nullable | in:1,2',
-            'bk_permission' => 'nullable | in:1,2,3',
+            'bk_permission' => 'nullable | in:1,2',
             'bk_unit_price' => 'nullable | integer | max:9999999999 | min:0',
             'bk_edition_volume' => 'nullable | string | max:255',
-            'bk_published_year' => 'nullable | digits:4 | integer | max:' . date('Y'),
+            'bk_published_year' => 'nullable | digits:4 | integer | min:1901 | max:' . date('Y'),
             'bk_publisher_id' => 'nullable | exists:publishers,pub_id',
             'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
@@ -212,7 +212,7 @@ class ManageBookController extends Controller
             'bk_description' => 'sometimes | nullable | string | max:65535',
             'bk_page' => 'nullable | integer | max:9999999999 | min:0',
             'bk_type' => 'sometimes | nullable | in:1,2',
-            'bk_permission' => 'sometimes | nullable | in:1,2,3',
+            'bk_permission' => 'sometimes | nullable | in:1,2',
             'bk_unit_price' => 'sometimes | nullable | integer | max:9999999999 | min:0',
             'bk_edition_volume' => 'sometimes | nullable | string | max:255',
             'bk_published_year' => 'sometimes | nullable | digits:4 | integer | max:' . date('Y'),
@@ -618,36 +618,35 @@ public function delete_many_book_copy_system(Request $request)
     public function manage_book_origin_page(Request $request)
     {
         $query = $request->get('s');
-        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->where('bk_orgn_name', 'like', "%$query%")->latest()->paginate(10);
-        return view('book.origin.view', ['title' => 'Halaman Kelola Pemberi'], compact('origins'));
+        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->where('bk_orgn_name', 'like', "%$query%")->latest()->paginate(10);
+        return view('book.origin.view', ['title' => 'Halaman Kelola Sumber'], compact('origins'));
     }
 
     public function detail_book_origin_page($id)
     {
         $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
-        return view('book.origin.detail', ['title' => 'Halaman Detail Pemberi'], compact('origin'));
+        return view('book.origin.detail', ['title' => 'Halaman Detail Sumber'], compact('origin'));
     }
 
     public function add_book_origin_page()
     {
-        return view('book.origin.add', ['title' => 'Halaman Tambah Pemberi']);
+        return view('book.origin.add', ['title' => 'Halaman Tambah Sumber']);
     }
 
     public function add_book_origin_system(Request $request)
     {
         $validateData = $request->validate([
             'bk_orgn_name' => 'required | string | max:255',
-            'bk_orgn_description' => 'nullable | string | max:65535'
         ]);
 
         BookOrigin::create($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Ditambahkan');
+        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Ditambahkan');
     }
 
     public function edit_book_origin_page($id)
     {
-        $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name', 'bk_orgn_description')->find($id);
-        return view('book.origin.edit', ['title' => 'Halaman Ubah Pemberi'], compact('origin'));
+        $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->find($id);
+        return view('book.origin.edit', ['title' => 'Halaman Ubah Sumber'], compact('origin'));
     }
 
     public function edit_book_origin_system(Request $request, $id)
@@ -655,16 +654,15 @@ public function delete_many_book_copy_system(Request $request)
         $origin = BookOrigin::find($id);
         $validateData = $request->validate([
             'bk_orgn_name' => 'sometimes | required | string | max:255',
-            'bk_orgn_description' => 'sometimes | nullable | string | max:65535'
         ]);
         $origin->update($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Diubah');
+        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Diubah');
     }
 
     public function delete_book_origin_system(Request $request, $id)
     {
         $origin = BookOrigin::find($id)->delete();
-        return redirect('/manage/book/origin')->with('success', 'Pemberi Berhasil Dihapus');
+        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Dihapus');
     }
 
     public function print_label_system($id)

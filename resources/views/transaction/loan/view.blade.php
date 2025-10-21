@@ -28,8 +28,8 @@
         @forelse ($loans as $index => $loan)
             <tr class="align-middle">
                 <td>{{ $loans->firstItem() + $index }}</td>
-                <td>{{ $loan->users->name }}</td>
-                <td>{{ $loan->trx_borrow_date }}</td>
+                <td>{{ $loan->users->name ?? '' }}</td>
+                <td>{{ $loan->trx_borrow_date ?? '' }}</td>
                 <td>
                     @if ($loan->trx_title == '1')
                         Kegiatan Belajar Mengajar

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
@@ -11,41 +12,20 @@ use Illuminate\Support\Facades\Hash;
 
 class UserLoginSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-     public function run(): void
+    public function run(): void
     {
-        $faker = Faker::create();
-        // User::factory(10)->create();
+        $now = Carbon::now()->toDateTimeString();
 
-        $admin_role = Role::firstOrCreate([
-            'rl_name' => 'Pustakawan',
-            'rl_description' => 'sarana perasarana',
-            'rl_admin' => true,
-        ]);
-        $user_role = Role::firstOrCreate([
-            'rl_name' => 'Siswa',
-            'rl_description' => 'user role',
-        ]);
-
-        $admin = User::firstOrCreate(
-            ['usr_no_wa' => '08223456789'],
+        DB::table('user_logins')->insert([
             [
-                'name' => 'gfors',
-                'password' => Hash::make('12345'),
-                'usr_activation' => true,
-                'usr_role_id' => $admin_role->rl_id,
+                'usr_lg_user_id' => null,
+                'usr_lg_ip_address' => '192.168.1.10',
+                'usr_lg_user_agent' => 'Mozilla/5.0 (Test)',
+                'usr_lg_logged_in_at' => $now,
+                'usr_lg_created_at' => $now,
+                'usr_lg_updated_at' => $now,
+                'usr_lg_sys_note' => 'Manual seed'
             ],
-        );
-        $user = User::firstOrCreate(
-            ['usr_no_wa' => '08123456789'],
-            [
-                'name' => 'zi',
-                'password' => Hash::make('12345'),
-                'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
-        );
+        ]);
     }
 }

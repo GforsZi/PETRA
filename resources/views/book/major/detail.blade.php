@@ -35,11 +35,11 @@
                     </tr>
                     <tr class="align-middle">
                         <td>Dibuat oleh</td>
-                        <td>{{ $major['created_by']['name'] }}</td>
+                        <td>{{ $major['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Diubah oleh</td>
-                        <td>{{ $major['updated_by']['name'] }}</td>
+                        <td>{{ $major['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr class="align-middle">
                         <td>Dihapus oleh</td>

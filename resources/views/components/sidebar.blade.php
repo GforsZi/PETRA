@@ -68,7 +68,7 @@
                                 <a href="/manage/book/origin" class="nav-link"
                                     style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>DATA PEMBERI</p>
+                                    <p>DATA SUMBER</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
@@ -200,7 +200,8 @@
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/report" class="nav-link" style='color: #E9AD01;'>
+                                <a href="/manage/export/transaction" class="nav-link"
+                                    style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>TRANSAKSI</p>
                                 </a>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot:title>Export Statistik Login</x-slot:title>
+    <x-slot:title>Export Data Statistik Login</x-slot:title>
     <div class="mt-2">
         <div class="card shadow-sm">
             <div class="card-body">

@@ -4,7 +4,7 @@
     <div class="mt-2">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="fw-bold mb-0">Export Koleksi Buku</h5>
+                <h5 class="fw-bold mb-0">Kustomisasi Export Excel</h5>
                 <form action="/system/export/collection" method="POST">
                     @csrf
                     <div class="row mb-3">
@@ -23,9 +23,9 @@
                     <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="all_data"
-                                id="all_data" value="1" checked>
-                            <label class="form-check-label fw-bold text-warning">Export seluruh data
-                                (abaikan tanggal)</label>
+                                id="print_all" value="1">
+                            <label class="form-check-label fw-bold text-warning">Cetak Semua
+                                Data (abaikan tanggal)</label>
                         </div>
                     </div>
 
@@ -69,4 +69,19 @@
             </div>
         </div>
     </div>
+    <script>
+        const printAll = document.getElementById('print_all');
+        const start = document.querySelector('input[name="start_date"]');
+        const end = document.querySelector('input[name="end_date"]');
+
+        printAll?.addEventListener('change', function() {
+            const disabled = this.checked;
+            start.disabled = disabled;
+            end.disabled = disabled;
+            if (disabled) {
+                start.value = '';
+                end.value = '';
+            }
+        });
+    </script>
 </x-app-layout>

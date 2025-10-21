@@ -17,7 +17,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-        UserLoginSeeder::class,
-    ]);
+        UserSeeder::class,
+            BookMajorSeeder::class,
+            BookOriginSeeder::class,
+            PublisherSeeder::class,
+            BookSeeder::class,
+            BookCopySeeder::class,
+            AuthorSeeder::class,
+            BookAuthorSeeder::class,
+            DeweyDecimalClassficationSeeder::class,
+            BookDeweyDecimalClassficationSeeder::class,
+            TransactionSeeder::class,
+            BookTransactionSeeder::class,
+            ChatOptionSeeder::class,
+            DeviceSeeder::class,
+            UserLoginSeeder::class,
+        ]);
+
     }
 }

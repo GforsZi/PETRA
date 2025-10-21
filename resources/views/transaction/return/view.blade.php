@@ -28,8 +28,8 @@
         @forelse ($returns as $index => $return)
             <tr class="align-middle">
                 <td>{{ $returns->firstItem() + $index }}</td>
-                <td>{{ $return->users->name }}</td>
-                <td>{{ $return->trx_borrow_date }}</td>
+                <td>{{ $return->users->name ?? '' }}</td>
+                <td>{{ $return->trx_borrow_date ?? '' }}</td>
                 @php
                     $dueDate = $return->trx_due_date
                         ? \Carbon\Carbon::parse($return->trx_due_date)
@@ -46,7 +46,7 @@
                     ">
                     {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
                 </td>
-                <td>{{ $return->trx_return_date }}</td>
+                <td>{{ $return->trx_return_date ?? '' }}</td>
                 <td>
                     @if ($return->trx_status == '1')
                         Pengajuan

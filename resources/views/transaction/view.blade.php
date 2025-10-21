@@ -29,7 +29,7 @@
         @forelse ($transactions as $index => $transaction)
             <tr class="align-middle">
                 <td>{{ $transactions->firstItem() + $index }}</td>
-                <td>{{ $transaction->users->name }}</td>
+                <td>{{ $transaction->users->name ?? '' }}</td>
                 <td>
                     @if ($transaction->trx_title == '1')
                         Kegiatan Belajar Mengajar
@@ -48,7 +48,7 @@
                         Ditolak
                     @endif
                 </td>
-                <td>{{ $transaction->trx_borrow_date }}</td>
+                <td>{{ $transaction->trx_borrow_date ?? '' }}</td>
                 @php
                     $dueDate = $transaction->trx_due_date
                         ? \Carbon\Carbon::parse($transaction->trx_due_date)
@@ -66,7 +66,7 @@
                     {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
                 </td>
 
-                <td>{{ $transaction->trx_return_date }}</td>
+                <td>{{ $transaction->trx_return_date ?? '' }}</td>
                 <td>
                     <a href="/manage/transaction/{{ $transaction->trx_id }}/detail"
                         class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>

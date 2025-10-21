@@ -198,6 +198,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage/export/statistics', [ExportsController::class, 'statistics_export_page'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::get('/manage/export/transaction', [ExportsController::class, 'transaction_export_page'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':1');
     Route::get('/manage/export/statistics/pdf', [ExportsController::class, 'export_statistics_Pdf'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')->name('statistics.export');
@@ -412,6 +415,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/system/export/membership', [ExportsController::class, 'memberships_export_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
     Route::post('/system/export/collection', [ExportsController::class, 'collection_export_system'])
+        ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
+    Route::post('/system/export/transaction', [ExportsController::class, 'transaction_export_system'])
         ->middleware(CheckActivation::class . ':1')->middleware(CheckAdmin::class . ':1');
 
 });

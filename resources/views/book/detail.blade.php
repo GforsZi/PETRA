@@ -63,8 +63,6 @@
                             @if ($book['bk_permission'] == '1')
                                 Dapat dipinjam
                             @elseif ($book['bk_permission'] == '2')
-                                Semi pinjam
-                            @else
                                 Tidak dapat dipinjam
                             @endif
                         </td>
@@ -140,7 +138,7 @@
                     <tr class="align-middle">
                         <td>Harga Keseluruhan</td>
                         <td>
-                            {{ 'Rp.' . number_format($book['bk_unit_price'] * $book['bookCopies']->count() ?? 0, 0, ',', '.') ?? '' }}
+                            {{ 'Rp' . number_format($book['bk_unit_price'] * $book['bookCopies']->count() ?? 0, 0, ',', '.') ?? '' }}
                         </td>
                     </tr>
                     <tr class="align-middle">
@@ -337,12 +335,28 @@
 
                                                     <div class="text-center py-3">
                                                         <h4 class="fw-bold mb-1">
-                                                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                                                <span>{{ $ddc->ddc_code }}</span>
-                                                                @if (!$loop->last)
-                                                                    .
-                                                                @endif
-                                                            @endforeach
+                                                            @php
+                                                                $ddcs = $book[
+                                                                    'deweyDecimalClassfications'
+                                                                ]
+                                                                    ->pluck('ddc_code')
+                                                                    ->map(
+                                                                        fn($code) => str_pad(
+                                                                            preg_replace(
+                                                                                '/\D/',
+                                                                                '',
+                                                                                $code,
+                                                                            ),
+                                                                            3,
+                                                                            '0',
+                                                                            STR_PAD_RIGHT,
+                                                                        ),
+                                                                    )
+                                                                    ->take(2)
+                                                                    ->implode('.');
+                                                            @endphp
+
+                                                            <span>{{ $ddcs ?: '-' }}</span>
                                                         </h4>
                                                         <h5 class="fw-bold mb-1">
                                                             @foreach ($book['authors'] as $author)
@@ -375,13 +389,6 @@
                                                 }
                                             </style>
                                         @elseif ($book['bk_permission'] == '2')
-                                            <style>
-                                                .labelcode {
-                                                    background-color: #FAB12F;
-                                                    color: black;
-                                                }
-                                            </style>
-                                        @else
                                             <style>
                                                 .labelcode {
                                                     background-color: #EF5A6F;

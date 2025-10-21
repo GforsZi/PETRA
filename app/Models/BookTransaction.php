@@ -18,4 +18,19 @@ class BookTransaction extends Pivot
     const CREATED_AT = 'bk_trx_created_at';
     const UPDATED_AT = 'bk_trx_updated_at';
     const DELETED_AT = 'bk_trx_deleted_at';
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'bk_trx_book_id', 'bk_id');
+    }
+
+    public function bookCopy()
+    {
+        return $this->belongsTo(BookCopy::class, 'bk_trx_book_copy_id', 'bk_cp_id');
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'bk_trx_transaction_id', 'trx_id');
+    }
 }

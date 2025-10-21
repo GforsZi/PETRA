@@ -27,15 +27,15 @@
                 <tbody>
                     <tr>
                         <td>ID Peminjaman</td>
-                        <td>{{ $transaction['trx_id'] }}</td>
+                        <td>{{ $transaction['trx_id'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Nama Peminjam</td>
-                        <td>{{ $transaction['users']['name'] }}</td>
+                        <td>{{ $transaction['users']['name'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Nomor Peminjam</td>
-                        <td>{{ $transaction['users']['usr_no_wa'] }}</td>
+                        <td>{{ $transaction['users']['usr_no_wa'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Tujuan pinjaman</td>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                         <td>Tanggal Pengembalian</td>
-                        <td>{{ $transaction['trx_return_date'] }}</td>
+                        <td>{{ $transaction['trx_return_date'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Status</td>
@@ -90,11 +90,11 @@
                     </tr>
                     <tr>
                         <td>Dibuat oleh</td>
-                        <td>{{ $transaction['created_by']['name'] }}</td>
+                        <td>{{ $transaction['created_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Diubah oleh</td>
-                        <td>{{ $transaction['updated_by']['name'] }}</td>
+                        <td>{{ $transaction['updated_by']['name'] ?? '' }}</td>
                     </tr>
                     <tr>
                         <td>Dihapus oleh</td>

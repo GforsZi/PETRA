@@ -4,6 +4,8 @@ namespace App\Exports;
 
 use App\Models\Book;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -11,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CollectionExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize
+class CollectionExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize,  WithColumnFormatting
 {
     protected $startDate, $endDate, $allData, $columns;
 
@@ -127,12 +129,20 @@ class CollectionExport implements FromCollection, WithHeadings, WithMapping, Wit
             'bk_publisher' => $book->publisher->pub_name ?? '-',
             'bk_published_year' => $book->bk_published_year ?? '-',
             'origin' => $book->origin->bk_orgn_name ?? '-',
-            'bk_price' => 'Rp.' . number_format($unit_price ?? 0, 0, ',', '.'),
-            'total_price' => 'Rp.' . number_format($total_price ?? 0, 0, ',', '.'),
-            'ddc' => $book->deweyDecimalClassfications->pluck('ddc_code')->implode(' . ') ?: '-',
+            'bk_price' => 'Rp' . number_format($unit_price ?? 0, 0, ',', '.'),
+            'total_price' => 'Rp' . number_format($total_price ?? 0, 0, ',', '.'),
+            'ddc' => $book->deweyDecimalClassfications->pluck('ddc_code')->map(fn($c) => trim($c))
+            ->filter()->unique()->implode('.') ?: '-',
         ];
 
         // Hanya tampilkan kolom yang dipilih user
         return array_intersect_key($data, array_flip($this->columns));
+    }
+
+     public function columnFormats(): array
+    {
+        return [
+            'M' => NumberFormat::FORMAT_TEXT, // kolom E misalnya berisi DDC
+        ];
     }
 }

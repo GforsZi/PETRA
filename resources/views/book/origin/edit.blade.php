@@ -13,7 +13,7 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Pemberi</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Sumber</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_orgn_name"
                             value="{{ $origin['bk_orgn_name'] }}"
@@ -21,28 +21,15 @@
                             id="inputEmail3">
                         @error('bk_orgn_name')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Nama Asal Buku tidak sesuai</p>
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Alasan Buku
-                        Diberikan</label>
-                    <div class="col-sm-10">
-                        <textarea name="bk_orgn_description" id="message"
-                            class="form-control @error('bk_orgn_description') is-invalid @enderror" id="autoExpand">{{ $origin['bk_orgn_description'] }}</textarea>
-                        @error('bk_orgn_description')
-                            <div class="invalid-feedback">
-                                <p style="text-align: right;"> Alasan tidak sesuai</p>
+                                <p style="text-align: right;">Nama Sumber Buku tidak sesuai</p>
                             </div>
                         @enderror
                     </div>
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-warning px-5"
-                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-warning px-5" id="tombol"
+                    onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

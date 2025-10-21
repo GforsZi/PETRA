@@ -28,8 +28,7 @@
                             class="form-select @error('bk_permission') is-invalid @enderror"
                             required aria-label="Default select example">
                             <option value="1">Dapat dipinjam</option>
-                            <option value="2">Semi pinjam</option>
-                            <option value="3">Tidak untuk dipinjam</option>
+                            <option value="2">Tidak untuk dipinjam</option>
                         </select>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
                         Buku</label>
                     <div class="col-sm-10">
                         <input value="{{ old('bk_published_year') }}" type="number"
-                            id="published" min="1500" max="{{ date('Y') }}"
+                            id="published" min="1901" max="{{ date('Y') }}"
                             step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror"
                             id="published">
@@ -261,8 +260,8 @@
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary px-5"
-                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-primary px-5" id="tombol"
+                    onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>
@@ -411,7 +410,7 @@
             if (this.value === '2') {
                 container.innerHTML = `
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">DPF eBuku</label>
+                <label class="col-sm-2 col-form-label">PDF eBuku</label>
                 <div class="col-sm-10">
                     <input type="file"
                         id="inputImage"
@@ -481,7 +480,8 @@
                 }
 
                 fetch(
-                        `{{ route('publishers.search') }}?q=${encodeURIComponent(query) }`)
+                        `{{ route('publishers.search') }}?q=${encodeURIComponent(query) }`
+                    )
                     .then(res => res.json())
                     .then(data => {
                         suggestionsBox_pub.innerHTML = '';
