@@ -14,12 +14,14 @@
         align-self: flex-end;
         background: var(--bs-success);
         color: #fff;
+        white-space: pre-line;
     }
 
     .msg.bot {
         align-self: flex-start;
         background: #132440;
         color: #fff;
+        white-space: pre-line;
     }
 
     .quick-messages {
@@ -30,6 +32,8 @@
         overflow: hidden;
         opacity: 0;
         transition: max-height .3s ease, opacity .3s ease;
+        /* white-space: pre-line; */
+
     }
 
     .quick-messages.show {

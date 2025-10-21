@@ -69,13 +69,14 @@
     display: flex;
     justify-content: center;
     padding-right: 100px;
+    
   }
 
   .cover img {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    /* border-radius: 20px; */
   }
 
   /* From Uiverse.io by eslam-hany */
@@ -85,14 +86,16 @@
     width: 300px;
     height: 400px;
     background-color: whitesmoke;
-    box-shadow: 1px 1px 12px #000;
+    box-shadow: 8px 10px 12px #000;
     transform: preserve-3d;
     perspective: 2000px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #000;
+    /* overflow: hidden; */
   }
+  
 
   .cover {
     top: 0;
@@ -100,15 +103,15 @@
     background-color: lightgray;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     cursor: pointer;
     transition: all 0.5s;
     transform-origin: 0;
-    box-shadow: 1px 1px 12px #000;
+    box-shadow: 0px 8px 12px #000;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     z-index: 2;
   }
 
@@ -121,7 +124,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
 
   /* Teks utama di dalam buku */

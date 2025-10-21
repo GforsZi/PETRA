@@ -58,9 +58,11 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
+
                         <p id="text" class="text-muted"
                             style="margin-top:0; white-space: pre-line;">
                             {!! trim($book['bk_description']) ?? '' !!}
+
                         </p>
 
                         <!-- isian descripsi  -->
