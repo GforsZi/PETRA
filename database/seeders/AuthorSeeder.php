@@ -42,7 +42,6 @@ class AuthorSeeder extends Seeder
             ['athr_name' => 'Tim Sudah Dong', 'athr_created_at' => $now, 'athr_updated_at' => $now, 'athr_sys_note' => 'Manual seed'],
             ['athr_name' => 'Johana Renny Octavia', 'athr_created_at' => $now, 'athr_updated_at' => $now, 'athr_sys_note' => 'Manual seed'],
             ['athr_name' => 'Fuad Aljihad', 'athr_created_at' => $now, 'athr_updated_at' => $now, 'athr_sys_note' => 'Manual seed'],
-            ['athr_name' => 'dkk.', 'athr_created_at' => $now, 'athr_updated_at' => $now, 'athr_sys_note' => 'Manual seed']
         ]);
     }
 }
