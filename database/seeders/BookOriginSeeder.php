@@ -15,13 +15,7 @@ class BookOriginSeeder extends Seeder
 
         DB::table('book_origins')->insert([
             [
-                'bk_orgn_name' => 'Pembelian',
-                'bk_orgn_created_at' => $now,
-                'bk_orgn_updated_at' => $now,
-                'bk_orgn_sys_note' => 'Manual seed'
-            ],
-            [
-                'bk_orgn_name' => 'Donasi',
+                'bk_orgn_name' => 'BOS',
                 'bk_orgn_created_at' => $now,
                 'bk_orgn_updated_at' => $now,
                 'bk_orgn_sys_note' => 'Manual seed'

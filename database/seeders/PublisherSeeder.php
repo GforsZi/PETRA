@@ -15,15 +15,15 @@ class PublisherSeeder extends Seeder
 
         DB::table('publishers')->insert([
             [
-                'pub_name' => 'PT. Penerbit Nusantara',
-                'pub_address' => 'Jl. Merdeka No.1, Jakarta',
+                'pub_name' => 'Esensi',
+                'pub_address' => 'Jakarta',
                 'pub_created_at' => $now,
                 'pub_updated_at' => $now,
                 'pub_sys_note' => 'Manual seed'
             ],
             [
-                'pub_name' => 'Gramedia Pustaka',
-                'pub_address' => 'Jl. Sudirman No.10, Jakarta',
+                'pub_name' => 'Erlangga',
+                'pub_address' => 'Jakarta',
                 'pub_created_at' => $now,
                 'pub_updated_at' => $now,
                 'pub_sys_note' => 'Manual seed'
