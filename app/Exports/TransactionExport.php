@@ -81,7 +81,7 @@ class TransactionExport implements FromCollection, WithHeadings, WithMapping, Wi
             return match ($col) {
                 'user_name' => $trx->user->name ?? '-',
                 'books' => $trx->bookTransactions->map(fn($bt) => $bt->book->bk_title ?? '-')->unique()->implode(', '),
-                'book_copies' => $trx->bookTransactions->map(fn($bt) => $bt->bookCopy->bk_cp_number ?? '-')->implode(', '),
+                'book_copies' => $trx->bookTransactions->map(fn($bt) => $bt->bookCopy->bk_cp_number ?? 'Seluruh salinan')->implode(', '),
                 'trx_borrow_date' => optional($trx->trx_borrow_date)->format('d/m/Y H:i'),
                 'trx_due_date' => optional($trx->trx_due_date)->format('d/m/Y H:i'),
                 'trx_return_date' => optional($trx->trx_return_date)->format('d/m/Y H:i'),

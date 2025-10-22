@@ -19,9 +19,14 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="title" class="col-sm-2 col-form-label">Judul opsi</label>
+                    <label for="title" class="col-sm-2 col-form-label" data-bs-container="body"
+                        data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Judul
+                        opsi</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('cht_opt_title') }}" type="text" name="cht_opt_title"
+                        <input value="{{ old('cht_opt_title') }}" type="text"
+                            name="cht_opt_title"
                             class="form-control @error('cht_opt_title') is-invalid @enderror"
                             id="title">
                         @error('cht_opt_title')
@@ -32,7 +37,11 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="message" class="col-sm-2 col-form-label">Pesan opsi</label>
+                    <label for="message" class="col-sm-2 col-form-label" data-bs-container="body"
+                        data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Pesan
+                        opsi</label>
                     <div class="col-sm-10">
                         <textarea name="cht_opt_message" id="message"
                             class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand">{{ old('cht_opt_message') }}</textarea>
@@ -57,8 +66,8 @@
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary px-5"
-                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-primary px-5" id="tombol"
+                    onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

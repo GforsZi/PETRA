@@ -30,12 +30,12 @@ class ManageBookController extends Controller
         $queryP = $request->get('perpose');
         $books = null;
         if ($queryP === '2') {
-            $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')->where('bk_type', '1')->with('bookCopies')
             ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', null)->where('bk_permission', '1')
             ->orderBy('bk_title', 'asc')
             ->get();
         } else {
-            $books = Book::select('bk_id', 'bk_title', 'bk_img_url')->where('bk_type', '1')->with('bookCopies')
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')->where('bk_type', '1')->with('bookCopies')
             ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', '!=', null)->where('bk_permission', '1')
             ->orderBy('bk_title', 'asc')
             ->get();

@@ -12,35 +12,43 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Perangkat</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body"
+                        data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
+                        Perangkat</label>
                     <div class="col-sm-10">
                         <input value="{{ old('name') }}" type="text" name="name"
                             class="form-control @error('name') is-invalid @enderror"
                             id="inputEmail3">
-                            @error('name')
-                                <div class="invalid-feedback">
-                                    <p style="text-align: right;">Input tidak valid</p>
-                                </div>
-                            @enderror
+                        @error('name')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak valid</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Perangkat</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nomor
+                        Perangkat</label>
                     <div class="col-sm-10">
                         <input value="{{ old('device') }}" type="text" name="device"
                             class="form-control @error('device') is-invalid @enderror"
                             id="inputEmail3">
-                            @error('device')
-                                <div class="invalid-feedback">
-                                    <p style="text-align: right;">Input tidak valid</p>
-                                </div>
-                            @enderror
+                        @error('device')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">Input tidak valid</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary px-5"
-                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-primary px-5" id="tombol"
+                    onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

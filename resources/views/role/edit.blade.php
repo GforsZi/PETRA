@@ -13,29 +13,39 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Ubah Nama Peran</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body"
+                        data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Ubah
+                        Nama Peran</label>
                     <div class="col-sm-10">
                         <input type="text"
                             class="form-control @error('rl_name') is-invalid @enderror"
                             name="rl_name" value="{{ $role[0]['rl_name'] }}" id="inputEmail3">
-                            @error('rl_name')
-                                <div class="invalid-feedback">
-                                    <p style="text-align: right;">' {{ old('rl_name') }} ' Input tidak termasuk ke dalam format Peran yang valid</p>
-                                </div>
-                            @enderror
+                        @error('rl_name')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">' {{ old('rl_name') }} ' Input tidak
+                                    termasuk ke dalam format Peran yang valid</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Ubah Keterangan
+                    <label for="inputPassword3" class="col-sm-2 col-form-label"
+                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Ubah
+                        Keterangan
                         Peran</label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror"
                             id="autoExpand">{{ $role[0]['rl_description'] }}</textarea>
-                            @error('rl_description')
-                                <div class="invalid-feedback">
-                                    <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input melebihi jumlah karakter Maksimal</p>
-                                </div>
-                            @enderror
+                        @error('rl_description')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input
+                                    melebihi jumlah karakter Maksimal</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 </fieldset>
@@ -50,7 +60,11 @@
                             @else
                                 <input class="form-check-input" type="checkbox" id="gridCheck1">
                             @endif
-                            <label class="form-check-label" for="gridCheck1">
+                            <label class="form-check-label" for="gridCheck1"
+                                data-bs-container="body" data-bs-toggle="popover"
+                                data-bs-placement="bottom" data-bs-trigger="hover focus"
+                                data-bs-title="Pemberitahuan"
+                                data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
                                 Admin
                             </label>
                         </div>
@@ -60,8 +74,8 @@
             <!--end::Body-->
             <!--begin::Footer-->
             <div class="card-footer">
-                <button type="submit" class="btn btn-outline-warning px-5"
-                    id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-warning px-5" id="tombol"
+                    onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

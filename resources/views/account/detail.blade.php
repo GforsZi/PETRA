@@ -137,6 +137,19 @@
                     <h5 class="mb-0">Konfirmasi</h5>
                     <p class="mb-0">Yakin ingin melakukan aktifasi pada akun ini ?</p>
                 </div>
+                <div class="container d-flex mb-4 justify-content-center">
+
+                    <div class="form-check">
+                        <input class="form-check-input @error('rl_admin') is-invalid @enderror"
+                            name="rl_admin" value="1" type="checkbox" id="gridCheck1">
+                        <label class="form-check-label" for="gridCheck1" data-bs-container="body"
+                            data-bs-toggle="popover" data-bs-placement="bottom"
+                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
+                            Admin
+                        </label>
+                    </div>
+                </div>
                 <input hidden name='usr_activation' value="1" />
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"

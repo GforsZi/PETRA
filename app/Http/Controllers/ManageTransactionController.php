@@ -85,7 +85,7 @@ public function detail_transaction_page($id)
             'trx_borrow_date' => 'required|date',
             'book_ids' => 'required|array|min:1',
             'book_ids.*' => 'integer|exists:books,bk_id',
-            'trx_copy_id' => 'required|array|min:1',
+            'trx_copy_id' => 'nullable|array|min:1',
             'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
         ]);
         DB::beginTransaction();
@@ -96,8 +96,7 @@ public function detail_transaction_page($id)
                 'trx_borrow_date' => $request->trx_borrow_date,
                 'trx_status' => '1',
                 'trx_title' => $request->trx_title,
-                'trx_description' => $request->trx_description,
-                'trx_created_by' => Auth::id(),
+                'trx_description' => $request->trx_description
             ]);
 
             // Simpan relasi buku yang dipinjam
