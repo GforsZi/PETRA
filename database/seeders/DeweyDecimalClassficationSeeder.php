@@ -14,12 +14,14 @@ class DeweyDecimalClassficationSeeder extends Seeder
         $now = Carbon::now()->toDateTimeString();
 
         DB::table('dewey_decimal_classfications')->insert([
-            ['ddc_code' => '1', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
-            ['ddc_code' => '2', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
-            ['ddc_code' => '3', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
-            ['ddc_code' => '4', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
-            ['ddc_code' => '5', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
-            ['ddc_code' => '6', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '001', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '002', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '003', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '004', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '005', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '006', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '008 ', 'ddc_description' => 'Ilmu umum / komputer / informasi', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
+            ['ddc_code' => '033', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
             ['ddc_code' => '221', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
             ['ddc_code' => '297', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],
             ['ddc_code' => '303', 'ddc_description' => '', 'ddc_created_at' => $now, 'ddc_updated_at' => $now, 'ddc_sys_note' => 'Manual seed'],

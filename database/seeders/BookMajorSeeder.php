@@ -62,9 +62,9 @@ class BookMajorSeeder extends Seeder
             ['bk_mjr_class' => 'XI', 'bk_mjr_major' => 'Pengembangan Perangkat Lunak dan Gim', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
             ['bk_mjr_class' => 'XII', 'bk_mjr_major' => 'Pengembangan Perangkat Lunak dan Gim', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
 
-            ['bk_mjr_class' => 'X', 'bk_mjr_major' => 'DKV', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
-            ['bk_mjr_class' => 'XI', 'bk_mjr_major' => 'DKV', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
-            ['bk_mjr_class' => 'XII', 'bk_mjr_major' => 'DKV', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
+            ['bk_mjr_class' => 'X', 'bk_mjr_major' => 'Desain Komunikasi Visual', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
+            ['bk_mjr_class' => 'XI', 'bk_mjr_major' => 'Desain Komunikasi Visual', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
+            ['bk_mjr_class' => 'XII', 'bk_mjr_major' => 'Desain Komunikasi Visual', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
 
             ['bk_mjr_class' => 'X', 'bk_mjr_major' => 'Bimbingan konseling', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
             ['bk_mjr_class' => 'XI', 'bk_mjr_major' => 'Bimbingan konseling', 'bk_mjr_created_at' => $now, 'bk_mjr_updated_at' => $now, 'bk_mjr_sys_note' => 'Manual seed'],
