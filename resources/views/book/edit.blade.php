@@ -27,8 +27,9 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Jenis
-                        Buku</label>
+                        data-bs-content="Ketersediaan buku, untuk mengatur setiap buku yang ada apakah bisa dipinjam atau tidak.">
+                        Ketersediaan Buku
+                    </label>
                     <div class="col-sm-10">
                         <select name="bk_permission"
                             class="form-select @error('bk_permission') is-invalid @enderror"
@@ -47,8 +48,9 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Jenis
-                        Buku</label>
+                        data-bs-content="Untuk output yang akan tampil berbentuk apa kepada user, apakah buku fisik atau versi digital.">
+                        Jenis Buku
+                    </label>
                     <div class="col-sm-10">
                         <select name="bk_type" id="image-option"
                             class="form-select @error('bk_type') is-invalid @enderror" required
@@ -67,8 +69,8 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Sampul
-                        Buku
+                        data-bs-content="Unggah file gambar (jpg, jpeg, png) maksimal 2 MB untuk dijadikan sampul buku.">
+                        Sampul Buku
                     </label>
                     <div class="col-sm-10">
                         <input type="file"
@@ -82,12 +84,13 @@
                             <label class="col-sm-2 col-form-label" data-bs-container="body"
                                 data-bs-toggle="popover" data-bs-placement="bottom"
                                 data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                                data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">DPF
-                                eBuku</label>
+                                data-bs-content="Unggah file PDF e-book (maksimal 6 MB). Pastikan file sesuai dengan isi buku dan tidak rusak.">
+                                PDF eBuku
+                            </label>
                             <div class="col-sm-10" data-bs-container="body">
                                 <input type="file" id="inputImage"
                                     class="form-control @error('file_pdf') is-invalid @enderror"
-                                    name="file_pdf" accept="file_pdf/*">
+                                    name="file_pdf" accept="application/pdf">
                                 @error('file_pdf')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -99,8 +102,9 @@
                     <label for="sibn" class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">ISBN
-                        Buku</label>
+                        data-bs-content="Masukkan nomor ISBN yang valid (misalnya: 978-602-441-123-4). ISBN harus unik dan sesuai format standar internasional. Kosongkan jika buku tidak memiliki ISBN.">
+                        ISBN Buku
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_isbn" value="{{ $book['bk_isbn'] }}"
                             class="form-control @error('bk_isbn') is-invalid @enderror"
@@ -111,8 +115,9 @@
                     <label for="title" class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Judul
-                        Buku</label>
+                        data-bs-content="Wajib diisi. Tulis judul lengkap buku sesuai sampul depan. Hindari singkatan atau simbol yang tidak perlu.">
+                        Judul Buku
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_title" value="{{ $book['bk_title'] }}"
                             class="form-control @error('bk_title') is-invalid @enderror"
@@ -129,8 +134,9 @@
                         data-bs-container="body" data-bs-toggle="popover"
                         data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Keterangan
-                        Buku</label>
+                        data-bs-content="Opsional. Tambahkan deskripsi singkat mengenai isi atau tujuan buku (maksimal 65.535 karakter).">
+                        Keterangan Buku
+                    </label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
                             id="autoExpand">{{ $book['bk_description'] }}</textarea>
@@ -141,8 +147,9 @@
                         data-bs-container="body" data-bs-toggle="popover"
                         data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Harga
-                        Perbuku</label>
+                        data-bs-content="Masukkan harga buku dalam angka (tanpa titik atau koma). Bisa dikosongkan jika buku tidak dijual.">
+                        Harga Perbuku
+                    </label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_unit_price"
                             value="{{ $book['bk_unit_price'] }}"
@@ -155,8 +162,9 @@
                         data-bs-container="body" data-bs-toggle="popover"
                         data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Halaman
-                        Buku</label>
+                        data-bs-content="Masukkan jumlah halaman sesuai buku aslinya.">
+                        Halaman Buku
+                    </label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_page" value="{{ $book['bk_page'] }}"
                             class="form-control @error('bk_page') is-invalid @enderror"
@@ -168,8 +176,9 @@
                         data-bs-container="body" data-bs-toggle="popover"
                         data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Edisi
-                        Buku</label>
+                        data-bs-content="Tuliskan edisi atau volume buku, misalnya Edisi Revisi Kedua atau Volume 1.">
+                        Edisi Buku
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_edition_volume"
                             value="{{ $book['bk_edition_volume'] }}"
@@ -182,24 +191,25 @@
                         data-bs-container="body" data-bs-toggle="popover"
                         data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Tahun
-                        Terbit Buku</label>
+                        data-bs-content="Masukkan tahun terbit (4 digit, antara 1901-sekarang).">
+                        Tahun Terbit Buku
+                    </label>
                     <div class="col-sm-10">
-                        <input type="number" id="published" min="1500"
+                        <input type="number" id="published" min="1901"
                             value="{{ $book['bk_published_year'] }}" max="{{ date('Y') }}"
                             step="1" name="bk_published_year"
-                            class="form-control @error('bk_published_year') is-invalid @enderror"
-                            id="published">
+                            class="form-control @error('bk_published_year') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Penerbit</label>
+                        data-bs-content="Pilih penerbit dari daftar yang tersedia. Pastikan penerbit sudah terdaftar di sistem.">
+                        Penerbit Buku
+                    </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
-
                             <input type="text" id="publisher-input"
                                 class="form-control pe-5 @error('bk_publisher_id') is-invalid @enderror"
                                 autocomplete="off"
@@ -215,13 +225,13 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Asal
-                        Buku</label>
+                        data-bs-content="Pilih asal buku, seperti Pembelian, Donasi, atau Bantuan Sekolah.">
+                        Sumber Buku
+                    </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
                             <input type="text" id="origin-input"
@@ -240,8 +250,12 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Jurusan
-                        Buku</label>
+                    <label class="col-sm-2 col-form-label" data-bs-container="body"
+                        data-bs-toggle="popover" data-bs-placement="bottom"
+                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                        data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">
+                        Jurusan Buku
+                    </label>
                     <div class="col-sm-10">
                         <select name="bk_major_id"
                             class="form-select @error('bk_major_id') is-invalid @enderror"
@@ -264,8 +278,9 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Penulis
-                        Buku</label>
+                        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
+                        Penulis Buku
+                    </label>
                     <div class="col-sm-10">
                         <select class="form-control d-none" id="selected-authors"
                             name="authors[]" multiple>
@@ -274,7 +289,6 @@
                                     {{ $author->athr_name }}</option>
                             @endforeach
                         </select>
-
                         <div id="author-tags" class="mt-2">
                             @foreach ($book['authors'] as $author)
                                 <span class="badge bg-primary me-1 mb-1"
@@ -289,8 +303,9 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body"
                         data-bs-toggle="popover" data-bs-placement="bottom"
                         data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Klasifikasi
-                        Buku</label>
+                        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
+                        Klasifikasi Buku
+                    </label>
                     <div class="col-sm-10">
                         <select class="form-control d-none" id="selected-ddc"
                             name="classfications[]" multiple>
@@ -299,7 +314,6 @@
                                     {{ $ddc->ddc_code }}</option>
                             @endforeach
                         </select>
-
                         <div id="ddc-tags" class="mt-2">
                             @foreach ($book['deweyDecimalClassfications'] as $ddc)
                                 <span class="badge badge-ddc bg-warning me-1 mb-1"
@@ -311,6 +325,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal fade" id="authorModal" tabindex="-1"
                 aria-labelledby="authorModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
