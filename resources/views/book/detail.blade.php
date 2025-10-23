@@ -71,6 +71,13 @@
                         <td>Judul</td>
                         <td>{{ $book['bk_title'] ?? '' }}</td>
                     </tr>
+                    @if ($book['major'])
+                        <tr class="align-middle">
+                            <td>Jurusan</td>
+                            <td>{{ $book['major']['bk_mjr_class'] . ' ' . $book['major']['bk_mjr_major'] ?? '' }}
+                            </td>
+                        </tr>
+                    @endif
                     <tr class="align-middle">
                         <td>ISBN</td>
                         <td>{{ $book['bk_isbn'] ?? '' }}</td>

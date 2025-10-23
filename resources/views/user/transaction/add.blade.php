@@ -18,15 +18,12 @@
                     <p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>
                 </div>
 
-             <button id="btnPilihBuku" type="button" 
-                class="btn btn-primary mt-3 w-100"
-                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                data-bs-container="body"
-                data-bs-placement="bottom"
-                data-bs-trigger="hover focus"
-                data-bs-content="Untuk memilih buku, pastikan anda menentukan tujuan peminjaman terlebih dahulu">
-                Pilih Buku
-            </button>
+                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-container="body"
+                    data-bs-placement="bottom" data-bs-trigger="hover focus"
+                    data-bs-content="Untuk memilih buku, pastikan anda menentukan tujuan peminjaman terlebih dahulu">
+                    Pilih Buku
+                </button>
 
             </div>
 
@@ -109,30 +106,31 @@
     </style>
 
     <script>
-       const bokList = document.getElementById('book-list');
-const tujuanSelect = document.getElementById('tujuanSelect');
-const listContainer = document.getElementById('listBukuDipilih');
-const btnPilihBuku = document.getElementById('btnPilihBuku');
+        const bokList = document.getElementById('book-list');
+        const tujuanSelect = document.getElementById('tujuanSelect');
+        const listContainer = document.getElementById('listBukuDipilih');
+        const btnPilihBuku = document.getElementById('btnPilihBuku');
 
-// cari buku
-document.getElementById('book-search').addEventListener('keyup', function() {
-    let query = this.value;
+        // cari buku
+        document.getElementById('book-search').addEventListener('keyup', function() {
+            let query = this.value;
 
-    fetch("{{ route('books.search') }}?q=" + query + "&purpose=" + tujuanSelect.value)
-        .then(res => res.json())
-        .then(data => {
-            bokList.innerHTML = '';
-            data.forEach(book => {
-                let div = document.createElement('div');
-                div.classList.add('col', 'd-flex', 'justify-content-center');
+            fetch("{{ route('books.search') }}?q=" + query + "&purpose=" + tujuanSelect.value)
+                .then(res => res.json())
+                .then(data => {
+                    bokList.innerHTML = '';
+                    data.forEach(book => {
+                        let div = document.createElement('div');
+                        div.classList.add('col', 'd-flex',
+                            'justify-content-center');
 
-                const copiesData = JSON.stringify(book.book_copies || []);
+                        const copiesData = JSON.stringify(book.book_copies || []);
 
-                let imgSrc = book.bk_img_url ?
-                    `{{ asset('${book.bk_img_url}') }}` :
-                    `{{ asset('logo/book_placeholder.jpg') }}`;
+                        let imgSrc = book.bk_img_url ?
+                            `{{ asset('${book.bk_img_url}') }}` :
+                            `{{ asset('logo/book_placeholder.jpg') }}`;
 
-                div.innerHTML = `
+                        div.innerHTML = `
         <div class="card h-100 p-1 border shadow-sm" style="max-width: 140px;">
             <img src="${imgSrc}"
                 class="object-fit-contain pilih-buku"
@@ -150,97 +148,97 @@ document.getElementById('book-search').addEventListener('keyup', function() {
             </p>
         </div>
     `;
-                bokList.appendChild(div);
-            });
-        });
-});
-
-// ====================
-// POPUP SAAT PILIH BUKU
-// ====================
-const listBukuDipilih = document.getElementById('listBukuDipilih');
-let popoverInstance = null;
-
-document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('pilih-buku')) {
-        // jika ada popover sebelumnya, hapus dulu
-        if (popoverInstance) {
-            popoverInstance.dispose();
-        }
-
-        // hitung jumlah card yang ada di dalam listBukuDipilih
-        const jumlahCard = listBukuDipilih.querySelectorAll('.card').length;
-
-        // ✅ pastikan popover tidak muncul sebelum ada card sama sekali
-        if (jumlahCard === 0) {
-            return; // keluar tanpa menampilkan popover
-        }
-
-        // tentukan pesan berdasarkan pola jumlah card
-        let pesanPopover = '';
-        if (tujuanSelect.value === "1") {
-            pesanPopover = 'Untuk peminjaman KBM, hanya dapat 1 buku saja';
-        } else if (tujuanSelect.value === "2") {
-            pesanPopover = 'Untuk peminjaman pribadi, maksimal hanya 3 buku saja';
-        } else {
-            pesanPopover = 'Silakan pilih tujuan peminjaman terlebih dahulu';
-        }
-
-        // buat popover baru di atas list buku
-        popoverInstance = new bootstrap.Popover(listBukuDipilih, {
-            content: pesanPopover,
-            placement: 'top',
-            trigger: 'manual',
-            html: true
+                        bokList.appendChild(div);
+                    });
+                });
         });
 
-        popoverInstance.show();
+        // ====================
+        // POPUP SAAT PILIH BUKU
+        // ====================
+        const listBukuDipilih = document.getElementById('listBukuDipilih');
+        let popoverInstance = null;
 
-        // hilangkan otomatis setelah 2 detik
-        setTimeout(() => {
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('pilih-buku')) {
+                // jika ada popover sebelumnya, hapus dulu
+                if (popoverInstance) {
+                    popoverInstance.dispose();
+                }
+
+                // hitung jumlah card yang ada di dalam listBukuDipilih
+                const jumlahCard = listBukuDipilih.querySelectorAll('.card').length;
+
+                // ✅ pastikan popover tidak muncul sebelum ada card sama sekali
+                if (jumlahCard === 0) {
+                    return; // keluar tanpa menampilkan popover
+                }
+
+                // tentukan pesan berdasarkan pola jumlah card
+                let pesanPopover = '';
+                if (tujuanSelect.value === "1") {
+                    pesanPopover = 'Untuk peminjaman KBM, hanya dapat 1 buku saja';
+                } else if (tujuanSelect.value === "2") {
+                    pesanPopover = 'Untuk peminjaman pribadi, maksimal hanya 3 buku saja';
+                } else {
+                    pesanPopover = 'Silakan pilih tujuan peminjaman terlebih dahulu';
+                }
+
+                // buat popover baru di atas list buku
+                popoverInstance = new bootstrap.Popover(listBukuDipilih, {
+                    content: pesanPopover,
+                    placement: 'top',
+                    trigger: 'manual',
+                    html: true
+                });
+
+                popoverInstance.show();
+
+                // hilangkan otomatis setelah 2 detik
+                setTimeout(() => {
+                    if (popoverInstance) {
+                        popoverInstance.dispose();
+                        popoverInstance = null;
+                    }
+                }, 3000);
+            }
+        });
+
+        // ✅ popover otomatis menyesuaikan isi pesan ketika tujuan berubah
+        tujuanSelect.addEventListener('change', function() {
             if (popoverInstance) {
                 popoverInstance.dispose();
-                popoverInstance = null;
             }
-        }, 3000);
-    }
-});
 
-// ✅ popover otomatis menyesuaikan isi pesan ketika tujuan berubah
-tujuanSelect.addEventListener('change', function () {
-    if (popoverInstance) {
-        popoverInstance.dispose();
-    }
+            // hanya tampilkan kalau sudah ada card di list
+            const jumlahCard = listBukuDipilih.querySelectorAll('.card').length;
+            if (jumlahCard === 0) return;
 
-    // hanya tampilkan kalau sudah ada card di list
-    const jumlahCard = listBukuDipilih.querySelectorAll('.card').length;
-    if (jumlahCard === 0) return;
+            let pesanPopover = '';
+            if (this.value === "1") {
+                pesanPopover = 'Untuk peminjaman KBM, hanya dapat 1 buku saja';
+            } else if (this.value === "2") {
+                pesanPopover = 'Untuk peminjaman pribadi, maksimal hanya 3 buku saja';
+            } else {
+                pesanPopover = 'Silakan pilih tujuan peminjaman terlebih dahulu';
+            }
 
-    let pesanPopover = '';
-    if (this.value === "1") {
-        pesanPopover = 'Untuk peminjaman KBM, hanya dapat 1 buku saja';
-    } else if (this.value === "2") {
-        pesanPopover = 'Untuk peminjaman pribadi, maksimal hanya 3 buku saja';
-    } else {
-        pesanPopover = 'Silakan pilih tujuan peminjaman terlebih dahulu';
-    }
+            popoverInstance = new bootstrap.Popover(listBukuDipilih, {
+                content: pesanPopover,
+                placement: 'top',
+                trigger: 'manual',
+                html: true
+            });
 
-    popoverInstance = new bootstrap.Popover(listBukuDipilih, {
-        content: pesanPopover,
-        placement: 'top',
-        trigger: 'manual',
-        html: true
-    });
+            popoverInstance.show();
 
-    popoverInstance.show();
-
-    setTimeout(() => {
-        if (popoverInstance) {
-            popoverInstance.dispose();
-            popoverInstance = null;
-        }
-    }, 2000);
-});
+            setTimeout(() => {
+                if (popoverInstance) {
+                    popoverInstance.dispose();
+                    popoverInstance = null;
+                }
+            }, 2000);
+        });
 
 
         // update tombol
@@ -358,10 +356,10 @@ tujuanSelect.addEventListener('change', function () {
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.getElementById('btnPilihBuku');
-    const popover = new bootstrap.Popover(btn);
-});
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('btnPilihBuku');
+            const popover = new bootstrap.Popover(btn);
+        });
     </script>
 
 </x-app-layout>

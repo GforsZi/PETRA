@@ -64,6 +64,7 @@ class ExportsController extends Controller
             $table[] = [
                 'date' => $d,
                 'label' => $date->format('d M Y'),
+                'detail' => $date->format('Y-m-d'),
                 'count' => $cnt,
             ];
         }

@@ -39,14 +39,21 @@
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th class="text-end">Jumlah Login</th>
+                                    <th class="text-start">Jumlah Login</th>
+                                    <th style="width: 70px">Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($table as $row)
                                     <tr>
                                         <td>{{ $row['label'] }}</td>
-                                        <td class="text-end">{{ $row['count'] }}</td>
+                                        <td class="text-start">{{ $row['count'] }}</td>
+                                        <td>
+                                            <a href="/manage/export/statistics/{{ $row['detail'] }}/detail"
+                                                class="btn btn-warning m-0 text-center"><i
+                                                    class="bi bi-list-ul"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

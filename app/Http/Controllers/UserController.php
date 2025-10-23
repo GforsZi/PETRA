@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function home_page()
     {
-        $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->latest()->get();
+        $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->limit(14)->latest()->get();
         $dataD = DB::table('transactions')->where('trx_user_id', Auth::id())
             ->select('trx_status', DB::raw('COUNT(*) as total'))
             ->groupBy('trx_status')
@@ -92,7 +92,7 @@ class UserController extends Controller
 
     public function search_book_page()
     {
-        $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->latest()->get();
+        $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->limit(14)->latest()->get();
         return view('user.book.search', ['title' => 'Halaman Cari Buku'], compact('book_new'));
     }
 

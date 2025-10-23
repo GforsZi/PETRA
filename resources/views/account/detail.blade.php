@@ -128,8 +128,8 @@
     <div class="modal fade" id="activationConfirmation{{ $account['usr_id'] }}"
         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="activationConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
-        <form action="/system/account/{{ $account['usr_id'] }}/activate" method="post"
-            class="modal-dialog modal-dialog-centered">
+        <form id="sendMessageForm" action="/system/account/{{ $account['usr_id'] }}/activate"
+            method="post" class="modal-dialog modal-dialog-centered">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">
@@ -141,12 +141,14 @@
 
                     <div class="form-check">
                         <input class="form-check-input @error('rl_admin') is-invalid @enderror"
-                            name="rl_admin" value="1" type="checkbox" id="gridCheck1">
-                        <label class="form-check-label" for="gridCheck1" data-bs-container="body"
-                            data-bs-toggle="popover" data-bs-placement="bottom"
-                            data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                            name="send_wa" value="1" type="checkbox" id="gridCheck1"
+                            data-bs-container="body" data-bs-toggle="popover"
+                            data-bs-placement="bottom" data-bs-trigger="hover"
+                            data-bs-title="Pemberitahuan"
                             data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
-                            Admin
+                        <input value="{{ $account['usr_no_wa'] }}" type="hidden" name="target">
+                        <label class="form-check-label" for="gridCheck1">
+                            Kirim pesan whatsapp, untuk pemberitahuan.
                         </label>
                     </div>
                 </div>

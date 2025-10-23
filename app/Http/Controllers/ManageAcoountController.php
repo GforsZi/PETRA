@@ -3,14 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChatOption;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\FonnteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Browsershot\Browsershot;
 
 class ManageAcoountController extends Controller
 {
+    protected $fonnteService;
+
+    public function __construct(FonnteService $fonnteService)
+    {
+        $this->fonnteService = $fonnteService;
+    }
     public function manage_account_page(Request $request)
     {
         $curl = curl_init();
@@ -127,14 +135,70 @@ class ManageAcoountController extends Controller
 
     public function activated_account_system(Request $request, $id)
     {
+        $status_kode = null;
         $user = User::find($id);
 
         $validateData = $request->validate([
             'usr_activation' => 'required | boolean',
         ]);
 
+        if ($request->send_wa == true) {
+        $message = ChatOption::select('cht_opt_id', 'cht_opt_message', 'cht_opt_type')->where('cht_opt_type', '1')->get()->first()->toArray();
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.fonnte.com/get-devices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => [
+                'Authorization: ' . config('services.fonnte.account_token'),
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data = json_decode($response, true);
+
+        $activeDeviceToken = null;
+
+        if (!empty($data['data'])) {
+            foreach ($data['data'] as $device) {
+                if (($device['status'] ?? false) == 'connect') {
+                    $activeDeviceToken = $device['token'];
+                    break;
+                }
+            }
+        }
+
+        $request->validate([
+            'target' => 'required|string',
+        ]);
+
+        $deviceToken = $activeDeviceToken;
+
+        if (str_starts_with($deviceToken, 'Bearer ')) {
+            $deviceToken = substr($deviceToken, 7);
+        }
+
+        $response = $this->fonnteService->sendWhatsAppMessage($request->target, $message['cht_opt_message'], $deviceToken);
+
+        if (!$response['status'] || (isset($response['data']['status']) && !$response['data']['status'])) {
+            $errorReason = $response['data']['reason'] ?? 'Unknown error occurred';
+            return response()->json(['message' => 'Error', 'error' => $errorReason], 500);
+        }
+
+        $status_kode = response()->json(['message' => 'Pesan berhasil dikirim!', 'data' => $response['data']]);
+        }
+
         $user->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diaktifasi');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diaktifasi ');
     }
 
     public function change_account_role_system(Request $request, $id)
