@@ -15,7 +15,7 @@
 
     <div class="mt-3">
         <div class="border border-body rounded p-3">
-            <h5 class="mb-2"><b>Hasil Pencarian</b></h5>
+            <h5 class="mb-2 text-center"><b>Hasil Pencarian</b></h5>
             <div id="searchResult" class="row gx-1 flex-nowrap overflow-x-scroll"></div>
         </div>
     </div>
@@ -78,6 +78,29 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+         #searchForm .form-control:hover,
+    #searchForm .form-control:focus {
+        background-color: #f8f9fa;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+    }
+
+    #searchForm .btn:hover,
+    #searchForm .btn:focus {
+        background-color: #0b5ed7;
+        transform: scale(1.05);
+        transition: all 0.2s ease;
+    }
+
+     .book {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .book:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
     </style>
 
     <script>
@@ -107,7 +130,7 @@
 
                         if (!data || data.length === 0) {
                             resultContainer.innerHTML =
-                                '<p class="text-muted">Tidak ada buku ditemukan.</p>';
+                                '<p class="text-muted text-center">Tidak ada buku ditemukan.</p>';
                             return;
                         }
 

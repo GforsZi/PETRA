@@ -24,41 +24,120 @@
             width: 120px;
             margin-right: 10px;
         }
+
+        .book {
+        /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-radius: 10px;
+    }
+
+    .book:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
+
+   .row.g-3 {
+    align-items: stretch;
+  }
+
+  .row.g-3 > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row.g-3 > [class*="col-"] .card {
+    flex: 1 1 auto;
+  }
+
+  /* Chart stabil & proporsional */
+  .chart-container {
+    width: 100%;
+    height: 130px;
+  }
+
+  #doughnutChart {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
     </style>
 
+<div class="row g-3 align-items-stretch">
+  <div class="col-8">
     <div class="row g-3">
-        <div class="col-8">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body">
-                    <h3 class="card-title me-2">Status:</h3>
-                    <p class="card-text">
-                        @if (Auth::user()->usr_activation == true)
-                            Sudah teraktifasi
-                        @else
-                            Belum teraktifasi
-                        @endif
-                    </p>
-                    <i class="fas fa-users fa-2x position-absolute top-0 end-0 m-3"></i>
-                </div>
+      <!-- STATUS -->
+      <div class="col-md-6 d-flex">
+        <div class="card text-white border-0 shadow-sm rounded-4 overflow-hidden flex-fill"
+             style="background: #198754; position: relative; min-height: 100px;">
+          <div>
+            <h3 class="text-white text-center fw-bold mb-0">Status</h3>
+          </div>
+
+          <div class="card-body px-4 py-4 d-flex align-items-center justify-content-between position-relative">
+            <p class="card-text fs-5 mb-0 fw-semibold">
+              @if (Auth::user()->usr_activation == true)
+                Sudah teraktifasi
+              @else
+                Belum teraktifasi
+              @endif
+            </p>
+
+            <div style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%);">
+              <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+              <animated-icons
+                src="https://animatedicons.co/get-icon?name=Success&style=minimalistic&token=2cb0da6b-0dad-4d02-8599-79b76c0333fb"
+                trigger="loop"
+                attributes='{"defaultColours":{"group-1":"#14F652FF","background":"#0BB125FF"}}'
+                height="55"
+                width="55">
+              </animated-icons>
             </div>
-            <div class="card text-dark bg-warning">
-                <div class="card-body">
-                    <h3 class="card-title me-2">Peran:</h3>
-                    <p class="card-text">{{ Auth::user()->roles?->rl_name ?? 'Tidak ada' }}</p>
-                    <i class="fas fa-chart-line fa-1x position-absolute top-0 end-0 m-3"></i>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="col-4">
-            <div class="card text-white bg-danger" style="height: 100%;">
-                <div class="card-body">
-                    <canvas id="doughnutChart" style="height:100px;"></canvas>
-                    <i
-                        class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
-                </div>
+      </div>
+
+      <!-- PERAN -->
+      <div class="col-md-6 d-flex">
+        <div class="card text-dark border-0 shadow-sm rounded-4 overflow-hidden flex-fill"
+             style="background: linear-gradient(135deg, #ffe082 0%, #ffca28 100%); position: relative; min-height: 100px;">
+          <div>
+            <h3 class="text-white text-center fw-bold mb-0">Peran</h3>
+          </div>
+
+          <div class="card-body px-4 py-4 d-flex align-items-center justify-content-between position-relative">
+            <p class="card-text fs-5 mb-0 fw-semibold text-light">
+              {{ Auth::user()->roles?->rl_name ?? 'Tidak ada' }}
+            </p>
+
+            <div style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%);">
+              <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+              <animated-icons
+                src="https://animatedicons.co/get-icon?name=Individual&style=minimalistic&token=ae97ee7c-56cc-4490-90bd-ecd3fc81466e"
+                trigger="loop"
+                attributes='{"defaultColours":{"group-1":"#000000","background":"#FFE19AFF"}}'
+                height="55"
+                width="55">
+              </animated-icons>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- DATA DIAGRAM -->
+  <div class="col-4 d-flex">
+    <div class="card text-white bg-danger border-0 shadow-sm rounded-4 overflow-hidden flex-fill"
+         style="position: relative; min-height: 100px;">
+      <div class="card-body position-relative d-flex align-items-center justify-content-center p-4">
+        <div class="chart-container" style="width: 100%; height: 70px; position: relative;">
+          <canvas id="doughnutChart"></canvas>
+        </div>
+        <i class="fas fa-exclamation-triangle fa-2x position-absolute top-0 end-0 m-3"></i>
+      </div>
+    </div>
+  </div>
+</div>
 
     <div class="mt-4">
         <h6>Buku Terpopuler</h6>
@@ -135,5 +214,8 @@
                 }
             }
         });
+
+
+        
     </script>
 </x-app-layout>

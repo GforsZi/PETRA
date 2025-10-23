@@ -114,13 +114,13 @@
 }
 
 .control {
-    background-color: #e9ad01;
+    background-color: #FEB21A;
     width: 100%;
     height: 50px;
     border-radius: 10px;
 }
 .control:hover {
-    background-color: #b4e50d;
+    background-color: #d59005;
 }
 
 .bg-img {
@@ -174,8 +174,8 @@
     }
 
     .row.g-0 .col-4 > .d-flex {
-        background-color: rgba(18, 23, 64, 0.65) !important; /* transparan + paksa override */
-        backdrop-filter: blur(6px);
+        background-color: rgba(89, 97, 158, 0.65) !important; /* transparan + paksa override */
+        /* backdrop-filter: blur(6px); */
         padding: 30px 25px;
         border-radius: 15px;
         width: 100%;
