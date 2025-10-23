@@ -60,6 +60,7 @@
     height: 100% !important;
   }
 
+  
     </style>
 
 <div class="row g-3 align-items-stretch">
@@ -185,36 +186,47 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Doughnut Chart
-        const ctx = document.getElementById('doughnutChart');
+       // Doughnut Chart
+const ctx = document.getElementById('doughnutChart');
 
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    label: 'Jumlah Transaksi',
-                    data: [
-                        {{ $chartData['proses'] }},
-                        {{ $chartData['diterima'] }},
-                        {{ $chartData['ditolak'] }}
-                    ],
-                    backgroundColor: [
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(255, 99, 132)'
-                    ],
-                }]
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            label: 'Jumlah Transaksi',
+            data: [
+                {{ $chartData['proses'] }},
+                {{ $chartData['diterima'] }},
+                {{ $chartData['ditolak'] }}
+            ],
+            backgroundColor: [
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)'
+            ],
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
             },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
+            tooltip: {
+                callbacks: {
+                    // Membuat label jadi dua baris
+                    title: function(context) {
+                        return context[0].dataset.label.replace(' ', '\n');
+                    },
+                    // Menampilkan hanya nilai tanpa label kedua
+                    label: function(context) {
+                        return context.formattedValue;
                     }
                 }
             }
-        });
-
+        }
+    }
+});
 
         
     </script>
