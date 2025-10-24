@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <button type="button" class="btn btn-lg btn-outline-primary" data-bs-toggle="modal"
+        <!-- <button type="button" class="btn btn-lg btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#authorModal" title="Tambah Penerbit">
             <i class="bi bi-person-plus-fill"></i>
-        </button>
-        <button type="button" class="btn btn-lg btn-outline-warning" data-bs-toggle="modal"
+        </button> -->
+        <!-- <button type="button" class="btn btn-lg btn-outline-warning" data-bs-toggle="modal"
             data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
             <i class="bi bi-123"></i>
-        </button>
+        </button> -->
     </x-slot:header_layout>
     <div class="card card-warning card-outline mb-4">
         <!--begin::Header-->
@@ -274,57 +274,70 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
-                        Penulis Buku
-                    </label>
-                    <div class="col-sm-10">
-                        <select class="form-control d-none" id="selected-authors"
-                            name="authors[]" multiple>
-                            @foreach ($book['authors'] as $author)
-                                <option value="{{ $author->athr_id }}" selected>
-                                    {{ $author->athr_name }}</option>
-                            @endforeach
-                        </select>
-                        <div id="author-tags" class="mt-2">
-                            @foreach ($book['authors'] as $author)
-                                <span class="badge bg-primary me-1 mb-1"
-                                    data-id="{{ $author->athr_id }}">{{ $author->athr_name }}<span
-                                        class="ms-1 text-light"
-                                        style="cursor:pointer;">×</span></span>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
-                        Klasifikasi Buku
-                    </label>
-                    <div class="col-sm-10">
-                        <select class="form-control d-none" id="selected-ddc"
-                            name="classfications[]" multiple>
-                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                <option class="option" value="{{ $ddc->ddc_id }}" selected>
-                                    {{ $ddc->ddc_code }}</option>
-                            @endforeach
-                        </select>
-                        <div id="ddc-tags" class="mt-2">
-                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                <span class="badge badge-ddc bg-warning me-1 mb-1"
-                                    data-id="{{ $ddc->ddc_id }}">{{ $ddc->ddc_code }}<span
-                                        class="ms-1 text-light"
-                                        style="cursor:pointer;">×</span></span>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+               <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" data-bs-container="body"
+        data-bs-toggle="popover" data-bs-placement="bottom"
+        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
+        Penulis Buku
+    </label>
+    <div class="col-sm-10 d-flex align-items-start">
+        <div class="flex-grow-1">
+            <select class="form-control d-none" id="selected-authors"
+                name="authors[]" multiple>
+                @foreach ($book['authors'] as $author)
+                    <option value="{{ $author->athr_id }}" selected>
+                        {{ $author->athr_name }}</option>
+                @endforeach
+            </select>
+            <div id="author-tags" class="mt-2">
+                @foreach ($book['authors'] as $author)
+                    <span class="badge bg-primary me-1 mb-1"
+                        data-id="{{ $author->athr_id }}">{{ $author->athr_name }}<span
+                            class="ms-1 text-light" style="cursor:pointer;">×</span></span>
+                @endforeach
             </div>
+        </div>
+        <!-- button -->
+        <button type="button" class="btn btn-lg btn-outline-primary ms-2" data-bs-toggle="modal"
+            data-bs-target="#authorModal" title="Tambah Penerbit">
+            <i class="bi bi-person-plus-fill"></i>
+        </button>
+    </div>
+</div>
+
+               <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" data-bs-container="body"
+        data-bs-toggle="popover" data-bs-placement="bottom"
+        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
+        Klasifikasi Buku
+    </label>
+    <div class="col-sm-10 d-flex align-items-start">
+        <div class="flex-grow-1">
+            <select class="form-control d-none" id="selected-ddc"
+                name="classfications[]" multiple>
+                @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                    <option class="option" value="{{ $ddc->ddc_id }}" selected>
+                        {{ $ddc->ddc_code }}</option>
+                @endforeach
+            </select>
+            <div id="ddc-tags" class="mt-2">
+                @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                    <span class="badge badge-ddc bg-warning me-1 mb-1"
+                        data-id="{{ $ddc->ddc_id }}">{{ $ddc->ddc_code }}<span
+                            class="ms-1 text-light" style="cursor:pointer;">×</span></span>
+                @endforeach
+            </div>
+        </div>
+        <!-- button -->
+        <button type="button" class="btn btn-lg btn-outline-warning ms-2" data-bs-toggle="modal"
+            data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
+            <i class="bi bi-123"></i>
+        </button>
+    </div>
+</div>
+
 
             <div class="modal fade" id="authorModal" tabindex="-1"
                 aria-labelledby="authorModalLabel" aria-hidden="true">

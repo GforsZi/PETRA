@@ -140,50 +140,58 @@
   </div>
 </div>
 
-    <div class="mt-4">
-        <h6>Buku Terpopuler</h6>
-        <div class="scroll-x">
-            @foreach ($book_new as $bk_nw)
-                <div class="book text-center border rounded pt-2" style="width: 140px;">
-                    <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
-                        style="text-decoration: none;">
-                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                            class="object-fit-contain" style="height: 167px; width: 128px;"></a>
-                       <p class="text-body text-start text-wrap mt-1 mb-0"
-    title="{{ $bk_nw->bk_title }}"
-    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
-           overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
-    {{ $bk_nw->bk_title }}
-</p>
+   <div class="mt-4">
+    <h6>Buku Terpopuler</h6>
+    <div class="scroll-x">
+        @foreach ($book_new as $bk_nw)
+            <div class="book text-center border rounded pt-2"
+                style="width: 140px; height: 230px; display: inline-flex; flex-direction: column; justify-content: space-between; vertical-align: top; margin-right: 8px;">
+                
+                <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
+                    style="text-decoration: none;">
+                    <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
+                        class="object-fit-contain" style="height: 167px; width: 128px;">
+                </a>
 
-                </div>
-            @endforeach
-        </div>
+                <p class="text-body text-start text-wrap mt-1 mb-0"
+                    title="{{ $bk_nw->bk_title }}"
+                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                           overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;
+                           min-height: 38px;">
+                    {{ $bk_nw->bk_title }}
+                </p>
+            </div>
+        @endforeach
     </div>
-    <div class="mt-4">
-     <h5>buku terbaru</h5>
-        <div class="scroll-x">
-            @foreach ($book_new as $bk_nw)
-                <div class="book text-center border rounded pt-2" style="width: 140px;">
-                    <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
-                        style="text-decoration: none;">
-                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                            class="object-fit-contain" style="height: 167px; width: 128px;">
-                        <br>
-                      <p class="text-body text-start text-wrap mt-1 mb-0"
-    title="{{ $bk_nw->bk_title }}"
-    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
-           overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
-    {{ $bk_nw->bk_title }}
-</p>
+</div>
 
-                    </a>
-                </div>
-            @endforeach
-        </div>
+    <div class="mt-4">
+    <h5>buku terbaru</h5>
+    <div class="scroll-x">
+        @foreach ($book_new as $bk_nw)
+            <div class="book text-center border rounded pt-2"
+                style="width: 140px; height: 230px; display: inline-flex; flex-direction: column; justify-content: space-between; vertical-align: top; margin-right: 8px;">
+                
+                <a href="/search/book/{{ $bk_nw->bk_id }}/detail"
+                    style="text-decoration: none;">
+                    <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
+                        class="object-fit-contain" style="height: 167px; width: 128px;">
+                    <br>
+                    <p class="text-body text-start text-wrap mt-1 mb-0"
+                        title="{{ $bk_nw->bk_title }}"
+                        style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                               overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                               -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;
+                               min-height: 38px;">
+                        {{ $bk_nw->bk_title }}
+                    </p>
+                </a>
+            </div>
+        @endforeach
     </div>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
        // Doughnut Chart
