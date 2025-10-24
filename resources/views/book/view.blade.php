@@ -3,21 +3,17 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/add" class="btn btn-lg btn-outline-primary w-100x" title="Tambah Buku"><i
-                class="bi bi-journal-plus"></i></a>
+        <a href="/manage/book/add" class="btn btn-lg btn-outline-primary w-100x" title="Tambah Buku"><i class="bi bi-journal-plus"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$books">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/book">
-                <input class="form-control me-2" name="s" type="search"
-                    placeholder="Masukan Judul Buku" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit"><i
-                        class="bi bi-search"></i></button>
+                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Judul Buku" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>
 
@@ -25,9 +21,7 @@
             @forelse ($books as $index => $book)
                 <div class="col-sm-4 my-4 ">
                     <div class="card mx-2 book-card h-100 p-3">
-                        <img src="{{ asset($book->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                            class="card-img-top object-fit-contain cover" alt=""
-                            height="200" />
+                        <img src="{{ asset($book->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="card-img-top object-fit-contain cover" alt="" height="200" />
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-wrap">{{ $book->bk_title }}</h5>
                             <p class="card-text text-wrap">
@@ -44,16 +38,13 @@
                         </div>
                         <div class="d-flex w-100 align-items-center">
                             <div class="dropdown-center ms-2 w-100">
-                                <button class="btn btn-outline-warning w-100 dropdown-toggle"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-outline-warning w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-menu-down"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item"
-                                            href="/manage/book/{{ $book->bk_id }}/detail">Detail</a>
+                                    <li><a class="dropdown-item" href="/manage/book/{{ $book->bk_id }}/detail">Detail</a>
                                     </li>
-                                    <li><a class="dropdown-item"
-                                            href="/manage/book/{{ $book->bk_id }}/edit">Ubah</a>
+                                    <li><a class="dropdown-item" href="/manage/book/{{ $book->bk_id }}/edit">Ubah</a>
                                     </li>
                                 </ul>
                             </div>

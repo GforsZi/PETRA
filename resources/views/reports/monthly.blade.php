@@ -7,21 +7,18 @@
                 <form method="GET" action="/manage/export/statistics" class="row g-2 mb-4">
                     <div class="col-auto">
                         <label>Start</label>
-                        <input type="date" name="start" class="form-control"
-                            value="{{ $start }}">
+                        <input type="date" name="start" class="form-control" value="{{ $start }}">
                     </div>
                     <div class="col-auto">
                         <label>End</label>
-                        <input type="date" name="end" class="form-control"
-                            value="{{ $end }}">
+                        <input type="date" name="end" class="form-control" value="{{ $end }}">
                     </div>
                     <div class="col-auto align-self-end">
                         <button class="btn btn-primary">Filter</button>
                     </div>
 
                     <div class="w-100 d-flex justify-content-end">
-                        <a href="{{ route('statistics.export', ['start' => $start, 'end' => $end]) }}"
-                            class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>
+                        <a href="{{ route('statistics.export', ['start' => $start, 'end' => $end]) }}" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>
                             Export PDF</a>
                     </div>
                 </form>
@@ -49,9 +46,7 @@
                                         <td>{{ $row['label'] }}</td>
                                         <td class="text-start">{{ $row['count'] }}</td>
                                         <td>
-                                            <a href="/manage/export/statistics/{{ $row['detail'] }}/detail"
-                                                class="btn btn-warning m-0 text-center"><i
-                                                    class="bi bi-list-ul"></i>
+                                            <a href="/manage/export/statistics/{{ $row['detail'] }}/detail" class="btn btn-warning m-0 text-center"><i class="bi bi-list-ul"></i>
                                             </a>
                                         </td>
                                     </tr>

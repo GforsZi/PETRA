@@ -13,15 +13,11 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
+                    <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
                         Penerbit</label>
                     <div class="col-sm-10">
-                        <input type="text" name="pub_name" value="{{ $publishers['pub_name'] }}"
-                            class="form-control @error('athr_name') is-invalid @enderror"
-                            id="inputEmail3">
+                        <input type="text" name="pub_name" value="{{ $publishers['pub_name'] }}" class="form-control @error('athr_name') is-invalid @enderror" id="inputEmail3">
                         @error('pub_name')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Nama penerbit tidak sesuai</p>
@@ -30,16 +26,11 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Alamat
+                    <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Alamat
                         Penerbit</label>
                     <div class="col-sm-10">
-                        <input type="text" name="pub_address"
-                            value="{{ $publishers['pub_address'] }}"
-                            class="form-control @error('athr_name') is-invalid @enderror"
-                            id="inputEmail3">
+                        <input type="text" name="pub_address" value="{{ $publishers['pub_address'] }}" class="form-control @error('athr_name') is-invalid @enderror" id="inputEmail3">
                         @error('pub_address')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;"> Alamat tidak sesuai</p>
@@ -49,8 +40,7 @@
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-warning px-5" id="tombol"
-                    onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-warning px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
             </div>
             <!--end::Footer-->
         </form>

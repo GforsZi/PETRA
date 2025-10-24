@@ -7,8 +7,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DeviceSeeder extends Seeder {
-    public function run(): void {
+class DeviceSeeder extends Seeder
+{
+    public function run(): void
+    {
         $now = Carbon::now()->toDateTimeString();
 
         DB::table('devices')->insert([
@@ -18,7 +20,7 @@ class DeviceSeeder extends Seeder {
                 'dvc_token' => 'token-example-1',
                 'dvc_created_at' => $now,
                 'dvc_updated_at' => $now,
-                'dvc_sys_note' => 'Manual seed'
+                'dvc_sys_note' => 'Manual seed',
             ],
             [
                 'dvc_name' => 'Web Client',
@@ -26,8 +28,8 @@ class DeviceSeeder extends Seeder {
                 'dvc_token' => 'token-example-2',
                 'dvc_created_at' => $now,
                 'dvc_updated_at' => $now,
-                'dvc_sys_note' => 'Manual seed'
-            ]
+                'dvc_sys_note' => 'Manual seed',
+            ],
         ]);
     }
 }

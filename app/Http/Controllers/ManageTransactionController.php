@@ -12,13 +12,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ManageTransactionController extends Controller {
+class ManageTransactionController extends Controller
+{
     protected $fonnteService;
 
-    public function __construct(FonnteService $fonnteService) {
+    public function __construct(FonnteService $fonnteService)
+    {
         $this->fonnteService = $fonnteService;
     }
-    public function manage_transaction_page(Request $request) {
+    public function manage_transaction_page(Request $request)
+    {
         $keyword = $request->get('s');
         $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')
             ->with('users')
@@ -32,7 +35,8 @@ class ManageTransactionController extends Controller {
         return view('transaction.view', ['title' => 'Halaman Kelola Transaksi'], compact('transactions'));
     }
 
-    public function manage_submission_page(Request $request) {
+    public function manage_submission_page(Request $request)
+    {
         $keyword = $request->get('s');
         $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')
             ->with('users')
@@ -47,7 +51,8 @@ class ManageTransactionController extends Controller {
         return view('transaction.submission.view', ['title' => 'Halaman Kelola Pengajuan'], compact('submissons'));
     }
 
-    public function manage_loan_page(Request $request) {
+    public function manage_loan_page(Request $request)
+    {
         $keyword = $request->get('s');
         $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')
             ->with('users')
@@ -62,7 +67,8 @@ class ManageTransactionController extends Controller {
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
-    public function manage_return_page(Request $request) {
+    public function manage_return_page(Request $request)
+    {
         $keyword = $request->get('s');
         $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')
             ->with('users')
@@ -76,7 +82,8 @@ class ManageTransactionController extends Controller {
         return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
-    public function detail_transaction_page($id) {
+    public function detail_transaction_page($id)
+    {
         $transaction = Transaction::withTrashed()
             ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
             ->findOrFail($id);
@@ -93,11 +100,12 @@ class ManageTransactionController extends Controller {
             'title' => 'Halaman Detail Transaksi',
             'transaction' => $transaction,
             'books' => $uniqueBooks,
-            'copiesGrouped' => $copiesGrouped
+            'copiesGrouped' => $copiesGrouped,
         ]);
     }
 
-    public function send_message_transaction(Request $request, $id) {
+    public function send_message_transaction(Request $request, $id)
+    {
         try {
             $message = ChatOption::select('cht_opt_id', 'cht_opt_message', 'cht_opt_type')->where('cht_opt_type', '2')->get()->first()->toArray();
 
@@ -112,7 +120,7 @@ class ManageTransactionController extends Controller {
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_HTTPHEADER => ['Authorization: ' . config('services.fonnte.account_token')]
+                CURLOPT_HTTPHEADER => ['Authorization: ' . config('services.fonnte.account_token')],
             ]);
 
             $response = curl_exec($curl);
@@ -132,7 +140,7 @@ class ManageTransactionController extends Controller {
             }
 
             $request->validate([
-                'target' => 'required|string'
+                'target' => 'required|string',
             ]);
 
             $deviceToken = $activeDeviceToken;
@@ -154,7 +162,8 @@ class ManageTransactionController extends Controller {
         }
     }
 
-    public function add_transaction_system(Request $request) {
+    public function add_transaction_system(Request $request)
+    {
         $validateData = $request->validate([
             'trx_title' => 'required|in:1,2',
             'trx_description' => 'nullable|string',
@@ -162,7 +171,7 @@ class ManageTransactionController extends Controller {
             'book_ids' => 'required|array|min:1',
             'book_ids.*' => 'integer|exists:books,bk_id',
             'trx_copy_id' => 'nullable|array|min:1',
-            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id'
+            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
         ]);
         DB::beginTransaction();
         try {
@@ -172,7 +181,7 @@ class ManageTransactionController extends Controller {
                 'trx_borrow_date' => $request->trx_borrow_date,
                 'trx_status' => '1',
                 'trx_title' => $request->trx_title,
-                'trx_description' => $request->trx_description
+                'trx_description' => $request->trx_description,
             ]);
 
             // Simpan relasi buku yang dipinjam
@@ -185,7 +194,7 @@ class ManageTransactionController extends Controller {
                         BookTransaction::create([
                             'bk_trx_book_id' => $bookId,
                             'bk_trx_book_copy_id' => $copy['bk_cp_id'],
-                            'bk_trx_transaction_id' => $transaction->trx_id
+                            'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
                         return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
@@ -202,7 +211,7 @@ class ManageTransactionController extends Controller {
                         }
                         BookTransaction::create([
                             'bk_trx_book_id' => $bookId,
-                            'bk_trx_transaction_id' => $transaction->trx_id
+                            'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
                         return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
@@ -221,21 +230,23 @@ class ManageTransactionController extends Controller {
         dd($validateData);
     }
 
-    public function approve_transaction_system(Request $request, $id) {
+    public function approve_transaction_system(Request $request, $id)
+    {
         $loan = Transaction::find($id);
         $request->validate([
-            'datetime' => ['required', 'date']
+            'datetime' => ['required', 'date'],
         ]);
         $trx_due_date = Carbon::createFromFormat('Y-m-d\TH:i', $request->datetime);
 
         $loan->update([
             'trx_status' => '2',
-            'trx_due_date' => $trx_due_date
+            'trx_due_date' => $trx_due_date,
         ]);
         return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil diterima');
     }
 
-    public function reject_transaction_system(Request $request, $id) {
+    public function reject_transaction_system(Request $request, $id)
+    {
         $loan = Transaction::with('book_copies')->find($id);
         $copyID = BookTransaction::select('bk_trx_id', 'bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
         if ($loan->book_copies->toArray() != []) {
@@ -255,7 +266,8 @@ class ManageTransactionController extends Controller {
         return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil ditolak');
     }
 
-    public function return_transaction_system(Request $request, $id) {
+    public function return_transaction_system(Request $request, $id)
+    {
         $loan = Transaction::with('book_copies')->find($id);
         $copyID = BookTransaction::select('bk_trx_id', 'bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
         if ($loan->book_copies->toArray() != []) {
@@ -273,25 +285,27 @@ class ManageTransactionController extends Controller {
 
         $loan->update([
             'trx_status' => '3',
-            'trx_return_date' => now()
+            'trx_return_date' => now(),
         ]);
         return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil Kembalikan');
     }
 
-    public function addtional_time_transaction_system(Request $request, $id) {
+    public function addtional_time_transaction_system(Request $request, $id)
+    {
         $loan = Transaction::find($id);
         $request->validate([
-            'datetime' => ['required', 'date']
+            'datetime' => ['required', 'date'],
         ]);
         $trx_due_date = Carbon::createFromFormat('Y-m-d\TH:i', $request->datetime);
 
         $loan->update([
-            'trx_due_date' => $trx_due_date
+            'trx_due_date' => $trx_due_date,
         ]);
         return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil diubah');
     }
 
-    public function delete_transaction_system($id) {
+    public function delete_transaction_system($id)
+    {
         Transaction::find($id)->delete();
         return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil dihapus');
     }

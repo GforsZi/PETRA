@@ -21,8 +21,7 @@
                     </div>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="print_all"
-                            id="print_all">
+                        <input class="form-check-input" type="checkbox" name="print_all" id="print_all">
                         <label class="form-check-label fw-bold text-warning" for="print_all">Cetak
                             Semua
                             Data (abaikan
@@ -48,18 +47,14 @@
 
                         @foreach ($available as $key => $label)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="columns[]"
-                                    value="{{ $key }}" id="col_{{ $key }}"
-                                    checked>
-                                <label class="form-check-label"
-                                    for="col_{{ $key }}">{{ $label }}</label>
+                                <input class="form-check-input" type="checkbox" name="columns[]" value="{{ $key }}" id="col_{{ $key }}" checked>
+                                <label class="form-check-label" for="col_{{ $key }}">{{ $label }}</label>
                             </div>
                         @endforeach
                     </div>
 
                     <div class="text-end">
-                        <button class="btn btn-success" type="submit"><i
-                                class="bi bi-file-earmark-excel"></i> Export Excel</button>
+                        <button class="btn btn-success" type="submit"><i class="bi bi-file-earmark-excel"></i> Export Excel</button>
                     </div>
                 </form>
 

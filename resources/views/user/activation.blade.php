@@ -82,8 +82,7 @@
                 <h4 class="fw-bold mb-3">Ambil Foto</h4>
 
                 <div class="camera-container">
-                    <video id="camera" autoplay playsinline width="100%"
-                        class="border rounded bg-dark"></video>
+                    <video id="camera" autoplay playsinline width="100%" class="border rounded bg-dark"></video>
 
                     <div class="camera-grid">
                         <div></div>
@@ -101,12 +100,10 @@
                 <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
                 <!-- Form Upload -->
-                <form id="photoForm" method="POST" action="/system/user/activation"
-                    enctype="multipart/form-data">
+                <form id="photoForm" method="POST" action="/system/user/activation" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                    <input type="file" name="image" id="photoInput" class="d-none"
-                        accept="image/*">
+                    <input type="file" name="image" id="photoInput" class="d-none" accept="image/*">
 
                     <div class="mt-3">
                         <button type="button" id="captureBtn" class="kamera me-2">
@@ -126,13 +123,10 @@
             <!-- Kartu di samping kanan -->
             <div class="col-md-6">
                 <div class="kartu-perpus shadow">
-                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu"
-                        style="width:100%; height:100%; display:block; object-fit: cover;">
+                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:100%; display:block; object-fit: cover;">
 
                     <div class="kartu-body">
-                        <img id="preview"
-                            src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}"
-                            class="foto-box" alt="Foto" />
+                        <img id="preview" src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}" class="foto-box" alt="Foto" />
                         <div class="damy">
                             <span style="color: black;"><strong>Nama Lengkap</strong>:
                                 {{ $user->name }}</span>

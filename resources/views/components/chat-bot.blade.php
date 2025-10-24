@@ -33,7 +33,6 @@
         opacity: 0;
         transition: max-height .3s ease, opacity .3s ease;
         /* white-space: pre-line; */
-
     }
 
     .quick-messages.show {
@@ -50,8 +49,7 @@
 
 <main class="card shadow-lg rounded-0 h-100 w-100 border-0">
     <header class="card-header d-flex align-items-center gap-2 bg-body-tertiary">
-        <div class="d-flex align-items-center justify-content-center bg-primary text-white fw-bold rounded-3"
-            style="width:44px;height:44px;">
+        <div class="d-flex align-items-center justify-content-center bg-primary text-white fw-bold rounded-3" style="width:44px;height:44px;">
             <i class="bx bxs-robot fs-5"></i>
         </div>
         <div class="flex-grow-1">
@@ -59,8 +57,7 @@
             <small class="text-muted">• Online</small>
         </div>
         <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
     </header>
 
@@ -72,14 +69,12 @@
         <div class="d-flex align-items-center gap-2">
             <button type="button" id="toggleQuickBtn" class="btn btn-success btn-sm">Opsi</button>
             <div class="input-group">
-                <input type="text" id="chatInput" class="form-control"
-                    placeholder="Ketik pesan...">
+                <input type="text" id="chatInput" class="form-control" placeholder="Ketik pesan...">
                 <button type="button" id="sendBtn" class="btn btn-success">Kirim</button>
             </div>
         </div>
 
-        <div class="quick-messages mt-3 overflow-y-scroll row" style="height: 200px ;"
-            id="quickPanel">
+        <div class="quick-messages mt-3 overflow-y-scroll row" style="height: 200px ;" id="quickPanel">
         </div>
     </div>
 </main>

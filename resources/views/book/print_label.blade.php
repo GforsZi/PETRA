@@ -162,8 +162,7 @@
                 <div class="label-wrapper">
                     <div class="label-header">
                         <div class="label-logo-cell">
-                            <img src="{{ public_path('logo/landing/smk.png') }}" alt="Logo"
-                                class="label-logo">
+                            <img src="{{ public_path('logo/landing/smk.png') }}" alt="Logo" class="label-logo">
                         </div>
                         <div class="label-header-text">
                             <h5>PERPUSTAKAAN</h5>
@@ -177,14 +176,7 @@
                                 @php
                                     $formattedDdc = collect($books['deweyDecimalClassfications'])
                                         ->pluck('ddc_code')
-                                        ->map(
-                                            fn($code) => str_pad(
-                                                preg_replace('/\D/', '', $code),
-                                                3,
-                                                '0',
-                                                STR_PAD_RIGHT,
-                                            ),
-                                        )
+                                        ->map(fn($code) => str_pad(preg_replace('/\D/', '', $code), 3, '0', STR_PAD_RIGHT))
                                         ->take(2) // ambil maksimal dua kode
                                         ->implode('.');
                                 @endphp

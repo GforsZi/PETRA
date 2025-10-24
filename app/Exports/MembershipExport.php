@@ -11,13 +11,15 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class MembershipExport implements FromCollection, WithStyles, WithHeadings, WithMapping, ShouldAutoSize {
+class MembershipExport implements FromCollection, WithStyles, WithHeadings, WithMapping, ShouldAutoSize
+{
     /**
      * @return \Illuminate\Support\Collection
      */
     protected $startDate, $endDate, $roles, $columns;
 
-    public function __construct($startDate, $endDate, $roles, $columns) {
+    public function __construct($startDate, $endDate, $roles, $columns)
+    {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->roles = $roles;
@@ -29,10 +31,11 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         'name' => 'Nama Lengkap',
         'usr_no_wa' => 'Nomor Whatsapp',
         'roles' => 'Peran',
-        'usr_created_at' => 'Tanggal Dibuat'
+        'usr_created_at' => 'Tanggal Dibuat',
     ];
 
-    public function collection() {
+    public function collection()
+    {
         $query = User::with('roles');
 
         // Jika tanggal tidak kosong, filter berdasarkan tanggal
@@ -48,11 +51,13 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
         return $query->get();
     }
 
-    public function headings(): array {
+    public function headings(): array
+    {
         return array_map(fn($col) => $this->columnLabels[$col] ?? ucfirst($col), $this->columns);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet)
+    {
         // Hitung kolom terakhir secara otomatis
         $lastColumn = $sheet->getHighestColumn();
 
@@ -61,16 +66,16 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => 'E9AD01'],
-                'size' => 12
+                'size' => 12,
             ],
             'alignment' => [
                 'horizontal' => 'center',
-                'vertical' => 'center'
+                'vertical' => 'center',
             ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => ['rgb' => '121740'] // Warna biru gelap
-            ]
+                'startColor' => ['rgb' => '121740'], // Warna biru gelap
+            ],
         ]);
         $sheet->getRowDimension(1)->setRowHeight(25);
 
@@ -80,13 +85,14 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['rgb' => '000000']
-                ]
-            ]
+                    'color' => ['rgb' => '000000'],
+                ],
+            ],
         ]);
     }
 
-    public function map($user): array {
+    public function map($user): array
+    {
         return collect($this->columns)
             ->map(function ($col) use ($user) {
                 return match ($col) {
@@ -94,7 +100,7 @@ class MembershipExport implements FromCollection, WithStyles, WithHeadings, With
                     'usr_created_at' => $user->usr_created_at->format('d/m/Y H:i') ?? '-',
                     'usr_updated_at' => optional($user->usr_updated_at)->format('d/m/Y H:i') ?? '-',
                     'usr_deleted_at' => optional($user->usr_deleted_at)->format('d/m/Y H:i') ?? '-',
-                    default => $user->{$col}
+                    default => $user->{$col},
                 };
             })
             ->toArray();

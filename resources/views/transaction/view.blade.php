@@ -3,17 +3,14 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-table_data :paginator="$transactions">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/transaction">
-                <input class="form-control me-2" name="s" type="search"
-                    placeholder="Masukan Nama Peminjam" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit"><i
-                        class="bi bi-search"></i></button>
+                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Nama Peminjam" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>
         <x-slot:header>
@@ -50,9 +47,7 @@
                 </td>
                 <td>{{ $transaction->trx_borrow_date ?? '' }}</td>
                 @php
-                    $dueDate = $transaction->trx_due_date
-                        ? \Carbon\Carbon::parse($transaction->trx_due_date)
-                        : null;
+                    $dueDate = $transaction->trx_due_date ? \Carbon\Carbon::parse($transaction->trx_due_date) : null;
                 @endphp
 
                 <td
@@ -68,8 +63,7 @@
 
                 <td>{{ $transaction->trx_return_date ?? '' }}</td>
                 <td>
-                    <a href="/manage/transaction/{{ $transaction->trx_id }}/detail"
-                        class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
+                    <a href="/manage/transaction/{{ $transaction->trx_id }}/detail" class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
                 </td>
             </tr>
         @empty

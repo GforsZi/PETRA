@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Transaction extends Model {
+class Transaction extends Model
+{
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -22,34 +23,42 @@ class Transaction extends Model {
     const UPDATED_AT = 'trx_updated_at';
     const DELETED_AT = 'trx_deleted_at';
 
-    public function books(): BelongsToMany {
+    public function books(): BelongsToMany
+    {
         return $this->belongsToMany(Book::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'trx_user_id', 'usr_id');
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsTo(User::class, 'trx_user_id', 'usr_id');
     }
 
     // relasi ke table book_transaction
-    public function bookTransactions() {
+    public function bookTransactions()
+    {
         return $this->hasMany(BookTransaction::class, 'bk_trx_transaction_id', 'trx_id');
     }
 
-    public function book_copies(): BelongsToMany {
+    public function book_copies(): BelongsToMany
+    {
         return $this->belongsToMany(BookCopy::class, 'book_transaction', 'bk_trx_transaction_id', 'bk_trx_book_copy_id')->distinct();
     }
 
-    public function created_by(): BelongsTo {
+    public function created_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'trx_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo {
+    public function updated_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'trx_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo {
+    public function deleted_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'trx_deleted_by', 'usr_id');
     }
 }

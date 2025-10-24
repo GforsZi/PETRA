@@ -25,19 +25,16 @@
                         <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $paginator->url(1) }}{{ $query ?? '' }}"
-                                rel="prev">&laquo;</a>
+                            <a class="page-link" href="{{ $paginator->url(1) }}{{ $query ?? '' }}" rel="prev">&laquo;</a>
                         </li>
                     @endif
 
                     {{-- Tampilkan range halaman dinamis --}}
                     @for ($i = $start; $i <= $end; $i++)
                         @if ($i == $currentPage)
-                            <li class="page-item active"><span
-                                    class="page-link">{{ $i }}</span></li>
+                            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
                         @else
-                            <li class="page-item"><a class="page-link"
-                                    href="{{ $paginator->url($i) }}{{ $query ?? '' }}">{{ $i }}</a>
+                            <li class="page-item"><a class="page-link" href="{{ $paginator->url($i) }}{{ $query ?? '' }}">{{ $i }}</a>
                             </li>
                         @endif
                     @endfor
@@ -45,9 +42,7 @@
                     {{-- Tombol Next --}}
                     @if ($paginator->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link"
-                                href="{{ $paginator->url($totalPages) }}{{ $query ?? '' }}"
-                                rel="next">&raquo;</a>
+                            <a class="page-link" href="{{ $paginator->url($totalPages) }}{{ $query ?? '' }}" rel="next">&raquo;</a>
                         </li>
                     @else
                         <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
@@ -82,18 +77,15 @@
                     <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $paginator->url(1) }}{{ $query ?? '' }}"
-                            rel="prev">&laquo;</a>
+                        <a class="page-link" href="{{ $paginator->url(1) }}{{ $query ?? '' }}" rel="prev">&laquo;</a>
                     </li>
                 @endif
 
                 @for ($i = $start; $i <= $end; $i++)
                     @if ($i == $currentPage)
-                        <li class="page-item active"><span
-                                class="page-link">{{ $i }}</span></li>
+                        <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
                     @else
-                        <li class="page-item"><a class="page-link"
-                                href="{{ $paginator->url($i) }}{{ $query ?? '' }}">{{ $i }}</a>
+                        <li class="page-item"><a class="page-link" href="{{ $paginator->url($i) }}{{ $query ?? '' }}">{{ $i }}</a>
                         </li>
                     @endif
                 @endfor
@@ -101,9 +93,7 @@
                 {{-- Tombol Next --}}
                 @if ($paginator->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link"
-                            href="{{ $paginator->url($totalPages) }}{{ $query ?? '' }}"
-                            rel="next">&raquo;</a>
+                        <a class="page-link" href="{{ $paginator->url($totalPages) }}{{ $query ?? '' }}" rel="next">&raquo;</a>
                     </li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&raquo;</span></li>

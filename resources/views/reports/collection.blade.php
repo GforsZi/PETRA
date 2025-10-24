@@ -10,20 +10,17 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Tanggal Awal</label>
-                            <input type="date" name="start_date" id="start_date"
-                                class="form-control">
+                            <input type="date" name="start_date" id="start_date" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tanggal Akhir</label>
-                            <input type="date" name="end_date" id="end_date"
-                                class="form-control">
+                            <input type="date" name="end_date" id="end_date" class="form-control">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="all_data"
-                                id="print_all" value="1">
+                            <input class="form-check-input" type="checkbox" name="all_data" id="print_all" value="1">
                             <label class="form-check-label fw-bold text-warning">Cetak Semua
                                 Data (abaikan tanggal)</label>
                         </div>
@@ -52,8 +49,7 @@
                         @foreach ($columns as $key => $label)
                             <div class="col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="columns[]"
-                                        value="{{ $key }}" checked>
+                                    <input class="form-check-input" type="checkbox" name="columns[]" value="{{ $key }}" checked>
                                     <label class="form-check-label">{{ $label }}</label>
                                 </div>
                             </div>

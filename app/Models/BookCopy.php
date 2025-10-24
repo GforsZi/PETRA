@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BookCopy extends Model {
+class BookCopy extends Model
+{
     /** @use HasFactory<\Database\Factories\BookCopyFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -21,17 +22,21 @@ class BookCopy extends Model {
     const UPDATED_AT = 'bk_cp_updated_at';
     const DELETED_AT = 'bk_cp_deleted_at';
 
-    public function book() {
+    public function book()
+    {
         return $this->belongsTo(Book::class, 'bk_cp_book_id', 'bk_id');
     }
 
-    public function created_by(): BelongsTo {
+    public function created_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'bk_cp_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo {
+    public function updated_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'bk_cp_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo {
+    public function deleted_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'bk_cp_deleted_by', 'usr_id');
     }
 }

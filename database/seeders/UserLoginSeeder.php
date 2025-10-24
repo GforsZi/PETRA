@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
-class UserLoginSeeder extends Seeder {
-    public function run(): void {
+class UserLoginSeeder extends Seeder
+{
+    public function run(): void
+    {
         $faker = Faker::create();
 
         $days = 30;
@@ -39,7 +41,7 @@ class UserLoginSeeder extends Seeder {
                     'usr_lg_logged_in_at' => $loggedAt->toDateTimeString(),
                     'usr_lg_created_at' => $createdAt->toDateTimeString(),
                     'usr_lg_updated_at' => $updatedAt->toDateTimeString(),
-                    'usr_lg_sys_note' => 'Auto seed - simulated bulk logins'
+                    'usr_lg_sys_note' => 'Auto seed - simulated bulk logins',
                 ];
             }
         }

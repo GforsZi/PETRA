@@ -23,8 +23,7 @@
 
                     {{-- Checkbox Cetak Semua Data --}}
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="print_all"
-                            id="print_all">
+                        <input class="form-check-input" type="checkbox" name="print_all" id="print_all">
                         <label class="form-check-label fw-bold text-warning" for="print_all">
                             Cetak Semua Data (abaikan tanggal)
                         </label>
@@ -46,28 +45,23 @@
                     <div class="mb-3">
                         <label class="form-label">Pilih Kolom Data</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="usr_id" checked>
+                            <input class="form-check-input" type="checkbox" name="columns[]" value="usr_id" checked>
                             <label class="form-check-label">ID</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="name" checked>
+                            <input class="form-check-input" type="checkbox" name="columns[]" value="name" checked>
                             <label class="form-check-label">Nama Lengkap</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="usr_no_wa" checked>
+                            <input class="form-check-input" type="checkbox" name="columns[]" value="usr_no_wa" checked>
                             <label class="form-check-label">No Whatsapp</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="roles" checked>
+                            <input class="form-check-input" type="checkbox" name="columns[]" value="roles" checked>
                             <label class="form-check-label">Peran</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="columns[]"
-                                value="usr_created_at" checked>
+                            <input class="form-check-input" type="checkbox" name="columns[]" value="usr_created_at" checked>
                             <label class="form-check-label">Tanggal Dibuat</label>
                         </div>
                     </div>

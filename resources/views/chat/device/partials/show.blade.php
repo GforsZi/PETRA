@@ -12,8 +12,7 @@
         </div>
         <div class="pb-2 border-b">
             <dt class="font-medium text-gray-700">Device Status:</dt>
-            <dd
-                class="text-{{ $response['data']['device_status'] === 'connected' ? 'green-600' : 'red-600' }}">
+            <dd class="text-{{ $response['data']['device_status'] === 'connected' ? 'green-600' : 'red-600' }}">
                 {{ ucfirst($response['data']['device_status']) }}
             </dd>
         </div>

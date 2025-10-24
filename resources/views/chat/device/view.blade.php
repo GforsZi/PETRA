@@ -3,22 +3,17 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/chat/device/add" class="btn btn-lg btn-outline-primary w-100"
-            title="Tambahkan Perangkat"><i class="bi bi-whatsapp"></i></a>
+        <a href="/manage/chat/device/add" class="btn btn-lg btn-outline-primary w-100" title="Tambahkan Perangkat"><i class="bi bi-whatsapp"></i></a>
     </x-slot:header_layout>
     <!-- Toast Notification -->
-    <div id="notification"
-        class="toast align-items-center border-0 position-fixed bottom-0 z-3 end-0 m-3"
-        role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="notification" class="toast align-items-center border-0 position-fixed bottom-0 z-3 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="me-auto">PETRA</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="d-flex">
             <div class="toast-body" id="notificationMessage">
@@ -30,10 +25,8 @@
     <x-table_data :paginator="$devices_pg">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/chat/device">
-                <input class="form-control me-2" name="s" type="search"
-                    placeholder="Masukan Nama Perangkat" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit"><i
-                        class="bi bi-search"></i></button>
+                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Nama Perangkat" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>
         <x-slot:header>
@@ -63,21 +56,18 @@
                 </td>
                 <td>
                     <div class="dropdown dropstart">
-                        <button class="btn btn-warning dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-menu-down"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li> <button class="dropdown-item"
-                                    onclick="copyToClipboard('{{ $device['token'] }}')">
+                            <li> <button class="dropdown-item" onclick="copyToClipboard('{{ $device['token'] }}')">
                                     Copy Token
                                 </button>
                             </li>
                             @if ($device['status'] === 'connect')
                                 <!-- Send Message -->
                                 <li>
-                                    <button class="dropdown-item"
-                                        onclick="openSendMessageModal('{{ $device['token'] }}')">
+                                    <button class="dropdown-item" onclick="openSendMessageModal('{{ $device['token'] }}')">
                                         Send Message
                                     </button>
                                 </li>
@@ -85,22 +75,17 @@
                                 <!-- Disconnect -->
                                 <li>
 
-                                    <button class="dropdown-item disconnectButton"
-                                        data-device-token="{{ $device['token'] }}"
-                                        onclick="disconnectDevice('{{ $device['token'] }}', this)">
+                                    <button class="dropdown-item disconnectButton" data-device-token="{{ $device['token'] }}" onclick="disconnectDevice('{{ $device['token'] }}', this)">
                                         Disconnect
                                     </button>
                                 </li>
                             @else
                                 <!-- Connect -->
-                                <button class="dropdown-item disconnectButton"
-                                    data-device-token="{{ $device['token'] }}"
-                                    onclick="activateDevice('{{ $device['token'] }}', this)">
+                                <button class="dropdown-item disconnectButton" data-device-token="{{ $device['token'] }}" onclick="activateDevice('{{ $device['token'] }}', this)">
                                     Connect
                                 </button>
                             @endif
-                            <li> <button class="dropdown-item"
-                                    onclick="confirmDelete('{{ $device['token'] }}', '{{ $device['name'] }}')">
+                            <li> <button class="dropdown-item" onclick="confirmDelete('{{ $device['token'] }}', '{{ $device['name'] }}')">
                                     Delete
                                 </button>
                             </li>

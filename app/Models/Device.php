@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Device extends Model {
+class Device extends Model
+{
     /** @use HasFactory<\Database\Factories\DeviceFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -21,13 +22,16 @@ class Device extends Model {
     const UPDATED_AT = 'dvc_updated_at';
     const DELETED_AT = 'dvc_deleted_at';
 
-    public function created_by(): BelongsTo {
+    public function created_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'dvc_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo {
+    public function updated_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'dvc_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo {
+    public function deleted_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'dvc_deleted_by', 'usr_id');
     }
 }

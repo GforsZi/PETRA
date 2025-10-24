@@ -3,17 +3,14 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-table_data :paginator="$submissons">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/submission">
-                <input class="form-control me-2" name="s" type="search"
-                    placeholder="Masukan Nama Peminjam" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit"><i
-                        class="bi bi-search"></i></button>
+                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Nama Peminjam" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>
         <x-slot:header>
@@ -48,8 +45,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="/manage/transaction/{{ $submission->trx_id }}/detail"
-                        class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
+                    <a href="/manage/transaction/{{ $submission->trx_id }}/detail" class="btn btn-warning m-0"><i class="bi bi-list-ul"></i></a>
                 </td>
             </tr>
         @empty

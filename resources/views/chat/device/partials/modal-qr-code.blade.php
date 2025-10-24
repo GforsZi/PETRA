@@ -25,8 +25,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" @click="isOpen = false; qrCode = '';"
-                    data-bs-dismiss="modal">
+                <button type="button" class="btn btn-danger" @click="isOpen = false; qrCode = '';" data-bs-dismiss="modal">
                     Close
                 </button>
             </div>

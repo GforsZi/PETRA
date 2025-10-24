@@ -75,47 +75,38 @@
             font-weight: 500;
         }
 
-    /* Awas hilang lagi  */
-       
-@media (min-width: 992px) {
-    .kartu-perpus {
-        margin-top: 45px; 
-    }
-}
+        /* Awas hilang lagi  */
+        @media (min-width: 992px) {
+            .kartu-perpus {
+                margin-top: 45px;
+            }
+        }
 
-@media (max-width: 991px) {
-  
-  .row {
-    flex-direction: column;
-    align-items: center;
-  }
+        @media (max-width: 991px) {
+            .row {
+                flex-direction: column;
+                align-items: center;
+            }
 
-  
-  .col-md-6 {
-    display: flex;
-    justify-content: center;
-  }
+            .col-md-6 {
+                display: flex;
+                justify-content: center;
+            }
 
- 
-  .kartu-perpus {
-    margin: 20px auto;
-    width: auto;
-    max-width: 100%;
-    transform: none;
-  }
+            .kartu-perpus {
+                margin: 20px auto;
+                width: auto;
+                max-width: 100%;
+                transform: none;
+            }
 
- 
-  .kartu-perpus img {
-    width: 100px;     
-    height: 120px;    
-    object-fit: cover;
-    border-radius: 5px;
-  }
-}
-
-
-
-
+            .kartu-perpus img {
+                width: 100px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+        }
     </style>
     <div class="container mt-4">
         <div class="row justify-content-center align-items-start g-4">
@@ -124,8 +115,7 @@
                 <h4 class="fw-bold mb-3" onclick="this.disabled=true; this.form.submit();">Ambil Foto</h4>
 
                 <div class="camera-container">
-                    <video id="camera" autoplay playsinline width="100%"
-                        class="border rounded bg-dark"></video>
+                    <video id="camera" autoplay playsinline width="100%" class="border rounded bg-dark"></video>
 
                     <div class="camera-grid">
                         <div></div>
@@ -143,12 +133,10 @@
                 <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
 
                 <!-- Form Upload -->
-                <form id="photoForm" method="POST" action="/system/admin/activation"
-                    enctype="multipart/form-data">
+                <form id="photoForm" method="POST" action="/system/admin/activation" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                    <input type="file" name="image" id="photoInput" class="d-none"
-                        accept="image/*">
+                    <input type="file" name="image" id="photoInput" class="d-none" accept="image/*">
 
                     <div class="mt-3">
                         <button type="button" id="captureBtn" class="kamera me-2">
@@ -168,13 +156,10 @@
             <!-- Kartu di samping kanan -->
             <div class="col-md-6">
                 <div class="kartu-perpus shadow">
-                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu"
-                        style="width:100%; height:auto; display:block; object-fit: cover;">
+                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:auto; display:block; object-fit: cover;">
 
                     <div class="kartu-body">
-                        <img id="preview"
-                            src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}"
-                            class="foto-box" alt="Foto" />
+                        <img id="preview" src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}" class="foto-box" alt="Foto" />
                         <div class="damy">
                             <span style="color: black;"><strong>Nama Lengkap</strong>:
                                 {{ $user->name }}</span>

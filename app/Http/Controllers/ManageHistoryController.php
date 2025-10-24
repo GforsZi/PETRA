@@ -15,8 +15,10 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ManageHistoryController extends Controller {
-    public function manage_history_page(Request $request) {
+class ManageHistoryController extends Controller
+{
+    public function manage_history_page(Request $request)
+    {
         $search = $request->query();
         if (!$search || !isset($search['category'])) {
             $search = 'all';
@@ -29,7 +31,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/account'
+                        'page_url' => '/manage/account',
                     ]);
                     break;
                 case 'Role':
@@ -37,7 +39,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/role'
+                        'page_url' => '/manage/role',
                     ]);
                     break;
                 case 'Author':
@@ -45,7 +47,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/author'
+                        'page_url' => '/manage/book/author',
                     ]);
                     break;
                 case 'Publisher':
@@ -53,7 +55,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/publisher'
+                        'page_url' => '/manage/book/publisher',
                     ]);
                     break;
                 case 'DeweyDecimalClassfication':
@@ -61,7 +63,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/ddc'
+                        'page_url' => '/manage/book/ddc',
                     ]);
                     break;
                 case 'BookMajor':
@@ -69,7 +71,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/major'
+                        'page_url' => '/manage/book/major',
                     ]);
                     break;
                 case 'Book':
@@ -77,7 +79,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book'
+                        'page_url' => '/manage/book',
                     ]);
                     break;
                 case 'ChatOption':
@@ -85,7 +87,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/chat/option'
+                        'page_url' => '/manage/chat/option',
                     ]);
                     break;
                 case 'Transaction':
@@ -93,7 +95,7 @@ class ManageHistoryController extends Controller {
                     return view('history.view', [
                         'title' => 'Halaman Kelola Riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/transaction'
+                        'page_url' => '/manage/transaction',
                     ]);
                     break;
                 default:
@@ -106,41 +108,42 @@ class ManageHistoryController extends Controller {
         $pages = [
             [
                 'title' => 'Riwayat Akun',
-                'page' => '/manage/history?category=Account'
+                'page' => '/manage/history?category=Account',
             ],
             [
                 'title' => 'Riwayat Peran',
-                'page' => '/manage/history?category=Role'
+                'page' => '/manage/history?category=Role',
             ],
             [
                 'title' => 'Riwayat Buku',
-                'page' => '/manage/history?category=Book'
+                'page' => '/manage/history?category=Book',
             ],
             [
                 'title' => 'Riwayat Penerbit Buku',
-                'page' => '/manage/history?category=Publisher'
+                'page' => '/manage/history?category=Publisher',
             ],
             [
                 'title' => 'Riwayat Klasifikasi Buku',
-                'page' => '/manage/history?category=DeweyDecimalClassfication'
+                'page' => '/manage/history?category=DeweyDecimalClassfication',
             ],
             [
                 'title' => 'Riwayat Jurusan Buku',
-                'page' => '/manage/history?category=BookMajor'
+                'page' => '/manage/history?category=BookMajor',
             ],
             [
                 'title' => 'Riwayat Opsi Chat',
-                'page' => '/manage/history?category=ChatOption'
+                'page' => '/manage/history?category=ChatOption',
             ],
             [
                 'title' => 'Riwayat Transaksi',
-                'page' => '/manage/history?category=Transaction'
-            ]
+                'page' => '/manage/history?category=Transaction',
+            ],
         ];
         return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories], compact('pages'));
     }
 
-    public function restore_system(Request $request, $id) {
+    public function restore_system(Request $request, $id)
+    {
         switch ($request->model) {
             case 'Account':
                 $histories = User::onlyTrashed()->find($id);

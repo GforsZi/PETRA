@@ -1,25 +1,16 @@
 {
-    "$schema": "https://json.schemastore.org/prettierrc",
     "plugins": ["@shufo/prettier-plugin-blade", "@prettier/plugin-php"],
     "overrides": [
         {
             "files": "*.blade.php",
             "options": {
-                "parser": "blade"
-            }
-        },
-        {
-            "files": "*.php",
-            "options": {
-                "parser": "php",
-                "phpVersion": "8.2",
-                "trailingCommaPHP": false,
+                "parser": "blade",
                 "braceStyle": "1tbs",
-                "printWidth": 200,
-                "singleQuote": true
+                "printWidth": 200
             }
         }
     ],
+    "$schema": "https://json.schemastore.org/prettierrc",
     "semi": false,
     "tabWidth": 4,
     "singleQuote": true,

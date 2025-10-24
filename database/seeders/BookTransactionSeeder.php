@@ -7,8 +7,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookTransactionSeeder extends Seeder {
-    public function run(): void {
+class BookTransactionSeeder extends Seeder
+{
+    public function run(): void
+    {
         $now = Carbon::now()->toDateTimeString();
 
         $trx = DB::table('transactions')->pluck('trx_id')->toArray();
@@ -23,7 +25,7 @@ class BookTransactionSeeder extends Seeder {
                 'bk_trx_transaction_id' => $trx[0] ?? null,
                 'bk_trx_created_at' => $now,
                 'bk_trx_updated_at' => $now,
-                'bk_trx_sys_note' => 'Manual seed'
+                'bk_trx_sys_note' => 'Manual seed',
             ];
         }
 

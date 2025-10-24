@@ -11,8 +11,7 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                onclick="this.disabled=true; this.form.submit();"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.disabled=true; this.form.submit();"></button>
         </div>
     @endif
     <div class="row">
@@ -67,7 +66,7 @@
         </div>
         <div class="col-md-4">
             <div class="card h-100">
-                <div class="card-body">
+                <div class="card-body d-flex align-items-center">
                     <canvas id="doughnutChart" style="height:300px;"></canvas>
                 </div>
             </div>
@@ -151,7 +150,7 @@
                 }]
             },
             options: {
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 responsive: true,
                 plugins: {
                     legend: {

@@ -7,8 +7,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookCopySeeder extends Seeder {
-    public function run(): void {
+class BookCopySeeder extends Seeder
+{
+    public function run(): void
+    {
         $now = Carbon::now()->toDateTimeString();
 
         $books = DB::table('books')->pluck('bk_id')->toArray();
@@ -21,7 +23,7 @@ class BookCopySeeder extends Seeder {
                 'bk_cp_status' => '1',
                 'bk_cp_created_at' => $now,
                 'bk_cp_updated_at' => $now,
-                'bk_cp_sys_note' => 'Manual seed'
+                'bk_cp_sys_note' => 'Manual seed',
             ];
             $inserts[] = [
                 'bk_cp_book_id' => $bkId,
@@ -29,7 +31,7 @@ class BookCopySeeder extends Seeder {
                 'bk_cp_status' => '1',
                 'bk_cp_created_at' => $now,
                 'bk_cp_updated_at' => $now,
-                'bk_cp_sys_note' => 'Manual seed'
+                'bk_cp_sys_note' => 'Manual seed',
             ];
         }
 

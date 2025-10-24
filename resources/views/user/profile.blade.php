@@ -3,21 +3,17 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-        <link
-            rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @endif
     <div class="profil">
         <div class="card shadow-sm mb-3 w-100">
             <div class="row g-0 align-items-center">
 
                 <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-                    <img src="{{ asset($user['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}"
-                        class="rounded-circle shadow object-fit-cover" alt="Profile Image"
-                        width="200" height="200">
+                    <img src="{{ asset($user['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}" class="rounded-circle shadow object-fit-cover" alt="Profile Image" width="200" height="200">
                 </div>
 
                 <div class="col-12 col-md-8">
@@ -52,12 +48,10 @@
 
                         <div class="mt-3 d-flex gap-2">
                             <button class="button bg-body flex-center" title="Ubah profil">
-                                <a href="/user/profile/edit"> <i
-                                        class="bi bi-pencil-square text-info fs-4"></i></a>
+                                <a href="/user/profile/edit"> <i class="bi bi-pencil-square text-info fs-4"></i></a>
                             </button>
                             <button class="button bg-body flex-center" title="Buat Kartu">
-                                <a href="/user/profile/activation"> <i
-                                        class="bi bi-camera text-primary fs-4"></i></a>
+                                <a href="/user/profile/activation"> <i class="bi bi-camera text-primary fs-4"></i></a>
                             </button>
                         </div>
 

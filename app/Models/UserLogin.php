@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserLogin extends Model {
+class UserLogin extends Model
+{
     /** @use HasFactory<\Database\Factories\UserLoginFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -20,7 +21,8 @@ class UserLogin extends Model {
     const UPDATED_AT = 'usr_lg_updated_at';
     const DELETED_AT = 'usr_lg_deleted_at';
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'usr_lg_user_id', 'usr_id');
     }
 }

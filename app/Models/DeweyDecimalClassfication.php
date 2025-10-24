@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DeweyDecimalClassfication extends Model {
+class DeweyDecimalClassfication extends Model
+{
     /** @use HasFactory<\Database\Factories\DeweyDecimalClassficationFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -22,17 +23,21 @@ class DeweyDecimalClassfication extends Model {
     const UPDATED_AT = 'ddc_updated_at';
     const DELETED_AT = 'ddc_deleted_at';
 
-    public function books(): BelongsToMany {
+    public function books(): BelongsToMany
+    {
         return $this->belongsToMany(Book::class, 'book_dewey_decimal_classfication', 'bk_ddc_classfication_id', 'bk_ddc_book_id');
     }
 
-    public function created_by(): BelongsTo {
+    public function created_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'ddc_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo {
+    public function updated_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'ddc_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo {
+    public function deleted_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'ddc_deleted_by', 'usr_id');
     }
 }

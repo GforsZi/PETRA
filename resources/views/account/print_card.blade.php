@@ -159,8 +159,7 @@
             </div>
             <div class="card-body">
                 <div class="photo">
-                    <img src="{{ public_path($user->usr_card_url ?? 'user_placeholder.jpg') }}"
-                        alt="Foto Profil">
+                    <img src="{{ public_path($user->usr_card_url ?? 'user_placeholder.jpg') }}" alt="Foto Profil">
                 </div>
                 <div class="info">
                     <div class="info-row">

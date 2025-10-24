@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChatOption extends Model {
+class ChatOption extends Model
+{
     /** @use HasFactory<\Database\Factories\ChatOptionFactory> */
     use HasFactory, SoftDeletes, Blameable;
 
@@ -21,13 +22,16 @@ class ChatOption extends Model {
     const UPDATED_AT = 'cht_opt_updated_at';
     const DELETED_AT = 'cht_opt_deleted_at';
 
-    public function created_by(): BelongsTo {
+    public function created_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'cht_opt_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo {
+    public function updated_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'cht_opt_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo {
+    public function deleted_by(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'cht_opt_deleted_by', 'usr_id');
     }
 }

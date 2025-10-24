@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook" class="btn btn-success btn-lg w-100"
-            title="Tambahkan Opsi"><i class="bi bi-book"></i></a>
+        <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook" class="btn btn-success btn-lg w-100" title="Tambahkan Opsi"><i class="bi bi-book"></i></a>
     </x-slot:header_layout>
 
     <div class="container mt-4">
@@ -14,9 +13,7 @@
                     <div class="row g-0">
 
                         <div class="col-md-5 p-4 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}"
-                                class="object-fit-contain" style="height: 167px; width: 128px;"
-                                alt="Buku">
+                            <img src="{{ asset($book['bk_img_url'] ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;" alt="Buku">
                         </div>
 
                         <div class="col">
@@ -33,15 +30,13 @@
                                 <div class="mb-2"><strong>Penerbit:</strong> <span class="ms-2">
                                         {{ $book['publisher']['pub_name'] ?? '' }}
                                     </span></div>
-                                <div class="mb-2"><strong>Tahun terbit:</strong> <span
-                                        class="ms-2"> {{ $book['bk_published_year'] ?? '' }}
+                                <div class="mb-2"><strong>Tahun terbit:</strong> <span class="ms-2"> {{ $book['bk_published_year'] ?? '' }}
                                     </span>
                                 </div>
                                 <div class="mb-2"><strong>Halaman:</strong> <span class="ms-2">
                                         {{ $book['bk_page'] ?? '' }}
                                     </span></div>
-                                <div class="mb-2"><strong>Klasifikasi:</strong> <span
-                                        class="ms-2">
+                                <div class="mb-2"><strong>Klasifikasi:</strong> <span class="ms-2">
                                         @foreach ($book['deweyDecimalClassfications'] as $classfication)
                                             {{ $classfication->ddc_code ?? '' }} @if (!$loop->last)
                                                 |
@@ -59,8 +54,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold">Deskripsi</h5>
 
-                        <p id="text" class="text-muted"
-                            style="margin-top:0; white-space: pre-line;">
+                        <p id="text" class="text-muted" style="margin-top:0; white-space: pre-line;">
                             {!! trim($book['bk_description']) ?? '' !!}
 
                         </p>

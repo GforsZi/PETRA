@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
     /**
      * Seed the application's database.
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->call([
             UserSeeder::class,
             BookMajorSeeder::class,
@@ -29,7 +31,7 @@ class DatabaseSeeder extends Seeder {
             BookTransactionSeeder::class,
             ChatOptionSeeder::class,
             DeviceSeeder::class,
-            UserLoginSeeder::class
+            UserLoginSeeder::class,
         ]);
     }
 }

@@ -1,13 +1,11 @@
-<div class="modal fade" id="otpDeleteAuthorization" tabindex="-1" aria-labelledby="otpDeleteLabel"
-    aria-hidden="true">
+<div class="modal fade" id="otpDeleteAuthorization" tabindex="-1" aria-labelledby="otpDeleteLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- Header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="otpDeleteLabel">Otorisasi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="deviceIdToDelete=null;"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="deviceIdToDelete=null;"></button>
             </div>
 
             <!-- Body -->
@@ -22,10 +20,8 @@
                 </div>
 
                 <!-- Form -->
-                <form id="otpAuthorizationForm"
-                    onsubmit="event.preventDefault(); deleteDevice(document.getElementById('otpInput').value);">
-                    <input type="text" id="otpInput" name="otp" class="form-control"
-                        placeholder="Enter OTP" required />
+                <form id="otpAuthorizationForm" onsubmit="event.preventDefault(); deleteDevice(document.getElementById('otpInput').value);">
+                    <input type="text" id="otpInput" name="otp" class="form-control" placeholder="Enter OTP" required />
                 </form>
             </div>
 
@@ -34,8 +30,7 @@
                 <button type="submit" form="otpAuthorizationForm" class="btn btn-danger">
                     Confirm
                 </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                    onclick="deviceIdToDelete=null;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="deviceIdToDelete=null;">
                     Cancel
                 </button>
             </div>

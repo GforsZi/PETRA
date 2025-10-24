@@ -3,27 +3,21 @@
 
     <form id="searchForm" action="{{ url('/search/book') }}" method="get">
         <div class="input-group mb-3 shadow-sm border border-body rounded">
-            <input type="text" id="searchInput" name="search" value="{{ request('search') }}"
-                class="form-control border-0 bg-body" placeholder="Cari judul buku..." aria-label="Search">
-            <button
-                class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
-                type="submit">
+            <input type="text" id="searchInput" name="search" value="{{ request('search') }}" class="form-control border-0 bg-body" placeholder="Cari judul buku..." aria-label="Search">
+            <button class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center" type="submit">
                 <i class="bi bi-search fs-5"></i>
             </button>
         </div>
     </form>
 
-        <div class="mt-3">
+    <div class="mt-3">
         <div class="border border-body rounded p-3">
             <h5 class="mb-2 text-center p-3"><b>Hasil Pencarian</b></h5>
-            <div id="searchResult" 
-                class="row row-cols-7 gx-2 gy-3 overflow-y-scroll " 
-                style="max-height: 500px;">
-               
+            <div id="searchResult" class="row row-cols-7 gx-2 gy-3 overflow-y-scroll " style="max-height: 500px;">
+
             </div>
         </div>
     </div>
-
 
     <div class="mt-3">
         <div class="border border-body rounded p-2">
@@ -32,19 +26,15 @@
             <div class="overflow-auto">
                 <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
                     @foreach ($book_new as $bk_nw)
-                        <div class="book col border mx-2 text-center rounded pt-2"
-                            style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                        <div class="book col border mx-2 text-center rounded pt-2" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
                             <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">
-                                <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}"
-                                    class="object-fit-contain"
-                                    style="height: 167px; width: 128px;">
-                               <p class="text-body text-start text-wrap mt-1 mb-0"
-    title="{{ $bk_nw->bk_title }}"
-    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                                <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $bk_nw->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
            overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">    
-    {{ $bk_nw->bk_title }}
-</p>
+           -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                                    {{ $bk_nw->bk_title }}
+                                </p>
 
                             </a>
                         </div>
@@ -84,39 +74,42 @@
             scrollbar-width: none;
         }
 
-         #searchForm .form-control:hover,
-    #searchForm .form-control:focus {
-        background-color: #f8f9fa;
-        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
-    }
+        #searchForm .form-control:hover,
+        #searchForm .form-control:focus {
+            background-color: #f8f9fa;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        }
 
-    #searchForm .btn:hover,
-    #searchForm .btn:focus {
-        background-color: #0b5ed7;
-        transform: scale(1.05);
-        transition: all 0.2s ease;
-    }
+        #searchForm .btn:hover,
+        #searchForm .btn:focus {
+            background-color: #0b5ed7;
+            transform: scale(1.05);
+            transition: all 0.2s ease;
+        }
 
-     .book {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+        .book {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    .book:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-    }
+        .book:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+        }
 
-    .row-cols-6.gx-2.gy-3 {
-    gap: 18px 8px; /* row gap 18px, column gap 8px */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* card rapat ke kiri */
-}
-.book {
-    margin: 0 !important; /* hilangkan margin antar card */
-}
+        .row-cols-6.gx-2.gy-3 {
+            gap: 18px 8px;
+            /* row gap 18px, column gap 8px */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            /* card rapat ke kiri */
+        }
 
+        .book {
+            margin: 0 !important;
+            /* hilangkan margin antar card */
+        }
     </style>
 
     <script>

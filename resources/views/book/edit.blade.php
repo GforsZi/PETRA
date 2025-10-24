@@ -17,23 +17,18 @@
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form action="/system/book/{{ $book['bk_id'] }}/edit" method="post"
-            enctype="multipart/form-data">
+        <form action="/system/book/{{ $book['bk_id'] }}/edit" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Ketersediaan buku, untuk mengatur setiap buku yang ada apakah bisa dipinjam atau tidak.">
                         Ketersediaan Buku
                     </label>
                     <div class="col-sm-10">
-                        <select name="bk_permission"
-                            class="form-select @error('bk_permission') is-invalid @enderror"
-                            required aria-label="Default select example">
+                        <select name="bk_permission" class="form-select @error('bk_permission') is-invalid @enderror" required aria-label="Default select example">
                             @if ($book['bk_permission'] == '1')
                                 <option value="1" selected>Dapat dipinjam</option>
                                 <option value="2">Tidak untuk dipinjam</option>
@@ -45,16 +40,12 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Untuk output yang akan tampil berbentuk apa kepada user, apakah buku fisik atau versi digital.">
                         Jenis Buku
                     </label>
                     <div class="col-sm-10">
-                        <select name="bk_type" id="image-option"
-                            class="form-select @error('bk_type') is-invalid @enderror" required
-                            aria-label="Default select example">
+                        <select name="bk_type" id="image-option" class="form-select @error('bk_type') is-invalid @enderror" required aria-label="Default select example">
                             @if ($book['bk_type'] == '1')
                                 <option value="1" selected>Fisik</option>
                                 <option value="2">Digital</option>
@@ -66,31 +57,23 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Unggah file gambar (jpg, jpeg, png) maksimal 2 MB untuk dijadikan sampul buku.">
                         Sampul Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="file"
-                            class="form-control @error('image') is-invalid @enderror"
-                            name="image">
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
                     </div>
                 </div>
                 <div class="mb-3" id="image-container">
                     @if ($book['bk_type'] == '2')
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" data-bs-container="body"
-                                data-bs-toggle="popover" data-bs-placement="bottom"
-                                data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                                data-bs-content="Unggah file PDF e-book (maksimal 6 MB). Pastikan file sesuai dengan isi buku dan tidak rusak.">
+                            <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                                data-bs-title="Pemberitahuan" data-bs-content="Unggah file PDF e-book (maksimal 6 MB). Pastikan file sesuai dengan isi buku dan tidak rusak.">
                                 PDF eBuku
                             </label>
                             <div class="col-sm-10" data-bs-container="body">
-                                <input type="file" id="inputImage"
-                                    class="form-control @error('file_pdf') is-invalid @enderror"
-                                    name="file_pdf" accept="application/pdf">
+                                <input type="file" id="inputImage" class="form-control @error('file_pdf') is-invalid @enderror" name="file_pdf" accept="application/pdf">
                                 @error('file_pdf')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -99,29 +82,22 @@
                     @endif
                 </div>
                 <div class="row mb-3">
-                    <label for="sibn" class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
+                    <label for="sibn" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan"
                         data-bs-content="Masukkan nomor ISBN yang valid (misalnya: 978-602-441-123-4). ISBN harus unik dan sesuai format standar internasional. Kosongkan jika buku tidak memiliki ISBN.">
                         ISBN Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_isbn" value="{{ $book['bk_isbn'] }}"
-                            class="form-control @error('bk_isbn') is-invalid @enderror"
-                            id="sibn">
+                        <input type="text" name="bk_isbn" value="{{ $book['bk_isbn'] }}" class="form-control @error('bk_isbn') is-invalid @enderror" id="sibn">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="title" class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Wajib diisi. Tulis judul lengkap buku sesuai sampul depan. Hindari singkatan atau simbol yang tidak perlu.">
+                    <label for="title" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Wajib diisi. Tulis judul lengkap buku sesuai sampul depan. Hindari singkatan atau simbol yang tidak perlu.">
                         Judul Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_title" value="{{ $book['bk_title'] }}"
-                            class="form-control @error('bk_title') is-invalid @enderror"
-                            id="title">
+                        <input type="text" name="bk_title" value="{{ $book['bk_title'] }}" class="form-control @error('bk_title') is-invalid @enderror" id="title">
                         @error('bk_title')
                             <div class="invalid-feedback">
                                 <p style="text-align: right;">Input tidak sesuai</p>
@@ -130,136 +106,89 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="description" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover"
-                        data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Opsional. Tambahkan deskripsi singkat mengenai isi atau tujuan buku (maksimal 65.535 karakter).">
+                    <label for="description" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Opsional. Tambahkan deskripsi singkat mengenai isi atau tujuan buku (maksimal 65.535 karakter).">
                         Keterangan Buku
                     </label>
                     <div class="col-sm-10">
-                        <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror"
-                            id="autoExpand">{{ $book['bk_description'] }}</textarea>
+                        <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror" id="autoExpand">{{ $book['bk_description'] }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="price" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover"
-                        data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Masukkan harga buku dalam angka (tanpa titik atau koma). Bisa dikosongkan jika buku tidak dijual.">
+                    <label for="price" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Masukkan harga buku dalam angka (tanpa titik atau koma). Bisa dikosongkan jika buku tidak dijual.">
                         Harga Perbuku
                     </label>
                     <div class="col-sm-10">
-                        <input type="number" name="bk_unit_price"
-                            value="{{ $book['bk_unit_price'] }}"
-                            class="form-control @error('bk_unit_price') is-invalid @enderror"
-                            id="price">
+                        <input type="number" name="bk_unit_price" value="{{ $book['bk_unit_price'] }}" class="form-control @error('bk_unit_price') is-invalid @enderror" id="price">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="page" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover"
-                        data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Masukkan jumlah halaman sesuai buku aslinya.">
+                    <label for="page" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Masukkan jumlah halaman sesuai buku aslinya.">
                         Halaman Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="number" name="bk_page" value="{{ $book['bk_page'] }}"
-                            class="form-control @error('bk_page') is-invalid @enderror"
-                            id="page">
+                        <input type="number" name="bk_page" value="{{ $book['bk_page'] }}" class="form-control @error('bk_page') is-invalid @enderror" id="page">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="edition" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover"
-                        data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Tuliskan edisi atau volume buku, misalnya Edisi Revisi Kedua atau Volume 1.">
+                    <label for="edition" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Tuliskan edisi atau volume buku, misalnya Edisi Revisi Kedua atau Volume 1.">
                         Edisi Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" name="bk_edition_volume"
-                            value="{{ $book['bk_edition_volume'] }}"
-                            class="form-control @error('bk_edition_volume') is-invalid @enderror"
+                        <input type="text" name="bk_edition_volume" value="{{ $book['bk_edition_volume'] }}" class="form-control @error('bk_edition_volume') is-invalid @enderror"
                             id="edition">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="published" class="col-sm-2 col-form-label"
-                        data-bs-container="body" data-bs-toggle="popover"
-                        data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Masukkan tahun terbit (4 digit, antara 1901-sekarang).">
+                    <label for="published" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Masukkan tahun terbit (4 digit, antara 1901-sekarang).">
                         Tahun Terbit Buku
                     </label>
                     <div class="col-sm-10">
-                        <input type="number" id="published" min="1901"
-                            value="{{ $book['bk_published_year'] }}" max="{{ date('Y') }}"
-                            step="1" name="bk_published_year"
+                        <input type="number" id="published" min="1901" value="{{ $book['bk_published_year'] }}" max="{{ date('Y') }}" step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="mb-3 row position-relative">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Pilih penerbit dari daftar yang tersedia. Pastikan penerbit sudah terdaftar di sistem.">
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Pilih penerbit dari daftar yang tersedia. Pastikan penerbit sudah terdaftar di sistem.">
                         Penerbit Buku
                     </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
-                            <input type="text" id="publisher-input"
-                                class="form-control pe-5 @error('bk_publisher_id') is-invalid @enderror"
-                                autocomplete="off"
+                            <input type="text" id="publisher-input" class="form-control pe-5 @error('bk_publisher_id') is-invalid @enderror" autocomplete="off"
                                 value="{{ $book['publisher']['pub_name'] ?? '' }}">
-                            <input type="hidden" name="bk_publisher_id" id="publisher-id"
-                                value="{{ $book['bk_publisher_id'] ?? '' }}">
-                            <button type="button" id="clear-publisher"
-                                class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2"
-                                style="display:none;">❌</button>
-                            <div id="publisher-suggestions"
-                                class="list-group position-absolute shadow-sm"
-                                style="z-index:1000; display:none; width:100%;"></div>
+                            <input type="hidden" name="bk_publisher_id" id="publisher-id" value="{{ $book['bk_publisher_id'] ?? '' }}">
+                            <button type="button" id="clear-publisher" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" style="display:none;">❌</button>
+                            <div id="publisher-suggestions" class="list-group position-absolute shadow-sm" style="z-index:1000; display:none; width:100%;"></div>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 row position-relative">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Pilih asal buku, seperti Pembelian, Donasi, atau Bantuan Sekolah.">
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Pilih asal buku, seperti Pembelian, Donasi, atau Bantuan Sekolah.">
                         Sumber Buku
                     </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
-                            <input type="text" id="origin-input"
-                                class="form-control pe-5 @error('bk_origin_id') is-invalid @enderror"
-                                autocomplete="off"
+                            <input type="text" id="origin-input" class="form-control pe-5 @error('bk_origin_id') is-invalid @enderror" autocomplete="off"
                                 value="{{ $book['origin']['bk_orgn_name'] ?? '' }}">
-                            <input type="hidden" name="bk_origin_id" id="origin-id"
-                                value="{{ $book['bk_origin_id'] }}">
-                            <button type="button" id="clear-origin"
-                                class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2"
-                                style="display:none;">❌</button>
-                            <div id="origin-suggestions"
-                                class="list-group position-absolute shadow-sm"
-                                style="z-index:1000; display:none; width:100%;"></div>
+                            <input type="hidden" name="bk_origin_id" id="origin-id" value="{{ $book['bk_origin_id'] }}">
+                            <button type="button" id="clear-origin" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" style="display:none;">❌</button>
+                            <div id="origin-suggestions" class="list-group position-absolute shadow-sm" style="z-index:1000; display:none; width:100%;"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body"
-                        data-bs-toggle="popover" data-bs-placement="bottom"
-                        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan" data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">
                         Jurusan Buku
                     </label>
                     <div class="col-sm-10">
-                        <select name="bk_major_id"
-                            class="form-select @error('bk_major_id') is-invalid @enderror"
-                            aria-label="Default select example">
+                        <select name="bk_major_id" class="form-select @error('bk_major_id') is-invalid @enderror" aria-label="Default select example">
                             @if ($book['major'])
                                 <option value="{{ $book['bk_major_id'] }}">
                                     {{ $book['major']['bk_mjr_class'] ?? 'Pilih Jurusan Buku' }}{{ ' ' . $book['major']['bk_mjr_major'] ?? '' }}
@@ -274,134 +203,116 @@
                         </select>
                     </div>
                 </div>
-               <div class="row mb-3">
-    <label class="col-sm-2 col-form-label" data-bs-container="body"
-        data-bs-toggle="popover" data-bs-placement="bottom"
-        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
-        Penulis Buku
-    </label>
-    <div class="col-sm-10 d-flex align-items-start">
-        <div class="flex-grow-1">
-            <select class="form-control d-none" id="selected-authors"
-                name="authors[]" multiple>
-                @foreach ($book['authors'] as $author)
-                    <option value="{{ $author->athr_id }}" selected>
-                        {{ $author->athr_name }}</option>
-                @endforeach
-            </select>
-            <div id="author-tags" class="mt-2">
-                @foreach ($book['authors'] as $author)
-                    <span class="badge bg-primary me-1 mb-1"
-                        data-id="{{ $author->athr_id }}">{{ $author->athr_name }}<span
-                            class="ms-1 text-light" style="cursor:pointer;">×</span></span>
-                @endforeach
-            </div>
-        </div>
-        <!-- button -->
-        <button type="button" class="btn btn-lg btn-outline-primary ms-2" data-bs-toggle="modal"
-            data-bs-target="#authorModal" title="Tambah Penerbit">
-            <i class="bi bi-person-plus-fill"></i>
-        </button>
-    </div>
-</div>
-
-               <div class="row mb-3">
-    <label class="col-sm-2 col-form-label" data-bs-container="body"
-        data-bs-toggle="popover" data-bs-placement="bottom"
-        data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
-        Klasifikasi Buku
-    </label>
-    <div class="col-sm-10 d-flex align-items-start">
-        <div class="flex-grow-1">
-            <select class="form-control d-none" id="selected-ddc"
-                name="classfications[]" multiple>
-                @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                    <option class="option" value="{{ $ddc->ddc_id }}" selected>
-                        {{ $ddc->ddc_code }}</option>
-                @endforeach
-            </select>
-            <div id="ddc-tags" class="mt-2">
-                @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                    <span class="badge badge-ddc bg-warning me-1 mb-1"
-                        data-id="{{ $ddc->ddc_id }}">{{ $ddc->ddc_code }}<span
-                            class="ms-1 text-light" style="cursor:pointer;">×</span></span>
-                @endforeach
-            </div>
-        </div>
-        <!-- button -->
-        <button type="button" class="btn btn-lg btn-outline-warning ms-2" data-bs-toggle="modal"
-            data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
-            <i class="bi bi-123"></i>
-        </button>
-    </div>
-</div>
-
-
-            <div class="modal fade" id="authorModal" tabindex="-1"
-                aria-labelledby="authorModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                Pilih Penulis</h5>
-                            <button type="button" class="btn-close"
-                                data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="text" id="author-search" class="form-control mb-3"
-                                placeholder="Cari penulis...">
-
-                            <div id="author-list" style="max-height: 300px; overflow-y:auto;">
-                                {{-- Hasil pencarian AJAX akan muncul disini --}}
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan"
+                        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
+                        Penulis Buku
+                    </label>
+                    <div class="col-sm-10 d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <select class="form-control d-none" id="selected-authors" name="authors[]" multiple>
+                                @foreach ($book['authors'] as $author)
+                                    <option value="{{ $author->athr_id }}" selected>
+                                        {{ $author->athr_name }}</option>
+                                @endforeach
+                            </select>
+                            <div id="author-tags" class="mt-2">
+                                @foreach ($book['authors'] as $author)
+                                    <span class="badge bg-primary me-1 mb-1" data-id="{{ $author->athr_id }}">{{ $author->athr_name }}<span class="ms-1 text-light"
+                                            style="cursor:pointer;">×</span></span>
+                                @endforeach
                             </div>
-
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" id="select-authors-btn"
-                                class="btn btn-primary" data-bs-dismiss="modal">
-                                Pilih
-                            </button>
+                        <!-- button -->
+                        <button type="button" class="btn btn-lg btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#authorModal" title="Tambah Penerbit">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+                        data-bs-title="Pemberitahuan"
+                        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
+                        Klasifikasi Buku
+                    </label>
+                    <div class="col-sm-10 d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <select class="form-control d-none" id="selected-ddc" name="classfications[]" multiple>
+                                @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                    <option class="option" value="{{ $ddc->ddc_id }}" selected>
+                                        {{ $ddc->ddc_code }}</option>
+                                @endforeach
+                            </select>
+                            <div id="ddc-tags" class="mt-2">
+                                @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                    <span class="badge badge-ddc bg-warning me-1 mb-1" data-id="{{ $ddc->ddc_id }}">{{ $ddc->ddc_code }}<span class="ms-1 text-light"
+                                            style="cursor:pointer;">×</span></span>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- button -->
+                        <button type="button" class="btn btn-lg btn-outline-warning ms-2" data-bs-toggle="modal" data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
+                            <i class="bi bi-123"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    Pilih Penulis</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <input type="text" id="author-search" class="form-control mb-3" placeholder="Cari penulis...">
+
+                                <div id="author-list" style="max-height: 300px; overflow-y:auto;">
+                                    {{-- Hasil pencarian AJAX akan muncul disini --}}
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="select-authors-btn" class="btn btn-primary" data-bs-dismiss="modal">
+                                    Pilih
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal fade" id="ddcModal" tabindex="-1"
-                aria-labelledby="ddcModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                Pilih Klasifikasi</h5>
-                            <button type="button" class="btn-close"
-                                data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="text" id="ddc-search" class="form-control mb-3"
-                                placeholder="Cari klasifikasi...">
-
-                            <div id="ddc-list" style="max-height: 300px; overflow-y:auto;">
-                                {{-- Hasil pencarian AJAX akan muncul disini --}}
+                <div class="modal fade" id="ddcModal" tabindex="-1" aria-labelledby="ddcModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    Pilih Klasifikasi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
+                            <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="select-ddc-btn" class="btn btn-primary"
-                                data-bs-dismiss="modal">
-                                Pilih
-                            </button>
+                                <input type="text" id="ddc-search" class="form-control mb-3" placeholder="Cari klasifikasi...">
+
+                                <div id="ddc-list" style="max-height: 300px; overflow-y:auto;">
+                                    {{-- Hasil pencarian AJAX akan muncul disini --}}
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="select-ddc-btn" class="btn btn-primary" data-bs-dismiss="modal">
+                                    Pilih
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-warning px-5" id="tombol"
-                    onclick="this.disabled=true; this.form.submit();">submit</button>
-            </div>
-            <!--end::Footer-->
+                <div div class="card-footer">
+                    <button type="submit" class="btn btn-outline-warning px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                </div>
+                <!--end::Footer-->
         </form>
         <!--end::Form-->
     </div>

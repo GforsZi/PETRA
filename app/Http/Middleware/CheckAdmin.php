@@ -6,13 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckAdmin {
+class CheckAdmin
+{
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $requiredrole): Response {
+    public function handle(Request $request, Closure $next, $requiredrole): Response
+    {
         $user = auth()->user();
 
         if (!$user || !$user->roles || $user->usr_activation == 0) {
@@ -20,7 +22,11 @@ class CheckAdmin {
         }
 
         if ($user->roles['rl_admin'] != $requiredrole) {
-            return redirect('/home');
+            if ($user->roles['rl_admin']) {
+                return redirect('/dashboard');
+            } else {
+                return redirect('/home');
+            }
         }
 
         return $next($request);

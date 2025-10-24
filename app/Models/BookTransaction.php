@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BookTransaction extends Pivot {
+class BookTransaction extends Pivot
+{
     use HasFactory, SoftDeletes, Blameable;
 
     protected $guarded = ['id', 'timestamps'];
@@ -18,15 +19,18 @@ class BookTransaction extends Pivot {
     const UPDATED_AT = 'bk_trx_updated_at';
     const DELETED_AT = 'bk_trx_deleted_at';
 
-    public function book() {
+    public function book()
+    {
         return $this->belongsTo(Book::class, 'bk_trx_book_id', 'bk_id');
     }
 
-    public function bookCopy() {
+    public function bookCopy()
+    {
         return $this->belongsTo(BookCopy::class, 'bk_trx_book_copy_id', 'bk_cp_id');
     }
 
-    public function transaction() {
+    public function transaction()
+    {
         return $this->belongsTo(Transaction::class, 'bk_trx_transaction_id', 'trx_id');
     }
 }

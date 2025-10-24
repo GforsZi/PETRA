@@ -7,15 +7,13 @@
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <h5>Success: {{ session('success') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <h5>error: {{ session('error') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <div class="card mb-4 ">
@@ -61,9 +59,7 @@
                     <tr>
                         <td>Tenggat Pengembalian</td>
                         @php
-                            $dueDate = $transaction->trx_due_date
-                                ? \Carbon\Carbon::parse($transaction->trx_due_date)
-                                : null;
+                            $dueDate = $transaction->trx_due_date ? \Carbon\Carbon::parse($transaction->trx_due_date) : null;
                         @endphp
 
                         <td
@@ -124,30 +120,24 @@
         </div>
         <div class="d-flex m-2 gap-2">
             @if ($transaction['trx_deleted_at'] == null)
-                <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#deleteConfirmation{{ $transaction['trx_id'] }}"
-                    title="Hapus Transaksi"><i class="bi bi-trash"></i></a>
+                <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteConfirmation{{ $transaction['trx_id'] }}" title="Hapus Transaksi"><i
+                        class="bi bi-trash"></i></a>
             @endif
             @if (now()->greaterThan($dueDate ?? now()))
-                <a class="btn btn-lg btn-warning"style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#sendmessage{{ $transaction['trx_id'] }}"
-                    title="Kirim peringatan pengembalian"><i class="bi bi-whatsapp"></i></a>
+                <a class="btn btn-lg btn-warning"style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#sendmessage{{ $transaction['trx_id'] }}" title="Kirim peringatan pengembalian"><i
+                        class="bi bi-whatsapp"></i></a>
             @endif
             @if ($transaction['trx_status'] == '1' ?? $transaction['trx_due_date'] == null)
-                <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#rejectconfirmation{{ $transaction['trx_id'] }}"
-                    title="Tolak Transaksi"><i class="bi bi-ban"></i></a>
-                <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#approveconfirmation{{ $transaction['trx_id'] }}"
-                    title="Terima Transaksi"><i class="bi bi-check2-all"></i></a>
+                <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#rejectconfirmation{{ $transaction['trx_id'] }}" title="Tolak Transaksi"><i
+                        class="bi bi-ban"></i></a>
+                <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#approveconfirmation{{ $transaction['trx_id'] }}" title="Terima Transaksi"><i
+                        class="bi bi-check2-all"></i></a>
             @endif
             @if ($transaction['trx_status'] == '2' ?? $transaction['trx_due_date'] == null)
-                <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#editconfirmation{{ $transaction['trx_id'] }}"
-                    title="Tolak Transaksi"><i class="bi bi-calendar-plus"></i></a>
-                <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal"
-                    data-bs-target="#returnconfirmation{{ $transaction['trx_id'] }}"
-                    title="Terima Transaksi"><i class="bi bi-clipboard2-check"></i></a>
+                <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editconfirmation{{ $transaction['trx_id'] }}" title="Tolak Transaksi"><i
+                        class="bi bi-calendar-plus"></i></a>
+                <a class="btn btn-lg btn-success" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#returnconfirmation{{ $transaction['trx_id'] }}" title="Terima Transaksi"><i
+                        class="bi bi-clipboard2-check"></i></a>
             @endif
 
         </div>
@@ -177,8 +167,7 @@
                                 @endphp
 
                                 @forelse ($copies as $copy)
-                                    <span
-                                        class="badge bg-secondary">{{ $copy->bk_cp_number }}</span>
+                                    <span class="badge bg-secondary">{{ $copy->bk_cp_number }}</span>
                                 @empty
                                     <span class="text-muted">Seluruh salinan</span>
                                 @endforelse
@@ -195,11 +184,9 @@
         </div>
         <!-- /.card-body -->
     </div>
-    <div class="modal fade" id="approveconfirmation{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="approveconfirmation{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="approveconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/approve">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/approve">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">
@@ -209,28 +196,21 @@
                 <div class="mb-3 container">
                     <label for="datetime" class="form-label">Pilih Tanggal & Waktu, untuk tenggat
                         pengembalian</label>
-                    <input type="datetime-local" name="datetime" id="datetime"
-                        class="form-control @error('datetime') is-invalid @enderror"
-                        value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}"
+                    <input type="datetime-local" name="datetime" id="datetime" class="form-control @error('datetime') is-invalid @enderror" value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}"
                         min="{{ $now->format('Y-m-d\TH:i') }}" max="{{ $maxDate }}">
 
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Batalkan</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batalkan</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
                         onclick="this.disabled=true; this.form.submit();"><strong>Terima</strong></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal fade" id="returnconfirmation{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="returnconfirmation{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="returnconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/return">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/return">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">
@@ -242,20 +222,15 @@
                     <input type="hidden" name="all_book_ids[]" value="{{ $book->bk_id }}">
                 @endforeach
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Tidak</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal fade" id="editconfirmation{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="editconfirmation{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="editconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/addtional_time">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/addtional_time">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">
@@ -265,28 +240,21 @@
                 <div class="mb-3 container">
                     <label for="datetime" class="form-label">Pilih Tanggal & Waktu, untuk tenggat
                         pengembalian</label>
-                    <input type="datetime-local" name="datetime" id="datetime"
-                        class="form-control @error('datetime') is-invalid @enderror"
-                        value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}"
-                        min="{{ $now->format('Y-m-d\TH:i') }}" max="{{ $maxDate }}">
+                    <input type="datetime-local" name="datetime" id="datetime" class="form-control @error('datetime') is-invalid @enderror"
+                        value="{{ old('datetime', $now->format('Y-m-d\TH:i')) }}" min="{{ $now->format('Y-m-d\TH:i') }}" max="{{ $maxDate }}">
 
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Batalkan</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batalkan</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
                         onclick="this.disabled=true; this.form.submit();"><strong>Terima</strong></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal fade" id="rejectconfirmation{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="rejectconfirmation{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="rejectconfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/reject">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/reject">
             @csrf
             @method('PUT')
             <div class="modal-content rounded-3 shadow">
@@ -298,20 +266,15 @@
                     <input type="hidden" name="all_book_ids[]" value="{{ $book->bk_id }}">
                 @endforeach
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Tidak</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal fade" id="deleteConfirmation{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteConfirmation{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="deleteConfirmation{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/delete">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/delete">
             @csrf
             @method('DELETE')
             <div class="modal-content rounded-3 shadow">
@@ -320,34 +283,25 @@
                     <p class="mb-0">Yakin ingin menghapus data ini?</p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Tidak</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal fade" id="sendmessage{{ $transaction['trx_id'] }}"
-        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="sendmessage{{ $transaction['trx_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="sendmessage{{ $transaction['trx_id'] }}Label" aria-hidden="true">
-        <form method="post" class="modal-dialog modal-dialog-centered"
-            action="/system/transaction/{{ $transaction['trx_id'] }}/send_message">
+        <form method="post" class="modal-dialog modal-dialog-centered" action="/system/transaction/{{ $transaction['trx_id'] }}/send_message">
             @csrf
             <div class="modal-content rounded-3 shadow">
                 <div class="modal-body p-4 text-center">
                     <h5 class="mb-0">Konfirmasi</h5>
                     <p class="mb-0">Yakin ingin mengirim pesan peringatan pada akun ini?</p>
                 </div>
-                <input type="hidden" value="{{ $transaction['users']['usr_no_wa'] ?? '' }}"
-                    name="target">
+                <input type="hidden" value="{{ $transaction['users']['usr_no_wa'] ?? '' }}" name="target">
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                        data-bs-dismiss="modal">Tidak</button>
-                    <button type="submit"
-                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
                 </div>
             </div>
         </form>

@@ -7,8 +7,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ChatOptionSeeder extends Seeder {
-    public function run(): void {
+class ChatOptionSeeder extends Seeder
+{
+    public function run(): void
+    {
         $now = Carbon::now()->toDateTimeString();
 
         DB::table('chat_options')->insert([
@@ -18,7 +20,7 @@ class ChatOptionSeeder extends Seeder {
                 'cht_opt_type' => '3',
                 'cht_opt_created_at' => $now,
                 'cht_opt_updated_at' => $now,
-                'cht_opt_sys_note' => 'Manual seed'
+                'cht_opt_sys_note' => 'Manual seed',
             ],
             [
                 'cht_opt_title' => 'Cara Pinjam',
@@ -26,8 +28,8 @@ class ChatOptionSeeder extends Seeder {
                 'cht_opt_type' => '3',
                 'cht_opt_created_at' => $now,
                 'cht_opt_updated_at' => $now,
-                'cht_opt_sys_note' => 'Manual seed'
-            ]
+                'cht_opt_sys_note' => 'Manual seed',
+            ],
         ]);
     }
 }

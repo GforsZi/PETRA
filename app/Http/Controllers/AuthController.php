@@ -9,16 +9,19 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller {
-    public function register_page() {
+class AuthController extends Controller
+{
+    public function register_page()
+    {
         return view('auth.register', ['title' => 'Halaman Register']);
     }
 
-    public function register_system(Request $request) {
+    public function register_system(Request $request)
+    {
         $validateData = $request->validate([
             'name' => 'required | min:3 | max:255',
             'usr_no_wa' => 'required  | unique:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
-            'password' => 'required | min:5 | max:30 | confirmed'
+            'password' => 'required | min:5 | max:30 | confirmed',
         ]);
 
         $validateData['password'] = Hash::make($validateData['password']);
@@ -27,14 +30,16 @@ class AuthController extends Controller {
         return redirect('/login')->with('success', 'Akun Berhasil Dibuat');
     }
 
-    public function login_page() {
+    public function login_page()
+    {
         return view('auth.login', ['title' => 'Halaman Login']);
     }
 
-    public function login_system(Request $request) {
+    public function login_system(Request $request)
+    {
         $credentials = $request->validate([
             'usr_no_wa' => 'required | max:255',
-            'password' => 'required | max:255'
+            'password' => 'required | max:255',
         ]);
 
         if (FacadesAuth::attempt($credentials)) {
@@ -53,7 +58,8 @@ class AuthController extends Controller {
         return back()->with('errorLogin', 'Login failed!');
     }
 
-    public function logout_system(Request $request) {
+    public function logout_system(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();

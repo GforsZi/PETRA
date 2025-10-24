@@ -7,8 +7,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookDeweyDecimalClassficationSeeder extends Seeder {
-    public function run(): void {
+class BookDeweyDecimalClassficationSeeder extends Seeder
+{
+    public function run(): void
+    {
         $books = DB::table('books')->pluck('bk_id')->toArray();
         $ddc = DB::table('dewey_decimal_classfications')->pluck('ddc_id')->toArray();
 
@@ -20,7 +22,7 @@ class BookDeweyDecimalClassficationSeeder extends Seeder {
                     'bk_ddc_book_id' => $bkId,
                     'bk_ddc_classfication_id' => $ddcId,
                     'bk_ddc_created_by' => null,
-                    'bk_ddc_sys_note' => 'Manual seed'
+                    'bk_ddc_sys_note' => 'Manual seed',
                 ];
             }
         }

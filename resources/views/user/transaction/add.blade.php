@@ -3,8 +3,7 @@
     @if (session()->has('error'))
         <div class="alert alert-error alert-dismissible fade show" role="alert">
             <h5>Error: {{ session('error') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <form action="/system/transaction/add" method="POST">
@@ -13,15 +12,12 @@
 
             <div class="col-md-4">
                 <h5 class="mb-3">Buku yang Dipinjam</h5>
-                <div id="listBukuDipilih" class="border rounded p-2 bg-body"
-                    style="max-height: 300px; overflow-y: auto;">
+                <div id="listBukuDipilih" class="border rounded p-2 bg-body" style="max-height: 300px; overflow-y: auto;">
                     <p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>
                 </div>
 
-                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-container="body"
-                    data-bs-placement="bottom" data-bs-trigger="hover focus"
-                    data-bs-content="Untuk memilih buku, pastikan anda menentukan tujuan peminjaman terlebih dahulu">
+                <button id="btnPilihBuku" type="button" class="btn btn-primary mt-3 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-container="body" data-bs-placement="bottom"
+                    data-bs-trigger="hover focus" data-bs-content="Untuk memilih buku, pastikan anda menentukan tujuan peminjaman terlebih dahulu">
                     Pilih Buku
                 </button>
 
@@ -44,37 +40,30 @@
                 <!-- tanggal otomatis -->
                 <input type="hidden" name="trx_borrow_date" value="{{ now() }}">
 
-                <button type="submit" class="btn btn-outline-success w-100"
-                    onclick="this.disabled=true; this.form.submit();">Selesai</button>
+                <button type="submit" class="btn btn-outline-success w-100" onclick="this.disabled=true; this.form.submit();">Selesai</button>
             </div>
         </div>
     </form>
 
     <!-- Modal Pilih Buku -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 " id="exampleModalLabel">Pilih Buku</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <!-- search -->
                     <div class="input-group mb-3 shadow-sm border border-body rounded">
-                        <input id="book-search" type="text" class="form-control border-0"
-                            placeholder="Cari buku..." aria-label="Search">
-                        <button
-                            class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center"
-                            type="button">
+                        <input id="book-search" type="text" class="form-control border-0" placeholder="Cari buku..." aria-label="Search">
+                        <button class="btn btn-primary border-0 px-4 d-flex align-items-center justify-content-center" type="button">
                             <i class="bi bi-search fs-5"></i>
                         </button>
                     </div>
 
-                    <div class="container text-center border"
-                        style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <div class="container text-center border" style="height: 300px; max-height: 300px; overflow-y: auto;">
                         <h3>Hasil Pencarian</h3>
                         <hr>
                         <div class="row row-cols-2 row-cols-lg-3 g-3" id="book-list"></div>
@@ -83,8 +72,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

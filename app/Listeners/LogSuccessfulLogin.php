@@ -8,23 +8,26 @@ use IlluminateAuthEventsLogin;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class LogSuccessfulLogin {
+class LogSuccessfulLogin
+{
     /**
      * Create the event listener.
      */
-    public function __construct() {
+    public function __construct()
+    {
         //
     }
 
     /**
      * Handle the event.
      */
-    public function handle(Login $event): void {
+    public function handle(Login $event): void
+    {
         UserLogin::create([
             'usr_lg_user_id' => $event->user->usr_id,
             'usr_lg_ip_address' => request()->ip(),
             'usr_lg_user_agent' => request()->userAgent(),
-            'usr_lg_logged_in_at' => now()
+            'usr_lg_logged_in_at' => now(),
         ]);
     }
 }

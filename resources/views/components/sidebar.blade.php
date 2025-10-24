@@ -4,8 +4,7 @@
         <!--begin::Brand Link-->
         <a href="/" class="brand-link">
             <!--begin::Brand Image-->
-            <img src="{{ asset('/logo/PETRA-LOGO.png') }}" alt="AdminLTE Logo"
-                class="brand-image opacity-75 shadow" />
+            <img src="{{ asset('/logo/PETRA-LOGO.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
             <!--end::Brand Text-->
@@ -17,8 +16,7 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <!--begin::Sidebar Menu-->
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
                     <li class="nav-item">
                         <a href="/dashboard" class="nav-link" style='color: #E9AD01;'>
@@ -44,29 +42,25 @@
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/book/major" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/book/major" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA JURUSAN</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/book/author" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/book/author" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PENULIS</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/book/publisher" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/book/publisher" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PENERBIT</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/book/origin" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/book/origin" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA SUMBER</p>
                                 </a>
@@ -114,15 +108,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/manage/chat/device" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/chat/device" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PERANGKAT</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/chat/option" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/chat/option" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA OPSI</p>
                                 </a>
@@ -140,15 +132,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/transaction" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/transaction" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA TRANSAKSI</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/submission" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/submission" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PENGAJUAN</p>
                                 </a>
@@ -160,8 +150,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/return" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/return" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>DATA PENGEMBALIAN</p>
                                 </a>
@@ -179,29 +168,25 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/export/collection" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/export/collection" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>KOLEKSI</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/export/statistics" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/export/statistics" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>STATISTIK</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/export/memberships" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/export/memberships" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>ANGGOTA</p>
                                 </a>
                             </li>
                             <li class="nav-item" style='color: #E9AD01;'>
-                                <a href="/manage/export/transaction" class="nav-link"
-                                    style='color: #E9AD01;'>
+                                <a href="/manage/export/transaction" class="nav-link" style='color: #E9AD01;'>
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>TRANSAKSI</p>
                                 </a>
