@@ -15,15 +15,8 @@
     function toggleScrolled() {
         const selectBody = document.querySelector('body')
         const selectHeader = document.querySelector('#header')
-        if (
-            !selectHeader.classList.contains('scroll-up-sticky') &&
-            !selectHeader.classList.contains('sticky-top') &&
-            !selectHeader.classList.contains('fixed-top')
-        )
-            return
-        window.scrollY > 100
-            ? selectBody.classList.add('scrolled')
-            : selectBody.classList.remove('scrolled')
+        if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return
+        window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled')
     }
 
     document.addEventListener('scroll', toggleScrolled)
@@ -83,9 +76,7 @@
 
     function toggleScrollTop() {
         if (scrollTop) {
-            window.scrollY > 100
-                ? scrollTop.classList.add('active')
-                : scrollTop.classList.remove('active')
+            window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active')
         }
     }
     scrollTop.addEventListener('click', (e) => {
@@ -158,9 +149,7 @@
             filters.addEventListener(
                 'click',
                 function () {
-                    isotopeItem
-                        .querySelector('.isotope-filters .filter-active')
-                        .classList.remove('filter-active')
+                    isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active')
                     this.classList.add('filter-active')
                     initIsotope.arrange({
                         filter: this.getAttribute('data-filter'),
@@ -208,13 +197,8 @@
             let section = document.querySelector(navmenulink.hash)
             if (!section) return
             let position = window.scrollY + 200
-            if (
-                position >= section.offsetTop &&
-                position <= section.offsetTop + section.offsetHeight
-            ) {
-                document
-                    .querySelectorAll('.navmenu a.active')
-                    .forEach((link) => link.classList.remove('active'))
+            if (position >= section.offsetTop && position <= section.offsetTop + section.offsetHeight) {
+                document.querySelectorAll('.navmenu a.active').forEach((link) => link.classList.remove('active'))
                 navmenulink.classList.add('active')
             } else {
                 navmenulink.classList.remove('active')

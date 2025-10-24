@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserLogin extends Model
-{
+class UserLogin extends Model {
     /** @use HasFactory<\Database\Factories\UserLoginFactory> */
     use HasFactory, SoftDeletes, Blameable;
 

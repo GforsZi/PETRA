@@ -28,15 +28,7 @@ const sales_chart_options = {
     },
     xaxis: {
         type: 'datetime',
-        categories: [
-            '2023-01-01',
-            '2023-02-01',
-            '2023-03-01',
-            '2023-04-01',
-            '2023-05-01',
-            '2023-06-01',
-            '2023-07-01',
-        ],
+        categories: ['2023-01-01', '2023-02-01', '2023-03-01', '2023-04-01', '2023-05-01', '2023-06-01', '2023-07-01'],
     },
     tooltip: {
         x: {
@@ -74,15 +66,7 @@ const sales_chart_options_2 = {
     },
     xaxis: {
         type: 'datetime',
-        categories: [
-            '2023-01-01',
-            '2023-02-01',
-            '2023-03-01',
-            '2023-04-01',
-            '2023-05-01',
-            '2023-06-01',
-            '2023-07-01',
-        ],
+        categories: ['2023-01-01', '2023-02-01', '2023-03-01', '2023-04-01', '2023-05-01', '2023-06-01', '2023-07-01'],
     },
     tooltip: {
         x: {
@@ -93,8 +77,5 @@ const sales_chart_options_2 = {
 
 const sales_chart = new ApexCharts(document.querySelector('#sales-chart'), sales_chart_options)
 sales_chart.render()
-const sales_chart_2 = new ApexCharts(
-    document.querySelector('#sales-chart-2'),
-    sales_chart_options_2,
-)
+const sales_chart_2 = new ApexCharts(document.querySelector('#sales-chart-2'), sales_chart_options_2)
 sales_chart_2.render()

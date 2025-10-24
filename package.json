@@ -8,6 +8,7 @@
         "format": "prettier --write ."
     },
     "devDependencies": {
+        "@prettier/plugin-php": "^0.24.0",
         "@shufo/prettier-plugin-blade": "^1.16.1",
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.11.0",

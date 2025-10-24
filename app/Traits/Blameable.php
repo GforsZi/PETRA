@@ -4,10 +4,8 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Auth;
 
-trait Blameable
-{
-    public static function bootBlameable()
-    {
+trait Blameable {
+    public static function bootBlameable() {
         static::creating(function ($model) {
             $prefix = $model->getBlameablePrefix();
             $model->{$prefix . 'created_by'} = Auth::id();
@@ -28,8 +26,7 @@ trait Blameable
         });
     }
 
-    public function getBlameablePrefix()
-    {
+    public function getBlameablePrefix() {
         return property_exists($this, 'blameablePrefix') ? $this->blameablePrefix : '';
     }
 }

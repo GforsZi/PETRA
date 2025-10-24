@@ -8,8 +8,7 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('chat_options', function (Blueprint $table) {
             $table->bigIncrements('cht_opt_id');
             $table->string('cht_opt_title');
@@ -35,8 +34,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('chat_options');
     }
 };

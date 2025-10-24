@@ -8,21 +8,19 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
-{
+class UserSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
         $admin_role = Role::firstOrCreate([
             'rl_name' => 'Pustakawan',
             'rl_description' => 'sarana perasarana',
-            'rl_admin' => true,
+            'rl_admin' => true
         ]);
         $user_role = Role::firstOrCreate([
             'rl_name' => 'Siswa',
-            'rl_description' => 'user role',
+            'rl_description' => 'user role'
         ]);
 
         $admin = User::firstOrCreate(
@@ -31,8 +29,8 @@ class UserSeeder extends Seeder
                 'name' => 'ATMINT',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $admin_role->rl_id,
-            ],
+                'usr_role_id' => $admin_role->rl_id
+            ]
         );
         $gival = User::firstOrCreate(
             ['usr_no_wa' => '087710113201'],
@@ -40,8 +38,8 @@ class UserSeeder extends Seeder
                 'name' => 'Givaldi Gumelar Setiawan',
                 'password' => Hash::make('11111'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -50,8 +48,8 @@ class UserSeeder extends Seeder
                 'name' => 'Nabil Nur Rahmat',
                 'password' => Hash::make('291107'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -60,8 +58,8 @@ class UserSeeder extends Seeder
                 'name' => 'Dion Septian Kevin',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -70,8 +68,8 @@ class UserSeeder extends Seeder
                 'name' => 'Aiman Fairus',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -80,8 +78,8 @@ class UserSeeder extends Seeder
                 'name' => 'Amelia Putri Saparani',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -90,8 +88,8 @@ class UserSeeder extends Seeder
                 'name' => 'Andi Juliansyah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -100,8 +98,8 @@ class UserSeeder extends Seeder
                 'name' => 'Abror Fadillah Ramadhan',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -110,8 +108,8 @@ class UserSeeder extends Seeder
                 'name' => 'Dian Hakim',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -120,8 +118,8 @@ class UserSeeder extends Seeder
                 'name' => 'Raditia Scorpio Djayakusumah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -130,8 +128,8 @@ class UserSeeder extends Seeder
                 'name' => 'Reyzal',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -140,8 +138,8 @@ class UserSeeder extends Seeder
                 'name' => 'Savaira Malika Fitri Handini',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -150,8 +148,8 @@ class UserSeeder extends Seeder
                 'name' => 'Afif Raihan Habibi',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -160,8 +158,8 @@ class UserSeeder extends Seeder
                 'name' => 'Aldo Yonanda Firmansyah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -170,8 +168,8 @@ class UserSeeder extends Seeder
                 'name' => 'Nadya Septiani Putri',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -180,8 +178,8 @@ class UserSeeder extends Seeder
                 'name' => 'Nurul Afipah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -190,8 +188,8 @@ class UserSeeder extends Seeder
                 'name' => 'Ervaretha Thahirah Purnamasari',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -200,8 +198,8 @@ class UserSeeder extends Seeder
                 'name' => 'Ghina Fauziyah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -210,8 +208,8 @@ class UserSeeder extends Seeder
                 'name' => 'Muhammad Irzi Fahrian Ramadhan',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -220,8 +218,8 @@ class UserSeeder extends Seeder
                 'name' => 'Muhammad Gia Mardhotillah',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -230,8 +228,8 @@ class UserSeeder extends Seeder
                 'name' => 'Aldin Nabitha Wiraatmaja',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -240,8 +238,8 @@ class UserSeeder extends Seeder
                 'name' => 'Zhagat Satria Ramdhani',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -250,8 +248,8 @@ class UserSeeder extends Seeder
                 'name' => 'Riswanto',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -260,8 +258,8 @@ class UserSeeder extends Seeder
                 'name' => 'M.Fadla Yaspa Izatulloh',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -270,8 +268,8 @@ class UserSeeder extends Seeder
                 'name' => 'Muhammad Aditya Maylingga',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -280,8 +278,8 @@ class UserSeeder extends Seeder
                 'name' => 'Gilbran Fahmi Almufaky',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
 
         User::firstOrCreate(
@@ -290,9 +288,8 @@ class UserSeeder extends Seeder
                 'name' => 'Michael Scofield',
                 'password' => Hash::make('12345'),
                 'usr_activation' => true,
-                'usr_role_id' => $user_role->rl_id,
-            ],
+                'usr_role_id' => $user_role->rl_id
+            ]
         );
-
     }
 }

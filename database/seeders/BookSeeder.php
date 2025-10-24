@@ -7,10 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookSeeder extends Seeder
-{
-    public function run(): void
-    {
+class BookSeeder extends Seeder {
+    public function run(): void {
         $now = Carbon::now()->toDateTimeString();
 
         // Ambil publisher/major/origin yang sudah di-seed sebelumnya
@@ -1092,7 +1090,7 @@ class BookSeeder extends Seeder
                 'bk_created_at' => $now,
                 'bk_updated_at' => $now,
                 'bk_sys_note' => 'Manual seed'
-            ],
+            ]
         ]);
     }
 }

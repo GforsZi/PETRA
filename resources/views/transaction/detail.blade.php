@@ -11,6 +11,13 @@
                 aria-label="Close"></button>
         </div>
     @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <div class="card mb-4 ">
         <div class="card-header">
             <h3 class="card-title">Detail Transaksi</h3>
@@ -120,6 +127,11 @@
                 <a class="btn btn-lg btn-danger"style="cursor: pointer;" data-bs-toggle="modal"
                     data-bs-target="#deleteConfirmation{{ $transaction['trx_id'] }}"
                     title="Hapus Transaksi"><i class="bi bi-trash"></i></a>
+            @endif
+            @if (now()->greaterThan($dueDate ?? now()))
+                <a class="btn btn-lg btn-warning"style="cursor: pointer;" data-bs-toggle="modal"
+                    data-bs-target="#sendmessage{{ $transaction['trx_id'] }}"
+                    title="Kirim peringatan pengembalian"><i class="bi bi-whatsapp"></i></a>
             @endif
             @if ($transaction['trx_status'] == '1' ?? $transaction['trx_due_date'] == null)
                 <a class="btn btn-lg btn-warning" style="cursor: pointer;" data-bs-toggle="modal"
@@ -307,6 +319,29 @@
                     <h5 class="mb-0">Konfirmasi</h5>
                     <p class="mb-0">Yakin ingin menghapus data ini?</p>
                 </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Ya</strong></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="sendmessage{{ $transaction['trx_id'] }}"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="sendmessage{{ $transaction['trx_id'] }}Label" aria-hidden="true">
+        <form method="post" class="modal-dialog modal-dialog-centered"
+            action="/system/transaction/{{ $transaction['trx_id'] }}/send_message">
+            @csrf
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Konfirmasi</h5>
+                    <p class="mb-0">Yakin ingin mengirim pesan peringatan pada akun ini?</p>
+                </div>
+                <input type="hidden" value="{{ $transaction['users']['usr_no_wa'] ?? '' }}"
+                    name="target">
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button"
                         class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"

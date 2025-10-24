@@ -7,10 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookAuthorSeeder extends Seeder
-{
-    public function run(): void
-    {
+class BookAuthorSeeder extends Seeder {
+    public function run(): void {
         $books = DB::table('books')->pluck('bk_id')->toArray();
         $authors = DB::table('authors')->pluck('athr_id')->toArray();
 

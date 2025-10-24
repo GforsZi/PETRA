@@ -13,36 +13,30 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CollectionExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize,  WithColumnFormatting
-{
+class CollectionExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize, WithColumnFormatting {
     protected $startDate, $endDate, $allData, $columns;
 
-    public function __construct($startDate = null, $endDate = null, $allData = false, $columns = [])
-    {
-        $this->startDate       = $startDate;
-        $this->endDate         = $endDate;
-        $this->allData         = $allData;
-        $this->columns         = $columns;
+    public function __construct($startDate = null, $endDate = null, $allData = false, $columns = []) {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->allData = $allData;
+        $this->columns = $columns;
     }
 
     /**
      * Ambil data buku
      */
-    public function collection()
-    {
+    public function collection() {
         $query = Book::with([
             'authors:athr_id,athr_name',
             'publisher:pub_id,pub_name,pub_address',
             'deweyDecimalClassfications:ddc_id,ddc_code',
             'origin:bk_orgn_id,bk_orgn_name',
-            'bookCopies:bk_cp_id,bk_cp_book_id',
+            'bookCopies:bk_cp_id,bk_cp_book_id'
         ]);
 
         if (!$this->allData && $this->startDate && $this->endDate) {
-            $query->whereBetween('bk_created_at', [
-                Carbon::parse($this->startDate)->startOfDay(),
-                Carbon::parse($this->endDate)->endOfDay(),
-            ]);
+            $query->whereBetween('bk_created_at', [Carbon::parse($this->startDate)->startOfDay(), Carbon::parse($this->endDate)->endOfDay()]);
         }
 
         return $query->get();
@@ -51,8 +45,7 @@ class CollectionExport implements FromCollection, WithHeadings, WithMapping, Wit
     /**
      * Header kolom dinamis
      */
-    public function headings(): array
-    {
+    public function headings(): array {
         $map = [
             'bk_id' => 'ID',
             'bk_created_at' => 'Tanggal Dibuat',
@@ -66,7 +59,7 @@ class CollectionExport implements FromCollection, WithHeadings, WithMapping, Wit
             'origin' => 'Sumber',
             'bk_price' => 'Harga Satuan',
             'total_price' => 'Harga Keseluruhan',
-            'ddc' => 'Nomor Klasifikasi',
+            'ddc' => 'Nomor Klasifikasi'
         ];
 
         return array_map(fn($key) => $map[$key] ?? $key, $this->columns);
@@ -75,48 +68,45 @@ class CollectionExport implements FromCollection, WithHeadings, WithMapping, Wit
     /**
      * Style
      */
-    public function styles(Worksheet $sheet)
-    {
+    public function styles(Worksheet $sheet) {
         $lastColumn = $sheet->getHighestColumn();
 
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => 'E9AD01'],
-                'size' => 12,
+                'size' => 12
             ],
             'alignment' => [
                 'horizontal' => 'center',
-                'vertical' => 'center',
+                'vertical' => 'center'
             ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => ['rgb' => '121740'],
-            ],
+                'startColor' => ['rgb' => '121740']
+            ]
         ]);
 
         $sheet->getRowDimension(1)->setRowHeight(25);
 
         $lastRow = $sheet->getHighestRow();
-        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")
-            ->applyFromArray([
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000'],
-                    ],
-                ],
-            ]);
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['rgb' => '000000']
+                ]
+            ]
+        ]);
     }
 
     /**
      * Mapping per baris dinamis
      */
-    public function map($book): array
-    {
+    public function map($book): array {
         $amount_copies = $book->bookCopies->count() ?? 0;
-        $unit_price   = $book->bk_unit_price ?? 0;
-        $total_price    = $amount_copies * $unit_price;
+        $unit_price = $book->bk_unit_price ?? 0;
+        $total_price = $amount_copies * $unit_price;
 
         $data = [
             'bk_id' => $book->bk_id,
@@ -131,18 +121,16 @@ class CollectionExport implements FromCollection, WithHeadings, WithMapping, Wit
             'origin' => $book->origin->bk_orgn_name ?? '-',
             'bk_price' => 'Rp' . number_format($unit_price ?? 0, 0, ',', '.'),
             'total_price' => 'Rp' . number_format($total_price ?? 0, 0, ',', '.'),
-            'ddc' => $book->deweyDecimalClassfications->pluck('ddc_code')->map(fn($c) => trim($c))
-            ->filter()->unique()->implode('.') ?: '-',
+            'ddc' => $book->deweyDecimalClassfications->pluck('ddc_code')->map(fn($c) => trim($c))->filter()->unique()->implode('.') ?: '-'
         ];
 
         // Hanya tampilkan kolom yang dipilih user
         return array_intersect_key($data, array_flip($this->columns));
     }
 
-     public function columnFormats(): array
-    {
+    public function columnFormats(): array {
         return [
-            'M' => NumberFormat::FORMAT_TEXT, // kolom E misalnya berisi DDC
+            'M' => NumberFormat::FORMAT_TEXT // kolom E misalnya berisi DDC
         ];
     }
 }

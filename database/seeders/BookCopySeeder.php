@@ -7,10 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookCopySeeder extends Seeder
-{
-    public function run(): void
-    {
+class BookCopySeeder extends Seeder {
+    public function run(): void {
         $now = Carbon::now()->toDateTimeString();
 
         $books = DB::table('books')->pluck('bk_id')->toArray();

@@ -8,8 +8,7 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('dewey_decimal_classfications', function (Blueprint $table) {
             $table->bigIncrements('ddc_id');
             $table->string('ddc_code');
@@ -34,8 +33,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('dewey_decimal_classfications');
     }
 };

@@ -15,37 +15,45 @@ use Spatie\PdfToImage\Pdf as PdfToImage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class ManageBookController extends Controller
-{
-    public function manage_book_page(Request $request)
-    {
+class ManageBookController extends Controller {
+    public function manage_book_page(Request $request) {
         $query = $request->get('s');
-        $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')->with('publisher:pub_id,pub_name', 'authors:athr_id,athr_name')->where('bk_title', 'like', "%$query%")->latest()->paginate(12);
+        $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')
+            ->with('publisher:pub_id,pub_name', 'authors:athr_id,athr_name')
+            ->where('bk_title', 'like', "%$query%")
+            ->latest()
+            ->paginate(12);
         return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
     }
 
-    public function search_book_system(Request $request)
-    {
+    public function search_book_system(Request $request) {
         $queryN = $request->get('q');
         $queryP = $request->get('purpose');
         $books = null;
         if ($queryP == '2') {
-            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')->where('bk_type', '1')->with('bookCopies')
-            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', null)->where('bk_permission', '1')
-            ->orderBy('bk_title', 'asc')
-            ->get();
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')
+                ->where('bk_type', '1')
+                ->with('bookCopies')
+                ->where('bk_title', 'like', "%$queryN%")
+                ->where('bk_major_id', null)
+                ->where('bk_permission', '1')
+                ->orderBy('bk_title', 'asc')
+                ->get();
         } else {
-            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')->where('bk_type', '1')->with('bookCopies')
-            ->where('bk_title', 'like', "%$queryN%")->where('bk_major_id', '!=', null)->where('bk_permission', '1')
-            ->orderBy('bk_title', 'asc')
-            ->get();
+            $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')
+                ->where('bk_type', '1')
+                ->with('bookCopies')
+                ->where('bk_title', 'like', "%$queryN%")
+                ->where('bk_major_id', '!=', null)
+                ->where('bk_permission', '1')
+                ->orderBy('bk_title', 'asc')
+                ->get();
         }
 
         return response()->json($books);
     }
 
-    public function search_book_author_system(Request $request)
-    {
+    public function search_book_author_system(Request $request) {
         $query = $request->get('q');
         $authors = Author::select('athr_id', 'athr_name')
             ->where('athr_name', 'like', "%$query%")
@@ -54,8 +62,7 @@ class ManageBookController extends Controller
         return response()->json($authors);
     }
 
-    public function search_book_publisher_system(Request $request)
-    {
+    public function search_book_publisher_system(Request $request) {
         $query = $request->get('q');
         if ($query != '') {
             $publishers = Publisher::select('pub_id', 'pub_name')
@@ -63,15 +70,12 @@ class ManageBookController extends Controller
                 ->orderBy('pub_name', 'asc')
                 ->get();
         } else {
-            $publishers = Publisher::select('pub_id', 'pub_name')
-                ->orderBy('pub_name', 'asc')
-                ->get();
+            $publishers = Publisher::select('pub_id', 'pub_name')->orderBy('pub_name', 'asc')->get();
         }
         return response()->json($publishers);
     }
 
-    public function search_book_orgin_system(Request $request)
-    {
+    public function search_book_orgin_system(Request $request) {
         $query = $request->get('q');
         if ($query != '') {
             $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')
@@ -79,15 +83,12 @@ class ManageBookController extends Controller
                 ->orderBy('bk_orgn_name', 'asc')
                 ->get();
         } else {
-            $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')
-                ->orderBy('bk_orgn_name', 'asc')
-                ->get();
+            $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->orderBy('bk_orgn_name', 'asc')->get();
         }
         return response()->json($origins);
     }
 
-    public function search_book_ddc_system(Request $request)
-    {
+    public function search_book_ddc_system(Request $request) {
         $query = $request->get('q');
         $ddc = DeweyDecimalClassfication::select('ddc_id', 'ddc_code')
             ->where('ddc_code', 'like', "%$query%")
@@ -96,21 +97,31 @@ class ManageBookController extends Controller
         return response()->json($ddc);
     }
 
-    public function detail_book_page($id)
-    {
-        $book = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name,pub_address', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
+    public function detail_book_page($id) {
+        $book = Book::withTrashed()
+            ->with(
+                'authors:athr_id,athr_name',
+                'origin:bk_orgn_id,bk_orgn_name',
+                'major:bk_mjr_id,bk_mjr_class,bk_mjr_major',
+                'publisher:pub_id,pub_name,pub_address',
+                'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status',
+                'deweyDecimalClassfications:ddc_id,ddc_code',
+                'origin:bk_orgn_id,bk_orgn_name',
+                'created_by',
+                'updated_by',
+                'deleted_by'
+            )
+            ->find($id);
         return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
 
-    public function add_book_page()
-    {
+    public function add_book_page() {
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
         return view('book.add', ['title' => 'Halaman Tambah Buku'], compact('publishers', 'majors'));
     }
 
-    public function add_book_system(Request $request)
-    {
+    public function add_book_system(Request $request) {
         $validateData = $request->validate([
             'bk_isbn' => ['nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
             'bk_title' => 'required | string | max:255',
@@ -125,7 +136,7 @@ class ManageBookController extends Controller
             'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'nullable|image|max:2048',
-            'file_pdf' => 'nullable|file|mimes:pdf|max:6144',
+            'file_pdf' => 'nullable|file|mimes:pdf|max:6144'
         ]);
 
         if ($request->hasFile('image')) {
@@ -178,7 +189,7 @@ class ManageBookController extends Controller
         if ($request->has('authors')) {
             $validateDataAuthor = $request->validate([
                 'authors' => 'required|array|min:1',
-                'authors.*' => 'exists:authors,athr_id',
+                'authors.*' => 'exists:authors,athr_id'
             ]);
 
             $book->authors()->sync($validateDataAuthor['authors']);
@@ -187,7 +198,7 @@ class ManageBookController extends Controller
         if ($request->has('classfications')) {
             $validateDataDDC = $request->validate([
                 'classfications' => 'required|array|min:1',
-                'classfications.*' => 'exists:dewey_decimal_classfications,ddc_id',
+                'classfications.*' => 'exists:dewey_decimal_classfications,ddc_id'
             ]);
 
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
@@ -196,16 +207,39 @@ class ManageBookController extends Controller
         return redirect('/manage/book/')->with('success', 'Buku Berhasil Ditambahkan');
     }
 
-    public function edit_book_page($id)
-    {
-        $book = Book::with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code')->select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_file_url', 'bk_permission', 'bk_unit_price', 'bk_edition_volume', 'bk_published_year', 'bk_edition_volume', 'bk_publisher_id', 'bk_major_id', 'bk_origin_id')->find($id);
+    public function edit_book_page($id) {
+        $book = Book::with(
+            'authors:athr_id,athr_name',
+            'origin:bk_orgn_id,bk_orgn_name',
+            'major:bk_mjr_id,bk_mjr_class,bk_mjr_major',
+            'publisher:pub_id,pub_name',
+            'deweyDecimalClassfications:ddc_id,ddc_code'
+        )
+            ->select(
+                'bk_id',
+                'bk_isbn',
+                'bk_title',
+                'bk_description',
+                'bk_page',
+                'bk_img_url',
+                'bk_type',
+                'bk_file_url',
+                'bk_permission',
+                'bk_unit_price',
+                'bk_edition_volume',
+                'bk_published_year',
+                'bk_edition_volume',
+                'bk_publisher_id',
+                'bk_major_id',
+                'bk_origin_id'
+            )
+            ->find($id);
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
         return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors', 'book'));
     }
 
-    public function edit_book_system(Request $request, $id)
-    {
+    public function edit_book_system(Request $request, $id) {
         $book = Book::find($id);
         $validateData = $request->validate([
             'bk_title' => 'sometimes | required | string | max:255',
@@ -220,12 +254,12 @@ class ManageBookController extends Controller
             'bk_major_id' => 'sometimes | integer | min:0 | nullable | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'sometimes|nullable|image|max:2048',
-            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144',
+            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144'
         ]);
 
         if ($request->bk_isbn != $book['bk_isbn']) {
             $no_wa = $request->validate([
-                'bk_isbn' => ['sometimes', 'nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
+                'bk_isbn' => ['sometimes', 'nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn']
             ]);
             $validateData['bk_isbn'] = $no_wa['bk_isbn'];
         }
@@ -246,47 +280,46 @@ class ManageBookController extends Controller
         }
 
         if ($request->hasFile('file_pdf')) {
-        if (!empty($book->bk_file_url)) {
-            $oldPdfPath = public_path($book->bk_file_url);
-            if (file_exists($oldPdfPath)) {
-                unlink($oldPdfPath);
+            if (!empty($book->bk_file_url)) {
+                $oldPdfPath = public_path($book->bk_file_url);
+                if (file_exists($oldPdfPath)) {
+                    unlink($oldPdfPath);
+                }
             }
-        }
 
-        $oldSafeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $book->bk_title);
-        $oldImageDir = public_path('media/pdf-image/' . $oldSafeTitle);
+            $oldSafeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $book->bk_title);
+            $oldImageDir = public_path('media/pdf-image/' . $oldSafeTitle);
 
-        if (file_exists($oldImageDir)) {
-            $this->deleteDirectory($oldImageDir);
-        }
+            if (file_exists($oldImageDir)) {
+                $this->deleteDirectory($oldImageDir);
+            }
 
-        $destinationPath = public_path('media/ebook_pdf');
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
-        }
+            $destinationPath = public_path('media/ebook_pdf');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
 
-        $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
-        $request->file('file_pdf')->move($destinationPath, $filename);
+            $filename = time() . '_' . $request->file('file_pdf')->getClientOriginalName();
+            $request->file('file_pdf')->move($destinationPath, $filename);
 
-        $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
-        $validateData['bk_file_public_id'] = $filename;
+            $validateData['bk_file_url'] = 'media/ebook_pdf/' . $filename;
+            $validateData['bk_file_public_id'] = $filename;
 
-        $pdfFilePath = $destinationPath . '/' . $filename;
-        $pdfToImage = new PdfToImage($pdfFilePath);
-        $totalPages = $pdfToImage->getNumberOfPages();
+            $pdfFilePath = $destinationPath . '/' . $filename;
+            $pdfToImage = new PdfToImage($pdfFilePath);
+            $totalPages = $pdfToImage->getNumberOfPages();
 
-        $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->bk_title);
-        $destinationPathPdf = public_path('media/pdf-image/' . $safeTitle);
+            $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->bk_title);
+            $destinationPathPdf = public_path('media/pdf-image/' . $safeTitle);
 
-        if (!file_exists($destinationPathPdf)) {
-            mkdir($destinationPathPdf, 0777, true);
-        }
+            if (!file_exists($destinationPathPdf)) {
+                mkdir($destinationPathPdf, 0777, true);
+            }
 
-        for ($i = 1; $i <= $totalPages; $i++) {
-            $imagePath = $destinationPathPdf . "/page-{$i}.jpg";
-            $pdfToImage->setPage($i)->saveImage($imagePath);
-        }
-
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $imagePath = $destinationPathPdf . "/page-{$i}.jpg";
+                $pdfToImage->setPage($i)->saveImage($imagePath);
+            }
         }
 
         $book->update($validateData);
@@ -294,7 +327,7 @@ class ManageBookController extends Controller
         if ($request->has('authors')) {
             $validateDataAuthor = $request->validate([
                 'authors' => 'sometimes|required|array|min:1',
-                'authors.*' => 'sometimes|exists:authors,athr_id',
+                'authors.*' => 'sometimes|exists:authors,athr_id'
             ]);
 
             $book->authors()->sync($validateDataAuthor['authors']);
@@ -304,7 +337,7 @@ class ManageBookController extends Controller
         if ($request->has('classfications')) {
             $validateDataDDC = $request->validate([
                 'classfications' => 'sometimes|required|array|min:1',
-                'classfications.*' => 'sometimes|exists:dewey_decimal_classfications,ddc_id',
+                'classfications.*' => 'sometimes|exists:dewey_decimal_classfications,ddc_id'
             ]);
 
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
@@ -313,8 +346,7 @@ class ManageBookController extends Controller
         return redirect('/manage/book/')->with('success', 'Buku Berhasil Diubah');
     }
 
-    public function delete_book_system(Request $request, $id)
-    {
+    public function delete_book_system(Request $request, $id) {
         $book = Book::find($id);
         $book->deweyDecimalClassfications()->detach();
         $book->authors()->detach();
@@ -322,15 +354,19 @@ class ManageBookController extends Controller
         return redirect('/manage/book')->with('success', 'Buku Berhasil Dihapus');
     }
 
-    public function add_book_copy_system(Request $request, $id)
-    {
+    public function add_book_copy_system(Request $request, $id) {
         $request->validate([
             'code' => 'required | string | max:255',
-            'number' => 'required | integer | min:0',
+            'number' => 'required | integer | min:0'
         ]);
 
-        $str = BookCopy::select('bk_cp_number')->where('bk_cp_book_id', $id)->orderByRaw("
-        CAST(SUBSTRING_INDEX(bk_cp_number, '-', -1) AS UNSIGNED) DESC")->first();
+        $str = BookCopy::select('bk_cp_number')
+            ->where('bk_cp_book_id', $id)
+            ->orderByRaw(
+                "
+        CAST(SUBSTRING_INDEX(bk_cp_number, '-', -1) AS UNSIGNED) DESC"
+            )
+            ->first();
         $parts = explode('-', $str);
         $number = 1;
         if ($str != null) {
@@ -340,166 +376,154 @@ class ManageBookController extends Controller
             BookCopy::create([
                 'bk_cp_book_id' => $id,
                 'bk_cp_number' => $request->code . '-' . $number++,
-                'bk_cp_status' => '1',
+                'bk_cp_status' => '1'
             ]);
         }
         return redirect('/manage/book/' . $id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Ditambahkan');
     }
 
-    public function edit_book_copy_system(Request $request, $id)
-    {
+    public function edit_book_copy_system(Request $request, $id) {
         $copy = BookCopy::find($id);
 
         $validateData = $request->validate([
-            'bk_cp_status' => 'sometimes | required | in:1,2,3,4',
+            'bk_cp_status' => 'sometimes | required | in:1,2,3,4'
         ]);
 
         $copy->update($validateData);
         return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Diubah');
     }
 
-    public function delete_book_copy_system(Request $request, $id)
-    {
+    public function delete_book_copy_system(Request $request, $id) {
         $copy = BookCopy::find($id);
         $copy->delete();
         return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Dihapus');
     }
 
-public function delete_many_book_copy_system(Request $request)
-{
-    $request->validate([
-        'copy_ids' => 'required|array',
-    ]);
+    public function delete_many_book_copy_system(Request $request) {
+        $request->validate([
+            'copy_ids' => 'required|array'
+        ]);
 
-    $copies = BookCopy::whereIn('bk_cp_id', $request->copy_ids);
-    $deletedCount = $copies->delete();
+        $copies = BookCopy::whereIn('bk_cp_id', $request->copy_ids);
+        $deletedCount = $copies->delete();
 
-    return back()->with('success', "{$deletedCount} salinan berhasil dihapus.");
-}
+        return back()->with('success', "{$deletedCount} salinan berhasil dihapus.");
+    }
 
-
-    public function manage_book_major_page(Request $request)
-    {
+    public function manage_book_major_page(Request $request) {
         $query = $request->get('s');
-        $majors = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->where('bk_mjr_major', 'like', "%$query%")->latest()->paginate(10);
+        $majors = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')
+            ->where('bk_mjr_major', 'like', "%$query%")
+            ->latest()
+            ->paginate(10);
         return view('book.major.view', ['title' => 'Halaman Kelola Jurusan'], compact('majors'));
     }
 
-    public function detail_book_major_page($id)
-    {
+    public function detail_book_major_page($id) {
         $major = BookMajor::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
         return view('book.major.detail', ['title' => 'Halaman Detail Jurusan'], compact('major'));
     }
 
-    public function add_book_major_page()
-    {
+    public function add_book_major_page() {
         return view('book.major.add', ['title' => 'Halaman Tambah Jurusan']);
     }
 
-    public function add_book_major_system(Request $request)
-    {
+    public function add_book_major_system(Request $request) {
         $validateData = $request->validate([
             'bk_mjr_class' => 'required | regex:/^[0-9]+$/ | min:0',
-            'bk_mjr_major' => 'required | string | max:255',
+            'bk_mjr_major' => 'required | string | max:255'
         ]);
 
         BookMajor::create($validateData);
         return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Ditambahkan');
     }
 
-    public function edit_book_major_page($id)
-    {
+    public function edit_book_major_page($id) {
         $major = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->find($id);
         return view('book.major.edit', ['title' => 'Halaman Ubah Jurusan'], compact('major'));
     }
 
-    public function edit_book_major_system(Request $request, $id)
-    {
+    public function edit_book_major_system(Request $request, $id) {
         $major = BookMajor::find($id);
         $validateData = $request->validate([
             'bk_mjr_class' => 'sometimes | required | regex:/^[0-9]+$/ | min:0',
-            'bk_mjr_major' => 'sometimes | required | string | max:255',
+            'bk_mjr_major' => 'sometimes | required | string | max:255'
         ]);
 
         $major->update($validateData);
         return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Diubah');
     }
 
-    public function delete_book_major_system($id)
-    {
+    public function delete_book_major_system($id) {
         BookMajor::find($id)->delete();
         return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Dihapus');
     }
 
-    public function manage_book_author_page(Request $request)
-    {
+    public function manage_book_author_page(Request $request) {
         $query = $request->get('s');
-        $authors = Author::select('athr_id', 'athr_name')->where('athr_name', 'like', "%$query%")->latest()->paginate(10);
+        $authors = Author::select('athr_id', 'athr_name')
+            ->where('athr_name', 'like', "%$query%")
+            ->latest()
+            ->paginate(10);
         return view('book.author.view', ['title' => 'Halaman Kelola Penulis'], compact('authors'));
     }
 
-    public function detail_book_author_page($id)
-    {
+    public function detail_book_author_page($id) {
         $author = Author::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
         return view('book.author.detail', ['title' => 'Halaman Kelola Penulis'], compact('author'));
     }
 
-    public function add_book_author_page()
-    {
+    public function add_book_author_page() {
         return view('book.author.add', ['title' => 'Halaman Tambha Penulis']);
     }
 
-    public function add_book_author_system(Request $request)
-    {
+    public function add_book_author_system(Request $request) {
         $validateData = $request->validate([
-            'athr_name' => 'required | string | max:255',
+            'athr_name' => 'required | string | max:255'
         ]);
 
         Author::create($validateData);
         return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Ditambahkan');
     }
 
-    public function edit_book_author_page($id)
-    {
+    public function edit_book_author_page($id) {
         $authors = Author::select('athr_id', 'athr_name')->find($id);
         return view('book.author.edit', ['title' => 'Halaman Ubah Penulis'], compact('authors'));
     }
 
-    public function edit_book_author_system(Request $request, $id)
-    {
+    public function edit_book_author_system(Request $request, $id) {
         $author = Author::find($id);
 
         $validateData = $request->validate([
-            'athr_name' => 'sometimes | required | string | max:255',
+            'athr_name' => 'sometimes | required | string | max:255'
         ]);
 
         $author->update($validateData);
         return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Diubah');
     }
 
-    public function delete_book_author_system(Request $request, $id)
-    {
+    public function delete_book_author_system(Request $request, $id) {
         $author = Author::find($id);
 
         $author->delete();
         return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Dihapus');
     }
 
-    public function manage_book_publisher_page(Request $request)
-    {
+    public function manage_book_publisher_page(Request $request) {
         $query = $request->get('s');
-        $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')->where('pub_name', 'like', "%$query%")->latest()->paginate(10);
+        $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')
+            ->where('pub_name', 'like', "%$query%")
+            ->latest()
+            ->paginate(10);
         return view('book.publisher.view', ['title' => 'Halaman Kelola Penerbit'], compact('publishers'));
     }
 
-    public function detail_book_publisher_page($id)
-    {
+    public function detail_book_publisher_page($id) {
         $publisher = Publisher::with('created_by', 'updated_by', 'deleted_by')->withTrashed()->find($id);
         return view('book.publisher.detail', ['title' => 'Halaman Detail Penerbit'], compact('publisher'));
     }
 
-    public function pdf_book_page($id)
-    {
+    public function pdf_book_page($id) {
         $book = Book::select('bk_id', 'bk_title', 'bk_file_url')->find($id);
 
         $safeTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $book->bk_title);
@@ -516,173 +540,167 @@ public function delete_many_book_copy_system(Request $request)
         return view('book.pdf', ['title' => 'Halaman Detail Ebook'], compact('book', 'images'));
     }
 
-    public function add_book_publisher_page()
-    {
+    public function add_book_publisher_page() {
         return view('book.publisher.add', ['title' => 'Halaman Tambah Penerbit']);
     }
 
-    public function add_book_publisher_system(Request $request)
-    {
+    public function add_book_publisher_system(Request $request) {
         $validateData = $request->validate([
             'pub_name' => 'required | string | max:255',
-            'pub_address' => 'required | string | max:255',
+            'pub_address' => 'required | string | max:255'
         ]);
 
         Publisher::create($validateData);
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Ditambahkan');
     }
 
-    public function edit_book_publisher_page($id)
-    {
+    public function edit_book_publisher_page($id) {
         $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')->find($id);
         return view('book.publisher.edit', ['title' => 'Halaman Ubah Penerbit'], compact('publishers'));
     }
 
-    public function edit_book_publisher_system(Request $request, $id)
-    {
+    public function edit_book_publisher_system(Request $request, $id) {
         $publisher = Publisher::find($id);
 
         $validateData = $request->validate([
             'pub_name' => 'sometimes | required | string | max:255',
-            'pub_address' => 'sometimes | required | string | max:255',
+            'pub_address' => 'sometimes | required | string | max:255'
         ]);
 
         $publisher->update($validateData);
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Diubah');
     }
 
-    public function delete_book_publisher_system(Request $request, $id)
-    {
+    public function delete_book_publisher_system(Request $request, $id) {
         $author = Publisher::find($id);
 
         $author->delete();
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Dihapus');
     }
 
-    public function manage_book_classfication_page(Request $request)
-    {
+    public function manage_book_classfication_page(Request $request) {
         $query = $request->get('s');
-        $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')->where('ddc_code', 'like', "%$query%")->latest()->paginate(10);
+        $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')
+            ->where('ddc_code', 'like', "%$query%")
+            ->latest()
+            ->paginate(10);
         return view('book.classfication.view', ['title' => 'Halaman Kelola Klasifikasi'], compact('classfications'));
     }
 
-    public function detail_book_classfication_page($id)
-    {
+    public function detail_book_classfication_page($id) {
         $classfication = DeweyDecimalClassfication::withTrashed()->with('created_by', 'updated_by', 'deleted_by')->find($id);
         return view('book.classfication.detail', ['title' => 'Halaman Ubah Klasifikasi'], compact('classfication'));
     }
 
-    public function add_book_classfication_page()
-    {
+    public function add_book_classfication_page() {
         return view('book.classfication.add', ['title' => 'Halaman Tambah Klasifikasi']);
     }
 
-    public function add_book_classfication_system(Request $request)
-    {
+    public function add_book_classfication_system(Request $request) {
         $validateData = $request->validate([
             'ddc_code' => 'required | regex:/^\d{3}(-\d{3})?$/ | max:255',
-            'ddc_description' => 'required | string | max:65535',
+            'ddc_description' => 'required | string | max:65535'
         ]);
 
         DeweyDecimalClassfication::create($validateData);
         return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Ditambahkan');
     }
 
-    public function edit_book_classfication_page($id)
-    {
+    public function edit_book_classfication_page($id) {
         $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')->find($id);
         return view('book.classfication.edit', ['title' => 'Halaman Ubah Klasifikasi'], compact('classfications'));
     }
 
-    public function edit_book_classfication_system(Request $request, $id)
-    {
+    public function edit_book_classfication_system(Request $request, $id) {
         $classfication = DeweyDecimalClassfication::find($id);
 
         $validateData = $request->validate([
             'ddc_code' => 'sometimes | required | regex:/^\d{3}(-\d{3})?$/ | max:255',
-            'ddc_description' => 'sometimes | required | string | max:65535',
+            'ddc_description' => 'sometimes | required | string | max:65535'
         ]);
 
         $classfication->update($validateData);
         return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Diubah');
     }
 
-    public function delete_book_classfication_system(Request $request, $id)
-    {
+    public function delete_book_classfication_system(Request $request, $id) {
         $classfication = DeweyDecimalClassfication::find($id);
 
         $classfication->delete();
         return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Dihapus');
     }
 
-    public function manage_book_origin_page(Request $request)
-    {
+    public function manage_book_origin_page(Request $request) {
         $query = $request->get('s');
-        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->where('bk_orgn_name', 'like', "%$query%")->latest()->paginate(10);
+        $origins = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')
+            ->where('bk_orgn_name', 'like', "%$query%")
+            ->latest()
+            ->paginate(10);
         return view('book.origin.view', ['title' => 'Halaman Kelola Sumber'], compact('origins'));
     }
 
-    public function detail_book_origin_page($id)
-    {
+    public function detail_book_origin_page($id) {
         $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
         return view('book.origin.detail', ['title' => 'Halaman Detail Sumber'], compact('origin'));
     }
 
-    public function add_book_origin_page()
-    {
+    public function add_book_origin_page() {
         return view('book.origin.add', ['title' => 'Halaman Tambah Sumber']);
     }
 
-    public function add_book_origin_system(Request $request)
-    {
+    public function add_book_origin_system(Request $request) {
         $validateData = $request->validate([
-            'bk_orgn_name' => 'required | string | max:255',
+            'bk_orgn_name' => 'required | string | max:255'
         ]);
 
         BookOrigin::create($validateData);
         return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Ditambahkan');
     }
 
-    public function edit_book_origin_page($id)
-    {
+    public function edit_book_origin_page($id) {
         $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->find($id);
         return view('book.origin.edit', ['title' => 'Halaman Ubah Sumber'], compact('origin'));
     }
 
-    public function edit_book_origin_system(Request $request, $id)
-    {
+    public function edit_book_origin_system(Request $request, $id) {
         $origin = BookOrigin::find($id);
         $validateData = $request->validate([
-            'bk_orgn_name' => 'sometimes | required | string | max:255',
+            'bk_orgn_name' => 'sometimes | required | string | max:255'
         ]);
         $origin->update($validateData);
         return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Diubah');
     }
 
-    public function delete_book_origin_system(Request $request, $id)
-    {
+    public function delete_book_origin_system(Request $request, $id) {
         $origin = BookOrigin::find($id)->delete();
         return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Dihapus');
     }
 
-    public function print_label_system($id)
-    {
-        $books = Book::withTrashed()->with('authors:athr_id,athr_name', 'origin:bk_orgn_id,bk_orgn_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status', 'deweyDecimalClassfications:ddc_id,ddc_code', 'origin:bk_orgn_id,bk_orgn_name', 'created_by', 'updated_by', 'deleted_by')->find($id);
+    public function print_label_system($id) {
+        $books = Book::withTrashed()
+            ->with(
+                'authors:athr_id,athr_name',
+                'origin:bk_orgn_id,bk_orgn_name',
+                'major:bk_mjr_id,bk_mjr_class,bk_mjr_major',
+                'publisher:pub_id,pub_name',
+                'bookCopies:bk_cp_id,bk_cp_book_id,bk_cp_number,bk_cp_status',
+                'deweyDecimalClassfications:ddc_id,ddc_code',
+                'origin:bk_orgn_id,bk_orgn_name',
+                'created_by',
+                'updated_by',
+                'deleted_by'
+            )
+            ->find($id);
 
         $path = storage_path('app/public/labels.pdf');
         $html = view('book.print_label', compact('books'))->render();
 
-        Browsershot::html($html)
-            ->showBackground()
-            ->format('A4')
-            ->margins(10, 10, 10, 10)
-            ->save($path);
+        Browsershot::html($html)->showBackground()->format('A4')->margins(10, 10, 10, 10)->save($path);
 
         return response()->download($path);
     }
 
-    private function deleteDirectory($dirPath)
-    {
+    private function deleteDirectory($dirPath) {
         if (!is_dir($dirPath)) {
             return;
         }

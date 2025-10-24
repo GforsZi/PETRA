@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes, Blameable;
 
@@ -41,38 +40,32 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
+    protected function casts(): array {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed'
         ];
     }
 
-    public function roles(): BelongsTo
-    {
+    public function roles(): BelongsTo {
         return $this->belongsTo(Role::class, 'usr_role_id', 'rl_id');
     }
 
     public function login(): HasMany {
-        return $this->hasMany(User::class, 'usr_lg_user_id', 'usr_id');
+        return $this->hasMany(UserLogin::class, 'usr_lg_user_id', 'usr_id');
     }
 
-    public function transactions(): HasMany
-    {
+    public function transactions(): HasMany {
         return $this->hasMany(Transaction::class, 'trx_user_id', 'usr_id');
     }
 
-    public function created_by(): BelongsTo
-    {
+    public function created_by(): BelongsTo {
         return $this->belongsTo(User::class, 'usr_created_by', 'usr_id');
     }
-    public function updated_by(): BelongsTo
-    {
+    public function updated_by(): BelongsTo {
         return $this->belongsTo(User::class, 'usr_updated_by', 'usr_id');
     }
-    public function deleted_by(): BelongsTo
-    {
+    public function deleted_by(): BelongsTo {
         return $this->belongsTo(User::class, 'usr_deleted_by', 'usr_id');
     }
 }

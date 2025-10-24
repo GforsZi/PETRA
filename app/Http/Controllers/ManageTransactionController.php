@@ -4,81 +4,157 @@ namespace App\Http\Controllers;
 
 use App\Models\BookCopy;
 use App\Models\BookTransaction;
+use App\Models\ChatOption;
 use App\Models\Transaction;
+use App\Services\FonnteService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ManageTransactionController extends Controller
-{
+class ManageTransactionController extends Controller {
+    protected $fonnteService;
+
+    public function __construct(FonnteService $fonnteService) {
+        $this->fonnteService = $fonnteService;
+    }
     public function manage_transaction_page(Request $request) {
         $keyword = $request->get('s');
-        $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('users', function ($subQuery) use ($keyword) {
-                $subQuery->where('name', 'like', "%{$keyword}%");
-            });
-        })->latest()->paginate(10);
+        $transactions = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')
+            ->with('users')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('users', function ($subQuery) use ($keyword) {
+                    $subQuery->where('name', 'like', "%{$keyword}%");
+                });
+            })
+            ->latest()
+            ->paginate(10);
         return view('transaction.view', ['title' => 'Halaman Kelola Transaksi'], compact('transactions'));
     }
 
     public function manage_submission_page(Request $request) {
         $keyword = $request->get('s');
-        $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('users', function ($subQuery) use ($keyword) {
-                $subQuery->where('name', 'like', "%{$keyword}%");
-            });
-        })->where('trx_status', '1')->latest()->paginate(10);
+        $submissons = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_status', 'trx_user_id')
+            ->with('users')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('users', function ($subQuery) use ($keyword) {
+                    $subQuery->where('name', 'like', "%{$keyword}%");
+                });
+            })
+            ->where('trx_status', '1')
+            ->latest()
+            ->paginate(10);
         return view('transaction.submission.view', ['title' => 'Halaman Kelola Pengajuan'], compact('submissons'));
     }
 
     public function manage_loan_page(Request $request) {
         $keyword = $request->get('s');
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('users', function ($subQuery) use ($keyword) {
-                $subQuery->where('name', 'like', "%{$keyword}%");
-            });
-        })->where('trx_status', '2')->latest()->paginate(10);
+        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')
+            ->with('users')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('users', function ($subQuery) use ($keyword) {
+                    $subQuery->where('name', 'like', "%{$keyword}%");
+                });
+            })
+            ->where('trx_status', '2')
+            ->latest()
+            ->paginate(10);
         return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
     }
 
     public function manage_return_page(Request $request) {
         $keyword = $request->get('s');
-        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')->with('users')->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('users', function ($subQuery) use ($keyword) {
-                $subQuery->where('name', 'like', "%{$keyword}%");
-            });
-        })->where('trx_status', '3')->paginate(10);
+        $returns = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_return_date', 'trx_status', 'trx_user_id')
+            ->with('users')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('users', function ($subQuery) use ($keyword) {
+                    $subQuery->where('name', 'like', "%{$keyword}%");
+                });
+            })
+            ->where('trx_status', '3')
+            ->paginate(10);
         return view('transaction.return.view', ['title' => 'Halaman Kelola Pengembalian'], compact('returns'));
     }
 
-public function detail_transaction_page($id)
-{
-    $transaction = Transaction::withTrashed()
-        ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
-        ->findOrFail($id);
+    public function detail_transaction_page($id) {
+        $transaction = Transaction::withTrashed()
+            ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
+            ->findOrFail($id);
 
-    // 🔹 Hilangkan duplikat buku berdasarkan bk_id
-    $uniqueBooks = $transaction->books->unique('bk_id')->values();
+        // 🔹 Hilangkan duplikat buku berdasarkan bk_id
+        $uniqueBooks = $transaction->books->unique('bk_id')->values();
 
-    // 🔹 Kelompokkan semua salinan berdasarkan bk_cp_book_id
-    $copiesGrouped = $transaction->book_copies
-        ->groupBy('bk_cp_book_id')
-        ->map(function ($copies) {
+        // 🔹 Kelompokkan semua salinan berdasarkan bk_cp_book_id
+        $copiesGrouped = $transaction->book_copies->groupBy('bk_cp_book_id')->map(function ($copies) {
             return $copies->unique('bk_cp_number')->sortBy('bk_cp_number')->values();
         });
 
-    return view('transaction.detail', [
-        'title' => 'Halaman Detail Transaksi',
-        'transaction' => $transaction,
-        'books' => $uniqueBooks,
-        'copiesGrouped' => $copiesGrouped
-    ]);
-}
+        return view('transaction.detail', [
+            'title' => 'Halaman Detail Transaksi',
+            'transaction' => $transaction,
+            'books' => $uniqueBooks,
+            'copiesGrouped' => $copiesGrouped
+        ]);
+    }
 
+    public function send_message_transaction(Request $request, $id) {
+        try {
+            $message = ChatOption::select('cht_opt_id', 'cht_opt_message', 'cht_opt_type')->where('cht_opt_type', '2')->get()->first()->toArray();
 
-    public function add_transaction_system(Request $request)
-    {
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.fonnte.com/get-devices',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_HTTPHEADER => ['Authorization: ' . config('services.fonnte.account_token')]
+            ]);
+
+            $response = curl_exec($curl);
+            curl_close($curl);
+
+            $data = json_decode($response, true);
+
+            $activeDeviceToken = null;
+
+            if (!empty($data['data'])) {
+                foreach ($data['data'] as $device) {
+                    if (($device['status'] ?? false) == 'connect') {
+                        $activeDeviceToken = $device['token'];
+                        break;
+                    }
+                }
+            }
+
+            $request->validate([
+                'target' => 'required|string'
+            ]);
+
+            $deviceToken = $activeDeviceToken;
+
+            if (str_starts_with($deviceToken, 'Bearer ')) {
+                $deviceToken = substr($deviceToken, 7);
+            }
+
+            $response = $this->fonnteService->sendWhatsAppMessage($request->target, $message['cht_opt_message'], $deviceToken);
+
+            if (!$response['status'] || (isset($response['data']['status']) && !$response['data']['status'])) {
+                $errorReason = $response['data']['reason'] ?? 'Unknown error occurred';
+                return redirect('manage/transaction/' . $id . '/detail')->with('error', 'pesan gagal dikirim', 500);
+            }
+
+            return redirect('manage/transaction/' . $id . '/detail')->with('success', 'Pesan berhasil dikirim!');
+        } catch (\Throwable $th) {
+            return redirect('manage/transaction/' . $id . '/detail')->with('error', 'pesan gagal dikirim', 500);
+        }
+    }
+
+    public function add_transaction_system(Request $request) {
         $validateData = $request->validate([
             'trx_title' => 'required|in:1,2',
             'trx_description' => 'nullable|string',
@@ -86,7 +162,7 @@ public function detail_transaction_page($id)
             'book_ids' => 'required|array|min:1',
             'book_ids.*' => 'integer|exists:books,bk_id',
             'trx_copy_id' => 'nullable|array|min:1',
-            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
+            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id'
         ]);
         DB::beginTransaction();
         try {
@@ -109,11 +185,11 @@ public function detail_transaction_page($id)
                         BookTransaction::create([
                             'bk_trx_book_id' => $bookId,
                             'bk_trx_book_copy_id' => $copy['bk_cp_id'],
-                            'bk_trx_transaction_id' => $transaction->trx_id,
+                            'bk_trx_transaction_id' => $transaction->trx_id
                         ]);
                     } else {
                         return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
-                        exit;
+                        exit();
                     }
                 }
             } else {
@@ -126,15 +202,14 @@ public function detail_transaction_page($id)
                         }
                         BookTransaction::create([
                             'bk_trx_book_id' => $bookId,
-                            'bk_trx_transaction_id' => $transaction->trx_id,
+                            'bk_trx_transaction_id' => $transaction->trx_id
                         ]);
                     } else {
                         return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
-                        exit;
+                        exit();
                     }
                 }
             }
-
 
             DB::commit();
             return redirect('/transaction')->with('success', 'peminjaman berhasil diajukan');
@@ -157,12 +232,12 @@ public function detail_transaction_page($id)
             'trx_status' => '2',
             'trx_due_date' => $trx_due_date
         ]);
-        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil diterima');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil diterima');
     }
 
     public function reject_transaction_system(Request $request, $id) {
         $loan = Transaction::with('book_copies')->find($id);
-        $copyID = BookTransaction::select('bk_trx_id','bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
+        $copyID = BookTransaction::select('bk_trx_id', 'bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
         if ($loan->book_copies->toArray() != []) {
             foreach ($copyID as $copyId) {
                 BookCopy::find($copyId['bk_trx_book_copy_id'])->update(['bk_cp_status' => '1']);
@@ -176,14 +251,13 @@ public function detail_transaction_page($id)
             }
         }
 
-
         $loan->update(['trx_status' => '4']);
-        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil ditolak');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil ditolak');
     }
 
     public function return_transaction_system(Request $request, $id) {
         $loan = Transaction::with('book_copies')->find($id);
-        $copyID = BookTransaction::select('bk_trx_id','bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
+        $copyID = BookTransaction::select('bk_trx_id', 'bk_trx_book_copy_id')->where('bk_trx_transaction_id', $id)->get()->toArray();
         if ($loan->book_copies->toArray() != []) {
             foreach ($copyID as $copyId) {
                 BookCopy::find($copyId['bk_trx_book_copy_id'])->update(['bk_cp_status' => '1']);
@@ -196,13 +270,12 @@ public function detail_transaction_page($id)
                 }
             }
         }
-
 
         $loan->update([
             'trx_status' => '3',
             'trx_return_date' => now()
         ]);
-        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil Kembalikan');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil Kembalikan');
     }
 
     public function addtional_time_transaction_system(Request $request, $id) {
@@ -215,11 +288,11 @@ public function detail_transaction_page($id)
         $loan->update([
             'trx_due_date' => $trx_due_date
         ]);
-        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil diubah');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil diubah');
     }
 
     public function delete_transaction_system($id) {
         Transaction::find($id)->delete();
-        return redirect('/manage/transaction/'.$id.'/detail')->with('success', 'Transaksi berhasil dihapus');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil dihapus');
     }
 }

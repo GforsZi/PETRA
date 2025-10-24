@@ -8,8 +8,7 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('book_majors', function (Blueprint $table) {
             $table->bigIncrements('bk_mjr_id');
             $table->string('bk_mjr_class');
@@ -34,8 +33,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('book_majors');
     }
 };

@@ -7,10 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PublisherSeeder extends Seeder
-{
-    public function run(): void
-    {
+class PublisherSeeder extends Seeder {
+    public function run(): void {
         $now = Carbon::now()->toDateTimeString();
 
         DB::table('publishers')->insert([
@@ -27,7 +25,7 @@ class PublisherSeeder extends Seeder
                 'pub_created_at' => $now,
                 'pub_updated_at' => $now,
                 'pub_sys_note' => 'Manual seed'
-            ],
+            ]
         ]);
     }
 }

@@ -8,8 +8,7 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('book_copies', function (Blueprint $table) {
             $table->bigIncrements('bk_cp_id');
             $table->unsignedBigInteger('bk_cp_book_id')->unsigned()->nullable();
@@ -35,8 +34,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('book_copies');
     }
 };

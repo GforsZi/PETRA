@@ -7,10 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TransactionSeeder extends Seeder
-{
-    public function run(): void
-    {
+class TransactionSeeder extends Seeder {
+    public function run(): void {
         $now = Carbon::now();
 
         DB::table('transactions')->insert([
@@ -25,7 +23,7 @@ class TransactionSeeder extends Seeder
                 'trx_created_at' => $now->toDateTimeString(),
                 'trx_updated_at' => $now->toDateTimeString(),
                 'trx_sys_note' => 'Manual seed'
-            ],
+            ]
         ]);
     }
 }

@@ -7,6 +7,13 @@
                 aria-label="Close"></button>
         </div>
     @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>error: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    @endif
     <div class="row g-0">
         <div class="col-12 col-md-4 d-flex justify-content-center p-3">
             <img src="{{ asset($account['usr_card_url'] ?? '/logo/user_placeholder.jpg') }}"
@@ -94,6 +101,33 @@
             </div>
         </div>
     </div>
+    <div class="card mb-4 w-100">
+        <div class="card-header">
+            <h3 class="card-title">Riwayat login Akun</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Ip address</th>
+                        <th>Detail Perangkat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($account['login'] as $userlogin)
+                        <tr class="align-middle">
+                            <td>{{ $userlogin->usr_lg_logged_in_at }}</td>
+                            <td>{{ $userlogin->usr_lg_ip_address }}</td>
+                            <td>{{ $userlogin->usr_lg_user_agent }}</td>
+                        </tr>
+                    @empty
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="modal fade" id="banConfirmation{{ $account['usr_id'] }}" data-bs-backdrop="static"
         data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="banConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
@@ -146,7 +180,8 @@
                             data-bs-placement="bottom" data-bs-trigger="hover"
                             data-bs-title="Pemberitahuan"
                             data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
-                        <input value="{{ $account['usr_no_wa'] }}" type="hidden" name="target">
+                        <input value="{{ $account['usr_no_wa'] }}" type="hidden"
+                            name="target">
                         <label class="form-check-label" for="gridCheck1">
                             Kirim pesan whatsapp, untuk pemberitahuan.
                         </label>
