@@ -56,19 +56,21 @@
                     </div>
                     <div class="modal fade" id="deleteConfirmation{{ $transactions->firstItem() + $index }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="deleteConfirmation{{ $transactions->firstItem() + $index }}Label" aria-hidden="true">
-                        <form action="/system/transaction/{{ $transaction->trx_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
+                        <form action="/system/transaction/{{ $transaction->trx_id }}/cancle" method="post" class="modal-dialog modal-dialog-centered">
                             @csrf
-                            @method('DELETE')
+                            @method('PUT')
                             <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $transactions->firstItem() + $index }}.</p>
+                                    <p class="mb-0">Yakin ingin membatalkan pinjaman ini?</p>
                                 </div>
+                                @foreach ($transaction->books as $book)
+                                    <input type="hidden" name="all_book_ids[]" value="{{ $book->bk_id }}">
+                                @endforeach
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                        onclick="this.disabled=true; this.form.submit();"><strong>Ya</strong></button>
                                 </div>
                             </div>
                         </form>

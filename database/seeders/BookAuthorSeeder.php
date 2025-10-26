@@ -11,24 +11,213 @@ class BookAuthorSeeder extends Seeder
 {
     public function run(): void
     {
-        $books = DB::table('books')->pluck('bk_id')->toArray();
-        $authors = DB::table('authors')->pluck('athr_id')->toArray();
+        $now = Carbon::now()->toDateTimeString();
 
-        $inserts = [];
-        foreach ($books as $i => $bkId) {
-            $authorId = $authors[$i % max(1, count($authors))] ?? null;
-            if ($authorId) {
-                $inserts[] = [
-                    'bk_athr_book_id' => $bkId,
-                    'bk_athr_author_id' => $authorId,
-                    'bk_athr_created_by' => null,
-                    'bk_athr_sys_note' => 'Manual seed',
-                ];
-            }
-        }
-
-        if (!empty($inserts)) {
-            DB::table('book_author')->insert($inserts);
-        }
+        DB::table('book_author')->insert([
+            [
+                'bk_athr_book_id' => 1,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 2,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 3,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 4,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 5,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 6,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 7,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 8,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 9,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 10,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 11,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 12,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 13,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 14,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 15,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 16,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 17,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 18,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 19,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 20,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 21,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 22,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 23,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 24,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 25,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 26,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 27,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 28,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 29,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 30,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 31,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 32,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 33,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 34,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 35,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 36,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 37,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 38,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 39,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 40,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 41,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 42,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 43,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 44,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 45,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 46,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 47,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 48,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 49,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 50,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+            [
+                'bk_athr_book_id' => 51,
+                'bk_athr_author_id' => rand(1, 28)
+            ],
+        ]);
     }
 }

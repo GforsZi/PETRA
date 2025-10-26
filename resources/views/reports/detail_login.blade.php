@@ -1,5 +1,9 @@
 <x-app-layout>
     <x-slot:title>Detail Login</x-slot:title>
+    <x-slot:header_layout>
+        <a href="/manage/export/statistics/{{ $date }}/pdf" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>
+            Export PDF</a>
+    </x-slot:header_layout>
     <div class="card mb-4 w-100">
         <div class="card-header">
             <h3 class="card-title">Riwayat login Akun</h3>

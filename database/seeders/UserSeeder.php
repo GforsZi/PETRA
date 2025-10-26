@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'rl_admin' => true,
         ]);
         $user_role = Role::firstOrCreate([
-            'rl_name' => 'Siswa',
+            'rl_name' => 'Siswa angkatan 8',
             'rl_description' => 'user role',
         ]);
 

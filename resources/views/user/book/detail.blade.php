@@ -1,7 +1,9 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook" class="btn btn-success btn-lg w-100" title="Tambahkan Opsi"><i class="bi bi-book"></i></a>
+        @if ($book['bk_type'] == '2')
+            <a href="/search/book/{{ $book['bk_id'] }}/detail/ebook" class="btn btn-success btn-lg w-100" title="Tambahkan Opsi"><i class="bi bi-book"></i></a>
+        @endif
     </x-slot:header_layout>
 
     <div class="container mt-4">

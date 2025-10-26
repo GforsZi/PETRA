@@ -8,7 +8,7 @@
     @endif
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h5>Error: {{ session('error') }}</h5>
+            <h5>Kesalahan: {{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif

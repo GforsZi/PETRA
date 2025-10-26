@@ -17,7 +17,7 @@
             <h5>
                 @if ($book['bk_type'] == '1')
                     Buku Fisik
-                @else
+                @elseif ($book['bk_type'] == '2')
                     Buku Digital
                 @endif
             </h5>
@@ -136,7 +136,7 @@
                     <tr class="align-middle">
                         <td>Harga Satuan</td>
                         <td>
-                            {{ 'Rp.' . number_format($book['bk_unit_price'] ?? 0, 0, ',', '.') ?? '' }}
+                            {{ 'Rp' . number_format($book['bk_unit_price'] ?? 0, 0, ',', '.') ?? '' }}
                         </td>
                     </tr>
                     <tr class="align-middle">
@@ -301,11 +301,7 @@
                                                     <div class="text-center py-3">
                                                         <h4 class="fw-bold mb-1">
                                                             @php
-                                                                $ddcs = $book['deweyDecimalClassfications']
-                                                                    ->pluck('ddc_code')
-                                                                    ->map(fn($code) => str_pad(preg_replace('/\D/', '', $code), 3, '0', STR_PAD_RIGHT))
-                                                                    ->take(2)
-                                                                    ->implode('.');
+                                                                $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
                                                             @endphp
 
                                                             <span>{{ $ddcs ?: '-' }}</span>

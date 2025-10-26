@@ -15,7 +15,7 @@ class ChatOptionSeeder extends Seeder
 
         DB::table('chat_options')->insert([
             [
-                'cht_opt_title' => 'Tanya Jam Buka',
+                'cht_opt_title' => 'Jam Buka',
                 'cht_opt_message' => 'Perpustakaan buka setiap hari Senin-Jumat 08:00-16:00',
                 'cht_opt_type' => '3',
                 'cht_opt_created_at' => $now,

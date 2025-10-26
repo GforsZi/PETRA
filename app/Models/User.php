@@ -54,6 +54,13 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'usr_role_id', 'rl_id');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class,  'usr_role_id', 'rl_id')
+            ->whereNull('roles.rl_deleted_at'); // hanya role aktif
+    }
+
+
     public function login(): HasMany
     {
         return $this->hasMany(UserLogin::class, 'usr_lg_user_id', 'usr_id');

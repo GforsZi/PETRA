@@ -67,16 +67,12 @@
                 <div class="col-md-6 d-flex">
                     <div class="card text-white border-0 shadow-sm rounded-4 overflow-hidden flex-fill" style="background: #198754; position: relative; min-height: 100px;">
                         <div>
-                            <h3 class="text-white text-center fw-bold mb-0">Status</h3>
+                            <h3 class="text-white text-center fw-bold mb-0">Total peminjaman</h3>
                         </div>
 
                         <div class="card-body px-4 py-4 d-flex align-items-center justify-content-between position-relative">
                             <p class="card-text fs-5 mb-0 fw-semibold">
-                                @if (Auth::user()->usr_activation == true)
-                                    Sudah teraktifasi
-                                @else
-                                    Belum teraktifasi
-                                @endif
+                                {{ $loan . ' transaksi' }}
                             </p>
 
                             <div style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%);">
@@ -130,20 +126,20 @@
     <div class="mt-4">
         <h6>Buku Terpopuler</h6>
         <div class="scroll-x">
-            @foreach ($book_new as $bk_nw)
+            @foreach ($book_loan as $bk_ln)
                 <div class="book text-center border rounded pt-2"
                     style="width: 140px; height: 230px; display: inline-flex; flex-direction: column; justify-content: space-between; vertical-align: top; margin-right: 8px;">
 
-                    <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">
-                        <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                    <a href="/search/book/{{ $bk_ln->bk_id }}/detail" style="text-decoration: none;">
+                        <img src="{{ asset($bk_ln->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
                     </a>
 
-                    <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $bk_nw->bk_title }}"
+                    <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $bk_ln->bk_title }}"
                         style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
                            overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
                            -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;
                            min-height: 38px;">
-                        {{ $bk_nw->bk_title }}
+                        {{ $bk_ln->bk_title }}
                     </p>
                 </div>
             @endforeach
@@ -185,17 +181,20 @@
                     data: [
                         {{ $chartData['proses'] }},
                         {{ $chartData['diterima'] }},
+                        {{ $chartData['dikembalikan'] }},
                         {{ $chartData['ditolak'] }}
                     ],
                     backgroundColor: [
                         'rgb(255, 205, 86)',
                         'rgb(75, 192, 192)',
+                        'rgb(120, 200, 65)',
                         'rgb(255, 99, 132)'
                     ],
+                    hoverOffset: 4
                 }]
             },
             options: {
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false

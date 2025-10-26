@@ -5,11 +5,13 @@
         <ul class="navbar-nav">
             {{-- @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
             @endif --}}
-            <li class="nav-item">
-                <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                    <i class="bi bi-list" style='color: #E9AD01;'></i>
-                </a>
-            </li>
+            @if (auth()->user()?->usr_activation ?? '0' == '1')
+                <li class="nav-item">
+                    <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                        <i class="bi bi-list" style='color: #E9AD01;'></i>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item d-none d-md-block">
                 <a href="{{ url()->previous() }}" class="nav-link d-flex align-items-center justify-content-center" style="padding: 0.5rem; height: 40px; width: 40px;">
                     <i class="bi bi-arrow-left-circle fs-4" style="color: #E9AD01;"></i>

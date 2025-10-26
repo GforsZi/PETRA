@@ -42,7 +42,7 @@ class ManageBookController extends Controller
                 ->where('bk_permission', '1')
                 ->orderBy('bk_title', 'asc')
                 ->get();
-        } else {
+        } elseif ($queryP == '1') {
             $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_major_id')
                 ->where('bk_type', '1')
                 ->with('bookCopies')

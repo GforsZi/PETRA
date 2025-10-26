@@ -26,7 +26,7 @@ Route::get('/forbidden', function () {
         ->get()
         ->first();
     return view('forbidden', ['title' => 'Forbidden page', 'users' => $user]);
-});
+})->middleware('auth');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login_page'])->name('login');
@@ -96,6 +96,7 @@ Route::middleware('auth')
         Route::get('/manage/export/statistics/{date}/detail', [ExportsController::class, 'detail_statistics_export_page']);
         Route::get('/manage/export/transaction', [ExportsController::class, 'transaction_export_page']);
         Route::get('/manage/export/statistics/pdf', [ExportsController::class, 'export_statistics_Pdf'])->name('statistics.export');
+        Route::get('/manage/export/statistics/{date}/pdf', [ExportsController::class, 'export_statistics_date_Pdf']);
     });
 
 Route::middleware('auth')
@@ -114,6 +115,8 @@ Route::middleware('auth')
         Route::get('/transaction/add', [UserController::class, 'add_transaction_page']);
         Route::get('/transaction/{id}/edit', [UserController::class, 'edit_transaction_page']);
         Route::get('/transaction/{id}/detail', [UserController::class, 'detail_transaction_page']);
+        Route::get('/google/search/book', [UserController::class, 'google_search_book_page']);
+        Route::get('/google/search/book/detail', [UserController::class, 'google_detail_book_page']);
     });
 
 Route::middleware('auth')->group(function () {
@@ -187,6 +190,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/system/book', [ManageBookController::class, 'search_book_system'])
         ->middleware(CheckActivation::class . ':1')
         ->name('books.search');
+    Route::get('/system/book/google', [UserController::class, 'google_search_book_system'])
+        ->middleware(CheckActivation::class . ':1');
     Route::get('/system/author/search', [ManageBookController::class, 'search_book_author_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1')
@@ -277,6 +282,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/system/transaction/{id}/reject', [ManageTransactionController::class, 'reject_transaction_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');
+    Route::put('/system/transaction/{id}/cancle', [ManageTransactionController::class, 'reject_transaction_system'])
+        ->middleware(CheckActivation::class . ':1')
+        ->middleware(CheckAdmin::class . ':0');
     Route::put('/system/transaction/{id}/return', [ManageTransactionController::class, 'return_transaction_system'])
         ->middleware(CheckActivation::class . ':1')
         ->middleware(CheckAdmin::class . ':1');

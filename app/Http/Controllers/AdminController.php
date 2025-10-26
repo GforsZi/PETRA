@@ -16,7 +16,12 @@ class AdminController extends Controller
     public function dashboard_page()
     {
         $user = User::with('roles:rl_id,rl_name')->find(Auth::user()->usr_id);
-        $user_amount = User::select('usr_id')->where('usr_activation', true)->where('usr_role_id', '!=', null)->get()->count();
+        $user_amount = User::where('usr_activation', true)
+            ->whereHas('role', function ($query) {
+                $query->whereNull('roles.rl_deleted_at');
+            })
+            ->count();
+
         $total_book = Book::select('bk_id')->get()->count();
         $total_transaction = Transaction::select()->get()->count();
 

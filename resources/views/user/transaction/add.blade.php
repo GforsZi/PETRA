@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('error'))
-        <div class="alert alert-error alert-dismissible fade show" role="alert">
-            <h5>Error: {{ session('error') }}</h5>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>Kesalahan: {{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -290,15 +290,22 @@
 
                 let options = '<option value="" selected disabled>Pilih salinan</option>';
                 copies.forEach(copy => {
-                    options +=
-                        `<option value="${copy.bk_cp_id}">${copy.bk_cp_number}</option>`;
+                    const disabled = copy.bk_cp_status != 1 ? 'disabled' : '';
+                    const statusLabel = copy.bk_cp_status != 1 ? ' (Tidak Tersedia)' : '';
+
+                    options += `
+        <option value="${copy.bk_cp_id}" ${disabled}>
+            ${copy.bk_cp_number}${statusLabel}
+        </option>
+    `;
                 });
 
-                const selectHTML = tujuan === "2" && copies.length > 0 ? `
+                const selectHTML = (tujuan === "2" && copies.length > 0) ? `
     <select class="form-select w-100 me-2" name="trx_copy_id[]" required>
         ${options}
     </select>
 ` : '';
+
 
 
                 card.innerHTML = `

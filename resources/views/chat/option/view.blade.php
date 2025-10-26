@@ -12,7 +12,7 @@
     <x-table_data :paginator="$options">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/chat/option">
-                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Judul Opsi" aria-label="Search" />
+                <input class="form-control me-2" name="s" value="{{ request('s') }}" type="search" placeholder="Masukan Judul Opsi" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>

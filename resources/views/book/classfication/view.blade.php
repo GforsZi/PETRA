@@ -12,7 +12,7 @@
     <x-table_data :paginator="$classfications">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/book/ddc">
-                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Kode Klasifikasi" aria-label="Search" />
+                <input class="form-control me-2" name="s" value="{{ request('s') }}" type="search" placeholder="Masukan Kode Klasifikasi" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>

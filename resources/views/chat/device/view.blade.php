@@ -24,10 +24,6 @@
 
     <x-table_data :paginator="$devices_pg">
         <x-slot:title>
-            <form class="d-flex" role="search" method="get" action="/manage/chat/device">
-                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Nama Perangkat" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-            </form>
         </x-slot:title>
         <x-slot:header>
             <th style="width: 10px">#</th>

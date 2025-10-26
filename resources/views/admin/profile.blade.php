@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="mt-3 d-flex gap-2">
-                            <button class="button bg-body flex-center" title="Hapus">
+                            <button class="button bg-body flex-center" title="Riwayat Data">
                                 <a href="/manage/history"><i class="bi bi-clock-history text-danger  fs-4"></i></a>
                             </button>
                             <button class="button bg-body flex-center" title="Ubah profil">

@@ -9,20 +9,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
     public function home_page()
     {
         $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->limit(14)->latest()->get();
+        $book_loan = Book::select('bk_id', 'bk_img_url', 'bk_title')
+            ->withCount(['transactions as total_loans' => function ($query) {
+                // Opsional: filter hanya transaksi aktif
+                $query->whereNull('trx_deleted_at');
+            }])
+            ->orderByDesc('total_loans') // urutkan dari buku paling sering dipinjam
+            ->latest('bk_created_at')    // jika jumlah sama, urutkan berdasar waktu input terbaru
+            ->limit(14)
+            ->get();
         $dataD = DB::table('transactions')->where('trx_user_id', Auth::id())->select('trx_status', DB::raw('COUNT(*) as total'))->groupBy('trx_status')->pluck('total', 'trx_status')->toArray();
 
         $chartData = [
             'proses' => $dataD['1'] ?? 0,
             'diterima' => $dataD['2'] ?? 0,
-            'ditolak' => $dataD['3'] ?? 0,
+            'dikembalikan' => $dataD['3'] ?? 0,
+            'ditolak' => $dataD['4'] ?? 0,
         ];
-        return view('user.home', ['title' => 'Halaman Home'], compact('book_new', 'chartData'));
+        $loan = Transaction::select('trx_id', 'trx_user_id')->where('trx_user_id', Auth::id())->get()->count();
+        return view('user.home', ['title' => 'Halaman Home'], compact('book_new', 'book_loan', 'chartData', 'loan'));
     }
 
     public function profile_page()
@@ -112,6 +124,51 @@ class UserController extends Controller
         return view('user.book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
 
+    public function google_search_book_system(Request $request)
+    {
+        $query = $request->query('q');
+
+        if (empty($query)) {
+            return response()->json([
+                'error' => 'Query pencarian tidak boleh kosong.'
+            ], 400);
+        }
+
+        $apiKey = env('GOOGLE_BOOKS_API_KEY');
+
+        try {
+            $response = Http::get('https://www.googleapis.com/books/v1/volumes', [
+                'q' => $query,
+                'maxResults' => 12,
+                'key' => $apiKey,
+            ]);
+
+            // Pastikan API berhasil
+            if ($response->failed()) {
+                return response()->json([
+                    'error' => 'Gagal mengambil data dari Google Books.'
+                ], 500);
+            }
+
+            return response()->json($response->json());
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan internal server.',
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function google_search_book_page()
+    {
+        return view('user.web.search');
+    }
+
+    public function google_detail_book_page()
+    {
+        return view('user.web.detail');
+    }
+
     public function read_ebook_page($id)
     {
         $book = Book::findOrFail($id);
@@ -133,7 +190,7 @@ class UserController extends Controller
 
     public function view_transaction_page()
     {
-        $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title', 'trx_status')
+        $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title', 'trx_status')->with('books')
             ->where('trx_user_id', Auth::user()->usr_id)
             ->latest()
             ->paginate(10);

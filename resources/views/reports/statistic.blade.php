@@ -32,14 +32,14 @@
     </style>
 </head>
 
-<body>
+<body class='container'>
     <div class="report-header">
         <h4>Statistik Login User</h4>
         <div>{{ $start }} — {{ $end }}</div>
     </div>
 
-    <div class="chart-wrapper">
-        <canvas id="loginChart" width="1000" height="300"></canvas>
+    <div class="chart-wrapper p-0 m-0">
+        <canvas id="loginChart" width="930" height="300"></canvas>
     </div>
 
     <h5>Data Per-hari</h5>

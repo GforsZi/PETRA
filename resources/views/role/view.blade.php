@@ -8,7 +8,7 @@
     @endif
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h5>Error: {{ session('error') }}</h5>
+            <h5>Kesalahan: {{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -18,7 +18,7 @@
     <x-table_data :paginator="$roles">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/role">
-                <input class="form-control me-2" name="s" type="search" placeholder="Masukan Nama Peran" aria-label="Search" />
+                <input class="form-control me-2" name="s" value="{{ request('s') }}" type="search" placeholder="Masukan Nama Peran" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </x-slot:title>

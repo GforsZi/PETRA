@@ -8,7 +8,7 @@
     @endif
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h5>error: {{ session('error') }}</h5>
+            <h5>Kesalahan: {{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -90,10 +90,13 @@
                                 class="bi bi-check2-all"></i></a>
                     @endif
                 @endif
+                <a class="btn btn-primary btn-lg" data-bs-toggle="collapse" href="#history" role="button" aria-expanded="false" title="Riwayat login" aria-controls="history">
+                    <i class="bi bi-hourglass"></i>
+                </a>
             </div>
         </div>
     </div>
-    <div class="card mb-4 w-100">
+    <div class="card mb-4 w-100 collapse" id="history">
         <div class="card-header">
             <h3 class="card-title">Riwayat login Akun</h3>
         </div>

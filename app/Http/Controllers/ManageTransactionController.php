@@ -6,6 +6,7 @@ use App\Models\BookCopy;
 use App\Models\BookTransaction;
 use App\Models\ChatOption;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Services\FonnteService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -164,18 +165,21 @@ class ManageTransactionController extends Controller
 
     public function add_transaction_system(Request $request)
     {
-        $validateData = $request->validate([
-            'trx_title' => 'required|in:1,2',
-            'trx_description' => 'nullable|string',
-            'trx_borrow_date' => 'required|date',
-            'book_ids' => 'required|array|min:1',
-            'book_ids.*' => 'integer|exists:books,bk_id',
-            'trx_copy_id' => 'nullable|array|min:1',
-            'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
-        ]);
         DB::beginTransaction();
         try {
-            // Simpan transaksi utama
+            $user_auth = User::select('usr_card_url')->where('usr_id', Auth::id())->get()->first()->toArray();
+            if ($user_auth['usr_card_url'] == null) {
+                throw new \Exception('Akun belum terverifikasi');
+            }
+            $validateData = $request->validate([
+                'trx_title' => 'required|in:1,2',
+                'trx_description' => 'nullable|string',
+                'trx_borrow_date' => 'required|date',
+                'book_ids' => 'required|array|min:1',
+                'book_ids.*' => 'integer|exists:books,bk_id',
+                'trx_copy_id' => 'nullable|array|min:1',
+                'trx_copy_id.*' => 'integer|exists:book_copies,bk_cp_id',
+            ]);
             $transaction = Transaction::create([
                 'trx_user_id' => Auth::id(),
                 'trx_borrow_date' => $request->trx_borrow_date,
@@ -188,6 +192,9 @@ class ManageTransactionController extends Controller
             if ($request->trx_title == '2') {
                 foreach ($request->book_ids as $index => $bookId) {
                     $trx_copy_id = $request->trx_copy_id[$index] ?? null;
+                    if ($trx_copy_id == null) {
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
+                    }
                     $copy = BookCopy::select('bk_cp_status', 'bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_id', $trx_copy_id)->get()->first()->toArray();
                     if ($copy['bk_cp_status'] == '1') {
                         BookCopy::find($copy['bk_cp_id'])->update(['bk_cp_status' => '2']);
@@ -197,8 +204,7 @@ class ManageTransactionController extends Controller
                             'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
-                        return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
-                        exit();
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
                     }
                 }
             } else {
@@ -214,8 +220,7 @@ class ManageTransactionController extends Controller
                             'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
-                        return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman');
-                        exit();
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
                     }
                 }
             }
@@ -224,7 +229,7 @@ class ManageTransactionController extends Controller
             return redirect('/transaction')->with('success', 'peminjaman berhasil diajukan');
         } catch (\Throwable $e) {
             DB::rollBack();
-            return redirect('/transaction/add')->with('error', 'Gagal menyimpan peminjaman: ' . $e->getMessage());
+            return redirect('/transaction/add')->with('error', $e->getMessage());
         }
 
         dd($validateData);
@@ -263,7 +268,12 @@ class ManageTransactionController extends Controller
         }
 
         $loan->update(['trx_status' => '4']);
-        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil ditolak');
+        $userRole = User::select('usr_role_id')->with('roles')->find(Auth::id())->toArray();
+        if ($userRole['roles']['rl_admin'] == 0) {
+            return redirect('/transaction')->with('success', 'Transaksi berhasil dibatalkan');
+        } else {
+            return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil ditolak');
+        }
     }
 
     public function return_transaction_system(Request $request, $id)

@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
+    <x-slot:header_layout>
+        <a href="/google/search/book" class="btn btn-outline-primary btn-lg w-100" title="Cari menggunakan Google"><i class="bi bi-google"></i></a>
+    </x-slot:header_layout>
     <form id="searchForm" action="{{ url('/search/book') }}" method="get">
         <div class="input-group mb-3 shadow-sm border border-body rounded">
             <input type="text" id="searchInput" name="search" value="{{ request('search') }}" class="form-control border-0 bg-body" placeholder="Cari judul buku..." aria-label="Search">

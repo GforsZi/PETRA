@@ -63,7 +63,17 @@ class ManageAcoountController extends Controller
 
     public function detail_account_page($id)
     {
-        $account = User::withTrashed()->with('roles', 'login', 'created_by:usr_id,name', 'deleted_by:usr_id,name', 'updated_by:usr_id,name')->find($id);
+        $account = User::withTrashed()
+            ->with([
+                'roles',
+                'login' => function ($query) {
+                    $query->latest('usr_lg_logged_in_at');
+                },
+                'created_by:usr_id,name',
+                'deleted_by:usr_id,name',
+                'updated_by:usr_id,name',
+            ])
+            ->find($id);
         $role = Role::get();
         return view('account.detail', ['title' => 'Halaman Detail Akun', 'roles' => $role], compact('account'));
     }

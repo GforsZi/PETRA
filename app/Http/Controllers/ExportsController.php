@@ -77,13 +77,12 @@ class ExportsController extends Controller
 
     public function detail_statistics_export_page(Request $request, $date)
     {
-        // Pastikan format $date dari URL adalah 'Y-m-d'
-        $date = Carbon::createFromFormat('Y-m-d', $date);
+        $dates = Carbon::createFromFormat('Y-m-d', $date);
 
         $logins = UserLogin::with('user:usr_id,name')
             ->whereBetween('usr_lg_logged_in_at', [
-                $date->copy()->startOfDay(), // 2025-10-24 00:00:00
-                $date->copy()->endOfDay(), // 2025-10-24 23:59:59
+                $dates->copy()->startOfDay(),
+                $dates->copy()->endOfDay(),
             ])
             ->get();
 
@@ -122,7 +121,7 @@ class ExportsController extends Controller
         }
 
         // siapkan view HTML (view khusus untuk PDF)
-        $html = view('reports.statistics_php', [
+        $html = view('reports.statistic', [
             'labels' => $labels,
             'data' => $data,
             'table' => $table,
@@ -145,6 +144,35 @@ class ExportsController extends Controller
             ->waitForFunction('window.chartReady === true')
             // set viewport agar Chart.js render proporsional
             ->windowSize(1200, 800)
+            ->save($outputPath);
+
+        return response()->download($outputPath, $filename)->deleteFileAfterSend(true);
+    }
+
+    public function export_statistics_date_Pdf(Request $request, $date)
+    {
+        $dates = Carbon::createFromFormat('Y-m-d', $date);
+
+        $logins = UserLogin::with('user:usr_id,name')
+            ->whereBetween('usr_lg_logged_in_at', [
+                $dates->copy()->startOfDay(),
+                $dates->copy()->endOfDay(),
+            ])->get();
+
+        // siapkan view HTML (view khusus untuk PDF)
+        $html = view('reports.statistic_date', [
+            'logins' => $logins,
+            'date' => $date
+        ])->render();
+
+        $filename = 'login-stats-date-' . $date . '.pdf';
+        $outputPath = storage_path('app/public/reports/' . $filename);
+
+        $bs = Browsershot::html($html)
+            ->noSandbox()
+            ->showBackground()
+            ->format('A4')
+            ->landscape()
             ->save($outputPath);
 
         return response()->download($outputPath, $filename)->deleteFileAfterSend(true);
