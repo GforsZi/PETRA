@@ -74,6 +74,39 @@
             font-size: 14px;
             font-weight: 500;
         }
+
+          @media (min-width: 992px) {
+            .kartu-perpus {
+                margin-top: 45px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .col-md-6 {
+                display: flex;
+                justify-content: center;
+            }
+
+            .kartu-perpus {
+                margin: 20px auto;
+                width: auto;
+                max-width: 100%;
+                transform: none;
+            }
+
+            .kartu-perpus img {
+                width: 100px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+        }
+
     </style>
     <div class="container mt-4">
         <div class="row justify-content-center align-items-start g-4">
@@ -121,9 +154,29 @@
             </div>
 
             <!-- Kartu di samping kanan -->
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <div class="kartu-perpus shadow">
                     <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:100%; display:block; object-fit: cover;">
+
+                    <div class="kartu-body">
+                        <img id="preview" src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}" class="foto-box" alt="Foto" />
+                        <div class="damy">
+                            <span style="color: black;"><strong>Nama Lengkap</strong>:
+                                {{ $user->name }}</span>
+                            <span style="color: black;"><strong>Nomor Whatsapp</strong>:
+                                {{ $user->usr_no_wa }}</span>
+                            <span style="color: black;"><strong>Bergabung sejak</strong>:
+                                {{ $user->usr_created_at->format('d M Y') }}</span>
+                            <span style="color: black;"><strong>Peran</strong>:
+                                {{ $user->roles->rl_name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+             <div class="col-md-6">
+                <div class="kartu-perpus shadow">
+                    <img src="{{ asset('logo/cop_kartu.svg') }}" alt="Cop Kartu" style="width:100%; height:auto; display:block; object-fit: cover;">
 
                     <div class="kartu-body">
                         <img id="preview" src="{{ asset($user->usr_card_url ?? 'logo/user_placeholder.jpg') }}" class="foto-box" alt="Foto" />

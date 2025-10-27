@@ -141,9 +141,9 @@
                 });
         });
 
-        // ====================
+        
         // POPUP SAAT PILIH BUKU
-        // ====================
+       
         const listBukuDipilih = document.getElementById('listBukuDipilih');
         let popoverInstance = null;
 
@@ -248,12 +248,17 @@
             }
         }
 
-        // jika tujuan berubah
-        tujuanSelect.addEventListener('change', () => {
-            listContainer.innerHTML =
-                '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-            updateButtonVisibility();
-        });
+       // jika tujuan berubah
+tujuanSelect.addEventListener('change', () => {
+    listContainer.innerHTML =
+        '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+    updateButtonVisibility();
+
+    //reset
+    const bokList = document.getElementById('book-list');
+    if (bokList) bokList.innerHTML = '';
+});
+
 
         // klik pilih buku
         bokList.addEventListener('click', function(e) {

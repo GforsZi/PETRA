@@ -1,27 +1,68 @@
 <x-app-layout>
     <x-slot:title>Detail Buku - Google</x-slot:title>
-    <div class="container py-5">
-        <div class="row align-items-center" data-aos="fade-up">
-            <div class="col-md-4 text-center mb-4 mb-md-0">
-                <img id="book-image" src="" alt="Cover Buku" class="img-fluid rounded shadow-sm" style="max-height: 350px;">
-            </div>
-            <div class="col-md-8">
-                <h2 id="book-title" class="fw-bold mb-3">Judul Buku</h2>
-                <p><strong>Penulis:</strong> <span id="book-author">-</span></p>
-                <p><strong>Penerbit:</strong> <span id="book-publisher">-</span></p>
-                <p><strong>Tanggal Terbit:</strong> <span id="book-date">-</span></p>
-                <p><strong>Halaman:</strong> <span id="book-pages">-</span></p>
-                <p><strong>Kategori:</strong> <span id="book-categories">-</span></p>
+    <div class="container mt-4">
+    <div class="row g-3">
+
+        <!-- Card Buku -->
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+                <div class="row g-0">
+
+                    <div class="col-md-5 p-4 d-flex justify-content-center align-items-center">
+                        <img id="book-image" src="" alt="Cover Buku"
+                            class="object-fit-contain rounded shadow-sm"
+                            style="height: 167px; width: 128px;">
+                    </div>
+
+                    <div class="col">
+                        <div class="card-body flex-column d-flex">
+                            <h3 id="book-title" class="card-title fw-bold mb-4">Judul Buku</h3>
+
+                            <div class="mb-2">
+                                <strong>Penulis:</strong>
+                                <span class="ms-2" id="book-author">-</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <strong>Penerbit:</strong>
+                                <span class="ms-2" id="book-publisher">-</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <strong>Tanggal Terbit:</strong>
+                                <span class="ms-2" id="book-date">-</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <strong>Halaman:</strong>
+                                <span class="ms-2" id="book-pages">-</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <strong>Kategori:</strong>
+                                <span class="ms-2" id="book-categories">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <div class="row mt-5" data-aos="fade-up" data-aos-delay="200">
-            <div class="col">
-                <h4 class="fw-semibold">Deskripsi</h4>
-                <p id="book-desc" class="text-muted">Deskripsi buku akan ditampilkan di sini...</p>
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">Deskripsi</h5>
+                    <p id="book-desc" class="text-muted" style="margin-top:0; white-space: pre-line;">
+                        <!-- Deskripsi -->
+                    </p>
+                </div>
             </div>
         </div>
+
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
