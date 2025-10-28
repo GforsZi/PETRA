@@ -256,14 +256,6 @@
                                                         menghapus
                                                         salinan ini?
                                                     </p>
-                                                    <div class="alert mt-4 alert-warning d-flex text-start align-items-center" role="alert">
-                                                        <i class="bi bi-exclamation-triangle me-2"></i>
-                                                        <div>
-                                                            Penghapusan ini bersifat <strong>soft
-                                                                delete</strong> — data masih dapat
-                                                            dipulihkan dari halaman riwayat.
-                                                        </div>
-                                                    </div>
                                                     <input type="hidden" value="{{ $book['bk_id'] }}" name="book_id" />
                                                 </div>
                                                 <div class="modal-footer flex-nowrap p-0">
@@ -303,16 +295,42 @@
                                                             @php
                                                                 $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
                                                             @endphp
+                                                            @php
+
+                                                                $abbrs = $book->authors
+                                                                    ->filter()
+                                                                    ->map(function ($author) {
+                                                                        $name = trim($author->athr_name ?? '');
+                                                                        if ($name === '') {
+                                                                            return null;
+                                                                        }
+                                                                        $parts = preg_split('/\s+/', $name);
+
+                                                                        $filtered = array_values(
+                                                                            array_filter($parts, function ($part) {
+                                                                                return !preg_match(
+                                                                                    '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
+                                                                                    $part,
+                                                                                );
+                                                                            }),
+                                                                        );
+
+                                                                        $main = $filtered[0] ?? ($parts[0] ?? '');
+
+                                                                        $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+
+                                                                        $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
+
+                                                                        return $abbr ?: null;
+                                                                    })
+                                                                    ->filter()
+                                                                    ->values();
+                                                            @endphp
 
                                                             <span>{{ $ddcs ?: '-' }}</span>
                                                         </h4>
                                                         <h5 class="fw-bold mb-1">
-                                                            @foreach ($book['authors'] as $author)
-                                                                <span>{{ Str::substr(strtoupper($author->athr_name), 0, 3) }}</span>
-                                                                @if (!$loop->last)
-                                                                    .
-                                                                @endif
-                                                            @endforeach
+                                                            <span>{{ $abbrs->implode('.') }}</span>
                                                         </h5>
                                                         <p class="mb-1">
                                                             {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
@@ -402,15 +420,6 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-
-                                                    <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                                        <i class="bi bi-exclamation-triangle me-2"></i>
-                                                        <div>
-                                                            Penghapusan ini bersifat <strong>soft
-                                                                delete</strong> — data masih dapat
-                                                            dipulihkan dari halaman riwayat.
-                                                        </div>
-                                                    </div>
                                                 </div>
 
                                                 <div class="modal-footer">
@@ -476,7 +485,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group mb-3">
-                            <input type="text" value="{{ collect(explode(' ', strtoupper(trim($book['bk_title']))))->filter()->map(fn($word) => Str::substr($word, 0, 1))->implode('') }}"
+                            <input type="text"
+                                value="{{ $letters ?:collect(explode(' ', strtoupper(trim($book['bk_title']))))->filter()->map(fn($word) => Str::substr($word, 0, 1))->implode('') }}"
                                 class="form-control" placeholder="kode" aria-label="kode" name="code">
                             <span class="input-group-text">-</span>
                             <input type="number" class="form-control" placeholder="jumlah" aria-label="jumlah" name="number">

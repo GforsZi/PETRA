@@ -1,3 +1,31 @@
+@php
+
+    $abbrs = $books->authors
+        ->filter()
+        ->map(function ($author) {
+            $name = trim($author->athr_name ?? '');
+            if ($name === '') {
+                return null;
+            }
+            $parts = preg_split('/\s+/', $name);
+
+            $filtered = array_values(
+                array_filter($parts, function ($part) {
+                    return !preg_match('/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i', $part);
+                }),
+            );
+
+            $main = $filtered[0] ?? ($parts[0] ?? '');
+
+            $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+
+            $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
+
+            return $abbr ?: null;
+        })
+        ->filter()
+        ->values();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -185,12 +213,7 @@
 
                             </h4>
                             <h5>
-                                @foreach ($books['authors'] as $author)
-                                    {{ Str::substr(strtoupper($author->athr_name), 0, 3) }}
-                                    @if (!$loop->last)
-                                        .
-                                    @endif
-                                @endforeach
+                                {{ $abbrs->implode('.') ?: '-' }}
                             </h5>
                             <p>{{ Str::substr(strtolower($books['bk_title']), 0, 1) ?? '' }}</p>
                             <p><strong>{{ $book->bk_cp_number ?? '' }}</strong></p>

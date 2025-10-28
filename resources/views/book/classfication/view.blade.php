@@ -25,7 +25,7 @@
         @forelse ($classfications as $index => $classfication)
             <tr class="align-middle">
                 <td>{{ $classfications->firstItem() + $index }}</td>
-                <td>{{ $classfication->ddc_code }}</td>
+                <td><a href="/manage/book?ddc={{ $classfication->ddc_id }}" class="text-body">{{ $classfication->ddc_code }}</a></td>
                 <td>{{ $classfication->ddc_description }}</td>
                 <td>
                     <div class="dropdown dropstart">

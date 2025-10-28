@@ -19,12 +19,28 @@ class ManageBookController extends Controller
 {
     public function manage_book_page(Request $request)
     {
-        $query = $request->get('s');
         $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')
-            ->with('publisher:pub_id,pub_name', 'authors:athr_id,athr_name')
-            ->where('bk_title', 'like', "%$query%")
+            ->with([
+                'publisher:pub_id,pub_name',
+                'authors:athr_id,athr_name',
+                'deweyDecimalClassfications:ddc_id,ddc_code'
+            ])
+            ->when($request->query('s'), function ($query, $search) {
+                $query->where('bk_title', 'like', "%{$search}%");
+            })
+            ->when($request->query('author'), function ($query, $authorId) {
+                $query->whereHas('authors', function ($q) use ($authorId) {
+                    $q->where('athr_id', $authorId);
+                });
+            })
+            ->when($request->query('ddc'), function ($query, $ddcId) {
+                $query->whereHas('deweyDecimalClassfications', function ($q) use ($ddcId) {
+                    $q->where('ddc_id', $ddcId);
+                });
+            })
             ->latest()
             ->paginate(12);
+
         return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
     }
 
@@ -120,7 +136,18 @@ class ManageBookController extends Controller
                 'deleted_by',
             )
             ->find($id);
-        return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
+        $last_copy = BookCopy::select('bk_cp_id', 'bk_cp_number')
+            ->where('bk_cp_book_id', $id)
+            ->latest()
+            ->first();
+
+        $letters = null;
+
+        if ($last_copy && $last_copy->bk_cp_number) {
+            preg_match('/^([A-Za-z]+)/', $last_copy->bk_cp_number, $matches);
+            $letters = $matches[1] ?? null;
+        }
+        return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book', 'letters'));
     }
 
     public function add_book_page()
