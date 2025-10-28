@@ -346,13 +346,13 @@
                         </p>
                     </div>
                 </div>
+            </div>
                 
                 <div class="modal-footer flex-nowrap p-0 mt-3">
                     <button type="button"
                     class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
                     data-bs-dismiss="modal">Tutup</button>
                 </div>
-            </div>
         </div>
         </div>
     </div>
