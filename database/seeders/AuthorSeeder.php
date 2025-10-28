@@ -182,6 +182,78 @@ class AuthorSeeder extends Seeder
                 'athr_updated_at' => $now,
                 'athr_sys_note' => 'Manual seed',
             ],
+            [
+                'athr_name' => 'Munawir AM',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'H.Abd.Rahman',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'H.Ridhwan Ms',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Soegeng Wijiono',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Hj.lim halimah',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Dwi Harti',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Nuning Minarsih',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Bayu Andoro',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Hari Wibawanto',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Annas N. A.',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Sonalita W.',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
+            [
+                'athr_name' => 'Jaja S.',
+                'athr_created_at' => $now,
+                'athr_updated_at' => $now,
+                'athr_sys_note' => 'Manual seed',
+            ],
         ]);
     }
 }
