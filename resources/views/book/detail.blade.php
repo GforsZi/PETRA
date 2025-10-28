@@ -298,8 +298,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-
+                    
                     <div class="text-center py-3">
                         <h4 class="fw-bold mb-1">
                             @php
@@ -320,15 +319,15 @@
                                                 return !preg_match(
                                                     '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
                                                     $part,
+                                                    );
+                                                }),
                                                 );
-                                            }),
-                                        );
-
-                                        $main = $filtered[0] ?? ($parts[0] ?? '');
-                                        $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
-                                        $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
-
-                                        return $abbr ?: null;
+                                                
+                                                $main = $filtered[0] ?? ($parts[0] ?? '');
+                                                $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+                                                $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
+                                                
+                                                return $abbr ?: null;
                                     })
                                     ->filter()
                                     ->values();
@@ -347,13 +346,14 @@
                         </p>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal-footer flex-nowrap p-0 mt-3">
-                <button type="button"
+                
+                <div class="modal-footer flex-nowrap p-0 mt-3">
+                    <button type="button"
                     class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
                     data-bs-dismiss="modal">Tutup</button>
+                </div>
             </div>
+        </div>
         </div>
     </div>
 
