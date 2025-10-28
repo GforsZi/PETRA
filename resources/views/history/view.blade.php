@@ -36,31 +36,25 @@
                                     <a class="dropdown-item" href="{{ $page_url . '/' . $history->id . '/detail' }}">Detail</a>
                                 </li>
                                 <li>
-                                    <form action="/system/restore/{{ $history->id }}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" value="{{ request()->query('category') }}" name="model">
-                                        <button class="dropdown-item" type="submit" onclick="this.disabled=true; this.form.submit();">Pulihkan
-                                        </button>
-                                    </form>
+                                    <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#restore{{ $histories->firstItem() + $index }}">Pulihkan</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="modal fade" id="deleteConfirmation{{ $histories->firstItem() + $index }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                            aria-labelledby="deleteConfirmation{{ $histories->firstItem() + $index }}Label" aria-hidden="true">
-                            <form action="/history/{{ $history->id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
+                        <div class="modal fade" id="restore{{ $histories->firstItem() + $index }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                            aria-labelledby="restore{{ $histories->firstItem() + $index }}Label" aria-hidden="true">
+                            <form action="/system/restore/{{ $history->id }}" method="post" class="modal-dialog modal-dialog-centered">
                                 @csrf
-                                @method('DELETE')
+                                @method('PUT')
                                 <div class="modal-content rounded-3 shadow">
                                     <div class="modal-body p-4 text-center">
                                         <h5 class="mb-0">Hapus data ini?</h5>
-                                        <p class="mb-0">Apakah anda yakin untuk menghapus data ini?
-                                            {{ $histories->firstItem() + $index }}.</p>
+                                        <p class="mb-0">Apakah anda yakin untuk memulihkan data ini?</p>
                                     </div>
+                                    <input type="hidden" value="{{ request()->query('category') }}" name="model">
                                     <div class="modal-footer flex-nowrap p-0">
                                         <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Cancle</button>
                                         <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                            onclick="this.disabled=true; this.form.submit();"><strong>Delete</strong></button>
+                                            onclick="this.disabled=true; this.form.submit();"><strong>Pulihkan</strong></button>
                                     </div>
                                 </div>
                             </form>

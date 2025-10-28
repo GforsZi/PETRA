@@ -47,9 +47,9 @@ class AuthController extends Controller
 
             $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
             if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
-                return redirect()->intended('/home')->with('success', 'Login success!');
+                return redirect('/home')->with('success', 'Login success!');
             } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
-                return redirect()->intended('/dashboard')->with('success', 'Login success!');
+                return redirect('/dashboard')->with('success', 'Login success!');
             } else {
                 return redirect()->intended('/forbidden')->with('success', 'Login success!');
             }
