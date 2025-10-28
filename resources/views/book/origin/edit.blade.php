@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, gunakan huruf saja, maksimal 255 karakter.">Nama
                         Sumber</label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_orgn_name" value="{{ $origin['bk_orgn_name'] }}" class="form-control @error('bk_orgn_name') is-invalid @enderror" id="inputEmail3">

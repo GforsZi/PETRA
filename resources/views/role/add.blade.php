@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, minimal 3 karakter dan maksimal 255 karakter.">Nama
                         Peran</label>
                     <div class="col-sm-10">
                         <input value="{{ old('rl_name') }}" type="text" name="rl_name" class="form-control @error('rl_name') is-invalid @enderror" id="inputEmail3">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputPassword3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Keterangan
+                        data-bs-title="Pemberitahuan" data-bs-content="opsional, isi dengan keterangan singkat mengenai peran.">Keterangan
                         Peran</label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror" id="autoExpand">{{ old('rl_description') }}</textarea>
@@ -45,7 +45,7 @@
                     <div class="form-check">
                         <input class="form-check-input @error('rl_admin') is-invalid @enderror" name="rl_admin" value="1" type="checkbox" id="gridCheck1">
                         <label class="form-check-label" for="gridCheck1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                            data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
+                            data-bs-title="Pemberitahuan" data-bs-content="opsional, centang jika role ini memiliki hak akses admin.">
                             Admin
                         </label>
                     </div>

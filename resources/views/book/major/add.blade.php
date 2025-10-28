@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Tingkatan
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi dengan angka saja.">Tingkatan
                         Kelas</label>
                     <div class="col-sm-10">
                         <input value="{{ old('bk_mjr_class') }}" type="text" name="bk_mjr_class" class="form-control @error('bk_mjr_class') is-invalid @enderror" id="inputEmail3">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, berupa teks, maksimal 255 karakter.">Nama
                         jurusan</label>
                     <div class="col-sm-10">
                         <input value="{{ old('bk_mjr_major') }}" type="text" name="bk_mjr_major" class="form-control @error('bk_mjr_major') is-invalid @enderror" id="inputEmail3">

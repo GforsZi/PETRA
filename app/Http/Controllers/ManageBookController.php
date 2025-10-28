@@ -623,14 +623,14 @@ class ManageBookController extends Controller
         return view('book.publisher.edit', ['title' => 'Halaman Ubah Penerbit'], compact('publishers'));
     }
 
-    public function edit_book_publisher_system(Request $request, $id)
-    {
-        $publisher = Publisher::find($id);
+        public function edit_book_publisher_system(Request $request, $id)
+        {
+            $publisher = Publisher::find($id);
 
-        $validateData = $request->validate([
-            'pub_name' => 'sometimes | required | string | max:255',
-            'pub_address' => 'sometimes | required | string | max:255',
-        ]);
+            $validateData = $request->validate([
+                'pub_name' => 'sometimes | required | string | max:255',
+                'pub_address' => 'sometimes | required | string | max:255',
+            ]);
 
         $publisher->update($validateData);
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Diubah');

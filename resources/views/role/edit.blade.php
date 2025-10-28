@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Ubah
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, minimal 3 karakter dan maksimal 255 karakter.">Ubah
                         Nama Peran</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control @error('rl_name') is-invalid @enderror" name="rl_name" value="{{ $role[0]['rl_name'] }}" id="inputEmail3">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputPassword3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Ubah
+                        data-bs-title="Pemberitahuan" data-bs-content="opsional, isi dengan keterangan singkat mengenai peran.">Ubah
                         Keterangan
                         Peran</label>
                     <div class="col-sm-10">
@@ -52,7 +52,7 @@
                                 <input class="form-check-input" type="checkbox" id="gridCheck1">
                             @endif
                             <label class="form-check-label" for="gridCheck1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                                data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
+                                data-bs-title="Pemberitahuan" data-bs-content="opsional, centang jika role ini memiliki hak akses admin.">
                                 Admin
                             </label>
                         </div>

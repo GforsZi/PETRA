@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Code
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi dengan angka, sesuai format klasifikasi (misalnya: 005.1 atau 959.8).">Code
                         Klasifikasi</label>
                     <div class="col-sm-10">
                         <input value="{{ old('ddc_code') }}" type="text" name="ddc_code" class="form-control @error('ddc_code') is-invalid @enderror" id="inputEmail3">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Keterangan
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, gunakan teks yang menjelaskan kategori sesuai kode tersebut.">Keterangan
                         Klasifikasi</label>
                     <div class="col-sm-10">
                         <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror" id="autoExpand">{{ old('ddc_description') }}</textarea>

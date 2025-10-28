@@ -22,7 +22,7 @@
 
                 <div class="mb-3">
                     <label for="whatsapp" class="form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">No
+                        data-bs-content="hanya boleh berisi angka, belum pernah terdaftar, dan gunakan format yang benar.">No
                         WhatsApp</label>
                     <input value="{{ $user['usr_no_wa'] }}" name="usr_no_wa" type="text" id="whatsapp" class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_Wa')

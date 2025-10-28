@@ -13,7 +13,7 @@
             <div class="col-12 col-md-8">
                 <div class="mb-1">
                     <label for="nama" class="form-label " data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama</label>
+                        data-bs-content="wajib diisi minimal 3 huruf dan maksimal 255 huruf.">Nama</label>
                     <input name="name" type="text" id="nama" value="{{ $account[0]['name'] }}" class="form-control  shadow object-fit-cover @error('name') is-invalid @enderror"
                         autocomplete="off">
                     @error('name')
@@ -25,20 +25,20 @@
 
                 <div class="mb-1">
                     <label for="whatsapp" class="form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">No
+                        data-bs-content="hanya boleh berisi angka, belum pernah terdaftar, dan gunakan format yang benar.">No
                         WhatsApp</label>
-                    <input name="usr_no_wa" type="text" id="whatsapp" value="{{ $account[0]['usr_no_wa'] }}" class="form-control  shadow object-fit-cover @error('usr_no_wa') is-invalid @enderror">
+                    <input value="{{ old('usr_no_Wa') }}" name="usr_no_wa" type="text" id="whatsapp" class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">Input tidak sesuai </p>
+                            <p style="text-align: right;">Input tidak sesuai</p>
                         </div>
                     @enderror
                 </div>
 
                 <div class="mb-1">
                     <label for="password" class="form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Password</label>
-                    <input name="password" type="password" id="password" class="form-control  shadow object-fit-cover @error('password') is-invalid @enderror " autocomplete="off">
+                        data-bs-content="isi 5–30 karakter dan pastikan sama dengan konfirmasi.">Password</label>
+                    <input name="password" type="password" id="password" class="form-control @error('password') is-invalid @enderror" autocomplete="off">
                     @error('password')
                         <div class="invalid-feedback">
                             <p style="text-align: right;">Input tidak sesuai</p>
@@ -48,13 +48,18 @@
 
                 <div class="mb-1">
                     <label for="password" class="form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Konfirmasi
+                        data-bs-content="isi 5–30 karakter dan pastikan sama dengan konfirmasi.">Konfirmasi
                         Password</label>
-                    <input name="password_confirmation" type="password" id="password" class="form-control  shadow object-fit-cover " autocomplete="off">
+                    <input name="password_confirmation" type="password" id="password" class="form-control @error('password_confirmation') is-invalid @enderror" autocomplete="off">
+                    @error('password_confirmation')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="options">
                     <p class="text-3 mb-1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
-                        data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">
+                        data-bs-content="wajib dipilih sesuai daftar yang tersedia.">
                         Pilih peran</p>
 
                     <select name="usr_role_id" class="form-select @error('usr_role_id') is-invalid @enderror" required aria-label="Default select example">
