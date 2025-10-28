@@ -105,7 +105,22 @@
                 object-fit: cover;
                 border-radius: 5px;
             }
+
+            
         }
+
+   @media (max-width: 380px) {
+    .save {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        width: 157px;
+        margin-left: auto;
+        margin-right: auto; /* ini yang membuat tombolnya di tengah */
+    }
+}
+     
 
     </style>
     <div class="container mt-4">
@@ -142,7 +157,7 @@
                         <button type="button" id="captureBtn" class="kamera me-2">
                             <i class="bi bi-camera-fill"></i> Ambil
                         </button>
-                        <button type="submit" id="uploadBtn" class="save btn btn-success d-none" onclick="this.disabled=true; this.form.submit();">
+                        <button type="submit" id="uploadBtn" class="save btn btn-success d-none me-2" onclick="this.disabled=true; this.form.submit();">
                             <i class="bi bi-bookmark-check-fill"></i> Simpan
                         </button>
                     </div>

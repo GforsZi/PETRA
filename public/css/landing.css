@@ -599,6 +599,7 @@ footer {
     text-align: center;
     font-size: 0.9rem;
     font-weight: 400;
+    height: 100%;
 }
 .footer a:hover {
     opacity: 0.8;
@@ -1150,3 +1151,168 @@ button:hover:before {
         margin: 0 auto; /* tetap di tengah */
     }
 }
+
+/* akhir */
+ .gambar {
+                    display: flex;
+                    justify-content: center;
+                    padding-right: 100px;
+                }
+
+                .cover img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                    /* border-radius: 20px; */
+                }
+
+                /* From Uiverse.io by eslam-hany */
+                .book {
+                    position: relative;
+                    border-radius: 10px;
+                    width: 300px;
+                    height: 400px;
+                    background-color: whitesmoke;
+                    box-shadow: 8px 10px 12px #000;
+                    transform: preserve-3d;
+                    perspective: 2000px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #000;
+                   
+                }
+
+                .cover {
+                    top: 0;
+                    position: absolute;
+                    background-color: lightgray;
+                    width: 100%;
+                    height: 100%;
+                    /* border-radius: 10px; */
+                    cursor: pointer;
+                    transition: all 0.5s;
+                    transform-origin: 0;
+                    box-shadow: 0px 8px 12px #000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    /* border-radius: 10px; */
+                    z-index: 2;
+                }
+
+                .book:hover .cover {
+                    transition: all 0.5s;
+                    transform: rotatey(-80deg);
+                }
+
+                .cover img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    /* border-radius: 10px; */
+                }
+
+                /* Teks utama di dalam buku */
+                .book p {
+                    position: absolute;
+                    top: 25%;
+                    /* di atas pohon */
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: white;
+                    font-size: 15px;
+                    font-weight: normal;
+                    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+                    z-index: 1;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                    transition-delay: 0s;
+                    letter-spacing: 1.5px;
+                    text-transform: uppercase;
+                    background: linear-gradient(90deg, #ffffff, #b3e5fc, #ffffff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-shadow:
+                        0 0 8px rgba(255, 255, 255, 0.7),
+                        0 0 15px rgba(173, 216, 230, 0.6),
+                        0 0 30px rgba(135, 206, 250, 0.5);
+                }
+
+                .book p::after {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    bottom: -6px;
+                    transform: translateX(-50%);
+                    width: 0%;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, #b3e5fc, transparent);
+                    border-radius: 2px;
+                    transition: width 1s ease;
+                    opacity: 0.8;
+                }
+
+                .book:hover p::after {
+                    width: 80%;
+                }
+
+                @keyframes glowPulse {
+                    0% {
+                        text-shadow:
+                            0 0 8px rgba(255, 255, 255, 0.6),
+                            0 0 15px rgba(173, 216, 230, 0.5),
+                            0 0 30px rgba(135, 206, 250, 0.4);
+                    }
+
+                    50% {
+                        text-shadow:
+                            0 0 12px rgba(255, 255, 255, 0.9),
+                            0 0 25px rgba(173, 216, 230, 0.8),
+                            0 0 45px rgba(135, 206, 250, 0.6);
+                    }
+
+                    100% {
+                        text-shadow:
+                            0 0 8px rgba(255, 255, 255, 0.6),
+                            0 0 15px rgba(173, 216, 230, 0.5),
+                            0 0 30px rgba(135, 206, 250, 0.4);
+                    }
+                }
+
+                .book:hover p {
+                    animation: glowPulse 3s ease-in-out infinite;
+                    z-index: 3;
+                    opacity: 1;
+                    transition-delay: 0.5s;
+                }
+
+                /* 🔹 Gaya dan posisi untuk copyright */
+                .book h5.copy {
+                    position: absolute;
+                    bottom: 5%;
+                    /* di bagian paling bawah gambar 2.svg */
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 13px;
+                    font-weight: normal;
+                    text-transform: uppercase;
+                    background: linear-gradient(90deg, #ffffff, #b3e5fc, #ffffff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-shadow:
+                        0 0 8px rgba(255, 255, 255, 0.7),
+                        0 0 15px rgba(173, 216, 230, 0.6),
+                        0 0 30px rgba(135, 206, 250, 0.5);
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                    transition-delay: 0s;
+                    pointer-events: none;
+                }
+
+                .book:hover h5.copy {
+                    opacity: 1;
+                    animation: glowPulse 3s ease-in-out infinite;
+                    transition-delay: 0.5s;
+                }
