@@ -1,12 +1,8 @@
 <x-app-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:header_layout>
-        <button type="button" class="btn btn-lg btn-outline-primary" data-bs-toggle="modal" data-bs-target="#authorModal" title="Tambah Penerbit">
-            <i class="bi bi-person-plus-fill"></i>
-        </button>
-        <button type="button" class="btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
-            <i class="bi bi-123"></i>
-        </button>
+       
+       
     </x-slot:header_layout>
     <div class="card card-primary card-outline mb-4">
         <!--begin::Header-->
@@ -157,32 +153,56 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">Penulis
-                        Buku</label>
-                    <div class="col-sm-10">
-                        <select class="form-control d-none" id="selected-authors" name="authors[]" multiple></select>
+             <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" data-bs-container="body"
+        data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+        data-bs-title="Pemberitahuan"
+        data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
+        Penulis Buku
+    </label>
 
-                        <div id="author-tags" class="mt-2">
-                            {{-- badge penulis akan muncul di sini --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan"
-                        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">Klasifikasi
-                        Buku</label>
-                    <div class="col-sm-10">
-                        <select class="form-control d-none" id="selected-ddc" name="classfications[]" multiple></select>
+    <div class="col-sm-10 d-flex align-items-start">
+        <div class="flex-grow-1">
+            <select class="form-control d-none" id="selected-authors" name="authors[]" multiple></select>
 
-                        <div id="ddc-tags" class="mt-2">
-                        </div>
-                    </div>
-                </div>
+            <div id="author-tags" class="mt-2">
+                {{-- badge penulis akan muncul di sini --}}
             </div>
+        </div>
+
+        
+        <button type="button" class="btn btn-lg btn-outline-primary ms-2"
+            data-bs-toggle="modal" data-bs-target="#authorModal" title="Tambah Penulis">
+            <i class="bi bi-person-plus-fill"></i>
+        </button>
+    </div>
+</div>
+
+               <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" data-bs-container="body"
+        data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+        data-bs-title="Pemberitahuan"
+        data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499.221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
+        Klasifikasi Buku
+    </label>
+
+    <div class="col-sm-10 d-flex align-items-start">
+        <div class="flex-grow-1">
+            <select class="form-control d-none" id="selected-ddc" name="classfications[]" multiple></select>
+
+            <div id="ddc-tags" class="mt-2">
+                {{-- badge klasifikasi akan muncul di sini --}}
+            </div>
+        </div>
+
+        
+        <button type="button" class="btn btn-lg btn-outline-warning ms-2"
+            data-bs-toggle="modal" data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
+            <i class="bi bi-123"></i>
+        </button>
+    </div>
+</div>
+
             <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">

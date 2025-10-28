@@ -10,14 +10,14 @@
 
         <div class="card shadow-sm rounded-4">
             <div class="card-body">
-                <h5 class="mb-3">Detail Peminjaman</h5>
+                <h5 class="mb-3 text-center">Detail Peminjaman</h5>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped align-middle mb-0">
                         <thead>
                             <tr>
-                                <th style="width: 30%;">Title</th>
-                                <th>Value</th>
+                                <th style="width: 50%;">Keterangan</th>
+                                <th>Isi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,4 +71,6 @@
             </div>
         </div>
     </div>
+
+    
 </x-app-layout>

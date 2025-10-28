@@ -58,6 +58,27 @@
             width: 100% !important;
             height: 100% !important;
         }
+        @media (max-width: 345px) {
+  /* jika lebar layar kecil (biasanya mulai bertabrakan) */
+  .card-body.px-4.py-4.d-flex.align-items-center.justify-content-between.position-relative {
+    flex-wrap: wrap; /* izinkan teks turun jika tidak cukup ruang */
+    text-align: center;
+  }
+
+  .card-body .card-text {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-bottom: 10px !important;
+  }
+
+  .card-body > div[style*="position: absolute"] {
+    position: static !important;
+    transform: none !important;
+    right: auto !important;
+    top: auto !important;
+  }
+}
+
     </style>
 
     <div class="row g-3 align-items-stretch">

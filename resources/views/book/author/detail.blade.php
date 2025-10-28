@@ -12,6 +12,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
+             <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -54,6 +55,7 @@
                     </tr>
                 </tbody>
             </table>
+             </div>
         </div>
     </div>
 </x-app-layout>

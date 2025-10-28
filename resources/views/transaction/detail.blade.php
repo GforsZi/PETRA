@@ -22,6 +22,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
+             <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -117,6 +118,7 @@
                     </tr>
                 </tbody>
             </table>
+             </div>
         </div>
         <div class="d-flex m-2 gap-2">
             @if ($transaction['trx_deleted_at'] == null)
@@ -148,6 +150,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
+             <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -181,6 +184,7 @@
 
                 </tbody>
             </table>
+             </div>
         </div>
         <!-- /.card-body -->
     </div>

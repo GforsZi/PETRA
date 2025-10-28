@@ -46,6 +46,9 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
+            <div class="table-responsive">
+
+         
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -171,6 +174,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
 
         </div>
         <!-- /.card-body -->
@@ -202,6 +206,9 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0" id="bk_cp">
+                <div class="table-responsive">
+
+               
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -268,99 +275,104 @@
                                         </form>
                                     </div>
 
-                                    <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                        aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content rounded-3 shadow p-3">
-                                                <div class="labelcode mx-auto" style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
+                                  <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow p-3">
+            <!-- Tambahan pembungkus scroll -->
+            <div class="table-responsive">
+                <div class="labelcode mx-auto" style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
 
-                                                    <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                                                        <tr style="height:90px;">
-                                                            <td class="p-0 m-0" style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                                                                <img src="{{ asset('logo/landing/smk.png') }}" alt="Logo Petra" style="width:80px; height:80px;" class="rounded-circle">
-                                                            </td>
-                                                            <td style="text-align:center; vertical-align:middle;">
-                                                                <h5 class="fw-bold mb-0">
-                                                                    PERPUSTAKAAN
-                                                                </h5>
-                                                                <h5 class="fw-bold mb-0">SMK
-                                                                    MAHAPUTRA
-                                                                </h5>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                    <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                        <tr style="height:90px;">
+                            <td class="p-0 m-0" style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                <img src="{{ asset('logo/landing/smk.png') }}" alt="Logo Petra" style="width:80px; height:80px;" class="rounded-circle">
+                            </td>
+                            <td style="text-align:center; vertical-align:middle;">
+                                <h5 class="fw-bold mb-0">
+                                    PERPUSTAKAAN
+                                </h5>
+                                <h5 class="fw-bold mb-0">SMK
+                                    MAHAPUTRA
+                                </h5>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                                                    <div class="text-center py-3">
-                                                        <h4 class="fw-bold mb-1">
-                                                            @php
-                                                                $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
-                                                            @endphp
-                                                            @php
+                    <div class="text-center py-3">
+                        <h4 class="fw-bold mb-1">
+                            @php
+                                $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
+                            @endphp
+                            @php
+                                $abbrs = $book->authors
+                                    ->filter()
+                                    ->map(function ($author) {
+                                        $name = trim($author->athr_name ?? '');
+                                        if ($name === '') {
+                                            return null;
+                                        }
+                                        $parts = preg_split('/\s+/', $name);
 
-                                                                $abbrs = $book->authors
-                                                                    ->filter()
-                                                                    ->map(function ($author) {
-                                                                        $name = trim($author->athr_name ?? '');
-                                                                        if ($name === '') {
-                                                                            return null;
-                                                                        }
-                                                                        $parts = preg_split('/\s+/', $name);
+                                        $filtered = array_values(
+                                            array_filter($parts, function ($part) {
+                                                return !preg_match(
+                                                    '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
+                                                    $part,
+                                                );
+                                            }),
+                                        );
 
-                                                                        $filtered = array_values(
-                                                                            array_filter($parts, function ($part) {
-                                                                                return !preg_match(
-                                                                                    '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
-                                                                                    $part,
-                                                                                );
-                                                                            }),
-                                                                        );
+                                        $main = $filtered[0] ?? ($parts[0] ?? '');
+                                        $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+                                        $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
 
-                                                                        $main = $filtered[0] ?? ($parts[0] ?? '');
+                                        return $abbr ?: null;
+                                    })
+                                    ->filter()
+                                    ->values();
+                            @endphp
 
-                                                                        $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+                            <span>{{ $ddcs ?: '-' }}</span>
+                        </h4>
+                        <h5 class="fw-bold mb-1">
+                            <span>{{ $abbrs->implode('.') }}</span>
+                        </h5>
+                        <p class="mb-1">
+                            {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
+                        </p>
+                        <p class="mb-0 fw-bold">
+                            {{ $bk_cp->bk_cp_number }}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-                                                                        $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
+            <div class="modal-footer flex-nowrap p-0 mt-3">
+                <button type="button"
+                    class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
+                    data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
 
-                                                                        return $abbr ?: null;
-                                                                    })
-                                                                    ->filter()
-                                                                    ->values();
-                                                            @endphp
-
-                                                            <span>{{ $ddcs ?: '-' }}</span>
-                                                        </h4>
-                                                        <h5 class="fw-bold mb-1">
-                                                            <span>{{ $abbrs->implode('.') }}</span>
-                                                        </h5>
-                                                        <p class="mb-1">
-                                                            {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
-                                                        </p>
-                                                        <p class="mb-0 fw-bold">
-                                                            {{ $bk_cp->bk_cp_number }}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer flex-nowrap p-0 mt-3">
-                                                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0" data-bs-dismiss="modal">Tutup</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @if ($book['bk_permission'] == '1')
-                                            <style>
-                                                .labelcode {
-                                                    background-color: white;
-                                                    color: black;
-                                                }
-                                            </style>
-                                        @elseif ($book['bk_permission'] == '2')
-                                            <style>
-                                                .labelcode {
-                                                    background-color: #EF5A6F;
-                                                    color: black;
-                                                }
-                                            </style>
-                                        @endif
-                                    </div>
+    @if ($book['bk_permission'] == '1')
+        <style>
+            .labelcode {
+                background-color: white;
+                color: black;
+            }
+        </style>
+    @elseif ($book['bk_permission'] == '2')
+        <style>
+            .labelcode {
+                background-color: #EF5A6F;
+                color: black;
+            }
+        </style>
+    @endif
+</div>
 
                                     <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                         aria-labelledby="changeStatus{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">

@@ -22,6 +22,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
+                 <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -78,6 +79,7 @@
                         </tr>
                     </tbody>
                 </table>
+                 </div>
             </div>
             <!-- /.card-body -->
             <div class="d-flex m-2 gap-2">
@@ -96,13 +98,15 @@
             </div>
         </div>
     </div>
-    <div class="card mb-4 w-100 collapse" id="history">
-        <div class="card-header">
-            <h3 class="card-title">Riwayat login Akun</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body p-0">
-            <table class="table table-striped">
+   <div class="card mb-4 w-100 collapse" id="history">
+    <div class="card-header">
+        <h3 class="card-title">Riwayat login Akun</h3>
+    </div>
+
+    <div class="card-body p-0">
+        <!-- Gunakan wrapper Bootstrap bawaan -->
+        <div class="table-responsive">
+            <table class="table table-striped mb-0">
                 <thead>
                     <tr>
                         <th>Tanggal</th>
@@ -123,6 +127,18 @@
             </table>
         </div>
     </div>
+</div>
+
+    <style>
+        @media (max-width: 991.98px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+    </style>
+
     <div class="modal fade" id="banConfirmation{{ $account['usr_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="banConfirmation{{ $account['usr_id'] }}Label" aria-hidden="true">
         <form action="/system/account/{{ $account['usr_id'] }}/ban" method="post" class="modal-dialog modal-dialog-centered">
