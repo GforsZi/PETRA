@@ -182,17 +182,6 @@
 
 
 
-/* Saat layar melebar, jaga posisi tetap */
-@media (min-height: 1000px) {
-    .hero-section {
-        max-height: 1000px;
-        margin: 0 auto;
-    }
-
-    .view .gambar {
-        margin-top: -1000px !important;
-    }
-}
 
 
    .foto {
