@@ -48,7 +48,7 @@
         <div class="card-body p-0">
             <div class="table-responsive">
 
-         
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -74,7 +74,7 @@
                     @if ($book['major'])
                         <tr class="align-middle">
                             <td>Jurusan</td>
-                            <td>{{ $book['major']['bk_mjr_class'] . ' ' . $book['major']['bk_mjr_major'] ?? '' }}
+                            <td>{{ $book['major']['bk_mjr_major'] . ' | ' . $book['major']['bk_mjr_class'] ?? '' }} |
                             </td>
                         </tr>
                     @endif
@@ -208,7 +208,7 @@
             <div class="card-body p-0" id="bk_cp">
                 <div class="table-responsive">
 
-               
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -298,7 +298,7 @@
                             </td>
                         </tr>
                     </table>
-                    
+
                     <div class="text-center py-3">
                         <h4 class="fw-bold mb-1">
                             @php
@@ -322,11 +322,11 @@
                                                     );
                                                 }),
                                                 );
-                                                
+
                                                 $main = $filtered[0] ?? ($parts[0] ?? '');
                                                 $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
                                                 $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
-                                                
+
                                                 return $abbr ?: null;
                                     })
                                     ->filter()
@@ -347,7 +347,7 @@
                     </div>
                 </div>
             </div>
-                
+
                 <div class="modal-footer flex-nowrap p-0 mt-3">
                     <button type="button"
                     class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
