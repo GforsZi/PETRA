@@ -25,7 +25,7 @@
         @forelse ($publishers as $index => $publisher)
             <tr class="align-middle">
                 <td>{{ $publishers->firstItem() + $index }}</td>
-                <td>{{ $publisher->pub_name }}</td>
+                <td><a href="/manage/book?publisher={{ $publisher->pub_id }}" class="text-body">{{ $publisher->pub_name }}</a></td>
                 <td>{{ $publisher->pub_address }}</td>
                 <td>
                     <div class="dropdown dropstart">

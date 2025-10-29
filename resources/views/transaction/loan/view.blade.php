@@ -6,6 +6,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    <x-slot:header_layout>
+        <a href="/manage/loan?expired=true" class="btn btn-lg btn-outline-warning w-100 tooltip-blue" title="Tenggat pengembalian"><i class="bi bi-exclamation-triangle"></i></a>
+    </x-slot:header_layout>
     <x-table_data :paginator="$loans">
         <x-slot:title>
             <form class="d-flex" role="search" method="get" action="/manage/loan">

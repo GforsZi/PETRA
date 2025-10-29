@@ -55,18 +55,36 @@ class ManageTransactionController extends Controller
     public function manage_loan_page(Request $request)
     {
         $keyword = $request->get('s');
-        $loans = Transaction::select('trx_id', 'trx_title', 'trx_borrow_date', 'trx_due_date', 'trx_status', 'trx_user_id')
+        $isExpired = $request->boolean('expired');
+
+        $loans = Transaction::select(
+            'trx_id',
+            'trx_title',
+            'trx_borrow_date',
+            'trx_due_date',
+            'trx_status',
+            'trx_user_id'
+        )
             ->with('users')
+            ->where('trx_status', '2')
             ->when($keyword, function ($query) use ($keyword) {
                 $query->whereHas('users', function ($subQuery) use ($keyword) {
                     $subQuery->where('name', 'like', "%{$keyword}%");
                 });
             })
-            ->where('trx_status', '2')
+            ->when($isExpired, function ($query) {
+                $query->where('trx_due_date', '<', now());
+            })
             ->latest()
-            ->paginate(10);
-        return view('transaction.loan.view', ['title' => 'Halaman Kelola Pinjaman'], compact('loans'));
+            ->paginate(10)
+            ->appends($request->only(['s', 'expired']));
+
+        return view('transaction.loan.view', [
+            'title' => 'Halaman Kelola Pinjaman',
+            'loans' => $loans,
+        ]);
     }
+
 
     public function manage_return_page(Request $request)
     {
@@ -89,10 +107,8 @@ class ManageTransactionController extends Controller
             ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
             ->findOrFail($id);
 
-        // 🔹 Hilangkan duplikat buku berdasarkan bk_id
         $uniqueBooks = $transaction->books->unique('bk_id')->values();
 
-        // 🔹 Kelompokkan semua salinan berdasarkan bk_cp_book_id
         $copiesGrouped = $transaction->book_copies->groupBy('bk_cp_book_id')->map(function ($copies) {
             return $copies->unique('bk_cp_number')->sortBy('bk_cp_number')->values();
         });

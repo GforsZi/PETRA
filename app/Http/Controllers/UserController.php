@@ -18,11 +18,10 @@ class UserController extends Controller
         $book_new = Book::select('bk_id', 'bk_img_url', 'bk_title')->limit(14)->latest()->get();
         $book_loan = Book::select('bk_id', 'bk_img_url', 'bk_title')
             ->withCount(['transactions as total_loans' => function ($query) {
-                // Opsional: filter hanya transaksi aktif
                 $query->whereNull('trx_deleted_at');
             }])
-            ->orderByDesc('total_loans') // urutkan dari buku paling sering dipinjam
-            ->latest('bk_created_at')    // jika jumlah sama, urutkan berdasar waktu input terbaru
+            ->orderByDesc('total_loans')
+            ->latest('bk_created_at')
             ->limit(14)
             ->get();
         $dataD = DB::table('transactions')->where('trx_user_id', Auth::id())->select('trx_status', DB::raw('COUNT(*) as total'))->groupBy('trx_status')->pluck('total', 'trx_status')->toArray();
@@ -119,7 +118,7 @@ class UserController extends Controller
     public function detail_book_page($id)
     {
         $book = Book::select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_edition_volume', 'bk_published_year', 'bk_publisher_id', 'bk_major_id')
-            ->with('authors:athr_id,athr_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code')
+            ->with('authors:athr_id,athr_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code,ddc_description')
             ->find($id);
         return view('user.book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
     }
@@ -203,7 +202,20 @@ class UserController extends Controller
 
     public function detail_transaction_page($id)
     {
-        $transaction = Transaction::with('users', 'books')->find($id);
-        return view('user.transaction.detail', ['title' => 'Halaman Detail Peminjaman'], compact('transaction'));
+        $transaction = Transaction::withTrashed()
+            ->with(['books', 'book_copies', 'users', 'created_by', 'updated_by', 'deleted_by'])
+            ->findOrFail($id);
+
+        $uniqueBooks = $transaction->books->unique('bk_id')->values();
+
+        $copiesGrouped = $transaction->book_copies->groupBy('bk_cp_book_id')->map(function ($copies) {
+            return $copies->unique('bk_cp_number')->sortBy('bk_cp_number')->values();
+        });
+        return view('user.transaction.detail', [
+            'title' => 'Halaman Detail Peminjaman',
+            'transaction' => $transaction,
+            'books' => $uniqueBooks,
+            'copiesGrouped' => $copiesGrouped,
+        ]);
     }
 }

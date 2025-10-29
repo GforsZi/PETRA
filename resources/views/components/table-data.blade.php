@@ -2,12 +2,12 @@
     if (isset($paginator)) {
         $totalPages = $paginator->lastPage() ?? '';
         $currentPage = $paginator->currentPage() ?? '';
-        $start = max(1, $currentPage - 1);
+        $start = max(1, $currentPage - 2);
         $end = min($totalPages, $currentPage + 2);
     } else {
         $totalPages = 0;
         $currentPage = 0;
-        $start = max(1, $currentPage - 1);
+        $start = max(1, $currentPage - 2);
         $end = min($totalPages, $currentPage + 2);
     }
 

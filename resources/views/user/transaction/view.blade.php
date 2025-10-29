@@ -16,7 +16,7 @@
             <th>Tanggal pengajuan</th>
             <th>Tujuan</th>
             <th>Status</th>
-            <th>Tenggak waktu</th>
+            <th>Tenggat Pengembalian</th>
             <th style="width: 50px">Aksi</th>
         </x-slot:header>
         @forelse ($transactions as $index => $transaction)
@@ -32,14 +32,29 @@
                 </td>
                 <td>
                     @if ($transaction->trx_status == '1')
-                        Dalam proses
+                        Pengajuan
                     @elseif ($transaction->trx_status == '2')
-                        Diterima
+                        Dipinjam
+                    @elseif ($transaction->trx_status == '3')
+                        Dikembalikan
                     @else
                         Ditolak
                     @endif
                 </td>
-                <td>{{ $transaction->trx_due_date }}</td>
+                @php
+                    $dueDate = $transaction->trx_due_date ? \Carbon\Carbon::parse($transaction->trx_due_date) : null;
+                @endphp
+
+                <td
+                    class="
+                        @if (is_null($dueDate)) text-muted
+                        @elseif (now()->greaterThan($dueDate))
+                            text-danger
+                        @else
+                            text-warning @endif
+                    ">
+                    {{ $dueDate ? $dueDate->format('Y-m-d H:i') : '' }}
+                </td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

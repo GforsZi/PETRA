@@ -19,11 +19,22 @@ class ManageBookController extends Controller
 {
     public function manage_book_page(Request $request)
     {
-        $books = Book::select('bk_id', 'bk_title', 'bk_img_url', 'bk_type', 'bk_published_year', 'bk_publisher_id')
+        $books = Book::select(
+            'bk_id',
+            'bk_title',
+            'bk_img_url',
+            'bk_type',
+            'bk_published_year',
+            'bk_publisher_id',
+            'bk_major_id',
+            'bk_origin_id'
+        )
             ->with([
                 'publisher:pub_id,pub_name',
                 'authors:athr_id,athr_name',
-                'deweyDecimalClassfications:ddc_id,ddc_code'
+                'deweyDecimalClassfications:ddc_id,ddc_code',
+                'major:bk_mjr_id,bk_mjr_major',
+                'origin:bk_orgn_id,bk_orgn_name',
             ])
             ->when($request->query('s'), function ($query, $search) {
                 $query->where('bk_title', 'like', "%{$search}%");
@@ -38,8 +49,19 @@ class ManageBookController extends Controller
                     $q->where('ddc_id', $ddcId);
                 });
             })
+            ->when($request->query('major'), function ($query, $majorId) {
+                $query->where('bk_major_id', $majorId);
+            })
+            ->when($request->query('origin'), function ($query, $originId) {
+                $query->where('bk_origin_id', $originId);
+            })
+            ->when($request->query('publisher'), function ($query, $publisherId) {
+                $query->where('bk_publisher_id', $publisherId);
+            })
+
             ->latest()
             ->paginate(12);
+
 
         return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
     }
@@ -173,7 +195,7 @@ class ManageBookController extends Controller
             'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'nullable|image|max:2048',
-            'file_pdf' => 'nullable|file|mimes:pdf|max:6144',
+            'file_pdf' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
@@ -293,7 +315,7 @@ class ManageBookController extends Controller
             'bk_major_id' => 'sometimes | integer | min:0 | nullable | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'sometimes|nullable|image|max:2048',
-            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:6144',
+            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:2048',
         ]);
 
         if ($request->bk_isbn != $book['bk_isbn']) {
@@ -623,14 +645,14 @@ class ManageBookController extends Controller
         return view('book.publisher.edit', ['title' => 'Halaman Ubah Penerbit'], compact('publishers'));
     }
 
-        public function edit_book_publisher_system(Request $request, $id)
-        {
-            $publisher = Publisher::find($id);
+    public function edit_book_publisher_system(Request $request, $id)
+    {
+        $publisher = Publisher::find($id);
 
-            $validateData = $request->validate([
-                'pub_name' => 'sometimes | required | string | max:255',
-                'pub_address' => 'sometimes | required | string | max:255',
-            ]);
+        $validateData = $request->validate([
+            'pub_name' => 'sometimes | required | string | max:255',
+            'pub_address' => 'sometimes | required | string | max:255',
+        ]);
 
         $publisher->update($validateData);
         return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Diubah');
@@ -668,7 +690,7 @@ class ManageBookController extends Controller
     public function add_book_classfication_system(Request $request)
     {
         $validateData = $request->validate([
-            'ddc_code' => 'required | regex:/^\d{3}(-\d{3})?$/ | max:255',
+            'ddc_code' => 'required | regex:/^\d+(\.\d+)?$/ | max:255',
             'ddc_description' => 'required | string | max:65535',
         ]);
 
@@ -687,7 +709,7 @@ class ManageBookController extends Controller
         $classfication = DeweyDecimalClassfication::find($id);
 
         $validateData = $request->validate([
-            'ddc_code' => 'sometimes | required | regex:/^\d{3}(-\d{3})?$/ | max:255',
+            'ddc_code' => 'sometimes | required | regex:/^\d+(\.\d+)?$/ | max:255',
             'ddc_description' => 'sometimes | required | string | max:65535',
         ]);
 

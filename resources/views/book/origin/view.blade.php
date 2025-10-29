@@ -24,7 +24,7 @@
         @forelse ($origins as $index => $origin)
             <tr class="align-middle">
                 <td>{{ $origins->firstItem() + $index }}</td>
-                <td>{{ $origin->bk_orgn_name }}</td>
+                <td><a href="/manage/book?origin={{ $origin->bk_orgn_id }}" class="text-body">{{ $origin->bk_orgn_name }}</a></td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -40,7 +40,7 @@
                                     </span></div>
                                 <div class="mb-2"><strong>Klasifikasi:</strong> <span class="ms-2">
                                         @foreach ($book['deweyDecimalClassfications'] as $classfication)
-                                            {{ $classfication->ddc_code ?? '' }} @if (!$loop->last)
+                                            {{ $classfication->ddc_description ?? '' }} @if (!$loop->last)
                                                 |
                                             @endif
                                         @endforeach
