@@ -79,6 +79,24 @@
   }
 }
 
+
+ body {
+        background-color: #fff; 
+        color: #333;
+    }
+
+    .custom-card {
+        background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .custom-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+        }
+    }
+
     </style>
 
     <div class="row g-3 align-items-stretch">
@@ -148,7 +166,7 @@
         <h6>Buku Terpopuler</h6>
         <div class="scroll-x">
             @foreach ($book_loan as $bk_ln)
-                <div class="book text-center border rounded pt-2"
+                <div class="custom-card book text-center border rounded pt-2"
                     style="width: 140px; height: 230px; display: inline-flex; flex-direction: column; justify-content: space-between; vertical-align: top; margin-right: 8px;">
 
                     <a href="/search/book/{{ $bk_ln->bk_id }}/detail" style="text-decoration: none;">
@@ -171,7 +189,7 @@
         <h5>buku terbaru</h5>
         <div class="scroll-x">
             @foreach ($book_new as $bk_nw)
-                <div class="book text-center border rounded pt-2"
+                <div class="custom-card book text-center border rounded pt-2"
                     style="width: 140px; height: 230px; display: inline-flex; flex-direction: column; justify-content: space-between; vertical-align: top; margin-right: 8px;">
 
                     <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">

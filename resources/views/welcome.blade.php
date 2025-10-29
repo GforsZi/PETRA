@@ -31,7 +31,7 @@
     <!-- Hero Section -->
 <div class="view">
 
-    <section class="hero-section view-custom d-flex align-items-center mt-5" id="HOME">
+    <section class="hero-section view-custom d-flex align-items-center " id="HOME">
         <div class="container hero-content" 
              data-aos="fade-up" 
              data-aos-anchor="#example-anchor" 
@@ -54,16 +54,16 @@
             </div>
         </div>
 
-        <div class="gambar z-3" 
+        <div class="gambar z-3 "
              data-aos="fade-up" 
              data-aos-duration="1500">
             <!-- From Uiverse.io by eslam-hany -->
             <div class="book">
-                <img src="{{ asset('logo/2.svg') }}" alt="Book">
+                <img src="{{ asset('logo/air.jpg') }}" alt="Book">
                 <p class="kata">Bangun masa depanmu dengan selembar buku</p>
                 <h5 class="copy">copyright | Dyons</h5>
                 <div class="cover">
-                    <img src="{{ asset('logo/cover.svg') }}" alt="Book Cover">
+                    <img src="{{ asset('logo/terjun.jpg') }}" alt="Book Cover">
                 </div>
             </div>
         </div>
@@ -170,9 +170,59 @@
         <div class="section-flex">
 
             <!-- Gambar -->
-            <div class="foto" data-aos="fade-up" data-aos-duration="1500">
-                <img src="{{ asset('logo/landing/perpus.jpg') }}" alt="Perpustakaan">
-            </div>
+        <div class="foto text-center" data-aos="fade-up" data-aos-duration="1500">
+                <img src="{{ asset('logo/landing/ilustrasi.JPG') }}" 
+                    alt="Perpustakaan" 
+                    class="img-fluid rounded foto-img">
+        </div>
+
+
+<style>
+   
+
+
+
+/* Saat layar melebar, jaga posisi tetap */
+@media (min-height: 1000px) {
+    .hero-section {
+        max-height: 1000px;
+        margin: 0 auto;
+    }
+
+    .view .gambar {
+        margin-top: -1000px !important;
+    }
+}
+
+
+   .foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+@media (max-width: 898px) {
+    .foto-img {
+        width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    .foto-img {
+        width: 90%;
+    }
+}
+
+
+</style>
 
             <!-- Card -->
             <div class="cards">

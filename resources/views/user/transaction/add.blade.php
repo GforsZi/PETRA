@@ -66,7 +66,7 @@
                     <div class="container text-center border" style="height: 300px; max-height: 300px; overflow-y: auto;">
                         <h3>Hasil Pencarian</h3>
                         <hr>
-                        <div class="row row-cols-2 row-cols-lg-3 g-3" id="book-list"></div>
+                        <div class=" row row-cols-2 row-cols-lg-3 g-3" id="book-list"></div>
                         <br>
                     </div>
                 </div>
@@ -91,6 +91,25 @@
             cursor: help;
             /* biar kelihatan bisa di-hover */
         }
+
+         body {
+        background-color: #fff;
+        color: #333;
+    }
+
+ 
+    .custom-card {
+        background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+  
+    @media (prefers-color-scheme: dark) {
+        .custom-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+        }
+    }
     </style>
 
     <script>
@@ -119,7 +138,7 @@
                             `{{ asset('logo/book_placeholder.jpg') }}`;
 
                         div.innerHTML = `
-        <div class="card h-100 p-1 border shadow-sm" style="max-width: 140px;">
+        <div class="custom-card h-100 p-1 border shadow-sm" style="max-width: 140px;">
             <img src="${imgSrc}"
                 class="object-fit-contain pilih-buku"
                 style="cursor: pointer;height: 167px; width: 128px;"
@@ -314,7 +333,7 @@ tujuanSelect.addEventListener('change', () => {
 
 
                 card.innerHTML = `
-            <div class="row g-0 align-items-stretch">
+            <div class=" row g-0 align-items-stretch">
                 <div class="col-4">
                     <img src="${e.target.src}" class="img-fluid rounded-start h-100"
                         alt="buku" style="object-fit:cover;">
