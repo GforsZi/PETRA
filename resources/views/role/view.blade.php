@@ -23,10 +23,10 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Nama</th>
             <th>Deskripsi</th>
-            <th style="width: 50px">Opsi</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($roles as $index => $role)
             <tr class="align-middle">

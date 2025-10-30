@@ -12,7 +12,7 @@
             <div class="d-flex flex-column justify-content-center align-items-center text-white" style="height: 100vh; width: 100%; background-color: #121740;">
 
                 <div class="w-100 px-5">
-                    <p class="text-center fs-2 fw-bold mb-4">Log-in</p>
+                    <p class="text-center fs-2 fw-bold mb-4">Masuk</p>
 
                     <div class="text-center mb-4">
                         <img src="{{ asset('logo/PETRA-LOGO.png') }}" class=" img-fluid" style="width: 150px; height: 150px; object-fit: contain;">
@@ -32,15 +32,15 @@
                     <div class="bar">
                         <form action="/system/login" method="post">
                             @csrf
-                            <input value="{{ old('usr_no_wa') }}" name="usr_no_wa" type="text" class="form-control mb-3" placeholder="Masukan No.Tlp">
-                            <input name="password" type="password" class="form-control mb-4" placeholder="Password">
+                            <input value="{{ old('usr_no_wa') }}" name="usr_no_wa" type="text" class="form-control mb-3" placeholder="Masukan Nomor WhatsApp">
+                            <input name="password" type="password" class="form-control mb-4" placeholder="Kata sandi">
                     </div>
                     <button type="submit" class="control" onclick="this.disabled=true; this.form.submit();">Kirim</button>
                     </form>
 
                     <p class="text-center">
                         Belum memiliki akun sebelumnya?
-                        <a href="/register" class="text-decoration-none text-success">Register</a>
+                        <a href="/register" class="text-decoration-none text-success">Daftar akun</a>
                     </p>
                 </div>
 

@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, minimal 3 karakter dan maksimal 255 karakter.">Nama
-                        Peran</label>
+                    </label>
                     <div class="col-sm-10">
                         <input value="{{ old('rl_name') }}" type="text" name="rl_name" class="form-control @error('rl_name') is-invalid @enderror" id="inputEmail3">
                         @error('rl_name')
@@ -28,7 +28,7 @@
                 <div class="row mb-3">
                     <label for="inputPassword3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="opsional, isi dengan keterangan singkat mengenai peran.">Keterangan
-                        Peran</label>
+                    </label>
                     <div class="col-sm-10">
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror" id="autoExpand">{{ old('rl_description') }}</textarea>
                         @error('rl_description')
@@ -54,7 +54,7 @@
             <!--end::Body-->
             <!--begin::Footer-->
             <div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-primary px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">Kirim</button>
             </div>
             <!--end::Footer-->
         </form>

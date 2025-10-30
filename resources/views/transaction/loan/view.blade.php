@@ -17,13 +17,13 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Peminjam</th>
             <th>Tanggal pengajuan</th>
             <th>Tujuan</th>
             <th>Status</th>
             <th>Tenggat peminjaman</th>
-            <th style="width: 50px">Detail</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($loans as $index => $loan)
             <tr class="align-middle">

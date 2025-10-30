@@ -14,14 +14,14 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Peminjam</th>
             <th>Tujuan</th>
             <th>Status</th>
             <th>Tanggal Peminjaman</th>
             <th>Tenggat Peminjaman</th>
             <th>Tanggal Pengembalian</th>
-            <th style="width: 50px">Detail</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($transactions as $index => $transaction)
             <tr class="align-middle">

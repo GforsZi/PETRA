@@ -16,10 +16,10 @@
         <x-table_data :paginator="$histories">
             <x-slot:title></x-slot:title>
             <x-slot:header>
-                <th style="width: 10px">#</th>
+                <th style="width: 10px">No</th>
                 <th>Atribut</th>
                 <th>Dihapus Pada</th>
-                <th style="width: 50px">Pilihan</th>
+                <th style="width: 50px">Opsi</th>
             </x-slot:header>
             @forelse ($histories as $index => $history)
                 <tr class="align-middle">

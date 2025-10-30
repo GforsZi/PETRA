@@ -14,7 +14,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nama
-                        Perangkat</label>
+                    </label>
                     <div class="col-sm-10">
                         <input value="{{ old('name') }}" type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="inputEmail3">
                         @error('name')
@@ -27,7 +27,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Memilih jurusan akan membuat buku ini dimasukan dalam kategori buku paket pembelajaran">Nomor
-                        Perangkat</label>
+                    </label>
                     <div class="col-sm-10">
                         <input value="{{ old('device') }}" type="text" name="device" class="form-control @error('device') is-invalid @enderror" id="inputEmail3">
                         @error('device')

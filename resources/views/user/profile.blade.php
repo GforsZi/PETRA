@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="d-flex justify-content-start mb-2">
-                            <strong>Role:</strong>
+                            <strong>Peran:</strong>
                             <span class="ms-3">{{ $user['roles']['rl_name'] }}</span>
                         </div>
 

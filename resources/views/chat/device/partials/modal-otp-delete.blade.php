@@ -11,7 +11,7 @@
             <!-- Body -->
             <div class="modal-body">
                 <p id="confirmDeleteMessage">
-                    Please insert the OTP code that was sent to your registered number.
+                    Silakan masukkan kode OTP yang dikirimkan ke nomor Anda yang terdaftar.
                 </p>
 
                 <!-- Error Message -->
@@ -28,10 +28,10 @@
             <!-- Footer -->
             <div class="modal-footer">
                 <button type="submit" form="otpAuthorizationForm" class="btn btn-danger">
-                    Confirm
+                    Kirim
                 </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="deviceIdToDelete=null;">
-                    Cancel
+                    Batal
                 </button>
             </div>
 

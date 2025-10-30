@@ -13,12 +13,12 @@
     <x-table_data :paginator="$transactions">
         <x-slot:title>Manage transaction</x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Tanggal pengajuan</th>
             <th>Tujuan</th>
             <th>Status</th>
             <th>Tenggat Pengembalian</th>
-            <th style="width: 50px">Aksi</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($transactions as $index => $transaction)
             <tr class="align-middle">

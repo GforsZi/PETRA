@@ -12,7 +12,7 @@
             <div class="d-flex flex-column justify-content-center align-items-center text-white" style="height: 100vh; width: 100%; background-color: #121740;">
 
                 <div class="w-100 px-5">
-                    <p class="text-center fs-2 fw-bold mb-4">Register</p>
+                    <p class="text-center fs-2 fw-bold mb-4">Pendaftaran akun</p>
 
                     <div class="text-center mb-4">
                         <img src="{{ asset('logo/PETRA-LOGO.png') }}" class="img-fluid" style="width: 150px; height: 150px; object-fit: contain;">
@@ -21,12 +21,12 @@
                         <form action="/system/register" method="post">
                             @csrf
 
-                            <input name="name" type="text" class="form-control mb-1" placeholder="Masukkan username" value="{{ old('name') }}">
+                            <input name="name" type="text" class="form-control mb-1" placeholder="Masukkan nama lengkap" value="{{ old('name') }}">
                             @error('name')
                                 <p class="text-danger" style="text-align: right;">Nama pengguna wajib diisi</p>
                             @enderror
 
-                            <input name="usr_no_wa" type="text" class="form-control mt-3 mb-1" placeholder="Nomor Telepon / WhatsApp" value="{{ old('usr_no_wa') }}">
+                            <input name="usr_no_wa" type="text" class="form-control mt-3 mb-1" placeholder="Nomor WhatsApp" value="{{ old('usr_no_wa') }}">
                             @error('usr_no_wa')
                                 <small class="invalid-feedback">
                                     @if (old('usr_no_wa'))
@@ -50,7 +50,7 @@
 
                         <p class="text-center">
                             Sudah memiliki akun sebelumnya?
-                            <a href="/login" class="text-decoration-none text-success">Login</a>
+                            <a href="/login" class="text-decoration-none text-success">Masuk</a>
                         </p>
                     </div>
 

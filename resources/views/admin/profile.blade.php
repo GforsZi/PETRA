@@ -26,12 +26,12 @@
                         </div>
 
                         <div class="d-flex justify-content-start mb-2">
-                            <strong>No. Telp:</strong>
+                            <strong>Nomor WhatsApp:</strong>
                             <span class="ms-3">{{ $user['usr_no_wa'] }}</span>
                         </div>
 
                         <div class="d-flex justify-content-start mb-2">
-                            <strong>Role:</strong>
+                            <strong>Peran:</strong>
                             <span class="ms-3">{{ $user['roles']['rl_name'] }}</span>
                         </div>
 

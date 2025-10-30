@@ -29,48 +29,38 @@
     </nav>
 
     <!-- Hero Section -->
-<div class="view">
+    <div class="view">
 
-    <section class="hero-section view-custom d-flex align-items-center " id="HOME">
-        <div class="container hero-content" 
-             data-aos="fade-up" 
-             data-aos-anchor="#example-anchor" 
-             data-aos-offset="500" 
-             data-aos-duration="1200">
-            <hr />
-            <h1>SELAMAT DATANG</h1>
-            <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
-            <div class="d-flex gap-3 flex-wrap">
-                @auth
-                    @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
-                        <a class="btn btn-gradient me-1" href="/dashboard">Dashboard</a>
+        <section class="hero-section view-custom d-flex align-items-center " id="HOME">
+            <div class="container hero-content" data-aos="fade-up" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
+                <hr />
+                <h1>SELAMAT DATANG</h1>
+                <p>membuka jendela dunia, satu buku untuk sejuta ilmu</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    @auth
+                        @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
+                            <a class="btn btn-gradient me-1" href="/dashboard">Dasbor</a>
+                        @else
+                            <a class="btn btn-gradient me-1" href="/home">Beranda</a>
+                        @endif
                     @else
-                        <a class="btn btn-gradient me-1" href="/home">Home</a>
-                    @endif
-                @else
-                    <a class="btn btn-outline-primary" href="/register">SIGN-UP</a>
-                    <a class="btn btn-gradient" href="/login">SIGN-IN</a>
-                @endauth
-            </div>
-        </div>
-
-        <div class="gambar z-3 "
-             data-aos="fade-up" 
-             data-aos-duration="1500">
-            <!-- From Uiverse.io by eslam-hany -->
-            <div class="book">
-                <img src="{{ asset('logo/air.jpg') }}" alt="Book">
-                <p class="kata">Bangun masa depanmu dengan selembar buku</p>
-                <h5 class="copy">copyright | Dyons</h5>
-                <div class="cover">
-                    <img src="{{ asset('logo/terjun.jpg') }}" alt="Book Cover">
+                        <a class="btn btn-outline-primary" href="/register">Daftar</a>
+                        <a class="btn btn-gradient" href="/login">Masuk</a>
+                    @endauth
                 </div>
             </div>
-        </div>
-   
 
-
-           
+            <div class="gambar z-3 " data-aos="fade-up" data-aos-duration="1500">
+                <!-- From Uiverse.io by eslam-hany -->
+                <div class="book">
+                    <img src="{{ asset('logo/air.jpg') }}" alt="Book">
+                    <p class="kata">Bangun masa depanmu dengan selembar buku</p>
+                    <h5 class="copy">copyright | Dyons</h5>
+                    <div class="cover">
+                        <img src="{{ asset('logo/terjun.jpg') }}" alt="Book Cover">
+                    </div>
+                </div>
+            </div>
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
@@ -87,69 +77,97 @@
                         });
                     });
                 });
-// Kumpulan kutipan dan tokohnya (selalu berpasangan)
-const quotes = [
-  { text: "Padi tumbuh tidak berisik.", author: "Tan Malaka" },
-  { text: "Di depan memberi teladan, di tengah membangun semangat, di belakang memberi dorongan.", author: "Ki Hajar Dewantara" },
-  { text: "Ilmu tanpa agama adalah buta, agama tanpa ilmu adalah lumpuh.", author: "BJ.Habibi" },
-  { text: "Habis gelap terbitlah terang.", author: "R.A. Kartini" },
-  { text: "Pendidikan adalah senjata paling ampuh yang dapat kamu gunakan untuk mengubah dunia.", author: "Nelson Mandela" },
-  { text: "Pendidikan bukanlah belajar tentang fakta, tetapi melatih pikiran untuk berpikir.", author: "Albert Einstein" },
-  { text: "Pendidikan bukan persiapan untuk hidup; pendidikan itu sendiri adalah kehidupan.", author: "John Dewey" },
-  { text: "Keberhasilan berasal dari 1% inspirasi dan 99% kerja keras.", author: "Thomas A. Edison" },
-  { text: "Pendidikan bukan hanya tentang membaca dan menulis, tapi tentang membangun peradaban.", author: "Anies Baswedan" },
-  { text: "Bangun versi terbaik dalam dirimu.", author: " Dion" }
-];
+                // Kumpulan kutipan dan tokohnya (selalu berpasangan)
+                const quotes = [{
+                        text: "Padi tumbuh tidak berisik.",
+                        author: "Tan Malaka"
+                    },
+                    {
+                        text: "Di depan memberi teladan, di tengah membangun semangat, di belakang memberi dorongan.",
+                        author: "Ki Hajar Dewantara"
+                    },
+                    {
+                        text: "Ilmu tanpa agama adalah buta, agama tanpa ilmu adalah lumpuh.",
+                        author: "BJ.Habibi"
+                    },
+                    {
+                        text: "Habis gelap terbitlah terang.",
+                        author: "R.A. Kartini"
+                    },
+                    {
+                        text: "Pendidikan adalah senjata paling ampuh yang dapat kamu gunakan untuk mengubah dunia.",
+                        author: "Nelson Mandela"
+                    },
+                    {
+                        text: "Pendidikan bukanlah belajar tentang fakta, tetapi melatih pikiran untuk berpikir.",
+                        author: "Albert Einstein"
+                    },
+                    {
+                        text: "Pendidikan bukan persiapan untuk hidup; pendidikan itu sendiri adalah kehidupan.",
+                        author: "John Dewey"
+                    },
+                    {
+                        text: "Keberhasilan berasal dari 1% inspirasi dan 99% kerja keras.",
+                        author: "Thomas A. Edison"
+                    },
+                    {
+                        text: "Pendidikan bukan hanya tentang membaca dan menulis, tapi tentang membangun peradaban.",
+                        author: "Anies Baswedan"
+                    },
+                    {
+                        text: "Bangun versi terbaik dalam dirimu.",
+                        author: " Dion"
+                    }
+                ];
 
-// Ambil elemen teks di HTML kamu
-const kataEl = document.querySelector(".kata");
-const copyEl = document.querySelector(".copy");
+                // Ambil elemen teks di HTML kamu
+                const kataEl = document.querySelector(".kata");
+                const copyEl = document.querySelector(".copy");
 
-// Pilih 1 pasangan acak setiap refresh
-const randomIndex = Math.floor(Math.random() * quotes.length);
-const quote = quotes[randomIndex];
+                // Pilih 1 pasangan acak setiap refresh
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const quote = quotes[randomIndex];
 
-// Tampilkan hasilnya
-kataEl.textContent = quote.text;
-copyEl.textContent = quote.author;
-
+                // Tampilkan hasilnya
+                kataEl.textContent = quote.text;
+                copyEl.textContent = quote.author;
             </script>
 
         </section>
     </div>
     <section id="about" class="mb-5" data-aos="fade-up" data-aos-duration="1500">
-    <div class="container about-custom">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h2 class="mb-3">TENTANG KAMI</h2>
-                <p>
-                    Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
-                    percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
-                </p>
-            </div>
+        <div class="container about-custom">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-3">TENTANG KAMI</h2>
+                    <p>
+                        Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
+                        percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
+                    </p>
+                </div>
 
-            <div class="col-md-4 d-flex justify-content-end d-none d-md-flex">
-                <div class="newtonsCradle">
-                    <div class="frameCover"></div>
-                    <div class="frame">
-                        <div class="sphere-wrap left">
-                            <div class="string string-left"></div>
-                            <div class="sphere"></div>
+                <div class="col-md-4 d-flex justify-content-end d-none d-md-flex">
+                    <div class="newtonsCradle">
+                        <div class="frameCover"></div>
+                        <div class="frame">
+                            <div class="sphere-wrap left">
+                                <div class="string string-left"></div>
+                                <div class="sphere"></div>
+                            </div>
+                            <div class="sphere center"></div>
+                            <div class="sphere center"></div>
+                            <div class="sphere center"></div>
+                            <div class="sphere-wrap right">
+                                <div class="string string-right"></div>
+                                <div class="sphere"></div>
+                            </div>
                         </div>
-                        <div class="sphere center"></div>
-                        <div class="sphere center"></div>
-                        <div class="sphere center"></div>
-                        <div class="sphere-wrap right">
-                            <div class="string string-right"></div>
-                            <div class="sphere"></div>
-                        </div>
+                        <div class="base"></div>
                     </div>
-                    <div class="base"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     </section>
 
@@ -161,48 +179,36 @@ copyEl.textContent = quote.author;
         <div class="section-flex">
 
             <!-- Gambar -->
-        <div class="foto text-center" data-aos="fade-up" data-aos-duration="1500">
-                <img src="{{ asset('logo/landing/ilustrasi.JPG') }}" 
-                    alt="Perpustakaan" 
-                    class="img-fluid rounded foto-img">
-        </div>
+            <div class="foto text-center" data-aos="fade-up" data-aos-duration="1500">
+                <img src="{{ asset('logo/landing/ilustrasi.JPG') }}" alt="Perpustakaan" class="img-fluid rounded foto-img">
+            </div>
 
+            <style>
+                .foto {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
 
-<style>
-   
+                .foto-img {
+                    width: auto;
+                    max-width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                }
 
+                @media (max-width: 898px) {
+                    .foto-img {
+                        width: 80%;
+                    }
+                }
 
-
-
-
-   .foto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.foto-img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-
-@media (max-width: 898px) {
-    .foto-img {
-        width: 80%;
-    }
-}
-
-@media (max-width: 576px) {
-    .foto-img {
-        width: 90%;
-    }
-}
-
-
-</style>
+                @media (max-width: 576px) {
+                    .foto-img {
+                        width: 90%;
+                    }
+                }
+            </style>
 
             <!-- Card -->
             <div class="cards">
@@ -309,9 +315,9 @@ copyEl.textContent = quote.author;
 
     <style>
         @media (max-width: 768px) {
-    iframe{
-        height: 150px;
-    }
-}
+            iframe {
+                height: 150px;
+            }
+        }
     </style>
 </x-guest-layout>

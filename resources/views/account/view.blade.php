@@ -55,12 +55,12 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th style="width: 150px">Foto Profil</th>
             <th>Nama Lengkap</th>
             <th>Peran</th>
             <th>Aktifasi</th>
-            <th style="width: 60px">Detail</th>
+            <th style="width: 60px"> </th>
         </x-slot:header>
         @forelse ($accounts as $index => $account)
             <tr class="align-middle">

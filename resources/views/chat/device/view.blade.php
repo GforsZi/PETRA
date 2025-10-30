@@ -26,12 +26,12 @@
         <x-slot:title>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Nama</th>
             <th>Nomor</th>
             <th>Kuota</th>
             <th>Status</th>
-            <th style="width: 30px">Aktifasi</th>
+            <th style="width: 30px"></th>
         </x-slot:header>
         @forelse ($devices as $index => $device)
             <tr class="align-middle">
@@ -42,11 +42,11 @@
                 <td>
                     @if ($device['status'] === 'connect')
                         <span class="text-success">
-                            Connected
+                            Terhubung
                         </span>
                     @else
                         <span class="text-danger">
-                            Disconnect
+                            Terputus
                         </span>
                     @endif
                 </td>
@@ -56,15 +56,11 @@
                             <i class="bi bi-menu-down"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li> <button class="dropdown-item" onclick="copyToClipboard('{{ $device['token'] }}')">
-                                    Copy Token
-                                </button>
-                            </li>
                             @if ($device['status'] === 'connect')
                                 <!-- Send Message -->
                                 <li>
                                     <button class="dropdown-item" onclick="openSendMessageModal('{{ $device['token'] }}')">
-                                        Send Message
+                                        Kirim pesan
                                     </button>
                                 </li>
 
@@ -72,17 +68,17 @@
                                 <li>
 
                                     <button class="dropdown-item disconnectButton" data-device-token="{{ $device['token'] }}" onclick="disconnectDevice('{{ $device['token'] }}', this)">
-                                        Disconnect
+                                        Putuskan
                                     </button>
                                 </li>
                             @else
                                 <!-- Connect -->
                                 <button class="dropdown-item disconnectButton" data-device-token="{{ $device['token'] }}" onclick="activateDevice('{{ $device['token'] }}', this)">
-                                    Connect
+                                    Hubungkan
                                 </button>
                             @endif
                             <li> <button class="dropdown-item" onclick="confirmDelete('{{ $device['token'] }}', '{{ $device['name'] }}')">
-                                    Delete
+                                    Hapus
                                 </button>
                             </li>
                         </ul>

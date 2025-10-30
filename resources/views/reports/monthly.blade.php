@@ -37,7 +37,7 @@
                                 <tr>
                                     <th>Tanggal</th>
                                     <th class="text-start">Jumlah Login</th>
-                                    <th style="width: 70px">Detail</th>
+                                    <th style="width: 70px"></th>
                                 </tr>
                             </thead>
                             <tbody>

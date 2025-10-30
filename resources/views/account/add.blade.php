@@ -85,7 +85,7 @@
 
                 <!-- From Uiverse.io by adamgiebl -->
                 <div class="d-flex justify-content-center mt-5">
-                    <button type="submit" class="btn btn-outline-primary w-100" onclick="this.disabled=true; this.form.submit();">Submit</button>
+                    <button type="submit" class="btn btn-outline-primary w-100" onclick="this.disabled=true; this.form.submit();">Kirim</button>
                 </div>
 
             </div>

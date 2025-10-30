@@ -17,9 +17,9 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Nama</th>
-            <th style="width: 50px">option</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($authors as $index => $author)
             <tr class="align-middle">

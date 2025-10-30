@@ -84,7 +84,7 @@
                 <!-- From Uiverse.io by adamgiebl -->
                 <div class="d-flex justify-content-center mt-5">
 
-                    <button type="submit" class="btn btn-outline-warning w-100" onclick="this.disabled=true; this.form.submit();">Selesai</button>
+                    <button type="submit" class="btn btn-outline-warning w-100" onclick="this.disabled=true; this.form.submit();">Kirim</button>
 
                 </div>
 

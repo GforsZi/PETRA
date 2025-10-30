@@ -35,21 +35,21 @@
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="false">
                             <i class="bi bi-sun-fill me-2" style='color: #E9AD01;'></i>
-                            Light
+                            Terang
                             <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
                             <i class="bi bi-moon-fill me-2" style='color: #E9AD01;'></i>
-                            Dark
+                            Gelap
                             <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true">
                             <i class="bi bi-circle-half me-2" style='color: #E9AD01;'></i>
-                            Auto
+                            Otomatis
                             <i class="bi bi-check-lg ms-auto d-none" style='color: #E9AD01;'></i>
                         </button>
                     </li>
@@ -94,11 +94,11 @@
                     <!--begin::Menu Footer-->
                     <li class="user-footer">
                         @if (auth()->user()?->roles['rl_admin'] ?? 0 == 1)
-                            <a href="/admin/profile" class="btn btn-default btn-flat">Profile</a>
+                            <a href="/admin/profile" class="btn btn-default btn-flat">Profil</a>
                         @else
-                            <a href="/user/profile" class="btn btn-default btn-flat">Profile</a>
+                            <a href="/user/profile" class="btn btn-default btn-flat">Profil</a>
                         @endif
-                        <a href="/logout" class="btn btn-default btn-flat float-end">Sign out</a>
+                        <a href="/logout" class="btn btn-default btn-flat float-end">Keluar</a>
                     </li>
                     <!--end::Menu Footer-->
                 </ul>

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('dewey_decimal_classfications', function (Blueprint $table) {
             $table->bigIncrements('ddc_id');
-            $table->string('ddc_code');
+            $table->string('ddc_code')->unique();
             $table->text('ddc_description');
             $table->timestamps();
             $table->unsignedBigInteger('ddc_created_by')->unsigned()->nullable();

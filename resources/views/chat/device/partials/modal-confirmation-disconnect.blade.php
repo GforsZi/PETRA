@@ -11,14 +11,14 @@
 
             <!-- Body -->
             <div class="modal-body">
-                <p id="confirmDisconnectMessage">Are you sure you want to disconnect this device?
+                <p id="confirmDisconnectMessage">Apakah Anda yakin ingin memutuskan sambungan perangkat ini?
                 </p>
             </div>
 
             <!-- Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="disconnectDeviceConfirmed()">Disconnect</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeConfirmDisconnectModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="disconnectDeviceConfirmed()">Putuskan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeConfirmDisconnectModal()">Batal</button>
             </div>
 
         </div>

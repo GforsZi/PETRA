@@ -13,8 +13,8 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi dengan angka, sesuai format klasifikasi (misalnya: 005.1 atau 959.8).">Code
-                        Klasifikasi</label>
+                        data-bs-title="Pemberitahuan" data-bs-content="wajib diisi dengan angka, sesuai format klasifikasi (misalnya: 005.1 atau 959.8).">Kode
+                    </label>
                     <div class="col-sm-10">
                         <input value="{{ old('ddc_code') }}" type="text" name="ddc_code" class="form-control @error('ddc_code') is-invalid @enderror" id="inputEmail3">
                         @error('ddc_code')
@@ -27,7 +27,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="wajib diisi, gunakan teks yang menjelaskan kategori sesuai kode tersebut.">Keterangan
-                        Klasifikasi</label>
+                    </label>
                     <div class="col-sm-10">
                         <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror" id="autoExpand">{{ old('ddc_description') }}</textarea>
                         @error('ddc_description')
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                <button type="submit" class="btn btn-outline-primary px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">Kirim</button>
             </div>
             <!--end::Footer-->
         </form>

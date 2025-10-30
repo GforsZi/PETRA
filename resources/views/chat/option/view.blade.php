@@ -17,10 +17,10 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
-            <th>Judul opsi</th>
-            <th>Tipe opsi</th>
-            <th style="width: 50px">option</th>
+            <th style="width: 10px">No</th>
+            <th>Judul</th>
+            <th>Tipe</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($options as $index => $option)
             <tr class="align-middle">

@@ -22,64 +22,64 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
-                 <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>title</th>
-                            <th>value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="align-middle">
-                            <td>Nama</td>
-                            <td>{{ $account['name'] }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>No Whatsapp</td>
-                            <td>{{ $account['usr_no_wa'] }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Peran</td>
-                            <td>{{ $account['roles']['rl_name'] ?? 'not have' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Aktivasi</td>
-                            <td>
-                                @if ($account['usr_activation'])
-                                    Sudah teraktivasi
-                                @else
-                                    Belum teraktivasi
-                                @endif
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dibuat oleh</td>
-                            <td>{{ $account['created_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Diubah oleh</td>
-                            <td>{{ $account['updated_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dihapus oleh</td>
-                            <td>{{ $account['deleted_by']['name'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dibuat Pada</td>
-                            <td>{{ $account['usr_created_at'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Diubah pada</td>
-                            <td>{{ $account['usr_updated_at'] ?? '' }}</td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>Dihapus pada</td>
-                            <td>{{ $account['usr_deleted_at'] ?? '' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                 </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Keterangan</th>
+                                <th>Isi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="align-middle">
+                                <td>Nama</td>
+                                <td>{{ $account['name'] }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>No Whatsapp</td>
+                                <td>{{ $account['usr_no_wa'] }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Peran</td>
+                                <td>{{ $account['roles']['rl_name'] ?? 'not have' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Aktivasi</td>
+                                <td>
+                                    @if ($account['usr_activation'])
+                                        Sudah teraktivasi
+                                    @else
+                                        Belum teraktivasi
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Dibuat oleh</td>
+                                <td>{{ $account['created_by']['name'] ?? '' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Diubah oleh</td>
+                                <td>{{ $account['updated_by']['name'] ?? '' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Dihapus oleh</td>
+                                <td>{{ $account['deleted_by']['name'] ?? '' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Dibuat Pada</td>
+                                <td>{{ $account['usr_created_at'] ?? '' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Diubah pada</td>
+                                <td>{{ $account['usr_updated_at'] ?? '' }}</td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>Dihapus pada</td>
+                                <td>{{ $account['usr_deleted_at'] ?? '' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="d-flex m-2 gap-2">
@@ -98,45 +98,44 @@
             </div>
         </div>
     </div>
-   <div class="card mb-4 w-100 collapse" id="history">
-    <div class="card-header">
-        <h3 class="card-title">Riwayat login Akun</h3>
-    </div>
+    <div class="card mb-4 w-100 collapse" id="history">
+        <div class="card-header">
+            <h3 class="card-title">Riwayat login Akun</h3>
+        </div>
 
-    <div class="card-body p-0">
-        <!-- Gunakan wrapper Bootstrap bawaan -->
-        <div class="table-responsive">
-            <table class="table table-striped mb-0">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Ip address</th>
-                        <th>Detail Perangkat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($account['login'] as $userlogin)
-                        <tr class="align-middle">
-                            <td>{{ $userlogin->usr_lg_logged_in_at }}</td>
-                            <td>{{ $userlogin->usr_lg_ip_address }}</td>
-                            <td>{{ $userlogin->usr_lg_user_agent }}</td>
+        <div class="card-body p-0">
+            <!-- Gunakan wrapper Bootstrap bawaan -->
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Ip address</th>
+                            <th>Detail Perangkat</th>
                         </tr>
-                    @empty
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($account['login'] as $userlogin)
+                            <tr class="align-middle">
+                                <td>{{ $userlogin->usr_lg_logged_in_at }}</td>
+                                <td>{{ $userlogin->usr_lg_ip_address }}</td>
+                                <td>{{ $userlogin->usr_lg_user_agent }}</td>
+                            </tr>
+                        @empty
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
     <style>
         @media (max-width: 991.98px) {
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
     </style>
 
     <div class="modal fade" id="banConfirmation{{ $account['usr_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

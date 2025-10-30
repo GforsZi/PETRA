@@ -14,12 +14,12 @@
             </form>
         </x-slot:title>
         <x-slot:header>
-            <th style="width: 10px">#</th>
+            <th style="width: 10px">No</th>
             <th>Peminjam</th>
             <th>Tanggal pengajuan</th>
             <th>Tujuan</th>
             <th>Status</th>
-            <th style="width: 50px">Detail</th>
+            <th style="width: 50px"></th>
         </x-slot:header>
         @forelse ($submissons as $index => $submission)
             <tr class="align-middle">

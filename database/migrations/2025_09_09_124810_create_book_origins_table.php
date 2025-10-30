@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('book_origins', function (Blueprint $table) {
             $table->bigIncrements('bk_orgn_id');
-            $table->string('bk_orgn_name');
+            $table->string('bk_orgn_name')->unique();
             $table->timestamps();
             $table->unsignedBigInteger('bk_orgn_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('bk_orgn_deleted_by')->unsigned()->nullable();

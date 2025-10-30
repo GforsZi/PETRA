@@ -25,7 +25,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Ketersediaan buku, untuk mengatur setiap buku yang ada apakah bisa dipinjam atau tidak.">
-                        Ketersediaan Buku
+                        Ketersediaan
                     </label>
                     <div class="col-sm-10">
                         <select name="bk_permission" class="form-select @error('bk_permission') is-invalid @enderror" required aria-label="Default select example">
@@ -42,7 +42,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Untuk output yang akan tampil berbentuk apa kepada user, apakah buku fisik atau versi digital.">
-                        Jenis Buku
+                        Jenis
                     </label>
                     <div class="col-sm-10">
                         <select name="bk_type" id="image-option" class="form-select @error('bk_type') is-invalid @enderror" required aria-label="Default select example">
@@ -59,7 +59,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="Unggah file gambar (jpg, jpeg, png) maksimal 2 MB untuk dijadikan sampul buku.">
-                        Sampul Buku
+                        Sampul
                     </label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
@@ -70,7 +70,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                                 data-bs-title="Pemberitahuan" data-bs-content="Unggah file PDF e-book (maksimal 6 MB). Pastikan file sesuai dengan isi buku dan tidak rusak.">
-                                PDF eBuku
+                                PDF
                             </label>
                             <div class="col-sm-10" data-bs-container="body">
                                 <input type="file" id="inputImage" class="form-control @error('file_pdf') is-invalid @enderror" name="file_pdf" accept="application/pdf">
@@ -85,7 +85,7 @@
                     <label for="sibn" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
                         data-bs-content="Masukkan nomor ISBN yang valid (misalnya: 978-602-441-123-4). ISBN harus unik dan sesuai format standar internasional. Kosongkan jika buku tidak memiliki ISBN.">
-                        ISBN Buku
+                        ISBN
                     </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_isbn" value="{{ $book['bk_isbn'] }}" class="form-control @error('bk_isbn') is-invalid @enderror" id="sibn">
@@ -94,7 +94,7 @@
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Wajib diisi. Tulis judul lengkap buku sesuai sampul depan. Hindari singkatan atau simbol yang tidak perlu.">
-                        Judul Buku
+                        Judul
                     </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_title" value="{{ $book['bk_title'] }}" class="form-control @error('bk_title') is-invalid @enderror" id="title">
@@ -108,7 +108,7 @@
                 <div class="row mb-3">
                     <label for="description" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Opsional. Tambahkan deskripsi singkat mengenai isi atau tujuan buku (maksimal 65.535 karakter).">
-                        Keterangan Buku
+                        Keterangan
                     </label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror" id="autoExpand">{{ $book['bk_description'] }}</textarea>
@@ -117,7 +117,7 @@
                 <div class="row mb-3">
                     <label for="price" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Masukkan harga buku dalam angka (tanpa titik atau koma). Bisa dikosongkan jika buku tidak dijual.">
-                        Harga Perbuku
+                        Harga Satuan
                     </label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_unit_price" value="{{ $book['bk_unit_price'] }}" class="form-control @error('bk_unit_price') is-invalid @enderror" id="price">
@@ -126,7 +126,7 @@
                 <div class="row mb-3">
                     <label for="page" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Masukkan jumlah halaman sesuai buku aslinya.">
-                        Halaman Buku
+                        Halaman
                     </label>
                     <div class="col-sm-10">
                         <input type="number" name="bk_page" value="{{ $book['bk_page'] }}" class="form-control @error('bk_page') is-invalid @enderror" id="page">
@@ -135,7 +135,7 @@
                 <div class="row mb-3">
                     <label for="edition" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Tuliskan edisi atau volume buku, misalnya Edisi Revisi Kedua atau Volume 1.">
-                        Edisi Buku
+                        Edisi
                     </label>
                     <div class="col-sm-10">
                         <input type="text" name="bk_edition_volume" value="{{ $book['bk_edition_volume'] }}" class="form-control @error('bk_edition_volume') is-invalid @enderror"
@@ -145,7 +145,7 @@
                 <div class="row mb-3">
                     <label for="published" class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Masukkan tahun terbit (4 digit, antara 1901-sekarang).">
-                        Tahun Terbit Buku
+                        Tahun Terbit
                     </label>
                     <div class="col-sm-10">
                         <input type="number" id="published" min="1901" value="{{ $book['bk_published_year'] }}" max="{{ date('Y') }}" step="1" name="bk_published_year"
@@ -155,7 +155,7 @@
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Pilih penerbit dari daftar yang tersedia. Pastikan penerbit sudah terdaftar di sistem.">
-                        Penerbit Buku
+                        Penerbit
                     </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
@@ -170,7 +170,7 @@
                 <div class="mb-3 row position-relative">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Pilih asal buku, seperti Pembelian, Donasi, atau Bantuan Sekolah.">
-                        Sumber Buku
+                        Sumber
                     </label>
                     <div class="col-sm-10 position-relative">
                         <div class="position-relative">
@@ -185,7 +185,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan" data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">
-                        Jurusan Buku
+                        Jurusan
                     </label>
                     <div class="col-sm-10">
                         <select name="bk_major_id" class="form-select @error('bk_major_id') is-invalid @enderror" aria-label="Default select example">
@@ -207,7 +207,7 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
                         data-bs-content="Tuliskan nama penulis utama buku, atau tim penyusun jika ditulis oleh beberapa orang. Gunakan format nama lengkap tanpa gelar akademik, misalnya: Budi Santoso atau Tim Penulis Pusat Kurikulum.">
-                        Penulis Buku
+                        Penulis
                     </label>
                     <div class="col-sm-10 d-flex align-items-start">
                         <div class="flex-grow-1">
@@ -235,7 +235,7 @@
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
                         data-bs-content="Pilih kode klasifikasi buku berdasarkan sistem Dewey Decimal Classification (DDC), misalnya 499,221 untuk Bahasa Indonesia atau 510 untuk Matematika. Klasifikasi ini membantu pengelompokan buku di perpustakaan agar lebih mudah dicari.">
-                        Klasifikasi Buku
+                        Klasifikasi
                     </label>
                     <div class="col-sm-10 d-flex align-items-start">
                         <div class="flex-grow-1">
@@ -264,7 +264,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Pilih Penulis</h5>
+                                    Pilih penulis</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
@@ -289,7 +289,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Pilih Klasifikasi</h5>
+                                    Pilih klasifikasi</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
@@ -310,7 +310,7 @@
                     </div>
                 </div>
                 <div div class="card-footer">
-                    <button type="submit" class="btn btn-outline-warning px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">submit</button>
+                    <button type="submit" class="btn btn-outline-warning px-5" id="tombol" onclick="this.disabled=true; this.form.submit();">Kirim</button>
                 </div>
                 <!--end::Footer-->
         </form>
@@ -561,7 +561,7 @@
             if (this.value === '2') {
                 container.innerHTML = `
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">PDF eBuku</label>
+                <label class="col-sm-2 col-form-label">PDF</label>
                 <div class="col-sm-10">
                     <input type="file"
                         id="inputImage"

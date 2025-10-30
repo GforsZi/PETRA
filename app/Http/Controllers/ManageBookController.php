@@ -500,7 +500,7 @@ class ManageBookController extends Controller
     public function add_book_major_system(Request $request)
     {
         $validateData = $request->validate([
-            'bk_mjr_class' => 'required | regex:/^[0-9]+$/ | min:0',
+            'bk_mjr_class' => 'required | in:1,2,3',
             'bk_mjr_major' => 'required | string | max:255',
         ]);
 
@@ -518,7 +518,7 @@ class ManageBookController extends Controller
     {
         $major = BookMajor::find($id);
         $validateData = $request->validate([
-            'bk_mjr_class' => 'sometimes | required | regex:/^[0-9]+$/ | min:0',
+            'bk_mjr_class' => 'sometimes | required | in:1,2,3',
             'bk_mjr_major' => 'sometimes | required | string | max:255',
         ]);
 

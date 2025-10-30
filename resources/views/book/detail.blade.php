@@ -48,132 +48,131 @@
         <div class="card-body p-0">
             <div class="table-responsive">
 
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Perizinan</td>
-                        <td>
-                            @if ($book['bk_permission'] == '1')
-                                Dapat dipinjam
-                            @elseif ($book['bk_permission'] == '2')
-                                Tidak dapat dipinjam
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Judul</td>
-                        <td>{{ $book['bk_title'] ?? '' }}</td>
-                    </tr>
-                    @if ($book['major'])
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Keterangan</th>
+                            <th>Isi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr class="align-middle">
-                            <td>Jurusan</td>
-                            <td>{{ $book['major']['bk_mjr_major'] . ' | ' . $book['major']['bk_mjr_class'] ?? '' }} |
+                            <td>Perizinan</td>
+                            <td>
+                                @if ($book['bk_permission'] == '1')
+                                    Dapat dipinjam
+                                @elseif ($book['bk_permission'] == '2')
+                                    Tidak dapat dipinjam
+                                @endif
                             </td>
                         </tr>
-                    @endif
-                    <tr class="align-middle">
-                        <td>ISBN</td>
-                        <td>{{ $book['bk_isbn'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Jenis</td>
-                        <td>
-                            @if ($book['bk_type'] == '1')
-                                Buku Fisik
-                            @else
-                                Buku Digital
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Klasifikasi</td>
-                        <td>
-                            @foreach ($book['deweyDecimalClassfications'] as $ddc)
-                                <span class="badge text-bg-warning">{{ $ddc->ddc_code }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Penulis</td>
-                        <td>
-                            @foreach ($book['authors'] as $author)
-                                <span class="badge text-bg-primary">{{ $author->athr_name }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Penerbit</td>
-                        <td>
-                            {{ $book['publisher']['pub_name'] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Alamat penerbit</td>
-                        <td>
-                            {{ $book['publisher']['pub_address'] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Tahun terbit</td>
-                        <td>{{ $book['bk_published_year'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Pemberian</td>
-                        <td>
-                            {{ $book['origin']['bk_orgn_name'] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Edisi</td>
-                        <td>
-                            {{ $book['bk_edition_volume'] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Harga Satuan</td>
-                        <td>
-                            {{ 'Rp' . number_format($book['bk_unit_price'] ?? 0, 0, ',', '.') ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Harga Keseluruhan</td>
-                        <td>
-                            {{ 'Rp' . number_format($book['bk_unit_price'] * $book['bookCopies']->count() ?? 0, 0, ',', '.') ?? '' }}
-                        </td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Dibuat oleh</td>
-                        <td>{{ $book['created_by']['name'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Diubah oleh</td>
-                        <td>{{ $book['updated_by']['name'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Dihapus oleh</td>
-                        <td>{{ $book['deleted_by']['name'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Dibuat Pada</td>
-                        <td>{{ $book['bk_created_at'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Diubah pada</td>
-                        <td>{{ $book['bk_updated_at'] ?? '' }}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Dihapus pada</td>
-                        <td>{{ $book['bk_deleted_at'] ?? '' }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr class="align-middle">
+                            <td>Judul</td>
+                            <td>{{ $book['bk_title'] ?? '' }}</td>
+                        </tr>
+                        @if ($book['major'])
+                            <tr class="align-middle">
+                                <td>Jurusan</td>
+                                <td>{{ $book['major']['bk_mjr_major'] . ' | ' . $book['major']['bk_mjr_class'] ?? '' }} |
+                                </td>
+                            </tr>
+                        @endif
+                        <tr class="align-middle">
+                            <td>ISBN</td>
+                            <td>{{ $book['bk_isbn'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Jenis</td>
+                            <td>
+                                @if ($book['bk_type'] == '1')
+                                    Buku Fisik
+                                @else
+                                    Buku Digital
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Klasifikasi</td>
+                            <td>
+                                @foreach ($book['deweyDecimalClassfications'] as $ddc)
+                                    <span class="badge text-bg-warning">{{ $ddc->ddc_code }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Penulis</td>
+                            <td>
+                                @foreach ($book['authors'] as $author)
+                                    <span class="badge text-bg-primary">{{ $author->athr_name }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Penerbit</td>
+                            <td>
+                                {{ $book['publisher']['pub_name'] ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Alamat penerbit</td>
+                            <td>
+                                {{ $book['publisher']['pub_address'] ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Tahun terbit</td>
+                            <td>{{ $book['bk_published_year'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Pemberian</td>
+                            <td>
+                                {{ $book['origin']['bk_orgn_name'] ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Edisi</td>
+                            <td>
+                                {{ $book['bk_edition_volume'] ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Harga Satuan</td>
+                            <td>
+                                {{ 'Rp' . number_format($book['bk_unit_price'] ?? 0, 0, ',', '.') ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Harga Keseluruhan</td>
+                            <td>
+                                {{ 'Rp' . number_format($book['bk_unit_price'] * $book['bookCopies']->count() ?? 0, 0, ',', '.') ?? '' }}
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Dibuat oleh</td>
+                            <td>{{ $book['created_by']['name'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Diubah oleh</td>
+                            <td>{{ $book['updated_by']['name'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Dihapus oleh</td>
+                            <td>{{ $book['deleted_by']['name'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Dibuat Pada</td>
+                            <td>{{ $book['bk_created_at'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Diubah pada</td>
+                            <td>{{ $book['bk_updated_at'] ?? '' }}</td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td>Dihapus pada</td>
+                            <td>{{ $book['bk_deleted_at'] ?? '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -208,255 +207,251 @@
             <div class="card-body p-0" id="bk_cp">
                 <div class="table-responsive">
 
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%">ID salinan</th>
+                                <th>Status</th>
+                                <th style="width: 10%">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($book['bookCopies'] as $bk_cp)
+                                <tr class="align-middle" id="bk_cp_{{ $bk_cp->bk_cp_id }}">
+                                    <td>{{ $bk_cp->bk_cp_number }}</td>
+                                    <td>
+                                        @if ($bk_cp->bk_cp_status == '1')
+                                            Tersedia
+                                        @elseif ($bk_cp->bk_cp_status == '2')
+                                            Dipinjam
+                                        @elseif ($bk_cp->bk_cp_status == '3')
+                                            Hilang
+                                        @else
+                                            Rusak
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="dropdown dropstart">
+                                            <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-menu-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
+                                                        Label
+                                                    </a>
+                                                </li>
+                                                <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#changeStatus{{ $bk_cp->bk_cp_id }}">Ubah
+                                                        Status</a>
+                                                </li>
+                                                <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteConfirmation{{ $bk_cp->bk_cp_id }}">Hapus</a>
+                                                </li>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%">ID salinan</th>
-                            <th>Status</th>
-                            <th style="width: 10%">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($book['bookCopies'] as $bk_cp)
-                            <tr class="align-middle" id="bk_cp_{{ $bk_cp->bk_cp_id }}">
-                                <td>{{ $bk_cp->bk_cp_number }}</td>
-                                <td>
-                                    @if ($bk_cp->bk_cp_status == '1')
-                                        Tersedia
-                                    @elseif ($bk_cp->bk_cp_status == '2')
-                                        Dipinjam
-                                    @elseif ($bk_cp->bk_cp_status == '3')
-                                        Hilang
-                                    @else
-                                        Rusak
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="dropdown dropstart">
-                                        <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-menu-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#LabelBook{{ $bk_cp->bk_cp_id }}">
-                                                    Label
-                                                </a>
-                                            </li>
-                                            <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#changeStatus{{ $bk_cp->bk_cp_id }}">Ubah
-                                                    Status</a>
-                                            </li>
-                                            <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteConfirmation{{ $bk_cp->bk_cp_id }}">Hapus</a>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <div class="modal fade" id="deleteConfirmation{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                        aria-labelledby="deleteConfirmation{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
-                                        <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
-                                            @csrf
-                                            @method('DELETE')
-                                            <div class="modal-content rounded-3 shadow">
-                                                <div class="modal-body p-4 text-center">
-                                                    <h5 class="mb-0">Menghapus data..</h5>
-                                                    <p class="mb-0">Apakah anda yakin untuk
-                                                        menghapus
-                                                        salinan ini?
-                                                    </p>
-                                                    <input type="hidden" value="{{ $book['bk_id'] }}" name="book_id" />
-                                                </div>
-                                                <div class="modal-footer flex-nowrap p-0">
-                                                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                                                        data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                  <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-3 shadow p-3">
-            <!-- Tambahan pembungkus scroll -->
-            <div class="table-responsive">
-                <div class="labelcode mx-auto" style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
-
-                    <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
-                        <tr style="height:90px;">
-                            <td class="p-0 m-0" style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
-                                <img src="{{ asset('logo/landing/smk.png') }}" alt="Logo Petra" style="width:80px; height:80px;" class="rounded-circle">
-                            </td>
-                            <td style="text-align:center; vertical-align:middle;">
-                                <h5 class="fw-bold mb-0">
-                                    PERPUSTAKAAN
-                                </h5>
-                                <h5 class="fw-bold mb-0">SMK
-                                    MAHAPUTRA
-                                </h5>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="text-center py-3">
-                        <h4 class="fw-bold mb-1">
-                            @php
-                                $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
-                            @endphp
-                            @php
-                                $abbrs = $book->authors
-                                    ->filter()
-                                    ->map(function ($author) {
-                                        $name = trim($author->athr_name ?? '');
-                                        if ($name === '') {
-                                            return null;
-                                        }
-                                        $parts = preg_split('/\s+/', $name);
-
-                                        $filtered = array_values(
-                                            array_filter($parts, function ($part) {
-                                                return !preg_match(
-                                                    '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
-                                                    $part,
-                                                    );
-                                                }),
-                                                );
-
-                                                $main = $filtered[0] ?? ($parts[0] ?? '');
-                                                $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
-                                                $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
-
-                                                return $abbr ?: null;
-                                    })
-                                    ->filter()
-                                    ->values();
-                            @endphp
-
-                            <span>{{ $ddcs ?: '-' }}</span>
-                        </h4>
-                        <h5 class="fw-bold mb-1">
-                            <span>{{ $abbrs->implode('.') }}</span>
-                        </h5>
-                        <p class="mb-1">
-                            {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
-                        </p>
-                        <p class="mb-0 fw-bold">
-                            {{ $bk_cp->bk_cp_number }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-                <div class="modal-footer flex-nowrap p-0 mt-3">
-                    <button type="button"
-                    class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0"
-                    data-bs-dismiss="modal">Tutup</button>
-                </div>
-        </div>
-        </div>
-    </div>
-
-    @if ($book['bk_permission'] == '1')
-        <style>
-            .labelcode {
-                background-color: white;
-                color: black;
-            }
-        </style>
-    @elseif ($book['bk_permission'] == '2')
-        <style>
-            .labelcode {
-                background-color: #EF5A6F;
-                color: black;
-            }
-        </style>
-    @endif
-</div>
-
-                                    <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                        aria-labelledby="changeStatus{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
-                                        <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/edit" method="post" class="modal-dialog modal-dialog-centered">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-content rounded-3 shadow">
-                                                <div class="modal-body p-4 text-center">
-                                                    <h5 class="mb-3">Ubah Status</h5>
-                                                    <input type="hidden" value="{{ $book['bk_id'] }}" name="book_id">
-                                                    <select name="bk_cp_status" class="form-select @error('bk_cp_status') is-invalid @enderror" required aria-label="Default select example">
-                                                        <option value="1">Tersedia
-                                                        </option>
-                                                        <option value="2">Dipinjam</option>
-                                                        <option value="3">Hilang</option>
-                                                        <option value="4">Rusak</option>
-                                                    </select>
-                                                </div>
-                                                <div class="modal-footer flex-nowrap p-0">
-                                                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
-                                                        data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                                        onclick="this.disabled=true; this.form.submit();"><strong>Ubah</strong></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal fade" id="deleteCopiesModal" tabindex="-1" aria-labelledby="deleteCopiesModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <form action="/system/book/copy/delete/many" method="POST" class="modal-content shadow-sm">
+                                            </ul>
+                                        </div>
+                                        <div class="modal fade" id="deleteConfirmation{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                            aria-labelledby="deleteConfirmation{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
+                                            <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
                                                 @csrf
                                                 @method('DELETE')
-
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteCopiesModalLabel">Hapus Salinan
-                                                        Buku
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                    <p class="text-muted mb-2">
-                                                        Pilih salinan yang ingin Anda hapus. Tekan
-                                                        <kbd>Ctrl</kbd> (atau <kbd>Cmd</kbd> di Mac)
-                                                        untuk memilih lebih dari satu.
-                                                    </p>
-
-                                                    <div class="mb-3">
-                                                        <label for="copy_ids" class="form-label fw-semibold">Pilih
-                                                            Salinan Buku</label>
-                                                        <select name="copy_ids[]" id="copy_ids" class="form-select" multiple required>
-                                                            @foreach ($book['bookCopies'] as $copy)
-                                                                <option value="{{ $copy->bk_cp_id }}">
-                                                                    {{ $copy->bk_cp_number }} —
-                                                                    {{ $copy->book->bk_title ?? 'Tidak diketahui' }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                <div class="modal-content rounded-3 shadow">
+                                                    <div class="modal-body p-4 text-center">
+                                                        <h5 class="mb-0">Menghapus data..</h5>
+                                                        <p class="mb-0">Apakah anda yakin untuk
+                                                            menghapus
+                                                            salinan ini?
+                                                        </p>
+                                                        <input type="hidden" value="{{ $book['bk_id'] }}" name="book_id" />
                                                     </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="bi bi-trash" onclick="this.disabled=true; this.form.submit();"></i>
-                                                        Hapus Terpilih
-                                                    </button>
+                                                    <div class="modal-footer flex-nowrap p-0">
+                                                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                                            onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="w-100 text-center">404 | data tidak
-                                    ditemukan</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
+
+                                        <div class="modal fade" id="LabelBook{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                            aria-labelledby="LabelBook{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content rounded-3 shadow p-3">
+                                                    <!-- Tambahan pembungkus scroll -->
+                                                    <div class="table-responsive">
+                                                        <div class="labelcode mx-auto" style="width: 450px; border: 2px solid black; font-family: Arial, sans-serif;">
+
+                                                            <table style="width:100%; border-bottom:2px solid black; border-collapse: collapse;">
+                                                                <tr style="height:90px;">
+                                                                    <td class="p-0 m-0" style="width:100px; border-right:2px solid black; text-align:center; vertical-align:middle;">
+                                                                        <img src="{{ asset('logo/landing/smk.png') }}" alt="Logo Petra" style="width:80px; height:80px;" class="rounded-circle">
+                                                                    </td>
+                                                                    <td style="text-align:center; vertical-align:middle;">
+                                                                        <h5 class="fw-bold mb-0">
+                                                                            PERPUSTAKAAN
+                                                                        </h5>
+                                                                        <h5 class="fw-bold mb-0">SMK
+                                                                            MAHAPUTRA
+                                                                        </h5>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                            <div class="text-center py-3">
+                                                                <h4 class="fw-bold mb-1">
+                                                                    @php
+                                                                        $ddcs = $book['deweyDecimalClassfications']->pluck('ddc_code')->take(2)->implode('.');
+                                                                    @endphp
+                                                                    @php
+                                                                        $abbrs = $book->authors
+                                                                            ->filter()
+                                                                            ->map(function ($author) {
+                                                                                $name = trim($author->athr_name ?? '');
+                                                                                if ($name === '') {
+                                                                                    return null;
+                                                                                }
+                                                                                $parts = preg_split('/\s+/', $name);
+
+                                                                                $filtered = array_values(
+                                                                                    array_filter($parts, function ($part) {
+                                                                                        return !preg_match(
+                                                                                            '/^(?:[A-Za-z]\.|H\.|M\.|Dr\.|Prof\.|Ir\.|Hj\.|KH\.|Ust\.|Ustadz\.|S\.Ag\.|S\.Pd\.|S\.Kom\.)$/i',
+                                                                                            $part,
+                                                                                        );
+                                                                                    }),
+                                                                                );
+
+                                                                                $main = $filtered[0] ?? ($parts[0] ?? '');
+                                                                                $onlyLetters = preg_replace('/[^[:alpha:]]/u', '', $main);
+                                                                                $abbr = strtoupper(mb_substr($onlyLetters, 0, 3));
+
+                                                                                return $abbr ?: null;
+                                                                            })
+                                                                            ->filter()
+                                                                            ->values();
+                                                                    @endphp
+
+                                                                    <span>{{ $ddcs ?: '-' }}</span>
+                                                                </h4>
+                                                                <h5 class="fw-bold mb-1">
+                                                                    <span>{{ $abbrs->implode('.') }}</span>
+                                                                </h5>
+                                                                <p class="mb-1">
+                                                                    {{ Str::substr(strtolower($book['bk_title']), 0, 1) ?? '' }}
+                                                                </p>
+                                                                <p class="mb-0 fw-bold">
+                                                                    {{ $bk_cp->bk_cp_number }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer flex-nowrap p-0 mt-3">
+                                                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-12 py-3 m-0 rounded-0" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @if ($book['bk_permission'] == '1')
+                                            <style>
+                                                .labelcode {
+                                                    background-color: white;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        @elseif ($book['bk_permission'] == '2')
+                                            <style>
+                                                .labelcode {
+                                                    background-color: #EF5A6F;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        @endif
+                </div>
+
+                <div class="modal fade" id="changeStatus{{ $bk_cp->bk_cp_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="changeStatus{{ $bk_cp->bk_cp_id }}Label" aria-hidden="true">
+                    <form action="/system/book/copy/{{ $bk_cp->bk_cp_id }}/edit" method="post" class="modal-dialog modal-dialog-centered">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-content rounded-3 shadow">
+                            <div class="modal-body p-4 text-center">
+                                <h5 class="mb-3">Ubah Status</h5>
+                                <input type="hidden" value="{{ $book['bk_id'] }}" name="book_id">
+                                <select name="bk_cp_status" class="form-select @error('bk_cp_status') is-invalid @enderror" required aria-label="Default select example">
+                                    <option value="1">Tersedia
+                                    </option>
+                                    <option value="2">Dipinjam</option>
+                                    <option value="3">Hilang</option>
+                                    <option value="4">Rusak</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer flex-nowrap p-0">
+                                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                    onclick="this.disabled=true; this.form.submit();"><strong>Ubah</strong></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal fade" id="deleteCopiesModal" tabindex="-1" aria-labelledby="deleteCopiesModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <form action="/system/book/copy/delete/many" method="POST" class="modal-content shadow-sm">
+                            @csrf
+                            @method('DELETE')
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteCopiesModalLabel">Hapus Salinan
+                                    Buku
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p class="text-muted mb-2">
+                                    Pilih salinan yang ingin Anda hapus. Tekan
+                                    <kbd>Ctrl</kbd> (atau <kbd>Cmd</kbd> di Mac)
+                                    untuk memilih lebih dari satu.
+                                </p>
+
+                                <div class="mb-3">
+                                    <label for="copy_ids" class="form-label fw-semibold">Pilih
+                                        Salinan Buku</label>
+                                    <select name="copy_ids[]" id="copy_ids" class="form-select" multiple required>
+                                        @foreach ($book['bookCopies'] as $copy)
+                                            <option value="{{ $copy->bk_cp_id }}">
+                                                {{ $copy->bk_cp_number }} —
+                                                {{ $copy->book->bk_title ?? 'Tidak diketahui' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash" onclick="this.disabled=true; this.form.submit();"></i>
+                                    Hapus Terpilih
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3" class="w-100 text-center">404 | data tidak
+                        ditemukan</td>
+                </tr>
+    @endforelse
+    </tbody>
+    </table>
+    </div>
+    <!-- /.card-body -->
+    </div>
     @endif
     <div class="modal fade" id="deleteConfirmation{{ $book['bk_id'] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="deleteConfirmation{{ $book['bk_id'] }}Label" aria-hidden="true">
