@@ -194,8 +194,8 @@ class ManageBookController extends Controller
             'bk_publisher_id' => 'nullable | exists:publishers,pub_id',
             'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
-            'image' => 'nullable|image|max:2048',
-            'file_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'image' => 'nullable|image|max:4096',
+            'file_pdf' => 'nullable|file|mimes:pdf|max:4096',
         ]);
 
         if ($request->hasFile('image')) {
@@ -314,8 +314,8 @@ class ManageBookController extends Controller
             'bk_publisher_id' => 'sometimes | nullable | exists:publishers,pub_id',
             'bk_major_id' => 'sometimes | integer | min:0 | nullable | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
-            'image' => 'sometimes|nullable|image|max:2048',
-            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:2048',
+            'image' => 'sometimes|nullable|image|max:4096',
+            'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:4096',
         ]);
 
         if ($request->bk_isbn != $book['bk_isbn']) {
@@ -404,7 +404,7 @@ class ManageBookController extends Controller
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
 
-        return redirect('/manage/book/')->with('success', 'Buku Berhasil Diubah');
+        return redirect('/manage/book/' . $id . '/detail')->with('success', 'Buku Berhasil Diubah');
     }
 
     public function delete_book_system(Request $request, $id)

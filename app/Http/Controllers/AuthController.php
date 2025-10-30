@@ -37,25 +37,31 @@ class AuthController extends Controller
 
     public function login_system(Request $request)
     {
-        $credentials = $request->validate([
-            'usr_no_wa' => 'required | max:255',
-            'password' => 'required | max:255',
-        ]);
+        try {
 
-        if (FacadesAuth::attempt($credentials)) {
-            $request->session()->regenerate();
+            $credentials = $request->validate([
+                'usr_no_wa' => 'required | max:255',
+                'password' => 'required | max:255',
+            ]);
 
-            $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
-            if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
-                return redirect('/home')->with('success', 'Login success!');
-            } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
-                return redirect('/dashboard')->with('success', 'Login success!');
+            if (FacadesAuth::attempt($credentials)) {
+                $request->session()->regenerate();
+
+                $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
+                if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
+                    return redirect('/home')->with('success', 'Login success!');
+                } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
+                    return redirect('/dashboard')->with('success', 'Login success!');
+                } else {
+                    return redirect()->intended('/forbidden')->with('success', 'Login success!');
+                }
             } else {
-                return redirect()->intended('/forbidden')->with('success', 'Login success!');
+                throw new \Exception('Terjadi kesalahan pada input peminjaman');
             }
-        }
+        } catch (\Throwable $th) {
 
-        return back()->with('errorLogin', 'Login failed!');
+            return redirect('/login')->with('error', 'Login gagal!');
+        }
     }
 
     public function logout_system(Request $request)

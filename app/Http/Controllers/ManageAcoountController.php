@@ -86,7 +86,7 @@ class ManageAcoountController extends Controller
 
     public function edit_account_page($id)
     {
-        $account = User::where('usr_id', $id)->with('roles')->get();
+        $account = User::where('usr_id', $id)->with('roles')->get()->toArray();
         $roles = Role::get();
         return view('account.edit', [
             'title' => 'Halaman Ubah Akun',

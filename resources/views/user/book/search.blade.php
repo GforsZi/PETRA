@@ -25,51 +25,143 @@
         <div class="border border-body rounded p-2">
             <h5 class="mb-2"><b>Buku Terbaru</b></h5>
 
-           <div class="overflow-auto">
-    <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
-        @foreach ($book_new as $bk_nw)
-            <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" 
-                 style="width: 140px; flex: 0 0 auto; overflow: hidden;">
-                <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">
-                    <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}" 
-                         class="object-fit-contain" 
-                         style="height: 167px; width: 128px;">
-                    <p class="text-body text-start text-wrap mt-1 mb-0" 
-                       title="{{ $bk_nw->bk_title }}"
-                       style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+            <div class="overflow-auto">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
+                    @foreach ($book_new as $bk_nw)
+                        <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $bk_nw->bk_id }}/detail" style="text-decoration: none;">
+                                <img src="{{ asset($bk_nw->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $bk_nw->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
                        overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
                        -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
-                       {{ $bk_nw->bk_title }}
-                    </p>
-                </a>
+                                    {{ $bk_nw->bk_title }}
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        @endforeach
+
+        </div>
     </div>
-</div>
+    <div class="mt-3">
+        <div class="border border-body rounded p-2">
+            <h5 class="mb-2"><b>Ebook Terbaru</b></h5>
+
+            <div class="overflow-auto">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
+                    @foreach ($book_pdf as $ebk)
+                        <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $ebk->bk_id }}/detail" style="text-decoration: none;">
+                                <img src="{{ asset($ebk->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $ebk->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                       overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                       -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                                    {{ $ebk->bk_title }}
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="border border-body rounded p-2">
+            <h5 class="mb-2"><b>Buku fisik Terbaru</b></h5>
+
+            <div class="overflow-auto">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
+                    @foreach ($book as $ebk)
+                        <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $ebk->bk_id }}/detail" style="text-decoration: none;">
+                                <img src="{{ asset($ebk->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $ebk->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                       overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                       -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                                    {{ $ebk->bk_title }}
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="border border-body rounded p-2">
+            <h5 class="mb-2"><b>Buku Umum</b></h5>
+
+            <div class="overflow-auto">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
+                    @foreach ($book_general as $ebk)
+                        <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $ebk->bk_id }}/detail" style="text-decoration: none;">
+                                <img src="{{ asset($ebk->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $ebk->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                       overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                       -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                                    {{ $ebk->bk_title }}
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="border border-body rounded p-2">
+            <h5 class="mb-2"><b>Buku Paket</b></h5>
+
+            <div class="overflow-auto">
+                <div class="row gx-1 flex-nowrap overflow-x-scroll justify-content-start">
+                    @foreach ($book_package as $ebk)
+                        <div class="book col border-0 mx-2 text-center rounded pt-2 custom-card" style="width: 140px; flex: 0 0 auto; overflow: hidden;">
+                            <a href="/search/book/{{ $ebk->bk_id }}/detail" style="text-decoration: none;">
+                                <img src="{{ asset($ebk->bk_img_url ?? 'logo/book_placeholder.jpg') }}" class="object-fit-contain" style="height: 167px; width: 128px;">
+                                <p class="text-body text-start text-wrap mt-1 mb-0" title="{{ $ebk->bk_title }}"
+                                    style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                       overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                       -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                                    {{ $ebk->bk_title }}
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
         </div>
     </div>
 
     <style>
-  body {
-        background-color: #fff; /* contoh: putih */
-        color: #333;
-    }
-
-    /* Card menyesuaikan dengan body tapi sedikit berbeda */
-    .custom-card {
-        background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-    }
-
-    /* Jika mode gelap (Bootstrap atau custom) */
-    @media (prefers-color-scheme: dark) {
-        .custom-card {
-            background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+        body {
+            background-color: #fff;
+            /* contoh: putih */
+            color: #333;
         }
-    }
-        
+
+        /* Card menyesuaikan dengan body tapi sedikit berbeda */
+        .custom-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Jika mode gelap (Bootstrap atau custom) */
+        @media (prefers-color-scheme: dark) {
+            .custom-card {
+                background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+            }
+        }
 
         @media (min-width: 992px) {
             .col-lg-1-7 {

@@ -27,7 +27,7 @@
                     <label for="whatsapp" class="form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-title="Pemberitahuan"
                         data-bs-content="hanya boleh berisi angka, belum pernah terdaftar, dan gunakan format yang benar.">No
                         WhatsApp</label>
-                    <input value="{{ old('usr_no_Wa') }}" name="usr_no_wa" type="text" id="whatsapp" class="form-control @error('usr_no_wa') is-invalid @enderror">
+                    <input value="{{ $account[0]['usr_no_wa'] }}" name="usr_no_wa" type="text" id="whatsapp" class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
                             <p style="text-align: right;">Input tidak sesuai</p>
@@ -63,7 +63,7 @@
                         Pilih peran</p>
 
                     <select name="usr_role_id" class="form-select @error('usr_role_id') is-invalid @enderror" required aria-label="Default select example">
-                        <option selected>
+                        <option selected value="{{ $account[0]['roles']['rl_id'] }}">
                             {{ $account[0]['roles']['rl_name'] ?? 'select role' }}</option>
                         @foreach ($roles as $role)
                             @if ($role['rl_admin'])

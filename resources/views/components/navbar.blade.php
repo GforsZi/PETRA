@@ -94,9 +94,9 @@
                     <!--begin::Menu Footer-->
                     <li class="user-footer">
                         @if (auth()->user()?->roles['rl_admin'] ?? 0 == 1)
-                            <a href="/admin/profile" class="btn btn-default btn-flat">Profil</a>
+                            <a href="/admin/profile" class="btn btn-default btn-flat">Profile</a>
                         @else
-                            <a href="/user/profile" class="btn btn-default btn-flat">Profil</a>
+                            <a href="/user/profile" class="btn btn-default btn-flat">Profile</a>
                         @endif
                         <a href="/logout" class="btn btn-default btn-flat float-end">Sign out</a>
                     </li>
