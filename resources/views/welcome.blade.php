@@ -87,41 +87,32 @@
                         });
                     });
                 });
+// Kumpulan kutipan dan tokohnya (selalu berpasangan)
+const quotes = [
+  { text: "Padi tumbuh tidak berisik.", author: "Tan Malaka" },
+  { text: "Di depan memberi teladan, di tengah membangun semangat, di belakang memberi dorongan.", author: "Ki Hajar Dewantara" },
+  { text: "Ilmu tanpa agama adalah buta, agama tanpa ilmu adalah lumpuh.", author: "BJ.Habibi" },
+  { text: "Habis gelap terbitlah terang.", author: "R.A. Kartini" },
+  { text: "Pendidikan adalah senjata paling ampuh yang dapat kamu gunakan untuk mengubah dunia.", author: "Nelson Mandela" },
+  { text: "Pendidikan bukanlah belajar tentang fakta, tetapi melatih pikiran untuk berpikir.", author: "Albert Einstein" },
+  { text: "Pendidikan bukan persiapan untuk hidup; pendidikan itu sendiri adalah kehidupan.", author: "John Dewey" },
+  { text: "Keberhasilan berasal dari 1% inspirasi dan 99% kerja keras.", author: "Thomas A. Edison" },
+  { text: "Pendidikan bukan hanya tentang membaca dan menulis, tapi tentang membangun peradaban.", author: "Anies Baswedan" },
+  { text: "Bangun versi terbaik dalam dirimu.", author: " Dion" }
+];
 
-                // book
-                const quotesMain = [
-                    "Bangun masa depanmu dengan selembar buku",
-                    "Buku adalah jendela menuju kebijaksanaan",
-                    "Membaca hari ini, memimpin esok",
-                    "Isi harimu dengan ilmu, bukan kebingungan",
-                    "Satu buku bisa mengubah hidupmu",
-                    "Temukan dunia baru di setiap halaman",
-                    "Ilmu datang dari membaca, bukan menunggu",
-                    "Buku teman terbaik tanpa syarat",
-                    "Membaca adalah investasi seumur hidup",
-                    "Buka buku, buka pikiranmu"
-                ];
+// Ambil elemen teks di HTML kamu
+const kataEl = document.querySelector(".kata");
+const copyEl = document.querySelector(".copy");
 
-                const quotesCopy = [
-                    "© Dyons | Jadikan membaca sebagai kebiasaan",
-                    "© Dyons | Cinta buku, cinta ilmu",
-                    "© Dyons | Buku: sahabat sepanjang masa",
-                    "© Dyons | Hidupkan pikiranmu lewat membaca",
-                    "© Dyons | Setiap halaman adalah pelajaran",
-                    "© Dyons | Bacalah dan temukan dirimu",
-                    "© Dyons | Pengetahuan dimulai dari buku",
-                    "© Dyons | Buku tak pernah mengkhianati pembacanya",
-                    "© Dyons | Jadilah bijak dengan membaca",
-                    "© Dyons | Membaca, langkah kecil menuju besar"
-                ];
+// Pilih 1 pasangan acak setiap refresh
+const randomIndex = Math.floor(Math.random() * quotes.length);
+const quote = quotes[randomIndex];
 
-                // Ambil elemen p dan h5
-                const kataEl = document.querySelector(".kata");
-                const copyEl = document.querySelector(".copy");
+// Tampilkan hasilnya
+kataEl.textContent = quote.text;
+copyEl.textContent = quote.author;
 
-                // Pilih acak tiap refresh
-                kataEl.textContent = quotesMain[Math.floor(Math.random() * quotesMain.length)];
-                copyEl.textContent = quotesCopy[Math.floor(Math.random() * quotesCopy.length)];
             </script>
 
         </section>

@@ -242,7 +242,7 @@
                 let query = input.value.trim();
                 if (query === "") {
                     resultContainer.innerHTML =
-                        '<p class="text-muted">Masukkan kata kunci dulu.</p>';
+                        '<p class="text-muted text-center">Masukkan kata kunci terlebih dahulu.</p>';
                     return;
                 }
 
@@ -269,15 +269,21 @@
                             if (book.bk_img_url) {
                                 col.innerHTML = `
                                 <div class="book text-center rounded pt-2" style="width: 140px;">
-                                    <a href="/search/book/${book.bk_id}/detail"
-                                    style="text-decoration: none;">
-                                    <img src="{{ asset('${book.bk_img_url}') }}"
-                                        class="object-fit-contain" style="height: 167px; width: 128px;" alt="${book.bk_title}">
-                                    <div class="card-body p-2">
-                                        <p class="text-body text-wrap">${book.bk_title}</p>
-                                    </div>
-                                    </a>
-                                </div>
+    <a href="/search/book/${book.bk_id}/detail" style="text-decoration: none;">
+        <img src="{{ asset('${book.bk_img_url}') }}"
+            class="object-fit-contain" style="height: 167px; width: 128px;" alt="${book.bk_title}">
+        <div class="card-body p-2">
+            <p class="text-body text-start text-wrap mt-1 mb-0"
+               title="${book.bk_title}"
+               style="word-wrap: break-word; white-space: normal; width: 128px; margin: 0 auto;
+                      overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                      -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help;">
+                ${book.bk_title}
+            </p>
+        </div>
+    </a>
+</div>
+
                             `;
                             } else {
                                 col.innerHTML = `
