@@ -7,7 +7,8 @@
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/transaction/add" class="btn btn-lg btn-outline-primary w-100" title="Tambah Transaksi"><i class="bi bi-plus-lg"></i></a>
+        <a href="/transaction/add" class="btn btn-lg btn-outline-primary" title="Tambah Transaksi"><i class="bi bi-plus-lg"></i></a>
+        <a href="/transaction?expired=true" class="btn btn-lg btn-outline-warning" title="Tenggat pengembalian"><i class="bi bi-exclamation-triangle"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$transactions">
         <x-slot:title>Manage transaction</x-slot:title>

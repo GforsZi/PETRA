@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\FonnteService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Browsershot\Browsershot;
 
@@ -237,9 +238,17 @@ class ManageAcoountController extends Controller
 
     public function delete_account_system(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->delete();
-        return redirect('/manage/account')->with('success', 'Akun Berhasil Dihapus');
+        try {
+
+            $user = User::select('usr_id')->find($id);
+            if ($user['usr_id'] == Auth::id()) {
+                throw new \Exception('Tidak diizinkan menghapus akun yang sedang anda gunakan');
+            }
+            $user->delete();
+            return redirect('/manage/account')->with('success', 'Akun Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect('/manage/account')->with('error', 'Akun Gagal Dihapus');
+        }
     }
 
     public function print_card_system(Request $request)

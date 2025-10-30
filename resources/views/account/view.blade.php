@@ -6,6 +6,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>Kesalahan: {{ session('error') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <x-slot:header_layout>
         <a href="/manage/account/add" class="btn btn-lg btn-outline-primary" title="Tambah Akun Baru"><i class="bi bi-plus-lg"></i></a>
         <a class="btn btn-lg btn-outline-success" style="cursor: pointer;" title="Cetak Kartu" data-bs-toggle="modal" data-bs-target="#printCardModal"><i class="bi bi-printer-fill"></i></a>

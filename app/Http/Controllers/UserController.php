@@ -191,10 +191,13 @@ class UserController extends Controller
         return view('user.book.ebook', ['title' => 'Halaman Detail Buku'], compact('book', 'images'));
     }
 
-    public function view_transaction_page()
+    public function view_transaction_page(Request $request)
     {
+        $isExpired = $request->boolean('expired');
         $transactions = Transaction::select('trx_id', 'trx_borrow_date', 'trx_due_date', 'trx_title', 'trx_status')->with('books')
-            ->where('trx_user_id', Auth::user()->usr_id)
+            ->where('trx_user_id', Auth::user()->usr_id)->when($isExpired, function ($query) {
+                $query->where('trx_due_date', '<', now());
+            })
             ->latest()
             ->paginate(10);
         return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman'], compact('transactions'));

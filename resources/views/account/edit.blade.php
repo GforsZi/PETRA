@@ -63,7 +63,7 @@
                         Pilih peran</p>
 
                     <select name="usr_role_id" class="form-select @error('usr_role_id') is-invalid @enderror" required aria-label="Default select example">
-                        <option selected value="{{ $account[0]['roles']['rl_id'] }}">
+                        <option selected value="{{ $account[0]['roles']['rl_id'] ?? '' }}">
                             {{ $account[0]['roles']['rl_name'] ?? 'select role' }}</option>
                         @foreach ($roles as $role)
                             @if ($role['rl_admin'])
