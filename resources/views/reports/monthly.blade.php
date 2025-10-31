@@ -1,25 +1,25 @@
 <x-app-layout>
-    <x-slot:title>Export Data Statistik Login</x-slot:title>
+    <x-slot:title>Ekspor Data Statistik Login</x-slot:title>
     <div class="mt-2">
         <div class="card shadow-sm">
             <div class="card-body">
 
                 <form method="GET" action="/manage/export/statistics" class="row g-2 mb-4">
                     <div class="col-auto">
-                        <label>Start</label>
+                        <label>Mulai Dari</label>
                         <input type="date" name="start" class="form-control" value="{{ $start }}">
                     </div>
                     <div class="col-auto">
-                        <label>End</label>
+                        <label>Sampai</label>
                         <input type="date" name="end" class="form-control" value="{{ $end }}">
                     </div>
                     <div class="col-auto align-self-end">
-                        <button class="btn btn-primary">Filter</button>
+                        <button class="btn btn-primary">Saring</button>
                     </div>
 
                     <div class="w-100 d-flex justify-content-end">
                         <a href="{{ route('statistics.export', ['start' => $start, 'end' => $end]) }}" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>
-                            Export PDF</a>
+                            Ekspor PDF</a>
                     </div>
                 </form>
 
@@ -36,7 +36,7 @@
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th class="text-start">Jumlah Login</th>
+                                    <th class="text-start">Jumlah Pengguna Masuk</th>
                                     <th style="width: 70px"></th>
                                 </tr>
                             </thead>

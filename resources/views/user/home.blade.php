@@ -81,7 +81,7 @@
 
 
  body {
-        background-color: #fff; 
+        background-color: #fff;
         color: #333;
     }
 
@@ -227,7 +227,7 @@
                         'rgb(255, 205, 86)',
                         'rgb(75, 192, 192)',
                         'rgb(120, 200, 65)',
-                        'rgb(255, 99, 132)'
+                        'rgb(255, 99, 132)',
                     ],
                     hoverOffset: 4
                 }]

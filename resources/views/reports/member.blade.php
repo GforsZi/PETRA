@@ -1,10 +1,10 @@
 <x-app-layout>
-    <x-slot:title>Export Data Anggota</x-slot:title>
+    <x-slot:title>Ekspor Data Anggota</x-slot:title>
 
     <div class="mt-2">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="fw-bold mb-3">Kustomisasi Export Excel</h5>
+                <h5 class="fw-bold mb-3">Kustomisasi Ekspor Excel</h5>
                 <form action="/system/export/membership" method="POST">
                     @csrf
 

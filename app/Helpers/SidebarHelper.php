@@ -3,35 +3,42 @@
 use Illuminate\Support\Facades\Request;
 
 if (!function_exists('set_active')) {
-    function set_active($paths, $output = 'active')
+    function set_active($paths)
     {
-        if (is_array($paths)) {
-            foreach ($paths as $path) {
-                if (Request::is($path)) {
-                    return $output;
-                }
-            }
-        } else {
-            if (Request::is($paths)) {
-                return $output;
+        foreach ((array) $paths as $path) {
+            if (Request::is($path) || Request::is($path . '/*')) {
+                return 'active';
             }
         }
         return '';
     }
 }
 
-if (!function_exists('set_menu_open')) {
-    function set_menu_open($paths, $output = 'menu-open')
+if (!function_exists('set_icon_active')) {
+    function set_icon_active($paths)
     {
-        if (is_array($paths)) {
-            foreach ($paths as $path) {
-                if (Request::is($path)) {
-                    return $output;
-                }
+        foreach ((array) $paths as $path) {
+            if (Request::is($path) || Request::is($path . '/*')) {
+                return 'bi-record-circle-fill text-warning';
             }
-        } else {
-            if (Request::is($paths)) {
-                return $output;
+        }
+        return 'bi-circle';
+    }
+}
+
+if (!function_exists('set_icon_active_exact')) {
+    function set_icon_active_exact($path)
+    {
+        return Request::is($path) ? 'bi-record-circle-fill text-warning' : 'bi-circle';
+    }
+}
+
+if (!function_exists('set_menu_open')) {
+    function set_menu_open($paths)
+    {
+        foreach ((array) $paths as $path) {
+            if (Request::is($path) || Request::is($path . '/*')) {
+                return 'menu-open';
             }
         }
         return '';

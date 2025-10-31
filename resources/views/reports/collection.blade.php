@@ -1,10 +1,10 @@
 <x-app-layout>
-    <x-slot:title>Export Data Koleksi</x-slot:title>
+    <x-slot:title>Ekspor Data Koleksi</x-slot:title>
 
     <div class="mt-2">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="fw-bold mb-0">Kustomisasi Export Excel</h5>
+                <h5 class="fw-bold mb-0">Kustomisasi Ekspor Excel</h5>
                 <form action="/system/export/collection" method="POST">
                     @csrf
                     <div class="row mb-3">
@@ -58,7 +58,7 @@
 
                     <div class="mt-4 text-end">
                         <button type="submit" class="btn btn-success">
-                            <i class="bi bi-file-earmark-excel"></i> Export Excel
+                            <i class="bi bi-file-earmark-excel"></i> Ekspor Excel
                         </button>
                     </div>
                 </form>

@@ -2,11 +2,11 @@
     <x-slot:title>Detail Login</x-slot:title>
     <x-slot:header_layout>
         <a href="/manage/export/statistics/{{ $date }}/pdf" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>
-            Export PDF</a>
+            Ekspor PDF</a>
     </x-slot:header_layout>
     <div class="card mb-4 w-100">
         <div class="card-header">
-            <h3 class="card-title">Riwayat login Akun</h3>
+            <h3 class="card-title">Riwayat Akun Masuk</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -17,7 +17,7 @@
                         <tr>
                             <th>Tanggal</th>
                             <th>Pengguna</th>
-                            <th>Ip address</th>
+                            <th>Alamat IP</th>
                             <th>Detail Perangkat</th>
                         </tr>
                     </thead>

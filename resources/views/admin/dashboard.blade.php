@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-lg-4 col-6 hero-card-3">
-            <div class="small-box bg-danger">
+            <div class="small-box" style="background-color: rgba(100, 223, 18, 1);">
                 <div class="inner">
                     <h3>{{ $total_transaction }}</h3>
                     <p>Total Transaksi</p>

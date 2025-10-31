@@ -11,10 +11,10 @@
         <a href="/transaction?expired=true" class="btn btn-lg btn-outline-warning" title="Tenggat pengembalian"><i class="bi bi-exclamation-triangle"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$transactions">
-        <x-slot:title>Manage transaction</x-slot:title>
+        <x-slot:title>Managemen Transaksi</x-slot:title>
         <x-slot:header>
             <th style="width: 10px">No</th>
-            <th>Tanggal pengajuan</th>
+            <th>Tanggal Pengajuan</th>
             <th>Tujuan</th>
             <th>Status</th>
             <th>Tenggat Pengembalian</th>
@@ -95,7 +95,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="6" class="w-100 text-center">404 | Data tidak ditemukan</td>
+                <td colspan="6" class="w-100 text-center">404 | Data Tidak D    itemukan</td>
             </tr>
         @endforelse
     </x-table_data>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Report Login {{ $date }}</title>
+    <title>Laporan Pengguna Yang Masuk {{ $date }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -34,7 +34,7 @@
 
 <body class='container'>
     <div class="report-header">
-        <h4>Detail Login User</h4>
+        <h4>Detail Data Pengguna Yang Masuk</h4>
         <div>{{ $date }}</div>
     </div>
 
@@ -44,7 +44,7 @@
             <tr>
                 <th>Tanggal</th>
                 <th>Pengguna</th>
-                <th>Ip address</th>
+                <th>Alamat IP</th>
                 <th>Detail Perangkat</th>
             </tr>
         </thead>
