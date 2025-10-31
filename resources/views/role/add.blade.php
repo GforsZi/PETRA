@@ -19,8 +19,7 @@
                         <input value="{{ old('rl_name') }}" type="text" name="rl_name" class="form-control @error('rl_name') is-invalid @enderror" id="inputEmail3">
                         @error('rl_name')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">' {{ old('rl_name') }} ' Input tidak
-                                    termasuk ke dalam format Peran yang valid</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -33,8 +32,7 @@
                         <textarea name="rl_description" class="form-control @error('rl_description') is-invalid @enderror" id="autoExpand">{{ old('rl_description') }}</textarea>
                         @error('rl_description')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">' {{ old('rl_descripytion') }} ' ... Input
-                                    melebihi jumlah karakter Maksimal</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -48,6 +46,11 @@
                             data-bs-title="Pemberitahuan" data-bs-content="opsional, centang jika role ini memiliki hak akses admin.">
                             Admin
                         </label>
+                        @error('rl_admin')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

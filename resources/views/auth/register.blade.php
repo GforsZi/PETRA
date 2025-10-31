@@ -23,26 +23,26 @@
 
                             <input name="name" type="text" class="form-control mb-1" placeholder="Masukkan nama lengkap" value="{{ old('name') }}">
                             @error('name')
-                                <p class="text-danger" style="text-align: right;">Nama pengguna wajib diisi</p>
+                                <p class="text-danger" style="text-align: right;">{{ $message }}</p>
                             @enderror
 
                             <input name="usr_no_wa" type="text" class="form-control mt-3 mb-1" placeholder="Nomor WhatsApp" value="{{ old('usr_no_wa') }}">
                             @error('usr_no_wa')
                                 <small class="invalid-feedback">
                                     @if (old('usr_no_wa'))
-                                        <p class="text-danger" style="text-align: right;">Nomor yang anda isi sudah terpakai atau tidak sesuai: {{ old('usr_no_wa') }}</p>
+                                        <p class="text-danger" style="text-align: right;">{{ $message }}</p>
                                     @endif
                                 </small>
                             @enderror
 
                             <input name="password" type="password" class="form-control mt-3 mb-1" placeholder="Kata Sandi">
                             @error('password')
-                                <p class="text-danger" style="text-align: right;">Kata sandi minimal 5 karakter.</p>
+                                <p class="text-danger" style="text-align: right;">{{ $message }}</p>
                             @enderror
 
                             <input name="password_confirmation" type="password" class="form-control mt-3 mb-1" placeholder="Ulangi Kata Sandi">
                             @error('password_confirmation')
-                                <p class="text-danger" style="text-align: right;">Konfirmasi kata sandi tidak sesuai.</p>
+                                <p class="text-danger" style="text-align: right;">{{ $message }}</p>
                             @enderror
 
                             <button type="submit" class="control mt-4" onclick="this.disabled=true; this.form.submit();">Daftar</button>

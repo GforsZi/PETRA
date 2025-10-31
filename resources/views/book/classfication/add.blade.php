@@ -19,7 +19,7 @@
                         <input value="{{ old('ddc_code') }}" type="text" name="ddc_code" class="form-control @error('ddc_code') is-invalid @enderror" id="inputEmail3">
                         @error('ddc_code')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -32,7 +32,7 @@
                         <textarea name="ddc_description" class="form-control @error('ddc_description') is-invalid @enderror" id="autoExpand">{{ old('ddc_description') }}</textarea>
                         @error('ddc_description')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>

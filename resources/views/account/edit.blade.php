@@ -18,7 +18,7 @@
                         autocomplete="off">
                     @error('name')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">Input tidak sesuai</p>
+                            <p style="text-align: right;">{{ $message }}</p>
                         </div>
                     @enderror
                 </div>
@@ -30,7 +30,7 @@
                     <input value="{{ $account[0]['usr_no_wa'] }}" name="usr_no_wa" type="text" id="whatsapp" class="form-control @error('usr_no_wa') is-invalid @enderror">
                     @error('usr_no_wa')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">Input tidak sesuai</p>
+                            <p style="text-align: right;">{{ $message }}</p>
                         </div>
                     @enderror
                 </div>
@@ -41,7 +41,7 @@
                     <input name="password" type="password" id="password" class="form-control @error('password') is-invalid @enderror" autocomplete="off">
                     @error('password')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">Input tidak sesuai</p>
+                            <p style="text-align: right;">{{ $message }}</p>
                         </div>
                     @enderror
                 </div>
@@ -76,7 +76,7 @@
                     </select>
                     @error('usr_role_id')
                         <div class="invalid-feedback">
-                            <p style="text-align: right;">Tolong pilih salah satu</p>
+                            <p style="text-align: right;">{{ $message }}</p>
                         </div>
                     @enderror
                 </div>

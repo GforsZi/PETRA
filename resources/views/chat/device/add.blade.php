@@ -19,7 +19,7 @@
                         <input value="{{ old('name') }}" type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="inputEmail3">
                         @error('name')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak valid</p>
+                                <p style="text-align: right;">{{ $message }}d</p>
                             </div>
                         @enderror
                     </div>
@@ -32,7 +32,7 @@
                         <input value="{{ old('device') }}" type="text" name="device" class="form-control @error('device') is-invalid @enderror" id="inputEmail3">
                         @error('device')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak valid</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>

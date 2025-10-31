@@ -19,7 +19,7 @@
                         <input value="{{ old('bk_orgn_name') }}" type="text" name="bk_orgn_name" class="form-control @error('bk_orgn_name') is-invalid @enderror" id="inputEmail3">
                         @error('bk_orgn_name')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Nama Sumber Buku tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>

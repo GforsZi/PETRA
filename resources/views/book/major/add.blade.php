@@ -22,6 +22,11 @@
                             <option value="2">XI</option>
                             <option value="3">XII</option>
                         </select>
+                        @error('bk_mjr_class')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -31,7 +36,7 @@
                         <input value="{{ old('bk_mjr_major') }}" type="text" name="bk_mjr_major" class="form-control @error('bk_mjr_major') is-invalid @enderror" id="inputEmail3">
                         @error('bk_mjr_major')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>

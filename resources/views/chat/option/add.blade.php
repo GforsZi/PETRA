@@ -25,7 +25,7 @@
                         <input value="{{ old('cht_opt_title') }}" type="text" name="cht_opt_title" class="form-control @error('cht_opt_title') is-invalid @enderror" id="title">
                         @error('cht_opt_title')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -38,7 +38,7 @@
                         <textarea name="cht_opt_message" id="message" class="form-control @error('cht_opt_message') is-invalid @enderror" id="autoExpand">{{ old('cht_opt_message') }}</textarea>
                         @error('cht_opt_message')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -51,6 +51,11 @@
                             <option value="2">Peringatan waktu peminjaman</option>
                             <option value="3">Pesan bantuan</option>
                         </select>
+                        @error('cht_opt_type')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

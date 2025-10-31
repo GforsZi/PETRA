@@ -22,6 +22,11 @@
                             <option value="1">Dapat dipinjam</option>
                             <option value="2">Tidak untuk dipinjam</option>
                         </select>
+                        @error('bk_permission')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -33,6 +38,11 @@
                             <option value="1">Fisik</option>
                             <option value="2">Digital</option>
                         </select>
+                        @error('bk_type')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -41,6 +51,11 @@
                     </label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3" id="image-container"></div>
@@ -51,6 +66,11 @@
                     </label>
                     <div class="col-sm-10">
                         <input value="{{ old('bk_isbn') }}" type="text" name="bk_isbn" class="form-control @error('bk_isbn') is-invalid @enderror" id="sibn">
+                        @error('bk_isbn')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -61,7 +81,7 @@
                         <input value="{{ old('bk_title') }}" type="text" name="bk_title" class="form-control @error('bk_title') is-invalid @enderror" id="title">
                         @error('bk_title')
                             <div class="invalid-feedback">
-                                <p style="text-align: right;">Input tidak sesuai</p>
+                                <p style="text-align: right;">{{ $message }}</p>
                             </div>
                         @enderror
                     </div>
@@ -72,6 +92,11 @@
                         Buku</label>
                     <div class="col-sm-10">
                         <textarea name="bk_description" class="form-control @error('bk_description') is-invalid @enderror" id="autoExpand">{{ old('bk_description') }}</textarea>
+                        @error('bk_description')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -79,7 +104,12 @@
                         data-bs-title="Pemberitahuan" data-bs-content="Masukkan harga buku dalam angka (tanpa titik atau koma). Bisa dikosongkan jika buku tidak dijual.">Harga
                         Satuan</label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_unit price') }}" type="number" name="bk_unit_price" class="form-control @error('bk_unit_price') is-invalid @enderror" id="price">
+                        <input value="{{ old('bk_unit_price') }}" type="number" name="bk_unit_price" class="form-control @error('bk_unit_price') is-invalid @enderror" id="price">
+                        @error('bk_unit_price')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -88,6 +118,11 @@
                     </label>
                     <div class="col-sm-10">
                         <input value="{{ old('bk_page') }}" type="number" name="bk_page" class="form-control @error('bk_page') is-invalid @enderror" id="page">
+                        @error('bk_page')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -95,7 +130,13 @@
                         data-bs-title="Pemberitahuan" data-bs-content="Tuliskan edisi atau volume buku, misalnya Edisi Revisi Kedua atau Volume 1.">Edisi
                     </label>
                     <div class="col-sm-10">
-                        <input value="{{ old('bk_edition_volume') }}" type="text" name="bk_edition_volume" class="form-control @error('bk_edition_volume') is-invalid @enderror" id="edition">
+                        <input value="{{ old('bk_edition_volume') }}" type="text" name="bk_edition_volume" class="form-control @error('bk_edition_volume') is-invalid @enderror"
+                            id="edition">
+                        @error('bk_edition_volume')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -106,6 +147,11 @@
                     <div class="col-sm-10">
                         <input value="{{ old('bk_published_year') }}" type="number" id="published" min="1901" max="{{ date('Y') }}" step="1" name="bk_published_year"
                             class="form-control @error('bk_published_year') is-invalid @enderror" id="published">
+                        @error('bk_published_year')
+                            <div class="invalid-feedback">
+                                <p style="text-align: right;">{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3 row position-relative">
@@ -119,6 +165,11 @@
                                 value="{{ $book['publisher']['pub_name'] ?? '' }}">
                             <input type="hidden" name="bk_publisher_id" id="publisher-id" value="{{ $book['bk_publisher_id'] ?? '' }}">
                             <button type="button" id="clear-publisher" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" style="display:none;">❌</button>
+                            @error('bk_publisher_id')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">{{ $message }}</p>
+                                </div>
+                            @enderror
                             <div id="publisher-suggestions" class="list-group position-absolute shadow-sm" style="z-index:1000; display:none; width:100%;"></div>
                         </div>
                     </div>
@@ -133,6 +184,11 @@
                                 value="{{ old('bk_orgn_name', $book['origin']['bk_orgn_name'] ?? '') }}">
                             <input type="hidden" name="bk_origin_id" id="origin-id" value="{{ old('bk_origin_id', $book['bk_origin_id'] ?? '') }}">
                             <button type="button" id="clear-origin" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" style="display:none;">❌</button>
+                            @error('bk_origin_id')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">{{ $message }}</p>
+                                </div>
+                            @enderror
                             <div id="origin-suggestions" class="list-group position-absolute shadow-sm" style="z-index:1000; display:none; width:100%;"></div>
                         </div>
                     </div>
@@ -149,6 +205,11 @@
                                     {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}
                                 </option>
                             @endforeach
+                            @error('bk_major_id')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">{{ $message }}</p>
+                                </div>
+                            @enderror
                         </select>
                     </div>
                 </div>
@@ -166,6 +227,11 @@
                             <div id="author-tags" class="mt-2">
                                 {{-- badge penulis akan muncul di sini --}}
                             </div>
+                            @error('authors')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">{{ $message }}</p>
+                                </div>
+                            @enderror
                         </div>
 
                         <button type="button" class="btn btn-lg btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#authorModal" title="Tambah Penulis">
@@ -188,6 +254,11 @@
                             <div id="ddc-tags" class="mt-2">
                                 {{-- badge klasifikasi akan muncul di sini --}}
                             </div>
+                            @error('classfications')
+                                <div class="invalid-feedback">
+                                    <p style="text-align: right;">{{ $message }}</p>
+                                </div>
+                            @enderror
                         </div>
 
                         <button type="button" class="btn btn-lg btn-outline-warning ms-2" data-bs-toggle="modal" data-bs-target="#ddcModal" title="Masukkan Klasifikasi">
