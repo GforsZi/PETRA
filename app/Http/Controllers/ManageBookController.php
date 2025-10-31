@@ -63,7 +63,7 @@ class ManageBookController extends Controller
             ->paginate(12);
 
 
-        return view('book.view', ['title' => 'Halaman Kelola Buku'], compact('books'));
+        return view('book.view', ['title' => 'Halaman kelola buku'], compact('books'));
     }
 
     public function search_book_system(Request $request)
@@ -169,18 +169,42 @@ class ManageBookController extends Controller
             preg_match('/^([A-Za-z]+)/', $last_copy->bk_cp_number, $matches);
             $letters = $matches[1] ?? null;
         }
-        return view('book.detail', ['title' => 'Halaman Detail Buku'], compact('book', 'letters'));
+        return view('book.detail', ['title' => 'Halaman detail buku'], compact('book', 'letters'));
     }
 
     public function add_book_page()
     {
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
-        return view('book.add', ['title' => 'Halaman Tambah Buku'], compact('publishers', 'majors'));
+        return view('book.add', ['title' => 'Halaman tambah buku'], compact('publishers', 'majors'));
     }
 
     public function add_book_system(Request $request)
     {
+        $message = [
+            'bk_isbn.regex' => 'Format ISBN tidak valid.',
+            'bk_isbn.unique' => 'Nomor ISBN sudah digunakan.',
+            'bk_isbn.max' => 'ISBN memiliki maksimal :max karakter.',
+            'bk_title.required' => 'Judul buku wajib diisi.',
+            'bk_title.max' => 'Judul buku memiliki maksimal :max karakter.',
+            'bk_description.max' => 'Deskripsi tidak boleh lebih dari 65535 karakter.',
+            'bk_page.integer' => 'Jumlah halaman harus berupa angka.',
+            'bk_page.max' => 'Jumlah halaman terlalu besar.',
+            'bk_type.in' => 'Tipe buku tidak valid.',
+            'bk_permission.in' => 'Jenis izin buku tidak valid.',
+            'bk_unit_price.integer' => 'Harga satuan harus berupa angka.',
+            'bk_published_year.digits' => 'Tahun terbit harus 4 digit.',
+            'bk_published_year.max' => 'Tahun terbit tidak boleh melebihi tahun sekarang.',
+            'bk_published_year.min' => 'Tahun terbit tidak boleh kurang dari :min tahun.',
+            'bk_publisher_id.exists' => 'Penerbit tidak ditemukan.',
+            'bk_major_id.exists' => 'Jurusan tidak ditemukan.',
+            'bk_origin_id.exists' => 'Sumber tidak ditemukan.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.max' => 'Ukuran gambar maksimal 4MB.',
+            'file_pdf.mimes' => 'File harus berupa PDF.',
+            'file_pdf.max' => 'Ukuran file PDF maksimal 4MB.',
+        ];
+
         $validateData = $request->validate([
             'bk_isbn' => ['nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
             'bk_title' => 'required | string | max:255',
@@ -191,12 +215,12 @@ class ManageBookController extends Controller
             'bk_unit_price' => 'nullable | integer | max:9999999999 | min:0',
             'bk_edition_volume' => 'nullable | string | max:255',
             'bk_published_year' => 'nullable | digits:4 | integer | min:1901 | max:' . date('Y'),
-            'bk_publisher_id' => 'nullable | exists:publishers,pub_id',
+            'bk_publisher_id' => 'nullable | min:0 | exists:publishers,pub_id',
             'bk_major_id' => 'nullable | integer | min:0 | exists:book_majors,bk_mjr_id',
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'nullable|image|max:4096',
             'file_pdf' => 'nullable|file|mimes:pdf|max:4096',
-        ]);
+        ], $message);
 
         if ($request->hasFile('image')) {
             $destinationPath = public_path('media/book_cover_img/');
@@ -244,21 +268,33 @@ class ManageBookController extends Controller
             }
         }
 
+        $messageAthr = [
+            'authors.array' => 'Format jurusan tidak valid.',
+            'authors.min' => 'jurusan tidak boleh kurang dari :min.',
+            'authors.*.exists' => 'Sumber tidak ditemukan.',
+        ];
+
         $book = Book::create($validateData);
         if ($request->has('authors')) {
             $validateDataAuthor = $request->validate([
                 'authors' => 'required|array|min:1',
                 'authors.*' => 'exists:authors,athr_id',
-            ]);
+            ], $messageAthr);
 
             $book->authors()->sync($validateDataAuthor['authors']);
         }
+
+        $messageDDC = [
+            'classfications.array' => 'Format jurusan tidak valid.',
+            'classfications.min' => 'jurusan tidak boleh kurang dari :min.',
+            'classfications.*.exists' => 'Sumber tidak ditemukan.',
+        ];
 
         if ($request->has('classfications')) {
             $validateDataDDC = $request->validate([
                 'classfications' => 'required|array|min:1',
                 'classfications.*' => 'exists:dewey_decimal_classfications,ddc_id',
-            ]);
+            ], $messageDDC);
 
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
@@ -296,11 +332,39 @@ class ManageBookController extends Controller
             ->find($id);
         $publishers = Publisher::orderBy('pub_name', 'asc')->get();
         $majors = BookMajor::orderBy('bk_mjr_class', 'asc')->get();
-        return view('book.edit', ['title' => 'Halaman Ubah Buku'], compact('publishers', 'majors', 'book'));
+        return view('book.edit', ['title' => 'Halaman ubah buku'], compact('publishers', 'majors', 'book'));
     }
 
     public function edit_book_system(Request $request, $id)
     {
+
+        $messageD = [
+            'bk_title.required' => 'Judul buku wajib diisi.',
+            'bk_title.max' => 'Judul buku memiliki maksimal :max karakter.',
+            'bk_description.max' => 'Deskripsi tidak boleh lebih dari 65535 karakter.',
+            'bk_page.integer' => 'Jumlah halaman harus berupa angka.',
+            'bk_page.max' => 'Jumlah halaman terlalu besar.',
+            'bk_type.in' => 'Tipe buku tidak valid.',
+            'bk_permission.in' => 'Jenis izin buku tidak valid.',
+            'bk_unit_price.integer' => 'Harga satuan harus berupa angka.',
+            'bk_published_year.digits' => 'Tahun terbit harus 4 digit.',
+            'bk_published_year.max' => 'Tahun terbit tidak boleh melebihi tahun sekarang.',
+            'bk_published_year.min' => 'Tahun terbit tidak boleh kurang dari :min tahun.',
+            'bk_publisher_id.exists' => 'Penerbit tidak ditemukan.',
+            'bk_major_id.exists' => 'Jurusan tidak ditemukan.',
+            'bk_origin_id.exists' => 'Sumber tidak ditemukan.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.max' => 'Ukuran gambar maksimal 4MB.',
+            'file_pdf.mimes' => 'File harus berupa PDF.',
+            'file_pdf.max' => 'Ukuran file PDF maksimal 4MB.',
+        ];
+
+        $messageISBN = [
+            'bk_isbn.regex' => 'Format ISBN tidak valid.',
+            'bk_isbn.unique' => 'Nomor ISBN sudah digunakan.',
+            'bk_isbn.max' => 'ISBN memiliki maksimal :max karakter.',
+        ];
+
         $book = Book::find($id);
         $validateData = $request->validate([
             'bk_title' => 'sometimes | required | string | max:255',
@@ -316,12 +380,12 @@ class ManageBookController extends Controller
             'bk_origin_id' => 'nullable | integer | min:0 | exists:book_origins,bk_orgn_id',
             'image' => 'sometimes|nullable|image|max:4096',
             'file_pdf' => 'sometimes|nullable|file|mimes:pdf|max:4096',
-        ]);
+        ], $messageD);
 
         if ($request->bk_isbn != $book['bk_isbn']) {
             $no_wa = $request->validate([
                 'bk_isbn' => ['sometimes', 'nullable', ' max:255', 'regex:/^(97(8|9)[-\s]?)?\d{1,5}[-\s]?\d{1,7}[-\s]?\d{1,7}[-\s]?(\d|X)$/', 'unique:books,bk_isbn'],
-            ]);
+            ], $messageISBN);
             $validateData['bk_isbn'] = $no_wa['bk_isbn'];
         }
 
@@ -385,21 +449,34 @@ class ManageBookController extends Controller
 
         $book->update($validateData);
         $book->authors()->detach();
+
+        $messageAthr = [
+            'authors.array' => 'Format jurusan tidak valid.',
+            'authors.min' => 'jurusan tidak boleh kurang dari :min.',
+            'authors.*.exists' => 'Sumber tidak ditemukan.',
+        ];
+
         if ($request->has('authors')) {
             $validateDataAuthor = $request->validate([
                 'authors' => 'sometimes|required|array|min:1',
                 'authors.*' => 'sometimes|exists:authors,athr_id',
-            ]);
+            ], $messageAthr);
 
             $book->authors()->sync($validateDataAuthor['authors']);
         }
+
+        $messageDDC = [
+            'classfications.array' => 'Format jurusan tidak valid.',
+            'classfications.min' => 'jurusan tidak boleh kurang dari :min.',
+            'classfications.*.exists' => 'Sumber tidak ditemukan.',
+        ];
 
         $book->deweyDecimalClassfications()->detach();
         if ($request->has('classfications')) {
             $validateDataDDC = $request->validate([
                 'classfications' => 'sometimes|required|array|min:1',
                 'classfications.*' => 'sometimes|exists:dewey_decimal_classfications,ddc_id',
-            ]);
+            ], $messageDDC);
 
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
@@ -418,10 +495,18 @@ class ManageBookController extends Controller
 
     public function add_book_copy_system(Request $request, $id)
     {
+
+        $message = [
+            'code.required' => 'Kode salinan wajib diisi.',
+            'number.required' => 'Nomor salinan wajib diisi.',
+            'number.integer' => 'Nomor salinan harus berupa angka.',
+            'number.min' => 'Nomor salinan tidak boleh negatif.',
+        ];
+
         $request->validate([
             'code' => 'required | string | max:255',
             'number' => 'required | integer | min:0',
-        ]);
+        ], $message);
 
         $str = BookCopy::select('bk_cp_number')
             ->where('bk_cp_book_id', $id)
@@ -483,53 +568,69 @@ class ManageBookController extends Controller
             ->where('bk_mjr_major', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('book.major.view', ['title' => 'Halaman Kelola Jurusan'], compact('majors'));
+        return view('book.major.view', ['title' => 'Halaman kelola jurusan'], compact('majors'));
     }
 
     public function detail_book_major_page($id)
     {
         $major = BookMajor::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
-        return view('book.major.detail', ['title' => 'Halaman Detail Jurusan'], compact('major'));
+        return view('book.major.detail', ['title' => 'Halaman detail jurusan'], compact('major'));
     }
 
     public function add_book_major_page()
     {
-        return view('book.major.add', ['title' => 'Halaman Tambah Jurusan']);
+        return view('book.major.add', ['title' => 'Halaman tambah jurusan']);
     }
 
     public function add_book_major_system(Request $request)
     {
+
+        $message = [
+            'bk_mjr_class.required' => 'Kelas jurusan wajib diisi.',
+            'bk_mjr_class.in' => 'Tipe jurusan tidak valid.',
+            'bk_mjr_major.required' => 'Nama jurusan wajib diisi.',
+            'bk_mjr_major.max' => 'Nama jurusan terlalu panjang.',
+        ];
+
         $validateData = $request->validate([
             'bk_mjr_class' => 'required | in:1,2,3',
             'bk_mjr_major' => 'required | string | max:255',
-        ]);
+        ], $message);
 
         BookMajor::create($validateData);
-        return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Ditambahkan');
+        return redirect('/manage/book/major')->with('success', 'jurusan berhasil ditambahkan');
     }
 
     public function edit_book_major_page($id)
     {
         $major = BookMajor::select('bk_mjr_id', 'bk_mjr_class', 'bk_mjr_major')->find($id);
-        return view('book.major.edit', ['title' => 'Halaman Ubah Jurusan'], compact('major'));
+        return view('book.major.edit', ['title' => 'Halaman ubah jurusan'], compact('major'));
     }
 
     public function edit_book_major_system(Request $request, $id)
     {
         $major = BookMajor::find($id);
+
+        $message = [
+            'bk_mjr_class.required' => 'Kelas jurusan wajib diisi.',
+            'bk_mjr_class.in' => 'Tipe jurusan tidak valid.',
+            'bk_mjr_major.required' => 'Nama jurusan wajib diisi.',
+            'bk_mjr_major.max' => 'Nama jurusan terlalu panjang.',
+        ];
+
         $validateData = $request->validate([
             'bk_mjr_class' => 'sometimes | required | in:1,2,3',
             'bk_mjr_major' => 'sometimes | required | string | max:255',
-        ]);
+        ], $message);
 
         $major->update($validateData);
-        return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Diubah');
+        return redirect('/manage/book/major')->with('success', 'jurusan berhasil diubah');
     }
 
     public function delete_book_major_system($id)
     {
         BookMajor::find($id)->delete();
-        return redirect('/manage/book/major')->with('success', 'Jurusan Berhail Dihapus');
+        return redirect('/manage/book/major')->with('success', 'jurusan berhasil dihapus');
     }
 
     public function manage_book_author_page(Request $request)
@@ -539,46 +640,55 @@ class ManageBookController extends Controller
             ->where('athr_name', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('book.author.view', ['title' => 'Halaman Kelola Penulis'], compact('authors'));
+        return view('book.author.view', ['title' => 'Halaman kelola penulis'], compact('authors'));
     }
 
     public function detail_book_author_page($id)
     {
         $author = Author::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
-        return view('book.author.detail', ['title' => 'Halaman Kelola Penulis'], compact('author'));
+        return view('book.author.detail', ['title' => 'Halaman detail penulis'], compact('author'));
     }
 
     public function add_book_author_page()
     {
-        return view('book.author.add', ['title' => 'Halaman Tambha Penulis']);
+        return view('book.author.add', ['title' => 'Halaman tambah penulis']);
     }
 
     public function add_book_author_system(Request $request)
     {
+
+        $message = [
+            'athr_name.required' => 'Nama penulis wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'athr_name' => 'required | string | max:255',
-        ]);
+        ], $message);
 
         Author::create($validateData);
-        return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Ditambahkan');
+        return redirect('/manage/book/author')->with('success', 'penulis berhasil ditambahkan');
     }
 
     public function edit_book_author_page($id)
     {
         $authors = Author::select('athr_id', 'athr_name')->find($id);
-        return view('book.author.edit', ['title' => 'Halaman Ubah Penulis'], compact('authors'));
+        return view('book.author.edit', ['title' => 'Halaman ubah penulis'], compact('authors'));
     }
 
     public function edit_book_author_system(Request $request, $id)
     {
         $author = Author::find($id);
 
+        $message = [
+            'athr_name.required' => 'Nama penulis wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'athr_name' => 'sometimes | required | string | max:255',
-        ]);
+        ], $message);
 
         $author->update($validateData);
-        return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Diubah');
+        return redirect('/manage/book/author')->with('success', 'penulis berhasil diubah');
     }
 
     public function delete_book_author_system(Request $request, $id)
@@ -586,7 +696,7 @@ class ManageBookController extends Controller
         $author = Author::find($id);
 
         $author->delete();
-        return redirect('/manage/book/author')->with('success', 'Penulis Berhasil Dihapus');
+        return redirect('/manage/book/author')->with('success', 'penulis berhasil dihupus');
     }
 
     public function manage_book_publisher_page(Request $request)
@@ -596,13 +706,13 @@ class ManageBookController extends Controller
             ->where('pub_name', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('book.publisher.view', ['title' => 'Halaman Kelola Penerbit'], compact('publishers'));
+        return view('book.publisher.view', ['title' => 'Halaman kelola penerbit'], compact('publishers'));
     }
 
     public function detail_book_publisher_page($id)
     {
         $publisher = Publisher::with('created_by', 'updated_by', 'deleted_by')->withTrashed()->find($id);
-        return view('book.publisher.detail', ['title' => 'Halaman Detail Penerbit'], compact('publisher'));
+        return view('book.publisher.detail', ['title' => 'Halaman detail penerbit'], compact('publisher'));
     }
 
     public function pdf_book_page($id)
@@ -620,42 +730,51 @@ class ManageBookController extends Controller
                 $images[] = asset('media/pdf-image/' . $safeTitle . '/' . basename($file));
             }
         }
-        return view('book.pdf', ['title' => 'Halaman Detail Ebook'], compact('book', 'images'));
+        return view('book.pdf', ['title' => 'Halaman detail Ebuku'], compact('book', 'images'));
     }
 
     public function add_book_publisher_page()
     {
-        return view('book.publisher.add', ['title' => 'Halaman Tambah Penerbit']);
+        return view('book.publisher.add', ['title' => 'Halaman tambah penerbit']);
     }
 
     public function add_book_publisher_system(Request $request)
     {
+
+        $message = [
+            'pub_name.required' => 'Nama penerbit wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'pub_name' => 'required | string | max:255',
-            'pub_address' => 'required | string | max:255',
-        ]);
+            'pub_address' => 'nullable | string | max:255',
+        ], $message);
 
         Publisher::create($validateData);
-        return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Ditambahkan');
+        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil ditambahkan');
     }
 
     public function edit_book_publisher_page($id)
     {
         $publishers = Publisher::select('pub_id', 'pub_name', 'pub_address')->find($id);
-        return view('book.publisher.edit', ['title' => 'Halaman Ubah Penerbit'], compact('publishers'));
+        return view('book.publisher.edit', ['title' => 'Halaman uabh penerbit'], compact('publishers'));
     }
 
     public function edit_book_publisher_system(Request $request, $id)
     {
         $publisher = Publisher::find($id);
 
+        $message = [
+            'pub_name.required' => 'Nama penerbit wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'pub_name' => 'sometimes | required | string | max:255',
-            'pub_address' => 'sometimes | required | string | max:255',
-        ]);
+            'pub_address' => 'sometimes | nullable | string | max:255',
+        ], $message);
 
         $publisher->update($validateData);
-        return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Diubah');
+        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil diubah');
     }
 
     public function delete_book_publisher_system(Request $request, $id)
@@ -663,7 +782,7 @@ class ManageBookController extends Controller
         $author = Publisher::find($id);
 
         $author->delete();
-        return redirect('/manage/book/publisher')->with('success', 'Penerbit Berhasil Dihapus');
+        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil dihapus');
     }
 
     public function manage_book_classfication_page(Request $request)
@@ -673,48 +792,61 @@ class ManageBookController extends Controller
             ->where('ddc_code', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('book.classfication.view', ['title' => 'Halaman Kelola Klasifikasi'], compact('classfications'));
+        return view('book.classfication.view', ['title' => 'Halaman kelola klasifikasi'], compact('classfications'));
     }
 
     public function detail_book_classfication_page($id)
     {
         $classfication = DeweyDecimalClassfication::withTrashed()->with('created_by', 'updated_by', 'deleted_by')->find($id);
-        return view('book.classfication.detail', ['title' => 'Halaman Ubah Klasifikasi'], compact('classfication'));
+        return view('book.classfication.detail', ['title' => 'Halaman ubah klasifikasi'], compact('classfication'));
     }
 
     public function add_book_classfication_page()
     {
-        return view('book.classfication.add', ['title' => 'Halaman Tambah Klasifikasi']);
+        return view('book.classfication.add', ['title' => 'Halaman tambah klasifikasi']);
     }
 
     public function add_book_classfication_system(Request $request)
     {
+
+        $message = [
+            'ddc_code.required' => 'Kode DDC wajib diisi.',
+            'ddc_code.regex' => 'Format kode DDC tidak valid.',
+            'ddc_description.required' => 'Deskripsi DDC wajib diisi.',
+        ];
+
         $validateData = $request->validate([
-            'ddc_code' => 'required | regex:/^\d+(\.\d+)?$/ | max:255',
+            'ddc_code' => 'required | regex:/^\d+(\.\d+)?$/ | max:255 | unique:dewey_decimal_classfications,ddc_id',
             'ddc_description' => 'required | string | max:65535',
-        ]);
+        ], $message);
 
         DeweyDecimalClassfication::create($validateData);
-        return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Ditambahkan');
+        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil ditambahkan');
     }
 
     public function edit_book_classfication_page($id)
     {
         $classfications = DeweyDecimalClassfication::select('ddc_id', 'ddc_code', 'ddc_description')->find($id);
-        return view('book.classfication.edit', ['title' => 'Halaman Ubah Klasifikasi'], compact('classfications'));
+        return view('book.classfication.edit', ['title' => 'Halaman ubah klasifikasi'], compact('classfications'));
     }
 
     public function edit_book_classfication_system(Request $request, $id)
     {
         $classfication = DeweyDecimalClassfication::find($id);
 
+        $message = [
+            'ddc_code.required' => 'Kode DDC wajib diisi.',
+            'ddc_code.regex' => 'Format kode DDC tidak valid.',
+            'ddc_description.required' => 'Deskripsi DDC wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'ddc_code' => 'sometimes | required | regex:/^\d+(\.\d+)?$/ | max:255',
             'ddc_description' => 'sometimes | required | string | max:65535',
-        ]);
+        ], $message);
 
         $classfication->update($validateData);
-        return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Diubah');
+        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil diubah');
     }
 
     public function delete_book_classfication_system(Request $request, $id)
@@ -722,7 +854,7 @@ class ManageBookController extends Controller
         $classfication = DeweyDecimalClassfication::find($id);
 
         $classfication->delete();
-        return redirect('/manage/book/ddc')->with('success', 'Klasifikasi Berhasil Dihapus');
+        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil dihapus');
     }
 
     public function manage_book_origin_page(Request $request)
@@ -732,50 +864,60 @@ class ManageBookController extends Controller
             ->where('bk_orgn_name', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('book.origin.view', ['title' => 'Halaman Kelola Sumber'], compact('origins'));
+        return view('book.origin.view', ['title' => 'Halaman kelola sumber'], compact('origins'));
     }
 
     public function detail_book_origin_page($id)
     {
         $origin = BookOrigin::withTrashed()->with('created_by:usr_id,name', 'updated_by:usr_id,name', 'deleted_by:usr_id,name')->find($id);
-        return view('book.origin.detail', ['title' => 'Halaman Detail Sumber'], compact('origin'));
+        return view('book.origin.detail', ['title' => 'Halaman detail sumber'], compact('origin'));
     }
 
     public function add_book_origin_page()
     {
-        return view('book.origin.add', ['title' => 'Halaman Tambah Sumber']);
+        return view('book.origin.add', ['title' => 'Halaman tambah sumber']);
     }
 
     public function add_book_origin_system(Request $request)
     {
+
+        $message = [
+            'bk_orgn_name.required' => 'Nama sumber buku wajib diisi.',
+        ];
+
         $validateData = $request->validate([
-            'bk_orgn_name' => 'required | string | max:255',
-        ]);
+            'bk_orgn_name' => 'required | string | max:255 | unique:book_origins,bk_orgn_name',
+        ], $message);
 
         BookOrigin::create($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Ditambahkan');
+        return redirect('/manage/book/origin')->with('success', 'sumber berhasil ditambahkan');
     }
 
     public function edit_book_origin_page($id)
     {
         $origin = BookOrigin::select('bk_orgn_id', 'bk_orgn_name')->find($id);
-        return view('book.origin.edit', ['title' => 'Halaman Ubah Sumber'], compact('origin'));
+        return view('book.origin.edit', ['title' => 'Halaman ubah sumber'], compact('origin'));
     }
 
     public function edit_book_origin_system(Request $request, $id)
     {
         $origin = BookOrigin::find($id);
+
+        $message = [
+            'bk_orgn_name.required' => 'Nama sumber buku wajib diisi.',
+        ];
+
         $validateData = $request->validate([
             'bk_orgn_name' => 'sometimes | required | string | max:255',
-        ]);
+        ], $message);
         $origin->update($validateData);
-        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Diubah');
+        return redirect('/manage/book/origin')->with('success', 'sumber berhasil diubah');
     }
 
     public function delete_book_origin_system(Request $request, $id)
     {
         $origin = BookOrigin::find($id)->delete();
-        return redirect('/manage/book/origin')->with('success', 'Sumber Berhasil Dihapus');
+        return redirect('/manage/book/origin')->with('success', 'sumber berhasil dihapus');
     }
 
     public function print_label_system($id)

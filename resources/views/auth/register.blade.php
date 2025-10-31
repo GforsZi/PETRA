@@ -28,11 +28,7 @@
 
                             <input name="usr_no_wa" type="text" class="form-control mt-3 mb-1" placeholder="Nomor WhatsApp" value="{{ old('usr_no_wa') }}">
                             @error('usr_no_wa')
-                                <small class="invalid-feedback">
-                                    @if (old('usr_no_wa'))
-                                        <p class="text-danger" style="text-align: right;">{{ $message }}</p>
-                                    @endif
-                                </small>
+                                <p class="text-danger" style="text-align: right;">{{ $message }}</p>
                             @enderror
 
                             <input name="password" type="password" class="form-control mt-3 mb-1" placeholder="Kata Sandi">

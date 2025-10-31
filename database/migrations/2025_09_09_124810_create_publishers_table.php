@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('publishers', function (Blueprint $table) {
             $table->bigIncrements('pub_id');
             $table->string('pub_name');
-            $table->string('pub_address');
+            $table->string('pub_address')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('pub_created_by')->unsigned()->nullable();
             $table->unsignedBigInteger('pub_deleted_by')->unsigned()->nullable();

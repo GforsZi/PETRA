@@ -69,7 +69,7 @@ class AdminController extends Controller
             'ditolak' => $dataD['4'] ?? 0,
         ];
 
-        return view('admin.dashboard', ['title' => 'Halaman Dasboard'], compact('user', 'user_amount', 'total_book', 'total_transaction', 'labels', 'data', 'tableRows', 'days', 'chartData'));
+        return view('admin.dashboard', ['title' => 'Halaman dasbor'], compact('user', 'user_amount', 'total_book', 'total_transaction', 'labels', 'data', 'tableRows', 'days', 'chartData'));
     }
 
     public function activation_page()
@@ -77,14 +77,22 @@ class AdminController extends Controller
         $user = User::select('usr_id', 'name', 'usr_no_wa', 'usr_role_id', 'usr_card_url', 'usr_created_at')
             ->with('roles')
             ->find(Auth::user()->usr_id);
-        return view('admin.activation', ['title' => 'Halaman Aktifasi'], compact('user'));
+        return view('admin.activation', ['title' => 'Halaman aktifasi'], compact('user'));
     }
 
     public function activation_system(Request $request)
     {
+
+        $message = [
+            'image.required' => 'Gambar wajib diunggah.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Format gambar hanya boleh JPEG, PNG, atau JPG.',
+            'image.max' => 'Ukuran gambar maksimal 2MB.',
+        ];
+
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        ], $message);
         $validateData = null;
         $user = Auth::user();
         if ($request->hasFile('image')) {
@@ -101,7 +109,7 @@ class AdminController extends Controller
             $validateData['usr_card_url'] = 'media/card_img/' . $filename;
         }
         $user->update($validateData);
-        return redirect('/admin/profile')->with('success', 'Berhasil mengaktifasi akun');
+        return redirect('/admin/profile')->with('success', 'berhasil mengaktivasi akun');
     }
 
     public function profile_page()
@@ -110,21 +118,27 @@ class AdminController extends Controller
             ->with('roles')
             ->get()
             ->first();
-        return view('admin.profile', ['title' => 'Halaman Profile'], compact('user'));
+        return view('admin.profile', ['title' => 'Halaman profil'], compact('user'));
     }
     public function profile_edit_page()
     {
         $user = User::select('usr_id', 'name', 'usr_bio', 'usr_card_url', 'usr_no_wa')->find(Auth::user()->usr_id);
-        return view('admin.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
+        return view('admin.edit', ['title' => 'Halaman ubah profil'], compact('user'));
     }
 
     public function edit_profile_system(Request $request)
     {
         $user = User::find(Auth::user()->usr_id);
+
+        $message = [
+            'name.required' => 'Nama wajib diisi.',
+            'usr_bio.max' => 'Bio maksimal 255 karakter.',
+        ];
+
         $validateData = $request->validate([
             'name' => 'sometimes | required | string | max:255',
             'usr_bio' => 'sometimes | nullable | string | max:255',
-        ]);
+        ], $message);
 
         if ($request->usr_no_wa != $user['usr_no_wa']) {
             $no_wa = $request->validate([
@@ -134,6 +148,6 @@ class AdminController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/admin/profile')->with('success', 'Profile Berhasil Diubah');
+        return redirect('/admin/profile')->with('success', 'profil berhasil diubah');
     }
 }

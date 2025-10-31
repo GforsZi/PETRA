@@ -59,7 +59,7 @@ class ManageAcoountController extends Controller
             ->with('roles')
             ->where('name', 'like', "%$query%")
             ->paginate(10);
-        return view('account.view', ['title' => 'Halaman Kelola Akun', 'accounts' => $accounts], compact('activeDeviceToken', 'roles'));
+        return view('account.view', ['title' => 'Halaman kelola akun', 'accounts' => $accounts], compact('activeDeviceToken', 'roles'));
     }
 
     public function detail_account_page($id)
@@ -76,13 +76,13 @@ class ManageAcoountController extends Controller
             ])
             ->find($id);
         $role = Role::get();
-        return view('account.detail', ['title' => 'Halaman Detail Akun', 'roles' => $role], compact('account'));
+        return view('account.detail', ['title' => 'Halaman detail akun', 'roles' => $role], compact('account'));
     }
 
     public function add_account_page()
     {
         $role = Role::select('rl_id', 'rl_name', 'rl_admin')->latest()->get();
-        return view('account.add', ['title' => 'Halaman Tambah akun', 'roles' => $role]);
+        return view('account.add', ['title' => 'Halaman tambah akun', 'roles' => $role]);
     }
 
     public function edit_account_page($id)
@@ -90,7 +90,7 @@ class ManageAcoountController extends Controller
         $account = User::where('usr_id', $id)->with('roles')->get()->toArray();
         $roles = Role::get();
         return view('account.edit', [
-            'title' => 'Halaman Ubah Akun',
+            'title' => 'Halaman ubah akun',
             'account' => $account,
             'roles' => $roles,
         ]);
@@ -98,45 +98,86 @@ class ManageAcoountController extends Controller
 
     public function add_account_system(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama wajib diisi.',
+            'name.max' => 'Nama pengguna memiliki maksimal :max karakter.',
+            'name.min' => 'Nama pengguna minimal harus memiliki :min karakter.',
+            'usr_no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'usr_no_wa.unique' => 'Nomor WhatsApp sudah digunakan.',
+            'usr_no_wa.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'usr_no_wa.phone' => 'Nomor WhatsApp tidak valid.',
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.max' => 'Kata sandi memiliki maksimal :max karakter.',
+            'password.min' => 'Kata sandi minimal harus memiliki :min karakter.',
+            'password.confirmed' => 'Sandi dengan ulangin sandi harus sama.',
+            'usr_activation.boolean' => 'Status aktivasi tidak valid.',
+            'usr_role_id.required' => 'Peran pengguna wajib dipilih.',
+            'usr_role_id.exists' => 'Peran yang dipilih tidak ditemukan.',
+        ];
+
         $validateData = $request->validate([
             'name' => 'required | min:3 | max:255',
             'usr_no_wa' => 'required  | unique:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
             'password' => 'required | min:5 | max:30 | confirmed',
             'usr_activation' => 'nullable | boolean',
             'usr_role_id' => 'required | exists:roles,rl_id',
-        ]);
+        ], $message);
 
         $validateData['password'] = Hash::make($validateData['password']);
 
         User::create($validateData);
-        return redirect('/manage/account')->with('success', 'Akun Berhasil Dibuat');
+        return redirect('/manage/account')->with('success', 'akun berhasil dibuat');
     }
 
     public function edit_account_system(Request $request, $id)
     {
         $user = User::find($id);
+
+        $messageD = [
+            'name.required' => 'Nama wajib diisi.',
+            'name.max' => 'Nama pengguna memiliki maksimal :max karakter.',
+            'name.min' => 'Nama pengguna minimal harus memiliki :min karakter.',
+            'usr_activation.boolean' => 'Status aktivasi tidak valid.',
+            'usr_role_id.required' => 'Peran pengguna wajib dipilih.',
+            'usr_role_id.exists' => 'Peran yang dipilih tidak ditemukan.',
+        ];
+
+        $messageNo = [
+            'usr_no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'usr_no_wa.unique' => 'Nomor WhatsApp sudah digunakan.',
+            'usr_no_wa.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'usr_no_wa.phone' => 'Nomor WhatsApp tidak valid.',
+        ];
+
+        $messagePW = [
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.max' => 'Kata sandi memiliki maksimal :max karakter.',
+            'password.min' => 'Kata sandi minimal harus memiliki :min karakter.',
+            'password.confirmed' => 'Sandi dengan ulangin sandi harus sama.',
+        ];
+
         $validateData = $request->validate([
             'name' => 'sometimes | required | min:3 | max:255',
             'usr_activation' => 'sometimes | nullable | boolean',
             'usr_role_id' => 'sometimes | required | exists:roles,rl_id',
-        ]);
+        ], $messageD);
 
         if ($request->usr_no_wa != $user['usr_no_wa']) {
             $no_wa = $request->validate([
                 'usr_no_wa' => 'sometimes | required | regex:/^[0-9]+$/ | unique:users,usr_no_wa| phone:ID',
-            ]);
+            ], $messageNo);
             $validateData['usr_no_wa'] = $no_wa['usr_no_wa'];
         }
 
         if ($request->password != null) {
             $password = $request->validate([
                 'password' => 'sometimes | nullable | min:5 | max:30 | confirmed',
-            ]);
+            ], $messagePW);
             $validateData['password'] = Hash::make($password['password']);
         }
 
         $user->update($validateData);
-        return redirect('/manage/account')->with('success', 'Akun Berhasil Diubah');
+        return redirect('/manage/account')->with('success', 'akun berhasil diubah');
     }
 
     public function banned_account_system(Request $request, $id)
@@ -148,7 +189,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $user->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diblokir');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'akun berhasil diblokir');
     }
 
     public function activated_account_system(Request $request, $id)
@@ -195,7 +236,7 @@ class ManageAcoountController extends Controller
                 }
 
                 $request->validate([
-                    'target' => 'required|string',
+                    'target' => 'required | exists:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
                 ]);
 
                 $deviceToken = $activeDeviceToken;
@@ -212,15 +253,15 @@ class ManageAcoountController extends Controller
                 }
 
                 $status_kode = response()->json([
-                    'message' => 'Pesan berhasil dikirim!',
+                    'message' => 'pesan berhasil dikirim!',
                     'data' => $response['data'],
                 ]);
             }
 
             $user->update($validateData);
-            return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun Berhasil Diaktifasi ');
+            return redirect('/manage/account/' . $id . '/detail')->with('success', 'akun berhasil diaktivasi ');
         } catch (\Throwable $th) {
-            return redirect('/manage/account/' . $id . '/detail')->with('error', 'Akun Gagal Diaktifasi ');
+            return redirect('/manage/account/' . $id . '/detail')->with('error', 'akun gagal diaktivasi ');
         }
     }
 
@@ -233,7 +274,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $account->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Berhasil Merubah Peran Akun');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'berhasil merubah peran Akun');
     }
 
     public function delete_account_system(Request $request, $id)
@@ -245,9 +286,9 @@ class ManageAcoountController extends Controller
                 throw new \Exception('Tidak diizinkan menghapus akun yang sedang anda gunakan');
             }
             $user->delete();
-            return redirect('/manage/account')->with('success', 'Akun Berhasil Dihapus');
+            return redirect('/manage/account')->with('success', 'akun berhasil dihapus');
         } catch (\Throwable $th) {
-            return redirect('/manage/account')->with('error', 'Akun Gagal Dihapus');
+            return redirect('/manage/account')->with('error', 'akun Gagal Dihapus');
         }
     }
 

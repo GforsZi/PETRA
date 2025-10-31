@@ -13,26 +13,41 @@ class AuthController extends Controller
 {
     public function register_page()
     {
-        return view('auth.register', ['title' => 'Halaman Register']);
+        return view('auth.register', ['title' => 'Halaman pendaftaran']);
     }
 
     public function register_system(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama wajib diisi.',
+            'name.min' => 'Nama minimal harus memiliki 3 karakter.',
+            'name.max' => 'Nama tidak boleh lebih dari 255 karakter.',
+
+            'usr_no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'usr_no_wa.unique' => 'Nomor WhatsApp ini sudah terdaftar.',
+            'usr_no_wa.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'usr_no_wa.phone' => 'Nomor WhatsApp tidak valid.',
+
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi minimal 5 karakter.',
+            'password.max' => 'Kata sandi maksimal 30 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak sesuai.',
+        ];
         $validateData = $request->validate([
             'name' => 'required | min:3 | max:255',
             'usr_no_wa' => 'required  | unique:users,usr_no_wa| regex:/^[0-9]+$/ | phone:ID',
             'password' => 'required | min:5 | max:30 | confirmed',
-        ]);
+        ], $message);
 
         $validateData['password'] = Hash::make($validateData['password']);
 
         User::create($validateData);
-        return redirect('/login')->with('success', 'Akun Berhasil Dibuat');
+        return redirect('/login')->with('success', 'akun berhasil dibuat');
     }
 
     public function login_page()
     {
-        return view('auth.login', ['title' => 'Halaman Login']);
+        return view('auth.login', ['title' => 'Halaman masuk']);
     }
 
     public function login_system(Request $request)
@@ -49,18 +64,18 @@ class AuthController extends Controller
 
                 $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
                 if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
-                    return redirect('/home')->with('success', 'Login success!');
+                    return redirect('/home')->with('success', 'berhasil masuk');
                 } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
-                    return redirect('/dashboard')->with('success', 'Login success!');
+                    return redirect('/dashboard')->with('success', 'berhasil masuk!');
                 } else {
-                    return redirect()->intended('/forbidden')->with('success', 'Login success!');
+                    return redirect()->intended('/forbidden')->with('success', 'berhasil masuk');
                 }
             } else {
                 throw new \Exception('Terjadi kesalahan pada input peminjaman');
             }
         } catch (\Throwable $th) {
 
-            return redirect('/login')->with('error', 'Login gagal!');
+            return redirect('/login')->with('error', 'gagal masuk');
         }
     }
 

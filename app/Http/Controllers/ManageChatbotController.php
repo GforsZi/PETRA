@@ -26,18 +26,18 @@ class ManageChatbotController extends Controller
             ->where('cht_opt_title', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('chat.option.view', ['title' => 'Halaman Kelola Opsi Chatbot'], compact('options'));
+        return view('chat.option.view', ['title' => 'Halaman kelola opsi chat'], compact('options'));
     }
 
     public function detail_chatbot_option_page($id)
     {
         $option = ChatOption::withTrashed()->with('created_by', 'updated_by', 'deleted_by')->find($id);
-        return view('chat.option.detail', ['title' => 'Halaman Detail Opsi Chatbot'], compact('option'));
+        return view('chat.option.detail', ['title' => 'Halaman Detail opsi chat'], compact('option'));
     }
 
     public function add_chatbot_option_page()
     {
-        return view('chat.option.add', ['title' => 'Halaman Tambah Opsi Chatbot']);
+        return view('chat.option.add', ['title' => 'Halaman tambah opsi chatbot']);
     }
 
     public function add_chatbot_option_system(Request $request)
@@ -55,20 +55,27 @@ class ManageChatbotController extends Controller
                 exit();
             }
         }
+
+        $message = [
+            'cht_opt_title.required' => 'Judul opsi chat wajib diisi.',
+            'cht_opt_message.required' => 'Pesan opsi chat wajib diisi.',
+            'cht_opt_type.in' => 'Tipe opsi chat tidak valid.',
+        ];
+
         $validateData = $request->validate([
             'cht_opt_title' => 'required | string | max:255',
             'cht_opt_message' => 'required | string | max:65535',
             'cht_opt_type' => 'required | in:1,2,3',
-        ]);
+        ], $message);
 
         ChatOption::create($validateData);
-        return redirect('/manage/chat/option')->with('success', 'opsi pesan Berhasil Ditambahkan');
+        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil ditambahkan');
     }
 
     public function edit_chatbot_option_page($id)
     {
         $option = ChatOption::select('cht_opt_id', 'cht_opt_title', 'cht_opt_message', 'cht_opt_type')->find($id);
-        return view('chat.option.edit', ['title' => 'Halaman Ubah Opsi Chatbot'], compact('option'));
+        return view('chat.option.edit', ['title' => 'Halaman ubah opsi chat'], compact('option'));
     }
 
     public function edit_chatbot_option_system(Request $request, $id)
@@ -89,21 +96,27 @@ class ManageChatbotController extends Controller
             }
         }
 
+        $message = [
+            'cht_opt_title.required' => 'Judul opsi chat wajib diisi.',
+            'cht_opt_message.required' => 'Pesan opsi chat wajib diisi.',
+            'cht_opt_type.in' => 'Tipe opsi chat tidak valid.',
+        ];
+
         $validateData = $request->validate([
             'cht_opt_title' => 'sometimes | required | string | max:255',
             'cht_opt_message' => 'sometimes | required | string | max:65535',
             'cht_opt_type' => 'required | in:1,2,3',
-        ]);
+        ], $message);
 
         $option->update($validateData);
-        return redirect('/manage/chat/option')->with('success', 'Opsi Pesan Berhasil Diubah');
+        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil diubah');
     }
 
     public function delete_chatbot_option_system(Request $request, $id)
     {
         $option = ChatOption::find($id);
         $option->delete();
-        return redirect('/manage/chat/option')->with('success', 'Opsi Pesan Berhasil Dihapus');
+        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil dihapus');
     }
 
     public function add_chatbot_notification_system(Request $request)
@@ -120,8 +133,8 @@ class ManageChatbotController extends Controller
         $response = $this->fonnteService->sendWhatsAppMessage($target, $message, $deviceToken);
 
         if (!$response['status'] || (isset($response['data']['status']) && !$response['data']['status'])) {
-            $errorReason = $response['data']['reason'] ?? 'Unknown error occurred';
-            return response()->json(['message' => 'Error', 'error' => $errorReason], 500);
+            $errorReason = $response['data']['reason'] ?? 'terjadi kesalahan yang tidak diketahui';
+            return response()->json(['message' => 'terjadi kesalahan', 'error' => $errorReason], 500);
         }
 
         return response()->json([
@@ -133,11 +146,11 @@ class ManageChatbotController extends Controller
     protected function validate_headers_system($authorizationHeader, $deviceToken)
     {
         if (empty($authorizationHeader)) {
-            return response()->json(['message' => 'Authorization header is required'], 401);
+            return response()->json(['message' => 'otorisasi diperlukan'], 401);
         }
 
         if ($authorizationHeader != $deviceToken) {
-            return response()->json(['message' => 'Invalid Device Authorization Token!'], 401);
+            return response()->json(['message' => 'token otorisasi perangkat tidak valid'], 401);
         }
 
         return null;
@@ -178,20 +191,27 @@ class ManageChatbotController extends Controller
             ->where('dvc_name', 'like', "%$query%")
             ->latest()
             ->paginate(10);
-        return view('chat.device.view', ['title' => 'Halaman Kelola Perangkat'], compact('devices', 'devices_pg'));
+        return view('chat.device.view', ['title' => 'Halaman kelola perangkat'], compact('devices', 'devices_pg'));
     }
 
     public function add_device_page()
     {
-        return view('chat.device.add', ['title' => 'Halaman Tambah Perangkat']);
+        return view('chat.device.add', ['title' => 'Halaman tambah perangkat']);
     }
 
     public function store(Request $request)
     {
+
+        $message = [
+            'name.required' => 'Nama perangkat wajib diisi.',
+            'device.required' => 'Nomor perangkat wajib diisi.',
+            'device.phone' => 'Nomor perangkat tidak valid.',
+        ];
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'device' => 'required|string|max:255|phone:ID',
-        ]);
+        ], $message);
 
         $accountToken = config('services.fonnte.account_token');
 
@@ -209,7 +229,7 @@ class ManageChatbotController extends Controller
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', $response->json()['reason'] ?? 'Unknown error occurred');
+                ->with('error', $response->json()['reason'] ?? 'terjadi kesalahan yang tidak diketahui');
         }
 
         $response = $response->json();
@@ -217,7 +237,7 @@ class ManageChatbotController extends Controller
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', $response['reason'] ?? 'Failed to add device.');
+                ->with('error', $response['reason'] ?? 'gagal menambah perangkat');
         }
 
         Device::create([
@@ -226,7 +246,7 @@ class ManageChatbotController extends Controller
             'dvc_token' => $response['token'] ?? null,
         ]);
 
-        return redirect('/manage/chat/device')->with('success', 'Device added successfully!');
+        return redirect('/manage/chat/device')->with('success', 'perangkat berhasil ditambahkan');
     }
 
     public function activate_device_system(Request $request)
@@ -246,7 +266,7 @@ class ManageChatbotController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'error' => $response['error'] ?? 'Failed to activate the device.',
+                'error' => $response['error'] ?? 'perangkat gagal ditambahkan',
             ],
             500,
         );
@@ -259,13 +279,13 @@ class ManageChatbotController extends Controller
             $response = $this->fonnteService->disconnectDevice($deviceToken);
 
             if ($response['status'] === true) {
-                return response()->json(['message' => 'Device disconnected successfully'], 200);
+                return response()->json(['message' => 'perangkat berhasil diputuskan'], 200);
             }
 
-            return response()->json(['error' => $response['error'] ?? 'Failed to disconnect device'], 500);
+            return response()->json(['error' => $response['error'] ?? 'perangkat gagal diputuskan'], 500);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            return response()->json(['error' => 'kesalahan pada sistem'], 500);
         }
     }
 
@@ -275,19 +295,19 @@ class ManageChatbotController extends Controller
             $delete = $this->fonnteService->submitOTPForDeleteDevice($request->otp, $deviceId);
 
             if ($delete['status'] == false) {
-                return response()->json(['message' => 'Terjadi kesalahan', 'error' => $delete['error']], 501);
+                return response()->json(['message' => 'terjadi kesalahan', 'error' => $delete['error']], 501);
             }
 
-            return response()->json(['message' => 'Device berhasil dihapus']);
+            return response()->json(['message' => 'perangkat berhasil dihapus']);
         }
 
         $requestToken = $this->fonnteService->requestOTPForDeleteDevice($deviceId);
 
         if ($requestToken['status'] == true) {
-            return response()->json(['message' => 'Berhasil mengirim token']);
+            return response()->json(['message' => 'berhasil mengirim token']);
         }
 
-        return response()->json(['message' => 'Gagal mengirim token', 'error' => $requestToken['error']], 500);
+        return response()->json(['message' => 'gagal mengirim token', 'error' => $requestToken['error']], 500);
     }
 
     protected function requestOTPForDeleteDevice($notificationId, $deviceId)
@@ -296,9 +316,9 @@ class ManageChatbotController extends Controller
         $response = $this->fonnteService->requestOTPForDeleteDevice($device->token);
 
         if ($response['status']) {
-            return response()->json(['message' => 'OTP berhasil dikirim!']);
+            return response()->json(['message' => 'OTP berhasil dikirim']);
         } else {
-            return response()->json(['message' => 'Gagal mengirim OTP.', 'error' => $response['error']], 500);
+            return response()->json(['message' => 'gagal mengirim OTP', 'error' => $response['error']], 500);
         }
     }
 
@@ -322,7 +342,7 @@ class ManageChatbotController extends Controller
             return response()->json(['message' => 'Perangkat berhasil dihapus!']);
         } else {
             Log::error('Gagal menghapus perangkat', ['error' => $response['error']]);
-            return response()->json(['message' => 'Gagal menghapus perangkat.', 'error' => $response['error']], 500);
+            return response()->json(['message' => 'gagal menghapus perangkat', 'error' => $response['error']], 500);
         }
     }
 
@@ -365,7 +385,7 @@ class ManageChatbotController extends Controller
         }
 
         return response()->json([
-            'message' => 'Pesan berhasil dikirim!',
+            'message' => 'Pesan berhasil dikirim',
             'data' => $response['data'],
         ]);
     }

@@ -29,7 +29,7 @@ class ManageHistoryController extends Controller
                 case 'Account':
                     $histories = User::onlyTrashed()->select('usr_id as id', 'usr_no_wa as title', 'usr_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/account',
                     ]);
@@ -37,7 +37,7 @@ class ManageHistoryController extends Controller
                 case 'Role':
                     $histories = Role::onlyTrashed()->select('rl_id as id', 'rl_name as title', 'rl_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/role',
                     ]);
@@ -45,7 +45,7 @@ class ManageHistoryController extends Controller
                 case 'Author':
                     $histories = Author::onlyTrashed()->select('athr_id as id', 'athr_name as title', 'athr_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/book/author',
                     ]);
@@ -53,7 +53,7 @@ class ManageHistoryController extends Controller
                 case 'Publisher':
                     $histories = Publisher::onlyTrashed()->select('pub_id as id', 'pub_name as title', 'pub_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/book/publisher',
                     ]);
@@ -61,7 +61,7 @@ class ManageHistoryController extends Controller
                 case 'DeweyDecimalClassfication':
                     $histories = DeweyDecimalClassfication::onlyTrashed()->select('ddc_id as id', 'ddc_code as title', 'ddc_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/book/ddc',
                     ]);
@@ -69,7 +69,7 @@ class ManageHistoryController extends Controller
                 case 'BookMajor':
                     $histories = BookMajor::onlyTrashed()->select('bk_mjr_id as id', 'bk_mjr_class as title', 'bk_mjr_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/book/major',
                     ]);
@@ -77,7 +77,7 @@ class ManageHistoryController extends Controller
                 case 'Book':
                     $histories = Book::onlyTrashed()->select('bk_id as id', 'bk_title as title', 'bk_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/book',
                     ]);
@@ -85,7 +85,7 @@ class ManageHistoryController extends Controller
                 case 'ChatOption':
                     $histories = ChatOption::onlyTrashed()->select('cht_opt_id as id', 'cht_opt_title as title', 'cht_opt_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/chat/option',
                     ]);
@@ -93,53 +93,53 @@ class ManageHistoryController extends Controller
                 case 'Transaction':
                     $histories = Transaction::onlyTrashed()->select('trx_id as id', 'trx_title as title', 'trx_deleted_at as deleted_at')->latest()->paginate(10);
                     return view('history.view', [
-                        'title' => 'Halaman Kelola Riwayat',
+                        'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
                         'page_url' => '/manage/transaction',
                     ]);
                     break;
                 default:
                     $histories = null;
-                    return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories], compact('pages'));
+                    return view('history.view', ['title' => 'Halaman kelola riwayat', 'histories' => $histories], compact('pages'));
                     break;
             }
         }
 
         $pages = [
             [
-                'title' => 'Riwayat Akun',
+                'title' => 'Riwayat akun',
                 'page' => '/manage/history?category=Account',
             ],
             [
-                'title' => 'Riwayat Peran',
+                'title' => 'Riwayat peran',
                 'page' => '/manage/history?category=Role',
             ],
             [
-                'title' => 'Riwayat Buku',
+                'title' => 'Riwayat buku',
                 'page' => '/manage/history?category=Book',
             ],
             [
-                'title' => 'Riwayat Penerbit Buku',
+                'title' => 'Riwayat penerbit',
                 'page' => '/manage/history?category=Publisher',
             ],
             [
-                'title' => 'Riwayat Klasifikasi Buku',
+                'title' => 'Riwayat klasifikasi',
                 'page' => '/manage/history?category=DeweyDecimalClassfication',
             ],
             [
-                'title' => 'Riwayat Jurusan Buku',
+                'title' => 'Riwayat jurusan buku',
                 'page' => '/manage/history?category=BookMajor',
             ],
             [
-                'title' => 'Riwayat Opsi Chat',
+                'title' => 'Riwayat opsi chat',
                 'page' => '/manage/history?category=ChatOption',
             ],
             [
-                'title' => 'Riwayat Transaksi',
+                'title' => 'Riwayat transaksi',
                 'page' => '/manage/history?category=Transaction',
             ],
         ];
-        return view('history.view', ['title' => 'Halaman Kelola Riwayat', 'histories' => $histories], compact('pages'));
+        return view('history.view', ['title' => 'Halaman kelola riwayat', 'histories' => $histories], compact('pages'));
     }
 
     public function restore_system(Request $request, $id)
@@ -148,37 +148,37 @@ class ManageHistoryController extends Controller
             case 'Account':
                 $histories = User::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Account')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Account')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'Role':
                 $histories = Role::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Role')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Role')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'Author':
                 $histories = Author::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Author')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Author')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'Publisher':
                 $histories = Publisher::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Publisher')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Publisher')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'DeweyDecimalClassfication':
                 $histories = DeweyDecimalClassfication::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=DeweyDecimalClassfication')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=DeweyDecimalClassfication')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'BookMajor':
                 $histories = BookMajor::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=BookMajor')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=BookMajor')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'Book':
                 $histories = Book::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Book')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Book')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'ChatOption':
                 $histories = ChatOption::onlyTrashed()->find($id);
@@ -196,17 +196,17 @@ class ManageHistoryController extends Controller
                     }
                 }
                 $histories->restore();
-                return redirect('/manage/history?category=ChatOption')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=ChatOption')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'BookCopy':
                 $histories = BookCopy::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=BookCopy')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=BookCopy')->with('success', 'Data berhasil dipulishkan');
                 break;
             case 'Transaction':
                 $histories = Transaction::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Transaction')->with('success', 'Data Berhasil Dipulihkan');
+                return redirect('/manage/history?category=Transaction')->with('success', 'Data berhasil dipulishkan');
                 break;
             default:
                 return redirect('/manage/history')->with('Error', 'Tidak Ada Data Untuk Dipulihkan');

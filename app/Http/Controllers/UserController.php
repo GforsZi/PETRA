@@ -33,7 +33,7 @@ class UserController extends Controller
             'ditolak' => $dataD['4'] ?? 0,
         ];
         $loan = Transaction::select('trx_id', 'trx_user_id')->where('trx_user_id', Auth::id())->get()->count();
-        return view('user.home', ['title' => 'Halaman Home'], compact('book_new', 'book_loan', 'chartData', 'loan'));
+        return view('user.home', ['title' => 'Halaman Beranda'], compact('book_new', 'book_loan', 'chartData', 'loan'));
     }
 
     public function profile_page()
@@ -42,21 +42,27 @@ class UserController extends Controller
             ->with('roles')
             ->get()
             ->first();
-        return view('user.profile', ['title' => 'Halaman Profile'], compact('user'));
+        return view('user.profile', ['title' => 'Halaman profil'], compact('user'));
     }
     public function profile_edit_page()
     {
         $user = User::select('usr_id', 'name', 'usr_bio', 'usr_card_url', 'usr_no_wa')->find(Auth::user()->usr_id);
-        return view('user.edit', ['title' => 'Halaman ubah Profile'], compact('user'));
+        return view('user.edit', ['title' => 'Halaman ubah profil'], compact('user'));
     }
 
     public function edit_profile_system(Request $request)
     {
         $user = User::find(Auth::user()->usr_id);
+
+        $message = [
+            'name.required' => 'Nama wajib diisi.',
+            'usr_bio.max' => 'Bio maksimal 255 karakter.',
+        ];
+
         $validateData = $request->validate([
             'name' => 'sometimes | required | string | max:255',
             'usr_bio' => 'sometimes | nullable | string | max:255',
-        ]);
+        ], $message);
 
         if ($request->usr_no_wa != $user['usr_no_wa']) {
             $no_wa = $request->validate([
@@ -66,7 +72,7 @@ class UserController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/user/profile')->with('success', 'Profile Berhasil Diubah');
+        return redirect('/user/profile')->with('success', 'Profile berhasil diubah');
     }
 
     public function activation_page()
@@ -74,14 +80,22 @@ class UserController extends Controller
         $user = User::select('usr_id', 'name', 'usr_no_wa', 'usr_role_id', 'usr_card_url', 'usr_created_at')
             ->with('roles')
             ->find(Auth::user()->usr_id);
-        return view('user.activation', ['title' => 'Halaman Aktifasi'], compact('user'));
+        return view('user.activation', ['title' => 'Halaman aktivasi'], compact('user'));
     }
 
     public function activation_system(Request $request)
     {
+
+        $message = [
+            'image.required' => 'Gambar wajib diunggah.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Format gambar hanya boleh JPEG, PNG, atau JPG.',
+            'image.max' => 'Ukuran gambar maksimal 2MB.',
+        ];
+
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        ], $message);
         $validateData = null;
         $user = Auth::user();
         if ($request->hasFile('image')) {
@@ -98,7 +112,7 @@ class UserController extends Controller
             $validateData['usr_card_url'] = 'media/card_img/' . $filename;
         }
         $user->update($validateData);
-        return redirect('/user/profile')->with('success', 'Berhasil mengaktifasi akun');
+        return redirect('/user/profile')->with('success', 'Berhasil mengaktivasi akun');
     }
 
     public function search_book_page()
@@ -124,7 +138,7 @@ class UserController extends Controller
         $book = Book::select('bk_id', 'bk_isbn', 'bk_title', 'bk_description', 'bk_page', 'bk_img_url', 'bk_type', 'bk_edition_volume', 'bk_published_year', 'bk_publisher_id', 'bk_major_id')
             ->with('authors:athr_id,athr_name', 'major:bk_mjr_id,bk_mjr_class,bk_mjr_major', 'publisher:pub_id,pub_name', 'deweyDecimalClassfications:ddc_id,ddc_code,ddc_description')
             ->find($id);
-        return view('user.book.detail', ['title' => 'Halaman Detail Buku'], compact('book'));
+        return view('user.book.detail', ['title' => 'Halaman detail buku'], compact('book'));
     }
 
     public function google_search_book_system(Request $request)
@@ -133,7 +147,7 @@ class UserController extends Controller
 
         if (empty($query)) {
             return response()->json([
-                'error' => 'Query pencarian tidak boleh kosong.'
+                'error' => 'pencarian tidak boleh kosong'
             ], 400);
         }
 
@@ -149,14 +163,14 @@ class UserController extends Controller
             // Pastikan API berhasil
             if ($response->failed()) {
                 return response()->json([
-                    'error' => 'Gagal mengambil data dari Google Books.'
+                    'error' => 'gagal mengambil data dari Google Books'
                 ], 500);
             }
 
             return response()->json($response->json());
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => 'Terjadi kesalahan internal server.',
+                'error' => 'terjadi kesalahan internal server.',
                 'message' => $th->getMessage(),
             ], 500);
         }
@@ -188,7 +202,7 @@ class UserController extends Controller
             }
         }
 
-        return view('user.book.ebook', ['title' => 'Halaman Detail Buku'], compact('book', 'images'));
+        return view('user.book.ebook', ['title' => 'Halaman detail buku'], compact('book', 'images'));
     }
 
     public function view_transaction_page(Request $request)
@@ -200,11 +214,11 @@ class UserController extends Controller
             })
             ->latest()
             ->paginate(10);
-        return view('user.transaction.view', ['title' => 'Halaman Kelola Peminjaman'], compact('transactions'));
+        return view('user.transaction.view', ['title' => 'Halaman keloa peminjaman'], compact('transactions'));
     }
     public function add_transaction_page()
     {
-        return view('user.transaction.add', ['title' => 'Halaman Tambah Peminjaman']);
+        return view('user.transaction.add', ['title' => 'Halaman tambah peminjaman']);
     }
 
     public function detail_transaction_page($id)
@@ -219,7 +233,7 @@ class UserController extends Controller
             return $copies->unique('bk_cp_number')->sortBy('bk_cp_number')->values();
         });
         return view('user.transaction.detail', [
-            'title' => 'Halaman Detail Peminjaman',
+            'title' => 'Halaman detail peminjaman',
             'transaction' => $transaction,
             'books' => $uniqueBooks,
             'copiesGrouped' => $copiesGrouped,
