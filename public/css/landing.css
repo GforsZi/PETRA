@@ -595,12 +595,13 @@ body {
 footer {
     background-color: #121740;
     color: white;
-    padding: 20px 15px;
-    text-align: center;
+   padding:0 !important;
     font-size: 0.9rem;
     font-weight: 400;
     height: 100%;
+    
 }
+
 .footer a:hover {
     opacity: 0.8;
     transform: scale(1.1);
@@ -610,6 +611,88 @@ footer {
 .footer i {
     vertical-align: middle;
 }
+
+.bg-container {
+  position: relative;
+  min-height: 400px; /* supaya area terlihat */
+  overflow: hidden;  /* biar background tidak keluar */
+}
+
+/* .pattern-square {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; 
+
+  --mx: 0;
+  --my: 0;
+  --a-x: calc(var(--mx) * 8px);
+  --a-y: calc(var(--my) * 8px);
+  --b-x: calc(var(--mx) * -6px);
+  --b-y: calc(var(--my) * -6px);
+  --c-x: calc(var(--mx) * 4px);
+  --c-y: calc(var(--my) * 4px);
+
+  background:
+    repeating-linear-gradient(
+        45deg,
+        transparent calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        transparent 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        transparent 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)
+      )
+      calc(0px + var(--c-x)) calc(0px + var(--c-y)),
+    repeating-linear-gradient(
+        45deg,
+        transparent calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        transparent 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        transparent 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)
+      )
+      calc(32px + var(--a-x)) calc(32px + var(--a-y)),
+    repeating-linear-gradient(
+        -45deg,
+        transparent calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        transparent 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        transparent 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)
+      )
+      calc(0px + var(--b-x)) calc(0px + var(--b-y)),
+    repeating-linear-gradient(
+        -45deg,
+        transparent calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        transparent 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        transparent 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)
+      )
+      calc(32px + var(--a-x)) calc(32px + var(--a-y)),
+    #1e1e1e;
+
+  background-size: 64px 64px;
+  background-repeat: repeat;
+  pointer-events: none;
+  transition: background-position 160ms linear;
+} */
+
+
+footer {
+  position: relative;
+  
+  
+ 
+}
+
+/* Konten footer tetap di atas pattern */
+
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

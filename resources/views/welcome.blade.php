@@ -1,6 +1,10 @@
 <x-guest-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/landing.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
@@ -31,7 +35,7 @@
     <!-- Hero Section -->
     <div class="view">
 
-        <section class="hero-section view-custom d-flex align-items-center " id="HOME">
+        <section class="hero-section view-custom d-flex align-items-center mt-5 " id="HOME">
             <div class="container hero-content" data-aos="fade-up" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="1200">
                 <hr />
                 <h1>SELAMAT DATANG</h1>
@@ -77,7 +81,7 @@
                         });
                     });
                 });
-                // Kumpulan kutipan dan tokohnya (selalu berpasangan)
+                
                 const quotes = [{
                         text: "Padi tumbuh tidak berisik.",
                         author: "Tan Malaka"
@@ -95,11 +99,11 @@
                         author: "R.A. Kartini"
                     },
                     {
-                        text: "Pendidikan adalah senjata paling ampuh yang dapat kamu gunakan untuk mengubah dunia.",
-                        author: "Nelson Mandela"
+                        text: "Ilmu tanpa akhlak akan menyesatkan.",
+                        author: "Imam Al-Ghazali"
                     },
                     {
-                        text: "Pendidikan bukanlah belajar tentang fakta, tetapi melatih pikiran untuk berpikir.",
+                        text: "Rasa ingin tahu adalah guru terbaik.",
                         author: "Albert Einstein"
                     },
                     {
@@ -115,8 +119,8 @@
                         author: "Anies Baswedan"
                     },
                     {
-                        text: "Bangun versi terbaik dalam dirimu.",
-                        author: " Dion"
+                        text: "Jika engkau tidak sanggup menanggung lelahnya belajar, maka engkau harus menanggung pedihnya kebodohan.",
+                        author: " Imam Asy-Syafi’i"
                     }
                 ];
 
@@ -140,7 +144,7 @@
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <h2 class="mb-3">TENTANG KAMI</h2>
-                    <p>
+                    <p class="fs-4">
                         Kami berkomitmen untuk membuka akses pengetahuan seluas mungkin. Dengan satu buku, kami
                         percaya setiap orang bisa menemukan sejuta ilmu yang bermanfaat untuk hidup dan masa depan.
                     </p>
@@ -174,7 +178,7 @@
     <!-- Keunggulan Kami -->
     <section class="mt-4" id="keunggulan">
 
-        <h1 class="text-center mb-4 text-uppercase text-bold " data-aos="fade-up" data-aos-duration="1500">Keunggulan Kami</h1>
+        <h1 class="text-center mb-4 text-uppercase  fw-bold " data-aos="fade-up" data-aos-duration="1500">Keunggulan Kami</h1>
 
         <div class="section-flex">
 
@@ -208,116 +212,131 @@
                         width: 90%;
                     }
                 }
+
+                 h1 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+    }
+    p {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+    }
             </style>
 
             <!-- Card -->
             <div class="cards">
                 <div class="card red" data-aos="fade-up" data-aos-duration="1500">
 
-                    <p class="tip">Antarmuka yang Sederhana dan Interaktif</p>
+                    <p class="tip fs-5">Antarmuka yang Sederhana dan Interaktif</p>
                 </div>
                 <div class="card blue" data-aos="fade-up" data-aos-duration="1500">
 
-                    <p class="tip">Notifikasi & Pengingat Otomatis</p>
+                    <p class="tip fs-5">Notifikasi & Pengingat Otomatis</p>
                 </div>
                 <div class="card green" data-aos="fade-up" data-aos-duration="1500">
 
-                    <p class="tip">Pelayanan cepat </p>
+                    <p class="tip fs-5">Pelayanan cepat </p>
                 </div>
             </div>
 
         </div>
 
     </section>
-    <footer class="footer text-white" id="Kontak">
-        <div class="container py-4" style="height : 85vh">
-            <div class="row align-items-start">
+<footer class="footer text-white" id="Kontak">
+  <div class="container" style="height: 100vh;">
+    <div class="row align-items-start">
+      <footer class="container-fluid mt-5">
+        <div class="row align-items-center">
+          <footer class="container-fluid">
+            <div class="row align-items-center">
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2 mb-3 mb-md-0">
+                  <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" alt="Logo Petra" style="width: 50px; height: 65px;">
+                  <h3 class="mb-0 text-uppercase">PETRA</h3>
+                </div>
 
-                <footer class="container-fluid py-4">
-                    <div class="row align-items-center">
-                        <footer class="container-fluid py-4">
-                            <div class="row align-items-center">
-
-                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-
-                                    <div class="d-flex align-items-center gap-2 mb-3 mb-md-0">
-                                        <img src="{{ asset('logo/landing/PETRA-LOGO.png') }}" alt="Logo Petra" style="width: 50px; height: 65px;">
-                                        <h3 class="mb-0 text-uppercase">PETRA</h3>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-3 text-center text-md-end">
-                                        <div>
-                                            <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
-                                            <p class="mb-0">
-                                                <i class="bi bi-geo-alt-fill me-1"></i> SMK Mahaputra
-                                            </p>
-                                        </div>
-                                        <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}" alt="Logo Mahaputra" style="width: 50px; height: 50px;" class="rounded-circle">
-                                    </div>
-
-                                </div>
-
-                        </footer>
-
-                        <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-                            <!-- From Uiverse.io by javierBarroso -->
-                            <div class="social-login-icons">
-                                <div class="socialcontainer">
-                                    <div class="icon social-icon-2-2">
-
-                                        <i class="bi bi-instagram"></i>
-                                    </div>
-                                    <a href="https://www.instagram.com/smkmahaputra_official?igsh=MTUyZW43NWMwNW1sMw==" class="text-light">
-
-                                        <div class="social-icon-2">
-                                            <i class="bi bi-instagram"></i>
-
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="socialcontainer">
-                                    <div class="icon social-icon-3-3">
-                                        <i class="bi bi-globe"></i>
-                                    </div>
-                                    <a href="https://www.smkmahaputra.sch.id" class="text-light" target="_blank" rel="noopener noreferrer">
-                                        <div class="social-icon-3">
-                                            <i class="bi bi-globe"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="socialcontainer">
-                                    <div class="icon social-icon-4-4">
-                                        <i class="bi bi-tiktok"></i>
-
-                                    </div>
-                                    <a href="https://www.tiktok.com/@smkmahaputra_official?_t=ZS-90ER2mFsQ5q&_r=1" class="text-light">
-                                        <div class="social-icon-4">
-
-                                            <i class="bi bi-tiktok"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.09561724186!2d107.576833774542!3d-6.998020368538179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9681a28859f%3A0x48f4d9cf5a8ab783!2sSMKS%20Mahaputra%20Cerdas%20Utama!5e0!3m2!1sid!2sid!4v1757997057212!5m2!1sid!2sid"
-                                width="100%" height="100%" style="border:0; border-radius: 8px; margin-top: 60px;" allowfullscreen="" loading="lazy">
-                            </iframe>
-                        </div>
-                    </div>
+                <div class="d-flex align-items-center gap-3 text-center text-md-end">
+                  <div>
+                    <p class="mb-1 fw-semibold">2025 Copyright | WPMP</p>
+                    <p class="mb-0"><i class="bi bi-geo-alt-fill me-1"></i> SMK Mahaputra</p>
+                  </div>
+                  <img src="{{ asset('logo/landing/Mahaputra.jpeg') }}" alt="Logo Mahaputra" style="width: 50px; height: 50px;" class="rounded-circle">
+                </div>
+              </div>
             </div>
-    </footer>
+          </footer>
+        </div>
+      </footer>
 
-    <style>
-        @media (max-width: 768px) {
-            iframe {
-                height: 150px;
-            }
-        }
-    </style>
+      <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+        <div class="social-login-icons">
+          <div class="socialcontainer">
+            <div class="icon social-icon-2-2"><i class="bi bi-instagram"></i></div>
+            <a href="https://www.instagram.com/smkmahaputra_official?igsh=MTUyZW43NWMwNW1sMw==" class="text-light">
+              <div class="social-icon-2"><i class="bi bi-instagram"></i></div>
+            </a>
+          </div>
+
+          <div class="socialcontainer">
+            <div class="icon social-icon-3-3"><i class="bi bi-globe"></i></div>
+            <a href="https://www.smkmahaputra.sch.id" class="text-light" target="_blank">
+              <div class="social-icon-3"><i class="bi bi-globe"></i></div>
+            </a>
+          </div>
+
+          <div class="socialcontainer">
+            <div class="icon social-icon-4-4"><i class="bi bi-tiktok"></i></div>
+            <a href="https://www.tiktok.com/@smkmahaputra_official?_t=ZS-90ER2mFsQ5q&_r=1" class="text-light">
+              <div class="social-icon-4"><i class="bi bi-tiktok"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 pattern square di bawah banget -->
+  <div class="pattern-square"></div>
+</footer>
+
+</footer>
+
+<style>
+ footer .pattern-square {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 48%; /* sedikit lebih tinggi biar ruangnya cukup */
+  z-index: 1;
+  opacity: 0.9;
+  pointer-events: none;
+  background-color: #121740;
+
+  /* 🎨 SVG diamond pattern */
+  background-image: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'>\
+    <rect width='100%' height='100%' fill='%23121740'/>\
+    <!-- ruang kosong di atas (padding visual) -->\
+    <rect y='-4' width='64' height='8' fill='%23121740'/>\
+    <!-- diamond shapes -->\
+    <path d='M32 0 L64 32 L32 64 L0 32 Z' fill='none' stroke='%23100f0f' stroke-width='1.5'/>\
+    <path d='M32 8 L56 32 L32 56 L8 32 Z' fill='none' stroke='%23100f0f' stroke-width='1.2'/>\
+    <path d='M32 16 L48 32 L32 48 L16 32 Z' fill='none' stroke='%23100f0f' stroke-width='1'/>\
+  </svg>");
+
+  background-size: 64px 64px;
+  background-repeat: repeat;
+  background-position: center bottom; /* fokus di bawah biar garis atas gak kelihatan */
+ 
+}
+
+
+}
+
+</style>
+
+
+    
+
+   
 </x-guest-layout>
