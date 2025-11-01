@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('book_majors', function (Blueprint $table) {
             $table->bigIncrements('bk_mjr_id');
-            $table->enum('bk_mjr_class', ['1', '2', '3']);
+            $table->enum('bk_mjr_class', ['1', '2', '3', '4']);
             $table->string('bk_mjr_major');
             $table->timestamps();
             $table->unsignedBigInteger('bk_mjr_created_by')->unsigned()->nullable();

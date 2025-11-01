@@ -64,7 +64,6 @@ class BookDeweyDecimalClassficationSeeder extends Seeder
             ['bk_ddc_book_id' => 48, 'bk_ddc_classfication_id' => 3],
             ['bk_ddc_book_id' => 49, 'bk_ddc_classfication_id' => 8],
             ['bk_ddc_book_id' => 50, 'bk_ddc_classfication_id' => 8],
-            ['bk_ddc_book_id' => 51, 'bk_ddc_classfication_id' => 8],
         ]);
     }
 }

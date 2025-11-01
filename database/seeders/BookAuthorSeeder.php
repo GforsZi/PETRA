@@ -104,7 +104,6 @@ class BookAuthorSeeder extends Seeder
             ['bk_athr_book_id' => 48, 'bk_athr_author_id' => 17],
             ['bk_athr_book_id' => 49, 'bk_athr_author_id' => 13],
             ['bk_athr_book_id' => 50, 'bk_athr_author_id' => 16],
-            ['bk_athr_book_id' => 51, 'bk_athr_author_id' => 16],
         ]);
     }
 }
