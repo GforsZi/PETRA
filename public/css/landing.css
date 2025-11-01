@@ -595,7 +595,7 @@ body {
 footer {
     background-color: #121740;
     color: white;
-   padding:0 !important;
+   padding: 2px;
     font-size: 0.9rem;
     font-weight: 400;
     height: 100%;

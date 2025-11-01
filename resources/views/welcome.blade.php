@@ -306,7 +306,7 @@
   position: absolute;
   inset: auto 0 0 0;
   width: 100%;
-  height: 48%; /* sedikit lebih tinggi biar ruangnya cukup */
+  height: 50%; /* sedikit lebih tinggi biar ruangnya cukup */
   z-index: 1;
   opacity: 0.9;
   pointer-events: none;
@@ -317,17 +317,26 @@
   <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'>\
     <rect width='100%' height='100%' fill='%23121740'/>\
     <!-- ruang kosong di atas (padding visual) -->\
-    <rect y='-4' width='64' height='8' fill='%23121740'/>\
+    <rect y='-4' width='64' height='12' fill='%23121740'/>\
     <!-- diamond shapes -->\
     <path d='M32 0 L64 32 L32 64 L0 32 Z' fill='none' stroke='%23100f0f' stroke-width='1.5'/>\
     <path d='M32 8 L56 32 L32 56 L8 32 Z' fill='none' stroke='%23100f0f' stroke-width='1.2'/>\
     <path d='M32 16 L48 32 L32 48 L16 32 Z' fill='none' stroke='%23100f0f' stroke-width='1'/>\
   </svg>");
 
-  background-size: 64px 64px;
+  background-size: 84px 84px;
   background-repeat: repeat;
   background-position: center bottom; /* fokus di bawah biar garis atas gak kelihatan */
  
+}
+
+/* 🔹 Responsif pattern di footer */
+
+
+@media (min-width: 6750px) {
+  footer .pattern-square {
+    background-size: 40px 40px;
+  }
 }
 
 
