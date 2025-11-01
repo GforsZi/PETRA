@@ -193,26 +193,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
-                        data-bs-title="Pemberitahuan" data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">Jurusan
-                    </label>
-                    <div class="col-sm-10">
-                        <select name="bk_major_id" class="form-select @error('bk_major_id') is-invalid @enderror" aria-label="Default select example">
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($majors as $major)
-                                <option value="{{ $major->bk_mjr_id }}">
-                                    {{ $major->bk_mjr_class . ' ' . $major->bk_mjr_major }}
-                                </option>
-                            @endforeach
-                            @error('bk_major_id')
-                                <div class="invalid-feedback">
-                                    <p style="text-align: right;">{{ $message }}</p>
-                                </div>
-                            @enderror
-                        </select>
-                    </div>
+               <div class="mb-3 row position-relative">
+    <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
+        data-bs-title="Pemberitahuan" data-bs-content="Pilih jurusan yang relevan dengan isi buku. Misalnya: Rekayasa Perangkat Lunak atau Desain Komunikasi Visual.">
+        Jurusan
+    </label>
+    <div class="col-sm-10 position-relative">
+        <div class="position-relative">
+            <input type="text" id="major-input" class="form-control pe-5 @error('bk_major_id') is-invalid @enderror" autocomplete="off"
+                value="{{ $book['major']['bk_mjr_class'] ?? '' }}">
+            <input type="hidden" name="bk_major_id" id="major-id" value="{{ $book['bk_major_id'] ?? '' }}">
+            <button type="button" id="clear-major" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" style="display:none;">❌</button>
+            @error('bk_major_id')
+                <div class="invalid-feedback">
+                    <p style="text-align: right;">{{ $message }}</p>
                 </div>
+            @enderror
+            <div id="major-suggestions" class="list-group position-absolute shadow-sm" style="z-index:1000; display:none; width:100%;"></div>
+        </div>
+    </div>
+</div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus"
                         data-bs-title="Pemberitahuan"
@@ -501,6 +501,15 @@
                 suggestionsBox_pub.style.display = 'none';
             });
 
+            // jika input dikosongkan secara manual, kosongkan juga id-nya
+            input_pub.addEventListener('input', function() {
+                if (input_pub.value.trim() === '') {
+                    hiddenId_pub.value = '';
+                }
+                toggleClearButton();
+            });
+
+
             // tampilkan riwayat input saat fokus
             input_pub.addEventListener('focus', function() {
                 if (history.length > 0) {
@@ -603,6 +612,15 @@
                 suggestionsBox_org.style.display = 'none';
             });
 
+                // jika input dikosongkan secara manual, kosongkan juga id-nya
+            input_org.addEventListener('input', function() {
+                if (input_org.value.trim() === '') {
+                    hiddenId_org.value = '';
+                }
+                toggleClearButton();
+            });
+
+                
             // tampilkan saran riwayat saat fokus
             input_org.addEventListener('focus', function() {
                 if (history.length > 0) {
@@ -682,5 +700,109 @@
             // inisialisasi awal
             toggleClearButton();
         });
+
+          document.addEventListener('DOMContentLoaded', function() {
+    console.log('major ready');
+
+    const input_major = document.getElementById('major-input');
+    const hiddenId_major = document.getElementById('major-id');
+    const suggestionsBox_major = document.getElementById('major-suggestions');
+    const clearBtn_major = document.getElementById('clear-major');
+
+    // tampilkan tombol X kalau ada teks
+    function toggleClearButton_major() {
+        clearBtn_major.style.display = input_major.value.trim() ? 'block' : 'none';
+    }
+
+    // tombol hapus input & id
+    clearBtn_major.addEventListener('click', function() {
+        input_major.value = '';
+        hiddenId_major.value = '';
+        toggleClearButton_major();
+        suggestionsBox_major.style.display = 'none';
+    });
+
+    // jika input dikosongkan secara manual, kosongkan juga id-nya
+    input_major.addEventListener('input', function() {
+        if (input_major.value.trim() === '') {
+            hiddenId_major.value = '';
+        }
+        toggleClearButton_major();
+    });
+
+    // tampilkan riwayat input saat fokus (kalau kamu punya variabel history)
+    input_major.addEventListener('focus', function() {
+        if (history.length > 0) {
+            suggestionsBox_major.innerHTML = '';
+            history.forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.classList.add('list-group-item', 'list-group-item-action');
+                btn.textContent = item.name;
+                btn.addEventListener('click', function() {
+                    input_major.value = item.name;
+                    hiddenId_major.value = item.id;
+                    suggestionsBox_major.style.display = 'none';
+                    toggleClearButton_major();
+                });
+                suggestionsBox_major.appendChild(btn);
+            });
+            suggestionsBox_major.style.display = 'block';
+        }
+    });
+
+    // fetch suggestion dari server saat mengetik
+    input_major.addEventListener('keyup', function() {
+        const query = this.value.trim();
+        toggleClearButton_major();
+
+        if (query.length === 0) {
+            suggestionsBox_major.style.display = 'none';
+            return;
+        }
+
+        fetch(``)
+            .then(res => res.json())
+            .then(data => {
+                suggestionsBox_major.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(mjr => {
+                        const item = document.createElement('button');
+                        item.type = 'button';
+                        item.classList.add('list-group-item', 'list-group-item-action');
+                        item.textContent = mjr.bk_mjr_class + ' ' + mjr.bk_mjr_major;
+
+                        item.addEventListener('click', function() {
+                            input_major.value = mjr.bk_mjr_class + ' ' + mjr.bk_mjr_major;
+                            hiddenId_major.value = mjr.bk_mjr_id;
+                            suggestionsBox_major.style.display = 'none';
+                            toggleClearButton_major();
+                        });
+
+                        suggestionsBox_major.appendChild(item);
+                    });
+                    suggestionsBox_major.style.display = 'block';
+                } else {
+                    suggestionsBox_major.style.display = 'none';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                suggestionsBox_major.style.display = 'none';
+            });
+    });
+
+    // klik di luar → tutup suggestion
+    document.addEventListener('click', function(e) {
+        if (!input_major.contains(e.target) && !suggestionsBox_major.contains(e.target)) {
+            suggestionsBox_major.style.display = 'none';
+        }
+    });
+
+    // tampilkan tombol X kalau ada value awal
+    toggleClearButton_major();
+});
+
     </script>
 </x-app-layout>

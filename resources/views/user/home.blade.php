@@ -105,7 +105,7 @@
             <div class="row g-3">
                 <!-- STATUS -->
                 <div class="col-md-6 d-flex">
-                    <div class="card text-white border-0 shadow-sm rounded-4 overflow-hidden flex-fill" style="background: #198754; position: relative; min-height: 100px;">
+                    <div class="card text-white border-0 shadow-sm rounded-4 overflow-hidden flex-fill" style="background: #4BC7A8; position: relative; min-height: 100px;">
                         <div>
                             <h3 class="text-white text-center fw-bold mb-0">Total peminjaman</h3>
                         </div>
@@ -128,7 +128,7 @@
                 <!-- PERAN -->
                 <div class="col-md-6 d-flex">
                     <div class="card text-dark border-0 shadow-sm rounded-4 overflow-hidden flex-fill"
-                        style="background: linear-gradient(135deg, #ffe082 0%, #ffca28 100%); position: relative; min-height: 100px;">
+                        style="background-color:#E9B63B ; position: relative; min-height: 100px;">
                         <div>
                             <h3 class="text-white text-center fw-bold mb-0">Peran</h3>
                         </div>
@@ -152,7 +152,7 @@
 
         <!-- DATA DIAGRAM -->
         <div class="col-4 d-flex">
-            <div class="card text-white bg-danger border-0 shadow-sm rounded-4 overflow-hidden flex-fill" style="position: relative; min-height: 100px;">
+            <div class="card text-white  border-0 shadow-sm rounded-4 overflow-hidden flex-fill" style="position: relative; min-height: 100px; background-color: #6082B6;">
                 <div class="card-body position-relative d-flex align-items-center justify-content-center p-4">
                     <div class="chart-container" style="width: 100%; height: 70px; position: relative;">
                         <canvas id="doughnutChart"></canvas>

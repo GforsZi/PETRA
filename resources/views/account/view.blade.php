@@ -108,8 +108,8 @@
                                 <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center" role="alert">
                                     <i class="bi bi-exclamation-triangle me-2"></i>
                                     <div class="text-wrap">
-                                        Penghapusan ini bersifat <strong>soft
-                                            delete</strong> — data masih dapat
+                                        Penghapusan ini bersifat <strong>tidak permanen
+                                            </strong> — data masih dapat
                                         dipulihkan dari halaman riwayat.
                                     </div>
                                 </div>

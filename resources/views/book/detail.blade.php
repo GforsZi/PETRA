@@ -465,8 +465,8 @@
                     <div class="alert mt-4 alert-warning d-flex text-start align-items-center" role="alert">
                         <i class="bi bi-exclamation-triangle me-2"></i>
                         <div>
-                            Penghapusan ini bersifat <strong>soft
-                                delete</strong> — data masih dapat
+                            Penghapusan ini bersifat <strong>tidak permanen
+                                </strong> — data masih dapat
                             dipulihkan dari halaman riwayat.
                         </div>
                     </div>

@@ -24,7 +24,7 @@
         @forelse ($authors as $index => $author)
             <tr class="align-middle">
                 <td>{{ $authors->firstItem() + $index }}</td>
-                <td><a href="/manage/book?author={{ $author->athr_id }}" class="text-body">{{ $author->athr_name }}</a></td>
+                <td><a href="/manage/book?author={{ $author->athr_id }}" class="text-body text-decoration-none">{{ $author->athr_name }}</a></td>
                 <td>
                     <div class="dropdown dropstart">
                         <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,4 +73,31 @@
             </tr>
         @endforelse
     </x-table_data>
+
+    <style>
+a.text-body.text-decoration-none {
+  position: relative;
+  text-decoration: none !important;
+}
+
+a.text-body.text-decoration-none::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px; /* garis tipis */
+  background-color: currentColor;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+a.text-body.text-decoration-none:hover::after {
+  width: 100%;
+}
+
+
+
+
+    </style>
 </x-app-layout>

@@ -52,16 +52,22 @@
                         <form action="/system/role/{{ $role->rl_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
                             @csrf
                             @method('DELETE')
-                            <div class="modal-content rounded-3 shadow">
+                              <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?
-                                    </p>
+                                    <p class="mb-0">Yakin ingin menghapus data ini ?</p>
+                                </div>
+                                <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center" role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <div class="text-wrap">
+                                        Penghapusan ini bersifat <strong>tidak permanen
+                                            </strong> — data masih dapat
+                                        dipulihkan dari halaman riwayat.
+                                    </div>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>

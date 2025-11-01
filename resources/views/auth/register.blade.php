@@ -46,7 +46,7 @@
 
                         <p class="text-center">
                             Sudah memiliki akun sebelumnya?
-                            <a href="/login" class="text-decoration-none text-success">Masuk</a>
+                            <a href="/login" class=" fw-bold" style="color: #5FBDFF;">Masuk</a>
                         </p>
                     </div>
 

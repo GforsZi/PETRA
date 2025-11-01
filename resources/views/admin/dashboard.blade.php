@@ -16,7 +16,7 @@
     </style>
     <div class="row">
         <div class="col-lg-4 col-6">
-            <div class="small-box bg-primary">
+            <div class="small-box " style="background-color: #6082B6;">
                 <div class="inner">
                     <h3>{{ $user_amount }}</h3>
                     <p>Pengguna Aktif</p>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col-lg-4 col-6">
-            <div class="small-box bg-warning">
+            <div class="small-box " style="background-color: #E9B63B;">
                 <div class="inner">
                     <h3>{{ $total_book }}</h3>
                     <p>Total Buku</p>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-lg-4 col-6 hero-card-3">
-            <div class="small-box" style="background-color: rgba(100, 223, 18, 1);">
+            <div class="small-box" style="background-color: #4BC7A8;">
                 <div class="inner">
                     <h3>{{ $total_transaction }}</h3>
                     <p>Total Transaksi</p>

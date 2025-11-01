@@ -25,7 +25,7 @@
         @forelse ($publishers as $index => $publisher)
             <tr class="align-middle">
                 <td>{{ $publishers->firstItem() + $index }}</td>
-                <td><a href="/manage/book?publisher={{ $publisher->pub_id }}" class="text-body">{{ $publisher->pub_name }}</a></td>
+                <td><a href="/manage/book?publisher={{ $publisher->pub_id }}" class="text-body text-decoration-none">{{ $publisher->pub_name }}</a></td>
                 <td>{{ $publisher->pub_address }}</td>
                 <td>
                     <div class="dropdown dropstart">
@@ -46,16 +46,22 @@
                         <form action="/system/publisher/{{ $publisher->pub_id }}/delete" method="post" class="modal-dialog modal-dialog-centered">
                             @csrf
                             @method('DELETE')
-                            <div class="modal-content rounded-3 shadow">
+                              <div class="modal-content rounded-3 shadow">
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
-                                    <p class="mb-0">Yakin ingin menghapus data ini?
-                                    </p>
+                                    <p class="mb-0">Yakin ingin menghapus data ini ?</p>
+                                </div>
+                                <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center" role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <div class="text-wrap">
+                                        Penghapusan ini bersifat <strong>tidak permanen
+                                            </strong> — data masih dapat
+                                        dipulihkan dari halaman riwayat.
+                                    </div>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
-                                        onclick="this.disabled=true; this.form.submit();"><strong>Hapus</strong></button>
+                                    <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"><strong>Hapus</strong></button>
                                 </div>
                             </div>
                         </form>
@@ -68,4 +74,30 @@
             </tr>
         @endforelse
     </x-table_data>
+        <style>
+a.text-body.text-decoration-none {
+  position: relative;
+  text-decoration: none !important;
+}
+
+a.text-body.text-decoration-none::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px; /* garis tipis */
+  background-color: currentColor;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+a.text-body.text-decoration-none:hover::after {
+  width: 100%;
+}
+
+
+
+
+    </style>
 </x-app-layout>

@@ -25,7 +25,7 @@
         @forelse ($classfications as $index => $classfication)
             <tr class="align-middle">
                 <td>{{ $classfications->firstItem() + $index }}</td>
-                <td><a href="/manage/book?ddc={{ $classfication->ddc_id }}" class="text-body">{{ $classfication->ddc_code }}</a></td>
+                <td><a href="/manage/book?ddc={{ $classfication->ddc_id }}" class="text-body text-decoration-none">{{ $classfication->ddc_code }}</a></td>
                 <td>{{ $classfication->ddc_description }}</td>
                 <td>
                     <div class="dropdown dropstart">
@@ -54,8 +54,8 @@
                                 <div class="alert mx-4 mt-4 alert-warning d-flex text-start align-items-center" role="alert">
                                     <i class="bi bi-exclamation-triangle me-2"></i>
                                     <div class="text-wrap">
-                                        Penghapusan ini bersifat <strong>soft
-                                            delete</strong> — data masih dapat
+                                        Penghapusan ini bersifat <strong>tidak permanen
+                                            </strong> — data masih dapat
                                         dipulihkan dari halaman riwayat.
                                     </div>
                                 </div>
@@ -75,4 +75,31 @@
             </tr>
         @endforelse
     </x-table_data>
+
+        <style>
+a.text-body.text-decoration-none {
+  position: relative;
+  text-decoration: none !important;
+}
+
+a.text-body.text-decoration-none::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px; /* garis tipis */
+  background-color: currentColor;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+a.text-body.text-decoration-none:hover::after {
+  width: 100%;
+}
+
+
+
+
+    </style>
 </x-app-layout>

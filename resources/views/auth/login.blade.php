@@ -40,7 +40,7 @@
 
                     <p class="text-center">
                         Belum memiliki akun sebelumnya?
-                        <a href="/register" class="text-decoration-none text-success">Daftar akun</a>
+                        <a href="/register" class=" fw-bold " style="color: #5FBDFF; ">Daftar akun</a>
                     </p>
                 </div>
 
