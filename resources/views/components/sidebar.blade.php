@@ -15,48 +15,50 @@
                             <p>Dasbor</p>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_menu_open(['manage/book*']) }}">
-                        <a href="#" class="nav-link {{ set_active(['manage/book*']) }}" style="color: #E9AD01;">
+                    <li class="nav-item {{ set_menu_open(['manage/book*', 'manage/major*', 'manage/author*', 'manage/publisher*', 'manage/origin*', 'manage/ddc*']) }}">
+                        <a href="#" class="nav-link {{ set_active(['manage/book*', 'manage/major*', 'manage/author*', 'manage/publisher*', 'manage/origin*', 'manage/ddc*']) }}"
+                            style="color: #E9AD01;">
                             <i class="bi bi-book"></i>
                             <p>
                                 Bibliografi
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview" style="{{ Request::is('manage/book*') ? 'display:block;' : '' }}">
+                        <ul class="nav nav-treeview"
+                            style="{{ Request::is('manage/book*') || Request::is('manage/major*') || Request::is('manage/author*') || Request::is('manage/publisher*') || Request::is('manage/origin*') || Request::is('manage/ddc*') ? 'display:block;' : '' }}">
                             <li class="nav-item">
                                 <a href="/manage/book" class="nav-link {{ set_active('manage/book') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active_exact('manage/book') }}"></i>
+                                    <i class="nav-icon bi {{ set_icon_active('manage/book') }}"></i>
                                     <p>Data buku</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/book/major" class="nav-link {{ set_active('manage/book/major') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active('manage/book/major') }}"></i>
+                                <a href="/manage/major" class="nav-link {{ set_active('manage/major') }}" style="color: #E9AD01;">
+                                    <i class="nav-icon bi {{ set_icon_active('manage/major') }}"></i>
                                     <p>Data jurusan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/book/author" class="nav-link {{ set_active('manage/book/author') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active('manage/book/author') }}"></i>
+                                <a href="/manage/author" class="nav-link {{ set_active('manage/author') }}" style="color: #E9AD01;">
+                                    <i class="nav-icon bi {{ set_icon_active('manage/author') }}"></i>
                                     <p>Data penulis</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/book/publisher" class="nav-link {{ set_active('manage/book/publisher') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active('manage/book/publisher') }}"></i>
+                                <a href="/manage/publisher" class="nav-link {{ set_active('manage/publisher') }}" style="color: #E9AD01;">
+                                    <i class="nav-icon bi {{ set_icon_active('manage/publisher') }}"></i>
                                     <p>Data penerbit</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/book/origin" class="nav-link {{ set_active('manage/book/origin') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active('manage/book/origin') }}"></i>
+                                <a href="/manage/origin" class="nav-link {{ set_active('manage/origin') }}" style="color: #E9AD01;">
+                                    <i class="nav-icon bi {{ set_icon_active('manage/origin') }}"></i>
                                     <p>Data sumber</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/manage/book/ddc" class="nav-link {{ set_active('manage/book/ddc') }}" style="color: #E9AD01;">
-                                    <i class="nav-icon bi {{ set_icon_active('manage/book/ddc') }}"></i>
+                                <a href="/manage/ddc" class="nav-link {{ set_active('manage/ddc') }}" style="color: #E9AD01;">
+                                    <i class="nav-icon bi {{ set_icon_active('manage/ddc') }}"></i>
                                     <p>Data klasifikasi</p>
                                 </a>
                             </li>

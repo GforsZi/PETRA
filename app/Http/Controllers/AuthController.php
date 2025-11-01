@@ -64,18 +64,18 @@ class AuthController extends Controller
 
                 $user = User::with('roles')->where('usr_no_wa', $credentials['usr_no_wa'])->get()->toArray();
                 if ($user[0]['usr_activation'] == false || isset($user[0]['roles'])) {
-                    return redirect('/home')->with('success', 'berhasil masuk');
+                    return redirect('/home')->with('success', 'Berhasil masuk');
                 } elseif ($user[0]['usr_activation'] == true || $user[0]['roles']['rl_admin'] == '1') {
-                    return redirect('/dashboard')->with('success', 'berhasil masuk!');
+                    return redirect('/dashboard')->with('success', 'Berhasil masuk!');
                 } else {
-                    return redirect()->intended('/forbidden')->with('success', 'berhasil masuk');
+                    return redirect()->intended('/forbidden')->with('success', 'Berhasil masuk');
                 }
             } else {
                 throw new \Exception('Terjadi kesalahan pada input peminjaman');
             }
         } catch (\Throwable $th) {
 
-            return redirect('/login')->with('error', 'gagal masuk');
+            return redirect('/login')->with('error', 'Gagal masuk');
         }
     }
 

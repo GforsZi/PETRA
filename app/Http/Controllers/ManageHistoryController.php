@@ -47,7 +47,7 @@ class ManageHistoryController extends Controller
                     return view('history.view', [
                         'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/author',
+                        'page_url' => '/manage/author',
                     ]);
                     break;
                 case 'Publisher':
@@ -55,7 +55,7 @@ class ManageHistoryController extends Controller
                     return view('history.view', [
                         'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/publisher',
+                        'page_url' => '/manage/publisher',
                     ]);
                     break;
                 case 'DeweyDecimalClassfication':
@@ -63,7 +63,7 @@ class ManageHistoryController extends Controller
                     return view('history.view', [
                         'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/ddc',
+                        'page_url' => '/manage/ddc',
                     ]);
                     break;
                 case 'BookMajor':
@@ -71,7 +71,7 @@ class ManageHistoryController extends Controller
                     return view('history.view', [
                         'title' => 'Halaman kelola riwayat',
                         'histories' => $histories,
-                        'page_url' => '/manage/book/major',
+                        'page_url' => '/manage/major',
                     ]);
                     break;
                 case 'Book':
@@ -148,65 +148,65 @@ class ManageHistoryController extends Controller
             case 'Account':
                 $histories = User::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Account')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Account')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'Role':
                 $histories = Role::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Role')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Role')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'Author':
                 $histories = Author::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Author')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Author')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'Publisher':
                 $histories = Publisher::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Publisher')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Publisher')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'DeweyDecimalClassfication':
                 $histories = DeweyDecimalClassfication::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=DeweyDecimalClassfication')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=DeweyDecimalClassfication')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'BookMajor':
                 $histories = BookMajor::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=BookMajor')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=BookMajor')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'Book':
                 $histories = Book::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Book')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Book')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'ChatOption':
                 $histories = ChatOption::onlyTrashed()->find($id);
                 if ($histories->cht_opt_type == '1') {
                     $option = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->count();
                     if ($option >= 1) {
-                        return redirect('/manage/history?category=ChatOption')->with('error', 'Data Gagal Dipulihkan');
+                        return redirect('/manage/history?category=ChatOption')->with('error', 'Data gagal dipulihkan');
                         exit();
                     }
                 } elseif ($histories->cht_opt_type == '2') {
                     $option = ChatOption::select('cht_opt_type')->where('cht_opt_type', '2')->count();
                     if ($option >= 1) {
-                        return redirect('/manage/history?category=ChatOption')->with('error', 'Data Gagal Dipulihkan');
+                        return redirect('/manage/history?category=ChatOption')->with('error', 'Data gagal dipulihkan');
                         exit();
                     }
                 }
                 $histories->restore();
-                return redirect('/manage/history?category=ChatOption')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=ChatOption')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'BookCopy':
                 $histories = BookCopy::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=BookCopy')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=BookCopy')->with('success', 'Data berhasil dipulihkan');
                 break;
             case 'Transaction':
                 $histories = Transaction::onlyTrashed()->find($id);
                 $histories->restore();
-                return redirect('/manage/history?category=Transaction')->with('success', 'Data berhasil dipulishkan');
+                return redirect('/manage/history?category=Transaction')->with('success', 'Data berhasil dipulihkan');
                 break;
             default:
                 return redirect('/manage/history')->with('Error', 'Tidak Ada Data Untuk Dipulihkan');

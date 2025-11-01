@@ -109,7 +109,7 @@ class AdminController extends Controller
             $validateData['usr_card_url'] = 'media/card_img/' . $filename;
         }
         $user->update($validateData);
-        return redirect('/admin/profile')->with('success', 'berhasil mengaktivasi akun');
+        return redirect('/admin/profile')->with('success', 'Berhasil mengaktivasi akun');
     }
 
     public function profile_page()
@@ -148,6 +148,6 @@ class AdminController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/admin/profile')->with('success', 'profil berhasil diubah');
+        return redirect('/admin/profile')->with('success', 'Profil berhasil diubah');
     }
 }

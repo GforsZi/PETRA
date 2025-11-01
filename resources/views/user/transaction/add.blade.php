@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h5>Kesalahan: {{ session('error') }}</h5>
+            <h5>{{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -92,24 +92,22 @@
             /* biar kelihatan bisa di-hover */
         }
 
-         body {
-        background-color: #fff;
-        color: #333;
-    }
-
- 
-    .custom-card {
-        background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-    }
-
-  
-    @media (prefers-color-scheme: dark) {
-        .custom-card {
-            background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+        body {
+            background-color: #fff;
+            color: #333;
         }
-    }
+
+        .custom-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .custom-card {
+                background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+            }
+        }
     </style>
 
     <script>
@@ -160,9 +158,9 @@
                 });
         });
 
-        
+
         // POPUP SAAT PILIH BUKU
-       
+
         const listBukuDipilih = document.getElementById('listBukuDipilih');
         let popoverInstance = null;
 
@@ -267,16 +265,16 @@
             }
         }
 
-       // jika tujuan berubah
-tujuanSelect.addEventListener('change', () => {
-    listContainer.innerHTML =
-        '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
-    updateButtonVisibility();
+        // jika tujuan berubah
+        tujuanSelect.addEventListener('change', () => {
+            listContainer.innerHTML =
+                '<p class="text-muted m-0" id="noBukuText">Belum ada buku dipilih</p>';
+            updateButtonVisibility();
 
-    //reset
-    const bokList = document.getElementById('book-list');
-    if (bokList) bokList.innerHTML = '';
-});
+            //reset
+            const bokList = document.getElementById('book-list');
+            if (bokList) bokList.innerHTML = '';
+        });
 
 
         // klik pilih buku

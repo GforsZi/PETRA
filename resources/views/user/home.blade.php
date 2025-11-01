@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h5>Success: {{ session('success') }}</h5>
+            <h5>{{ session('success') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -58,45 +58,46 @@
             width: 100% !important;
             height: 100% !important;
         }
+
         @media (max-width: 345px) {
-  /* jika lebar layar kecil (biasanya mulai bertabrakan) */
-  .card-body.px-4.py-4.d-flex.align-items-center.justify-content-between.position-relative {
-    flex-wrap: wrap; /* izinkan teks turun jika tidak cukup ruang */
-    text-align: center;
-  }
 
-  .card-body .card-text {
-    flex: 1 1 100%;
-    text-align: center;
-    margin-bottom: 10px !important;
-  }
+            /* jika lebar layar kecil (biasanya mulai bertabrakan) */
+            .card-body.px-4.py-4.d-flex.align-items-center.justify-content-between.position-relative {
+                flex-wrap: wrap;
+                /* izinkan teks turun jika tidak cukup ruang */
+                text-align: center;
+            }
 
-  .card-body > div[style*="position: absolute"] {
-    position: static !important;
-    transform: none !important;
-    right: auto !important;
-    top: auto !important;
-  }
-}
+            .card-body .card-text {
+                flex: 1 1 100%;
+                text-align: center;
+                margin-bottom: 10px !important;
+            }
 
-
- body {
-        background-color: #fff;
-        color: #333;
-    }
-
-    .custom-card {
-        background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .custom-card {
-            background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+            .card-body>div[style*="position: absolute"] {
+                position: static !important;
+                transform: none !important;
+                right: auto !important;
+                top: auto !important;
+            }
         }
-    }
 
+        body {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .custom-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, #000 10%);
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .custom-card {
+                background-color: color-mix(in srgb, var(--bs-body-bg, #121212) 85%, #fff 10%);
+            }
+        }
     </style>
 
     <div class="row g-3 align-items-stretch">

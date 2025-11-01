@@ -299,7 +299,7 @@ class ManageBookController extends Controller
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
 
-        return redirect('/manage/book/')->with('success', 'Buku Berhasil Ditambahkan');
+        return redirect('/manage/book')->with('success', 'Buku berhasik ditambahkan');
     }
 
     public function edit_book_page($id)
@@ -481,7 +481,7 @@ class ManageBookController extends Controller
             $book->deweyDecimalClassfications()->sync($validateDataDDC['classfications']);
         }
 
-        return redirect('/manage/book/' . $id . '/detail')->with('success', 'Buku Berhasil Diubah');
+        return redirect('/manage/book/' . $id . '/detail')->with('success', 'Buku berhasil diubah');
     }
 
     public function delete_book_system(Request $request, $id)
@@ -490,7 +490,7 @@ class ManageBookController extends Controller
         $book->deweyDecimalClassfications()->detach();
         $book->authors()->detach();
         $book->delete();
-        return redirect('/manage/book')->with('success', 'Buku Berhasil Dihapus');
+        return redirect('/manage/book')->with('success', 'Buku berhasil dihapus');
     }
 
     public function add_book_copy_system(Request $request, $id)
@@ -527,7 +527,7 @@ class ManageBookController extends Controller
                 'bk_cp_status' => '1',
             ]);
         }
-        return redirect('/manage/book/' . $id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Ditambahkan');
+        return redirect('/manage/book/' . $id . '/detail#bk_cp')->with('success', 'Salinan berhasil ditambahkan');
     }
 
     public function edit_book_copy_system(Request $request, $id)
@@ -539,14 +539,14 @@ class ManageBookController extends Controller
         ]);
 
         $copy->update($validateData);
-        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Diubah');
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan berhasil diubah');
     }
 
     public function delete_book_copy_system(Request $request, $id)
     {
         $copy = BookCopy::find($id);
         $copy->delete();
-        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan Berhasil Dihapus');
+        return redirect('/manage/book/' . $request->book_id . '/detail#bk_cp')->with('success', 'Salinan berhasil dihapus');
     }
 
     public function delete_many_book_copy_system(Request $request)
@@ -598,7 +598,7 @@ class ManageBookController extends Controller
         ], $message);
 
         BookMajor::create($validateData);
-        return redirect('/manage/book/major')->with('success', 'jurusan berhasil ditambahkan');
+        return redirect('/manage/major')->with('success', 'Jurusan berhasil ditambahkan');
     }
 
     public function edit_book_major_page($id)
@@ -624,13 +624,13 @@ class ManageBookController extends Controller
         ], $message);
 
         $major->update($validateData);
-        return redirect('/manage/book/major')->with('success', 'jurusan berhasil diubah');
+        return redirect('/manage/major')->with('success', 'Jurusan berhasil diubah');
     }
 
     public function delete_book_major_system($id)
     {
         BookMajor::find($id)->delete();
-        return redirect('/manage/book/major')->with('success', 'jurusan berhasil dihapus');
+        return redirect('/manage/major')->with('success', 'Jurusan berhasil dihapus');
     }
 
     public function manage_book_author_page(Request $request)
@@ -666,7 +666,7 @@ class ManageBookController extends Controller
         ], $message);
 
         Author::create($validateData);
-        return redirect('/manage/book/author')->with('success', 'penulis berhasil ditambahkan');
+        return redirect('/manage/author')->with('success', 'Penulis berhasil ditambahkan');
     }
 
     public function edit_book_author_page($id)
@@ -688,7 +688,7 @@ class ManageBookController extends Controller
         ], $message);
 
         $author->update($validateData);
-        return redirect('/manage/book/author')->with('success', 'penulis berhasil diubah');
+        return redirect('/manage/author')->with('success', 'Penulis berhasil diubah');
     }
 
     public function delete_book_author_system(Request $request, $id)
@@ -696,7 +696,7 @@ class ManageBookController extends Controller
         $author = Author::find($id);
 
         $author->delete();
-        return redirect('/manage/book/author')->with('success', 'penulis berhasil dihupus');
+        return redirect('/manage/author')->with('success', 'Penulis berhasil dihupus');
     }
 
     public function manage_book_publisher_page(Request $request)
@@ -751,7 +751,7 @@ class ManageBookController extends Controller
         ], $message);
 
         Publisher::create($validateData);
-        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil ditambahkan');
+        return redirect('/manage/publisher')->with('success', 'Penerbit berhasil ditambahkan');
     }
 
     public function edit_book_publisher_page($id)
@@ -774,7 +774,7 @@ class ManageBookController extends Controller
         ], $message);
 
         $publisher->update($validateData);
-        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil diubah');
+        return redirect('/manage/publisher')->with('success', 'Penerbit berhasil diubah');
     }
 
     public function delete_book_publisher_system(Request $request, $id)
@@ -782,7 +782,7 @@ class ManageBookController extends Controller
         $author = Publisher::find($id);
 
         $author->delete();
-        return redirect('/manage/book/publisher')->with('success', 'penerbit berhasil dihapus');
+        return redirect('/manage/publisher')->with('success', 'Penerbit berhasil dihapus');
     }
 
     public function manage_book_classfication_page(Request $request)
@@ -821,7 +821,7 @@ class ManageBookController extends Controller
         ], $message);
 
         DeweyDecimalClassfication::create($validateData);
-        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil ditambahkan');
+        return redirect('/manage/ddc')->with('success', 'Klasifikasi berhasil ditambahkan');
     }
 
     public function edit_book_classfication_page($id)
@@ -846,7 +846,7 @@ class ManageBookController extends Controller
         ], $message);
 
         $classfication->update($validateData);
-        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil diubah');
+        return redirect('/manage/ddc')->with('success', 'Klasifikasi berhasil diubah');
     }
 
     public function delete_book_classfication_system(Request $request, $id)
@@ -854,7 +854,7 @@ class ManageBookController extends Controller
         $classfication = DeweyDecimalClassfication::find($id);
 
         $classfication->delete();
-        return redirect('/manage/book/ddc')->with('success', 'klasifikasi berhasil dihapus');
+        return redirect('/manage/ddc')->with('success', 'Klasifikasi berhasil dihapus');
     }
 
     public function manage_book_origin_page(Request $request)
@@ -890,7 +890,7 @@ class ManageBookController extends Controller
         ], $message);
 
         BookOrigin::create($validateData);
-        return redirect('/manage/book/origin')->with('success', 'sumber berhasil ditambahkan');
+        return redirect('/manage/origin')->with('success', 'Sumber berhasil ditambahkan');
     }
 
     public function edit_book_origin_page($id)
@@ -911,13 +911,13 @@ class ManageBookController extends Controller
             'bk_orgn_name' => 'sometimes | required | string | max:255',
         ], $message);
         $origin->update($validateData);
-        return redirect('/manage/book/origin')->with('success', 'sumber berhasil diubah');
+        return redirect('/manage/origin')->with('success', 'Sumber berhasil diubah');
     }
 
     public function delete_book_origin_system(Request $request, $id)
     {
         $origin = BookOrigin::find($id)->delete();
-        return redirect('/manage/book/origin')->with('success', 'sumber berhasil dihapus');
+        return redirect('/manage/origin')->with('success', 'Sumber berhasil dihapus');
     }
 
     public function print_label_system($id)

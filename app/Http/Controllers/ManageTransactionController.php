@@ -170,12 +170,12 @@ class ManageTransactionController extends Controller
 
             if (!$response['status'] || (isset($response['data']['status']) && !$response['data']['status'])) {
                 $errorReason = $response['data']['reason'] ?? 'terjadi kesalahan yang tidak diketahui';
-                return redirect('manage/transaction/' . $id . '/detail')->with('error', 'pesan gagal dikirim', 500);
+                return redirect('manage/transaction/' . $id . '/detail')->with('error', 'Pesan gagal dikirim', 500);
             }
 
-            return redirect('manage/transaction/' . $id . '/detail')->with('success', 'Pesan berhasil dikirim!');
+            return redirect('manage/transaction/' . $id . '/detail')->with('success', 'Pesan berhasil dikirim');
         } catch (\Throwable $th) {
-            return redirect('manage/transaction/' . $id . '/detail')->with('error', 'pesan gagal dikirim', 500);
+            return redirect('manage/transaction/' . $id . '/detail')->with('error', 'Pesan gagal dikirim', 500);
         }
     }
 
@@ -221,7 +221,7 @@ class ManageTransactionController extends Controller
                 foreach ($request->book_ids as $index => $bookId) {
                     $trx_copy_id = $request->trx_copy_id[$index] ?? null;
                     if ($trx_copy_id == null) {
-                        throw new \Exception('terjadi kesalahan pada input peminjaman');
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
                     }
                     $copy = BookCopy::select('bk_cp_status', 'bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_id', $trx_copy_id)->get()->first()->toArray();
                     if ($copy['bk_cp_status'] == '1') {
@@ -232,11 +232,14 @@ class ManageTransactionController extends Controller
                             'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
-                        throw new \Exception('terjadi kesalahan pada input peminjaman');
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
                     }
                 }
             } else {
                 foreach ($request->book_ids as $bookId) {
+                    if ($bookId == null) {
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
+                    }
                     $copy = BookCopy::select('bk_cp_status', 'bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_status', '1')->get()->first()->toArray();
                     $copyId = BookCopy::select('bk_cp_id')->where('bk_cp_book_id', $bookId)->where('bk_cp_status', '1')->get();
                     if ($copy['bk_cp_status'] == '1') {
@@ -248,13 +251,13 @@ class ManageTransactionController extends Controller
                             'bk_trx_transaction_id' => $transaction->trx_id,
                         ]);
                     } else {
-                        throw new \Exception('terjadi kesalahan pada input peminjaman');
+                        throw new \Exception('Terjadi kesalahan pada input peminjaman');
                     }
                 }
             }
 
             DB::commit();
-            return redirect('/transaction')->with('success', 'peminjaman berhasil diajukan');
+            return redirect('/transaction')->with('success', 'Peminjaman berhasil diajukan');
         } catch (\Throwable $e) {
             DB::rollBack();
             return redirect('/transaction/add')->with('error', $e->getMessage());
@@ -298,7 +301,7 @@ class ManageTransactionController extends Controller
         $loan->update(['trx_status' => '4']);
         $userRole = User::select('usr_role_id')->with('roles')->find(Auth::id())->toArray();
         if ($userRole['roles']['rl_admin'] == 0) {
-            return redirect('/transaction')->with('success', 'transaksi berhasil dibatalkan');
+            return redirect('/transaction')->with('success', 'Transaksi berhasil dibatalkan');
         } else {
             return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil ditolak');
         }
@@ -325,7 +328,7 @@ class ManageTransactionController extends Controller
             'trx_status' => '3',
             'trx_return_date' => now(),
         ]);
-        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'transaksi berhasil Kembalikan');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil Kembalikan');
     }
 
     public function addtional_time_transaction_system(Request $request, $id)
@@ -339,12 +342,12 @@ class ManageTransactionController extends Controller
         $loan->update([
             'trx_due_date' => $trx_due_date,
         ]);
-        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'transaksi berhasil diubah');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil diubah');
     }
 
     public function delete_transaction_system($id)
     {
         Transaction::find($id)->delete();
-        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'transaksi berhasil dihapus');
+        return redirect('/manage/transaction/' . $id . '/detail')->with('success', 'Transaksi berhasil dihapus');
     }
 }

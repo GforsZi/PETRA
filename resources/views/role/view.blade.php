@@ -2,13 +2,13 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h5>Success: {{ session('success') }}</h5>
+            <h5>{{ session('success') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h5>Kesalahan: {{ session('error') }}</h5>
+            <h5>{{ session('error') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -56,7 +56,7 @@
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
                                     <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $roles->firstItem() + $index }}.</p>
+                                    </p>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>

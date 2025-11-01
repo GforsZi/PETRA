@@ -72,7 +72,7 @@ class UserController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/user/profile')->with('success', 'Profile berhasil diubah');
+        return redirect('/user/profile')->with('success', 'Profil berhasil diubah');
     }
 
     public function activation_page()

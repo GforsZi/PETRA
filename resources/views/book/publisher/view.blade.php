@@ -2,16 +2,16 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h5>Success: {{ session('success') }}</h5>
+            <h5>{{ session('success') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/publisher/add" class="btn btn-lg btn-outline-primary w-100"><i class="bi bi-building-fill-add" title="Tambah Penerbit Baru"></i></a>
+        <a href="/manage/publisher/add" class="btn btn-lg btn-outline-primary w-100"><i class="bi bi-building-fill-add" title="Tambah Penerbit Baru"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$publishers">
         <x-slot:title>
-            <form class="d-flex" role="search" method="get" action="/manage/book/publisher">
+            <form class="d-flex" role="search" method="get" action="/manage/publisher">
                 <input class="form-control me-2" name="s" value="{{ request('s') }}" type="search" placeholder="Cari Nama Penerbit" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
@@ -33,9 +33,9 @@
                             <i class="bi bi-menu-down"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/manage/book/publisher/{{ $publisher->pub_id }}/detail">Detail</a>
+                            <li><a class="dropdown-item" href="/manage/publisher/{{ $publisher->pub_id }}/detail">Detail</a>
                             </li>
-                            <li><a class="dropdown-item" href="/manage/book/publisher/{{ $publisher->pub_id }}/edit">Ubah</a>
+                            <li><a class="dropdown-item" href="/manage/publisher/{{ $publisher->pub_id }}/edit">Ubah</a>
                             </li>
                             <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteConfirmation{{ $publishers->firstItem() + $index }}">Hapus</a>
                             </li>
@@ -50,7 +50,7 @@
                                 <div class="modal-body p-4 text-center">
                                     <h5 class="mb-0">Konfirmasi</h5>
                                     <p class="mb-0">Yakin ingin menghapus data ini?
-                                        {{ $publishers->firstItem() + $index }}.</p>
+                                    </p>
                                 </div>
                                 <div class="modal-footer flex-nowrap p-0">
                                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal">Batal</button>

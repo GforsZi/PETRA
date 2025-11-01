@@ -45,13 +45,13 @@ class ManageChatbotController extends Controller
         if ($request->cht_opt_type == '1') {
             $optionA = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
             if ($optionA > 0) {
-                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Pemberitahuan aktifasi" Sudah Tersedia');
+                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Pemberitahuan aktifasi" sudah tersedia');
                 exit();
             }
         } elseif ($request->cht_opt_type == '2') {
             $optionB = ChatOption::select('cht_opt_type')->where('cht_opt_type', '2')->get()->count();
             if ($optionB > 0) {
-                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Peringatan waktu peminjaman" Sudah Tersedia');
+                return redirect('/manage/chat/option/add')->with('error', 'Opsi "Peringatan waktu peminjaman" sudah tersedia');
                 exit();
             }
         }
@@ -69,7 +69,7 @@ class ManageChatbotController extends Controller
         ], $message);
 
         ChatOption::create($validateData);
-        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil ditambahkan');
+        return redirect('/manage/chat/option')->with('success', 'Opsi pesan berhasil ditambahkan');
     }
 
     public function edit_chatbot_option_page($id)
@@ -85,13 +85,13 @@ class ManageChatbotController extends Controller
         if ($request->cht_opt_type == '1') {
             $optionA = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
             if ($request->cht_opt_type != $option['cht_opt_type'] && $optionA > 0) {
-                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'opsi "Pemberitahuan aktifasi" sudah tersedia');
+                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'Opsi "Pemberitahuan aktifasi" sudah tersedia');
                 exit();
             }
         } elseif ($request->cht_opt_type == '2') {
             $optionB = ChatOption::select('cht_opt_type')->where('cht_opt_type', '1')->get()->count();
             if ($request->cht_opt_type != $option['cht_opt_type'] && $optionB > 0) {
-                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'opsi "Peringatan waktu peminjaman" sudah tersedia');
+                return redirect('/manage/chat/option/' . $id . '/edit')->with('error', 'Opsi "Peringatan waktu peminjaman" sudah tersedia');
                 exit();
             }
         }
@@ -109,14 +109,14 @@ class ManageChatbotController extends Controller
         ], $message);
 
         $option->update($validateData);
-        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil diubah');
+        return redirect('/manage/chat/option')->with('success', 'Opsi pesan berhasil diubah');
     }
 
     public function delete_chatbot_option_system(Request $request, $id)
     {
         $option = ChatOption::find($id);
         $option->delete();
-        return redirect('/manage/chat/option')->with('success', 'opsi pesan berhasil dihapus');
+        return redirect('/manage/chat/option')->with('success', 'Opsi pesan berhasil dihapus');
     }
 
     public function add_chatbot_notification_system(Request $request)
@@ -229,7 +229,7 @@ class ManageChatbotController extends Controller
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', $response->json()['reason'] ?? 'terjadi kesalahan yang tidak diketahui');
+                ->with('error', $response->json()['reason'] ?? 'Terjadi kesalahan yang tidak diketahui');
         }
 
         $response = $response->json();
@@ -237,7 +237,7 @@ class ManageChatbotController extends Controller
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', $response['reason'] ?? 'gagal menambah perangkat');
+                ->with('error', $response['reason'] ?? 'Gagal menambah perangkat');
         }
 
         Device::create([
@@ -246,7 +246,7 @@ class ManageChatbotController extends Controller
             'dvc_token' => $response['token'] ?? null,
         ]);
 
-        return redirect('/manage/chat/device')->with('success', 'perangkat berhasil ditambahkan');
+        return redirect('/manage/chat/device')->with('success', 'Perangkat berhasil ditambahkan');
     }
 
     public function activate_device_system(Request $request)

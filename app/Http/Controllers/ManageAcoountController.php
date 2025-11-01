@@ -126,7 +126,7 @@ class ManageAcoountController extends Controller
         $validateData['password'] = Hash::make($validateData['password']);
 
         User::create($validateData);
-        return redirect('/manage/account')->with('success', 'akun berhasil dibuat');
+        return redirect('/manage/account')->with('success', 'Akun berhasil dibuat');
     }
 
     public function edit_account_system(Request $request, $id)
@@ -177,7 +177,7 @@ class ManageAcoountController extends Controller
         }
 
         $user->update($validateData);
-        return redirect('/manage/account')->with('success', 'akun berhasil diubah');
+        return redirect('/manage/account')->with('success', 'Akun berhasil diubah');
     }
 
     public function banned_account_system(Request $request, $id)
@@ -189,7 +189,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $user->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'akun berhasil diblokir');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun berhasil diblokir');
     }
 
     public function activated_account_system(Request $request, $id)
@@ -259,9 +259,9 @@ class ManageAcoountController extends Controller
             }
 
             $user->update($validateData);
-            return redirect('/manage/account/' . $id . '/detail')->with('success', 'akun berhasil diaktivasi ');
+            return redirect('/manage/account/' . $id . '/detail')->with('success', 'Akun berhasil diaktivasi ');
         } catch (\Throwable $th) {
-            return redirect('/manage/account/' . $id . '/detail')->with('error', 'akun gagal diaktivasi ');
+            return redirect('/manage/account/' . $id . '/detail')->with('error', 'Akun gagal diaktivasi ');
         }
     }
 
@@ -274,7 +274,7 @@ class ManageAcoountController extends Controller
         ]);
 
         $account->update($validateData);
-        return redirect('/manage/account/' . $id . '/detail')->with('success', 'berhasil merubah peran Akun');
+        return redirect('/manage/account/' . $id . '/detail')->with('success', 'Berhasil merubah peran Akun');
     }
 
     public function delete_account_system(Request $request, $id)
@@ -286,9 +286,9 @@ class ManageAcoountController extends Controller
                 throw new \Exception('Tidak diizinkan menghapus akun yang sedang anda gunakan');
             }
             $user->delete();
-            return redirect('/manage/account')->with('success', 'akun berhasil dihapus');
+            return redirect('/manage/account')->with('success', 'Akun berhasil dihapus');
         } catch (\Throwable $th) {
-            return redirect('/manage/account')->with('error', 'akun Gagal Dihapus');
+            return redirect('/manage/account')->with('error', 'Akun Gagal Dihapus');
         }
     }
 

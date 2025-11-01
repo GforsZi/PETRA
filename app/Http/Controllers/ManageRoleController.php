@@ -52,7 +52,7 @@ class ManageRoleController extends Controller
         ], $message);
 
         Role::create($validateData);
-        return redirect('/manage/role')->with('success', 'peran berhasil ditambahkan');
+        return redirect('/manage/role')->with('success', 'Peran berhasil ditambahkan');
     }
 
     public function edit_role_system(Request $request, $id)
@@ -74,7 +74,7 @@ class ManageRoleController extends Controller
         ], $message);
 
         $role->update($validateData);
-        return redirect('/manage/role')->with('success', 'peran berhasil diubah');
+        return redirect('/manage/role')->with('success', 'Peran berhasil diubah');
     }
 
     public function delete_role_system(Request $request, $id)
@@ -84,10 +84,10 @@ class ManageRoleController extends Controller
         if ($role['rl_admin'] == true) {
             $admin = Role::select('rl_id')->where('rl_admin', true)->get()->count();
             if ($admin == 1) {
-                return redirect('/manage/role')->with('error', 'peran admin tidak boleh terhapus semua');
+                return redirect('/manage/role')->with('error', 'Peran admin tidak boleh terhapus semua');
             }
         }
         $role->delete();
-        return redirect('/manage/role')->with('success', 'peran berhasil dihapus');
+        return redirect('/manage/role')->with('success', 'Peran berhasil dihapus');
     }
 }

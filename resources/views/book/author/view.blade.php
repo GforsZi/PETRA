@@ -2,16 +2,16 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h5>Success: {{ session('success') }}</h5>
+            <h5>{{ session('success') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <x-slot:header_layout>
-        <a href="/manage/book/author/add" class="btn btn-lg btn-outline-primary w-100" title="Tambah Penulis"><i class="bi bi-person-plus-fill"></i></a>
+        <a href="/manage/author/add" class="btn btn-lg btn-outline-primary w-100" title="Tambah Penulis"><i class="bi bi-person-plus-fill"></i></a>
     </x-slot:header_layout>
     <x-table_data :paginator="$authors">
         <x-slot:title>
-            <form class="d-flex" role="search" method="get" action="/manage/book/author">
+            <form class="d-flex" role="search" method="get" action="/manage/author">
                 <input class="form-control me-2" name="s" value="{{ request('s') }}" type="search" placeholder="Masukan Nama Penulis" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
@@ -31,9 +31,9 @@
                             <i class="bi bi-menu-down"></i>
                         </button>
                         <ul class="dropdown-menu ">
-                            <li><a class="dropdown-item" href="/manage/book/author/{{ $author->athr_id }}/detail">Detail</a>
+                            <li><a class="dropdown-item" href="/manage/author/{{ $author->athr_id }}/detail">Detail</a>
                             </li>
-                            <li><a class="dropdown-item" href="/manage/book/author/{{ $author->athr_id }}/edit">Ubah</a>
+                            <li><a class="dropdown-item" href="/manage/author/{{ $author->athr_id }}/edit">Ubah</a>
                             </li>
                             <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteConfirmation{{ $authors->firstItem() + $index }}">Hapus</a>
                             </li>
