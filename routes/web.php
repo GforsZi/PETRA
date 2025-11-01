@@ -78,6 +78,18 @@ Route::middleware('auth')
         Route::get('/manage/role/{id}/detail', [ManageRoleController::class, 'detail_role_page']);
         Route::get('/manage/role/{id}/edit', [ManageRoleController::class, 'edit_role_page']);
         Route::get('/manage/history', [ManageHistoryController::class, 'manage_history_page']);
+        Route::get('/manage/history/account', [ManageHistoryController::class, 'manage_account_history_page']);
+        Route::get('/manage/history/role', [ManageHistoryController::class, 'manage_role_history_page']);
+        Route::get('/manage/history/book', [ManageHistoryController::class, 'manage_book_history_page']);
+        Route::get('/manage/history/publisher', [ManageHistoryController::class, 'manage_publisher_history_page']);
+        Route::get('/manage/history/author', [ManageHistoryController::class, 'manage_autjor_history_page']);
+        Route::get('/manage/history/major', [ManageHistoryController::class, 'manage_major_history_page']);
+        Route::get('/manage/history/origin', [ManageHistoryController::class, 'manage_origin_history_page']);
+        Route::get('/manage/history/classification', [ManageHistoryController::class, 'manage_classification_history_page']);
+        Route::get('/manage/history/option', [ManageHistoryController::class, 'manage_option_history_page']);
+        Route::get('/manage/history/transaction', [ManageHistoryController::class, 'manage_transaction_history_page']);
+        Route::get('/manage/history', [ManageHistoryController::class, 'manage_history_page']);
+        Route::get('/manage/history', [ManageHistoryController::class, 'manage_history_page']);
         Route::get('/manage/chat/device', [ManageChatbotController::class, 'manage_device_page']);
         Route::get('/manage/chat/device/add', [ManageChatbotController::class, 'add_device_page']);
         Route::get('/manage/chat/option', [ManageChatbotController::class, 'manage_chatbot_option_page']);

@@ -27,7 +27,7 @@
                 @if (auth()->user()?->roles['rl_admin'] ?? '0' == '1')
                     <li class="nav-item">
                         <a href="/dashboard" class="nav-link {{ set_active('dashboard') }}" style="color: #E9AD01;">
-                            <i class="bi bi-grid-1x2 {{ set_icon_active('dashboard') }}"></i>
+                            <i class="bi bi-grid-1x2"></i>
                             <p>Dasbor</p>
                         </a>
                     </li>
@@ -189,19 +189,19 @@
                     {{-- MENU UNTUK NON-ADMIN --}}
                     <li class="nav-item">
                         <a href="/home" class="nav-link {{ set_active('home') }}" style="color: #E9AD01;">
-                            <i class="bi bi-house {{ set_icon_active('home') }}"></i>
+                            <i class="bi bi-house"></i>
                             <p>Beranda</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/search/book" class="nav-link {{ set_active('search/book') }}" style="color: #E9AD01;">
-                            <i class="bi bi-book {{ set_icon_active('search/book') }}"></i>
+                            <i class="bi bi-book"></i>
                             <p>Cari buku</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/transaction" class="nav-link {{ set_active('transaction') }}" style="color: #E9AD01;">
-                            <i class="bi bi-file-earmark-post {{ set_icon_active('transaction') }}"></i>
+                            <i class="bi bi-file-earmark-post"></i>
                             <p>Kelola pinjaman</p>
                         </a>
                     </li>
